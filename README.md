@@ -9,7 +9,7 @@ This is an ios port of the rhythm game [osu!](https://osu.ppy.sh). It is written
  - Draw HitCircle in Slider
 ### How to use
 1. Install the latest version of XCode.
-2. Compile and install this project on your device**(DO NOT USE SIMULATOR!)**.
+2. Compile and install this project on your device **(DO NOT USE SIMULATOR!)** .
 3. Import beatmaps via iTunes(as shown below).
 ![](screenshots/import.png)
 4. Run the application from XCode and notice the console output(as shown below).
