@@ -13,8 +13,11 @@ This is an ios port of the rhythm game [osu!](https://osu.ppy.sh). It is written
 3. Import beatmaps via iTunes(as shown below).
 
 ![](screenshots/import.png)
+
 4. Run the application from XCode and notice the console output(as shown below).
+
 ![](screenshots/console.png)
+
 5. Change **testBMIndex** in **GamePlayScene.swift** to the index number of beatmap in the console output that you want to test.
 6. Compile and run again on your device.
 ### Notice
@@ -23,7 +26,9 @@ This is an ios port of the rhythm game [osu!](https://osu.ppy.sh). It is written
 3. If the framerate drops under 10, the timing will be inaccurate. So do not try to run it in the simulator. If that happens on your device, maybe you can consider update it because of low performance.
 4. I'm new to iOS development, Swift and SpriteKit. And I don't like to insert a lot of comments. So please tolerate my awful code.
 ### Screenshot
+
 ![](screenshots/run.png)
+
 ### Credit
  - [osu!](https://osu.ppy.sh)
  - [osu-parser](https://github.com/nojhamster/osu-parser)
