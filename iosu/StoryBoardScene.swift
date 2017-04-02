@@ -13,13 +13,14 @@ import GameplayKit
 class StoryBoardScene: SKScene {
     
     let mplayer=BGMusicPlayer()
-    var bmactions:[SKAction] = []
     var actiontimepoints:[Int] = []
     let testBMIndex = 6 //The index of beatmap to test in the beatmaps
     var minlayer:CGFloat=0.0
     var hitaudioHeader:String = "normal-"
+    var sb:StoryBoard?
     
     override func sceneDidLoad() {
+        var audiofile=""
         let beatmaps=BeatmapScanner()
         debugPrint("list of detected beatmaps:")
         for item in beatmaps.beatmaps {
@@ -58,6 +59,7 @@ class StoryBoardScene: SKScene {
             if !FileManager.default.fileExists(atPath: bm.audiofile){
                 throw BeatmapError.AudioFileNotExist
             }
+            audiofile=bm.audiofile
         } catch BeatmapError.FileNotFound {
             debugPrint("ERROR:beatmap file not found")
         } catch BeatmapError.IllegalFormat {
@@ -75,8 +77,8 @@ class StoryBoardScene: SKScene {
         }
         if beatmaps.dirscontainsb.contains(beatmaps.beatmapdirs[testBMIndex]) {
             do{
-                let sb=try StoryBoard(directory:beatmaps.beatmapdirs[testBMIndex],file: (beatmaps.beatmapdirs[testBMIndex] as NSString).appendingPathComponent(beatmaps.storyboards[beatmaps.beatmapdirs[testBMIndex]]!), width: Double(size.width), height: Double(size.height), layer: 0)
-                debugPrint("storyboard object count:\(sb.sbsprites.count)")
+                sb=try StoryBoard(directory:beatmaps.beatmapdirs[testBMIndex],file: (beatmaps.beatmapdirs[testBMIndex] as NSString).appendingPathComponent(beatmaps.storyboards[beatmaps.beatmapdirs[testBMIndex]]!), width: Double(size.width), height: Double(size.height), layer: 0)
+                debugPrint("storyboard object count:\(sb?.sbsprites.count)")
             }catch StoryBoardError.FileNotFound{
                 debugPrint("ERROR:storyboard file not found")
             }catch StoryBoardError.IllegalFormat{
@@ -85,7 +87,7 @@ class StoryBoardScene: SKScene {
                 debugPrint("ERROR:unknown error(\(error.localizedDescription))")
             }
         }
-        //self.run(mplayer.play(file: bm.audiofile))
+        self.run(mplayer.play(file: audiofile))
     }
     
     func touchDown(atPoint pos : CGPoint) {
@@ -117,18 +119,51 @@ class StoryBoardScene: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
-        if index<bmactions.count {
-            //If the frame rate drops under 10, the timing will be inaccurate
-            //However, if the frame rate drops under 10, the game will be hardly playable!
-            while actiontimepoints[index]-Int(mplayer.getTime()*1000) <= 1100 {
-                let offset=actiontimepoints[index]-Int(mplayer.getTime()*1000)-1000
-                debugPrint("time:\(mplayer.getTime())")
-                debugPrint("push hit circle \(index)/\(bmactions.count-1) with offset \(offset)")
-                self.run(SKAction.sequence([SKAction.wait(forDuration: TimeInterval(Double(offset)/1000)),bmactions[index]]))
-                //self.run(bmactions[index])
-                index+=1
-                if index>=bmactions.count{
-                    return
+        if sb != nil {
+            if index<(sb?.sbsprites.count)! {
+            //if index<(sb?.sbsprites.count)! {
+                while (sb?.sbsprites[index].starttime)! - Int(mplayer.getTime()*1000) <= 100 {
+                    if (sb?.sbsprites[index].starttime)!<=0 {
+                        index+=1
+                        continue
+                    }
+                    let offset=(sb?.sbsprites[index].starttime)! - Int(mplayer.getTime()*1000)
+                    if offset<0 {
+                        return
+                    }
+                    debugPrint("Add sprite \(index) at layer \(sb?.sbsprites[index].rlayer) with offset \(offset)")
+                    sb?.sbsprites[index].convertsprite()
+                    debugPrint("sprite status: \(sb?.sbsprites[index].sprite)")
+                    debugPrint("sprite time: \(sb?.sbsprites[index].starttime) -> \(sb?.sbsprites[index].endtime)")
+                    debugPrint("sprite cmds:")
+                    for cmd in (sb?.sbsprites[index].commands)! {
+                        switch cmd.type {
+                        case .Fade:
+                            let c=cmd as! SBFade
+                            debugPrint("F \(c.starttime)->\(c.endtime) \(c.startopacity)->\(c.endopacity)")
+                            break
+                        case .MoveX:
+                            let c=cmd as! SBMoveX
+                            debugPrint("MX \(c.starttime)->\(c.endtime) \(c.startx)->\(c.endx)")
+                            break
+                        case .MoveY:
+                            let c=cmd as! SBMoveY
+                            debugPrint("MY \(c.starttime)->\(c.endtime) \(c.starty)->\(c.endy)")
+                            break
+                        case .Scale:
+                            let c=cmd as! SBScale
+                            debugPrint("S \(c.starttime)->\(c.endtime) \(c.starts)->\(c.ends)")
+                            break
+                        default:
+                            debugPrint(cmd)
+                        }
+                    }
+                    self.addChild((sb?.sbsprites[index].sprite)!)
+                    sb?.sbsprites[index].runaction(offset: offset)
+                    index+=1
+                    if index>=(sb?.sbsprites.count)!{
+                        return
+                    }
                 }
             }
         }

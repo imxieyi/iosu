@@ -14,9 +14,9 @@ class StoryBoard {
     
     private static let stdwidth=640.0
     private static let stdheight=480.0
-    private static var actualwidth:Double = 0
-    private static var actualheight:Double = 0
-    private static var leftedge:Double = 0
+    public static var actualwidth:Double = 0
+    public static var actualheight:Double = 0
+    public static var leftedge:Double = 0
     private var layer:Double
     private var bglayer:Double = 0
     private var passlayer:Double = 0
@@ -42,7 +42,9 @@ class StoryBoard {
         var lines=ArraySlice<String>()
         for line in rawlines! {
             if line != "" {
-                lines.append(line)
+                if !line.hasPrefix("//"){
+                    lines.append(line)
+                }
             }
         }
         //debugPrint("line count:\(lines?.count)")
@@ -61,6 +63,9 @@ class StoryBoard {
                 continue
             }
         }
+        sbsprites.sort(by: {(s1,s2) -> Bool in
+            return s1.starttime<s2.starttime
+        })
     }
     
     //Convert StoryBoard x and y to screen x and y
@@ -107,18 +112,19 @@ class StoryBoard {
     
     private func parseSBEvents(lines:ArraySlice<String>) {
         var index:Int
-        index = -1
+        index = 0
         for line in lines{
             index += 1
-            if line.hasPrefix("//"){
-                continue
-            }
             if line.hasPrefix("Sprite"){
                 var slines=ArraySlice<String>()
-                var sindex=index+2
+                var sindex=index+1
                 //debugPrint("first cmd:\(lines[sindex])")
-                while lines[sindex].hasPrefix(" ") || lines[sindex].hasPrefix("_") {
-                    slines.append(lines[sindex])
+                while sindex<=lines.count{
+                    if lines[sindex].hasPrefix(" ") || lines[sindex].hasPrefix("_") {
+                        slines.append(lines[sindex])
+                    }else{
+                        break
+                    }
                     sindex+=1
                 }
                 //debugPrint("cmd lines:\(slines.count)")
@@ -126,30 +132,31 @@ class StoryBoard {
                 var sprite:BasicImage
                 switch str2layer(str: splitted[1]) {
                 case .Background:
-                    bglayer-=1
+                    bglayer+=1
                     sprite=BasicImage(layer: .Background, rlayer:bglayer, origin: str2origin(str: splitted[2]), filepath: splitted[3], x: (splitted[4] as NSString).doubleValue, y: (splitted[5] as NSString).doubleValue)
                     break
                 case .Pass:
-                    passlayer-=1
+                    passlayer+=1
                     sprite=BasicImage(layer: .Background, rlayer:passlayer, origin: str2origin(str: splitted[2]), filepath: splitted[3], x: (splitted[4] as NSString).doubleValue, y: (splitted[5] as NSString).doubleValue)
                     break
                 case .Fail:
-                    faillayer-=1
+                    faillayer+=1
                     sprite=BasicImage(layer: .Background, rlayer:faillayer, origin: str2origin(str: splitted[2]), filepath: splitted[3], x: (splitted[4] as NSString).doubleValue, y: (splitted[5] as NSString).doubleValue)
                     break
                 case .Foreground:
-                    fglayer-=1
+                    fglayer+=1
                     sprite=BasicImage(layer: .Background, rlayer:fglayer, origin: str2origin(str: splitted[2]), filepath: splitted[3], x: (splitted[4] as NSString).doubleValue, y: (splitted[5] as NSString).doubleValue)
                     break
                 }
                 if slines.count>0 {
                     sprite.commands=parseCommands(lines: slines)
+                    sprite.gentime()
                 }
                 sprite.filepath=(sprite.filepath as NSString).replacingOccurrences(of: "\\", with: "/")
                 sprite.filepath=(sbdirectory as NSString).appending("/"+sprite.filepath)
                 //sprite.convertsprite()
                 //sprite.sprite=nil
-                debugPrint("number of commands:\(sprite.commands.count)")
+                //debugPrint("number of commands:\(sprite.commands.count)")
                 sbsprites.append(sprite)
             }
         }
@@ -164,9 +171,12 @@ class StoryBoard {
         var index = -1
         for line in digested {
             index+=1
-            debugPrint("raw cmd:\(line)")
+            //debugPrint("raw cmd:\(line)")
             var splitted=line.components(separatedBy: ",")
             if splitted.count<=1 {
+                continue
+            }
+            if splitted[2].hasPrefix("-") {
                 continue
             }
             if splitted[0] != "L" {
@@ -241,6 +251,7 @@ class StoryBoard {
                 }
                 let loop=SBLoop(starttime: (splitted[1] as NSString).integerValue, loopcount: (splitted[2] as NSString).integerValue)
                 loop.commands=parseCommands(lines: looplines)
+                loop.genendtime()
                 commands.append(loop)
                 break
             case "T":
@@ -283,6 +294,19 @@ class BasicImage {
         self.y=y
     }
     
+    func gentime() {
+        starttime=Int.max
+        endtime=Int.min
+        for cmd in commands {
+            if starttime>cmd.starttime {
+                starttime=cmd.starttime
+            }
+            if endtime<cmd.endtime {
+                endtime=cmd.endtime
+            }
+        }
+    }
+    
     func convertsprite(){
         let image=UIImage(contentsOfFile: filepath)
         if image==nil {
@@ -291,6 +315,57 @@ class BasicImage {
         }
         let texture=SKTexture(image: image!)
         sprite=SKSpriteNode(texture: texture)
+        sprite?.zPosition=CGFloat(rlayer)
+        sprite?.position=CGPoint(x: StoryBoard.conv(x: x), y: StoryBoard.conv(y: y))
+        sprite?.blendMode = .alpha
+        sprite?.color = .white
+        sprite?.colorBlendFactor=1.0
+        switch origin {
+        case .TopLeft:
+            sprite?.anchorPoint=CGPoint(x: 0, y: 1)
+            break
+        case .TopCentre:
+            sprite?.anchorPoint=CGPoint(x: 0.5, y: 1)
+            break
+        case .TopRight:
+            sprite?.anchorPoint=CGPoint(x: 1, y: 1)
+            break
+        case .CentreLeft:
+            sprite?.anchorPoint=CGPoint(x: 0, y: 0.5)
+            break
+        case .Centre:
+            sprite?.anchorPoint=CGPoint(x: 0.5, y: 0.5)
+            break
+        case .CentreRight:
+            sprite?.anchorPoint=CGPoint(x: 1, y: 0.5)
+            break
+        case .BottomLeft:
+            sprite?.anchorPoint=CGPoint(x: 0, y: 0)
+            break
+        case .BottomCentre:
+            sprite?.anchorPoint=CGPoint(x: 0.5, y: 0)
+            break
+        case .BottomRight:
+            sprite?.anchorPoint=CGPoint(x: 1, y: 0)
+            break
+        }
+    }
+    
+    func runaction(offset:Int){
+        var action:[SKAction]=[]
+        for cmd in commands {
+            cmd.sprite=self.sprite
+            debugPrint("after: \(cmd.starttime-self.starttime)")
+            action.append(SKAction.sequence([SKAction.wait(forDuration: Double(cmd.starttime-self.starttime)/1000),(cmd as! SBCAction).toAction()]))
+        }
+        debugPrint("action count: \(action.count)")
+        sprite?.run(SKAction.sequence([SKAction.wait(forDuration: Double(offset)/1000),SKAction.group(action)]),completion:{ ()->Void in
+            let finalpos=self.sprite?.position
+            if (finalpos?.x)! < CGFloat(StoryBoard.leftedge) || (finalpos?.x)! > CGFloat(StoryBoard.leftedge+StoryBoard.actualwidth) || (finalpos?.y)! < CGFloat(0) || (finalpos?.y)! > CGFloat(StoryBoard.actualheight) || self.sprite?.alpha == CGFloat(0) {
+                self.sprite?.removeFromParent()
+                self.sprite=nil
+            }
+        })
     }
     
 }

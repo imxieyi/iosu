@@ -108,6 +108,12 @@ class SBCommand {
         self.easing=SBCHelper.num2easing(num: easing)
         self.starttime=starttime
         self.endtime=endtime
+        if self.starttime<0 {
+            self.starttime=0
+        }
+        if self.endtime<0 {
+            self.endtime=0
+        }
         duration=(Double(endtime)-Double(starttime))/1000
     }
     
@@ -125,6 +131,10 @@ class SBFade:SBCommand,SBCAction {
     }
     
     func toAction() -> SKAction {
+        if starttime==endtime {
+            //debugPrint("set alpha: \(endopacity)")
+            return SKAction.fadeAlpha(to: CGFloat(endopacity), duration: 0)
+        }
         return SKEase.fade(easeFunction: easing.function, easeType: easing.type, time: duration, fromValue: CGFloat(startopacity), toValue: CGFloat(endopacity))
     }
     
@@ -148,6 +158,9 @@ class SBMove:SBCommand,SBCAction {
     func toAction() -> SKAction {
         let from=CGPoint(x: startx, y: starty)
         let to=CGPoint(x: endx, y: endy)
+        if starttime==endtime {
+            return SKAction.move(to: to, duration: 0)
+        }
         return SKEase.move(easeFunction: easing.function, easeType: easing.type, time: duration, from: from, to: to)
     }
     
@@ -159,17 +172,21 @@ class SBMoveX:SBCommand,SBCAction {
     var endx:Double
     
     init(easing:Int,starttime:Int,endtime:Int,startx:Double,endx:Double) {
-        self.startx=startx
-        self.endx=endx
+        self.startx=StoryBoard.conv(x:startx)
+        self.endx=StoryBoard.conv(x:endx)
         super.init(type: .MoveX, easing: easing, starttime: starttime, endtime: endtime)
     }
     
     func toAction() -> SKAction {
-        return SKAction.customAction(withDuration: duration, actionBlock: { (node:SKNode, elapsedTime:CGFloat) -> Void in
+        if starttime==endtime {
+            return SKAction.moveTo(x: CGFloat(endx), duration: 0)
+        }
+        return SKEase.moveX(easeFunction: easing.function, easeType: easing.type, time: duration, from: CGFloat(startx), to: CGFloat(endx))
+        /*return SKAction.customAction(withDuration: duration, actionBlock: { (node:SKNode, elapsedTime:CGFloat) -> Void in
             let from=CGPoint(x: CGFloat(self.startx), y: node.position.y)
             let to=CGPoint(x: CGFloat(self.endx), y: node.position.y)
             node.run(SKEase.move(easeFunction: self.easing.function, easeType: self.easing.type, time: self.duration, from: from, to: to))
-        })
+        })*/
     }
     
 }
@@ -180,17 +197,21 @@ class SBMoveY:SBCommand,SBCAction {
     var endy:Double
     
     init(easing:Int,starttime:Int,endtime:Int,starty:Double,endy:Double) {
-        self.starty=starty
-        self.endy=endy
+        self.starty=StoryBoard.conv(y:starty)
+        self.endy=StoryBoard.conv(y:endy)
         super.init(type: .MoveY, easing: easing, starttime: starttime, endtime: endtime)
     }
     
     func toAction() -> SKAction {
-        return SKAction.customAction(withDuration: duration, actionBlock: { (node:SKNode, elapsedTime:CGFloat) -> Void in
+        if starttime==endtime {
+            return SKAction.moveTo(y: CGFloat(endy), duration: 0)
+        }
+        return SKEase.moveY(easeFunction: easing.function, easeType: easing.type, time: duration, from: CGFloat(starty), to: CGFloat(endy))
+        /*return SKAction.customAction(withDuration: duration, actionBlock: { (node:SKNode, elapsedTime:CGFloat) -> Void in
             let from=CGPoint(x: node.position.x, y: CGFloat(self.starty))
             let to=CGPoint(x: node.position.x, y: CGFloat(self.endy))
             node.run(SKEase.move(easeFunction: self.easing.function, easeType: self.easing.type, time: self.duration, from: from, to: to))
-        })
+        })*/
     }
     
 }
@@ -207,6 +228,9 @@ class SBScale:SBCommand,SBCAction {
     }
     
     func toAction() -> SKAction {
+        if starttime==endtime {
+            return SKAction.scale(to: CGFloat(ends), duration: 0)
+        }
         return SKEase.scale(easeFunction: easing.function, easeType: easing.type, time: duration, from: CGFloat(starts), to: CGFloat(ends))
     }
     
@@ -228,6 +252,9 @@ class SBVScale:SBCommand,SBCAction {
     }
     
     func toAction() -> SKAction {
+        if starttime==endtime {
+            return SKAction.group([SKAction.scaleX(to: CGFloat(endsx), duration: 0),SKAction.scaleY(to: CGFloat(endsy), duration: 0)])
+        }
         return SKEase.vscale(easeFunction: easing.function, easeType: easing.type, time: duration, xfrom: CGFloat(startsx), yfrom: CGFloat(startsy), xto: CGFloat(endsx), yto: CGFloat(endsy))
     }
     
@@ -246,6 +273,9 @@ class SBRotate:SBCommand,SBCAction {
     }
     
     func toAction() -> SKAction {
+        if starttime==endtime {
+            return SKAction.rotate(toAngle: CGFloat(endr), duration: 0)
+        }
         return SKEase.rotate(easeFunction: easing.function, easeType: easing.type, time: duration, from: CGFloat(startr), to: CGFloat(endr))
     }
     
@@ -271,6 +301,9 @@ class SBColor:SBCommand,SBCAction {
     }
     
     func toAction() -> SKAction {
+        if starttime==endtime {
+            return SKAction.colorize(with: UIColor(red: CGFloat(endr), green: CGFloat(endg), blue: CGFloat(endb), alpha: 1), colorBlendFactor: 1, duration: 0)
+        }
         return SKEase.color(easeFunction: easing.function, easeType: easing.type, time: duration, rfrom: CGFloat(startr), gfrom: CGFloat(startg), bfrom: CGFloat(startb), rto: CGFloat(endr), gto: CGFloat(endg), bto: CGFloat(endb))
     }
     
@@ -288,7 +321,17 @@ class SBParam:SBCommand,SBCAction {
     var paramtype:SBParameterType
     
     init(easing:Int,starttime:Int,endtime:Int,ptype:String) {
-        switch (ptype as NSString).substring(to: 0) {
+        //debugPrint("typestr: \((ptype as NSString).substring(to: 1))")
+        if ptype.contains("H"){
+            self.paramtype = .H
+        } else if ptype.contains("V"){
+            self.paramtype = .V
+        } else if ptype.contains("A"){
+            self.paramtype = .A
+        } else {
+            self.paramtype = .N
+        }
+        /*switch (ptype as NSString).substring(to: 0) {
         case "H":
             self.paramtype = .H
             break
@@ -296,25 +339,37 @@ class SBParam:SBCommand,SBCAction {
             self.paramtype = .V
             break
         case "A":
+            debugPrint("set to a")
             self.paramtype = .A
             break
         default:
+            debugPrint("set to n")
             self.paramtype = .N
             break
-        }
+        }*/
         super.init(type: .Parameter, easing: easing, starttime: starttime, endtime: endtime)
     }
     
     func toAction() -> SKAction {
+        //debugPrint("convert parameter to action, type \(self.paramtype)")
         switch paramtype {
         case .H:
+            if starttime==endtime {
+                return SKAction.scaleX(to: -(sprite?.xScale)!, duration: 0)
+            }
             return SKEase.vscale(easeFunction: easing.function, easeType: easing.type, time: duration, xfrom: (sprite?.xScale)!, yfrom: (sprite?.yScale)!, xto: -(sprite?.xScale)!, yto: (sprite?.yScale)!)
         case .V:
+            if starttime==endtime {
+                return SKAction.scaleY(to: -(sprite?.yScale)!, duration: 0)
+            }
             return SKEase.vscale(easeFunction: easing.function, easeType: easing.type, time: duration, xfrom: (sprite?.xScale)!, yfrom: (sprite?.yScale)!, xto: (sprite?.xScale)!, yto: -(sprite?.yScale)!)
         case .A:
-            return SKAction.customAction(withDuration: duration, actionBlock: { (node:SKNode, elapsedTime:CGFloat) -> Void in
+            return SKAction.run {
+                self.sprite?.blendMode = .add
+            }
+            /*return SKAction.customAction(withDuration: duration, actionBlock: { (node:SKNode, elapsedTime:CGFloat) -> Void in
                 (node as! SKSpriteNode).blendMode = .add
-            })
+            })*/
             /*
             return SKAction.customAction(withDuration: duration, actionBlock: { (node:SKNode, elapsedTime:CGFloat) -> Void in
                 if elapsedTime < CGFloat(self.duration) {
@@ -323,8 +378,9 @@ class SBParam:SBCommand,SBCAction {
                     (node as! SKSpriteNode).blendMode = .alpha
                 }
             })*/
-        default:
-            return SKAction.group([])
+        case .N:
+            return SKAction.run {
+            }
         }
     }
     
@@ -340,6 +396,15 @@ class SBLoop:SBCommand,SBCAction {
     init(starttime:Int,loopcount:Int) {
         self.loopcount=loopcount
         super.init(type: .Loop, easing: 0, starttime: starttime, endtime: 0)
+    }
+    
+    func genendtime() {
+        var duration=0
+        for cmd in commands {
+            duration+=cmd.endtime-cmd.starttime
+        }
+        endtime=starttime+duration*loopcount
+        return
     }
     
     func toAction() -> SKAction {

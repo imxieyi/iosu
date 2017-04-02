@@ -145,6 +145,40 @@ open class SKEase {
         return action
     }
     
+    //MARK: MoveX
+    /**
+     Animate x movement
+     - parameter easeFunction: Curve type
+     - parameter easeType: Ease type
+     - parameter time: duration of tween
+     - parameter from: initial point
+     - parameter to: destination point
+     */
+    open class func moveX(easeFunction curve:CurveType, easeType:EaseType, time:TimeInterval, from:CGFloat, to:CGFloat)->SKAction {
+        let easingFunction = SKEase.getEaseFunction(curve, easeType: easeType)
+        let action = self.createFloatTween(from, end: to, time: time, easingFunction: easingFunction, setterBlock: { (node:SKNode, value:CGFloat)->Void in
+            node.position.x=value
+        })
+        return action
+    }
+    
+    //MARK: MoveY
+    /**
+     Animate y movement
+     - parameter easeFunction: Curve type
+     - parameter easeType: Ease type
+     - parameter time: duration of tween
+     - parameter from: initial point
+     - parameter to: destination point
+     */
+    open class func moveY(easeFunction curve:CurveType, easeType:EaseType, time:TimeInterval, from:CGFloat, to:CGFloat)->SKAction {
+        let easingFunction = SKEase.getEaseFunction(curve, easeType: easeType)
+        let action = self.createFloatTween(from, end: to, time: time, easingFunction: easingFunction, setterBlock: { (node:SKNode, value:CGFloat)->Void in
+            node.position.y=value
+        })
+        return action
+    }
+    
     //MARK: Scale
     /**
      Animate scale
