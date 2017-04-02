@@ -29,7 +29,7 @@ class BGMusicPlayer{
     
     func getTime() -> TimeInterval{
         if musicPlayer == nil{
-            return 0
+            return -1
         }
         return musicPlayer.currentTime
     }

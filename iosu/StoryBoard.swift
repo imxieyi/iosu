@@ -21,18 +21,20 @@ class StoryBoard {
     private var bglayer:Double = 0
     private var passlayer:Double = 0
     private var faillayer:Double = 0
-    private var fglayer:Double = 0
+    private var fglayer:Double = 20000
     public var sbsprites:[BasicImage]=[]
     public var sbactions:[SKAction]=[]
     public var sbdirectory:String
+    public var earliest=Int.max
     
-    init(directory:String,file:String,width:Double,height:Double,layer:Double) throws {
+    init(directory:String,osufile:String,width:Double,height:Double,layer:Double) throws {
         self.sbdirectory=directory
         StoryBoard.actualheight=height
         StoryBoard.actualwidth=height/StoryBoard.stdheight*StoryBoard.stdwidth
         StoryBoard.leftedge=(width-StoryBoard.actualwidth)/2
         self.layer=layer
-        let readFile=FileHandle(forReadingAtPath: file)
+        //osu file
+        let readFile=FileHandle(forReadingAtPath: osufile)
         if readFile===nil{
             throw StoryBoardError.FileNotFound
         }
@@ -52,6 +54,95 @@ class StoryBoard {
             throw StoryBoardError.IllegalFormat
         }
         var index:Int
+        index = -1
+        for line in lines{
+            index += 1
+            switch line {
+            case "[Events]":
+                var digested=ArraySlice<String>()
+                for aline in lines.suffix(from: index+1) {
+                    if aline.hasPrefix("["){
+                        break
+                    }
+                    digested.append(aline)
+                }
+                parseSBEvents(lines: digested)
+                break
+            default:
+                continue
+            }
+        }
+        sbsprites.sort(by: {(s1,s2) -> Bool in
+            return s1.starttime<s2.starttime
+        })
+    }
+    
+    init(directory:String,osufile:String,osbfile:String,width:Double,height:Double,layer:Double) throws {
+        self.sbdirectory=directory
+        StoryBoard.actualheight=height
+        StoryBoard.actualwidth=height/StoryBoard.stdheight*StoryBoard.stdwidth
+        StoryBoard.leftedge=(width-StoryBoard.actualwidth)/2
+        self.layer=layer
+        //osu file
+        var readFile=FileHandle(forReadingAtPath: osufile)
+        if readFile===nil{
+            throw StoryBoardError.FileNotFound
+        }
+        var sbData=readFile?.readDataToEndOfFile()
+        var sbString=String(data: sbData!, encoding: .utf8)
+        var rawlines=sbString?.components(separatedBy: CharacterSet.newlines)
+        var lines=ArraySlice<String>()
+        for line in rawlines! {
+            if line != "" {
+                if !line.hasPrefix("//"){
+                    lines.append(line)
+                }
+            }
+        }
+        //debugPrint("line count:\(lines?.count)")
+        if lines.count==0{
+            throw StoryBoardError.IllegalFormat
+        }
+        var index:Int
+        index = -1
+        for line in lines{
+            index += 1
+            switch line {
+            case "[Events]":
+                var digested=ArraySlice<String>()
+                for aline in lines.suffix(from: index+1) {
+                    if aline.hasPrefix("["){
+                        break
+                    }
+                    digested.append(aline)
+                }
+                parseSBEvents(lines: digested)
+                break
+            default:
+                continue
+            }
+        }
+        //osb file
+        readFile=FileHandle(forReadingAtPath: osbfile)
+        if readFile===nil{
+            throw StoryBoardError.FileNotFound
+        }
+        sbData=readFile?.readDataToEndOfFile()
+        sbString=String(data: sbData!, encoding: .utf8)
+        rawlines=sbString?.components(separatedBy: CharacterSet.newlines)
+        lines=ArraySlice<String>()
+        for line in rawlines! {
+            if line != "" {
+                if !line.hasPrefix("//"){
+                    lines.append(line)
+                }
+            }
+        }
+        //debugPrint("line count:\(lines?.count)")
+        if lines.count==0{
+            throw StoryBoardError.IllegalFormat
+        }
+        //var index:Int
         index = -1
         for line in lines{
             index += 1
@@ -112,7 +203,7 @@ class StoryBoard {
     
     private func parseSBEvents(lines:ArraySlice<String>) {
         var index:Int
-        index = 0
+        index = -1
         for line in lines{
             index += 1
             if line.hasPrefix("Sprite"){
@@ -176,11 +267,11 @@ class StoryBoard {
             if splitted.count<=1 {
                 continue
             }
-            if splitted[2].hasPrefix("-") {
+            /*if splitted[2].hasPrefix("-") {
                 continue
-            }
+            }*/
             if splitted[0] != "L" {
-            if splitted[3]=="" {
+                if splitted[3]=="" {
                     splitted[3]=splitted[2]
                     for i in 4...(splitted.count-1) {
                         splitted.append(splitted[i])
@@ -192,6 +283,9 @@ class StoryBoard {
                 if splitted.count==5 {
                     splitted.append(splitted[4])
                 }
+                if (splitted[2] as NSString).integerValue<earliest {
+                    earliest=(splitted[2] as NSString).integerValue
+                }
                 commands.append(SBFade(easing: (splitted[1] as NSString).integerValue, starttime: (splitted[2] as NSString).integerValue, endtime: (splitted[3] as NSString).integerValue, startopacity: (splitted[4] as NSString).doubleValue, endopacity: (splitted[5] as NSString).doubleValue))
                 break
             case "M":
@@ -199,17 +293,36 @@ class StoryBoard {
                     splitted.append(splitted[4])
                     splitted.append(splitted[5])
                 }
+                //debugPrint("\(splitted[2])")
+                if (splitted[2] as NSString).integerValue<earliest {
+                    earliest=(splitted[2] as NSString).integerValue
+                }
                 commands.append(SBMove(easing: (splitted[1] as NSString).integerValue, starttime: (splitted[2] as NSString).integerValue, endtime: (splitted[3] as NSString).integerValue, startx: (splitted[4] as NSString).doubleValue, starty: (splitted[5] as NSString).doubleValue, endx: (splitted[6] as NSString).doubleValue, endy: (splitted[7] as NSString).doubleValue))
                 break
             case "MX":
+                if (splitted[2] as NSString).integerValue<earliest {
+                    earliest=(splitted[2] as NSString).integerValue
+                }
+                if splitted.count==5 {
+                    splitted.append(splitted[4])
+                }
                 commands.append(SBMoveX(easing: (splitted[1] as NSString).integerValue, starttime: (splitted[2] as NSString).integerValue, endtime: (splitted[3] as NSString).integerValue, startx: (splitted[4] as NSString).doubleValue, endx: (splitted[5] as NSString).doubleValue))
                 break
             case "MY":
+                if (splitted[2] as NSString).integerValue<earliest {
+                    earliest=(splitted[2] as NSString).integerValue
+                }
+                if splitted.count==5 {
+                    splitted.append(splitted[4])
+                }
                 commands.append(SBMoveY(easing: (splitted[1] as NSString).integerValue, starttime: (splitted[2] as NSString).integerValue, endtime: (splitted[3] as NSString).integerValue, starty: (splitted[4] as NSString).doubleValue, endy: (splitted[5] as NSString).doubleValue))
                 break
             case "S":
                 if splitted.count==5{
                     splitted.append(splitted[4])
+                }
+                if (splitted[2] as NSString).integerValue<earliest {
+                    earliest=(splitted[2] as NSString).integerValue
                 }
                 commands.append(SBScale(easing: (splitted[1] as NSString).integerValue, starttime: (splitted[2] as NSString).integerValue, endtime: (splitted[3] as NSString).integerValue, starts: (splitted[4] as NSString).doubleValue, ends: (splitted[5] as NSString).doubleValue))
                 break
@@ -218,29 +331,47 @@ class StoryBoard {
                     splitted.append(splitted[4])
                     splitted.append(splitted[5])
                 }
+                if (splitted[2] as NSString).integerValue<earliest {
+                    earliest=(splitted[2] as NSString).integerValue
+                }
                 commands.append(SBVScale(easing: (splitted[1] as NSString).integerValue, starttime: (splitted[2] as NSString).integerValue, endtime: (splitted[3] as NSString).integerValue, startsx: (splitted[4] as NSString).doubleValue, startsy: (splitted[5] as NSString).doubleValue, endsx: (splitted[6] as NSString).doubleValue, endsy: (splitted[7] as NSString).doubleValue))
                 break
             case "R":
                 if splitted.count==5{
                     splitted.append(splitted[4])
                 }
+                if (splitted[2] as NSString).integerValue<earliest {
+                    earliest=(splitted[2] as NSString).integerValue
+                }
                 commands.append(SBRotate(easing: (splitted[1] as NSString).integerValue, starttime: (splitted[2] as NSString).integerValue, endtime: (splitted[3] as NSString).integerValue, startr: (splitted[4] as NSString).doubleValue, endr: (splitted[5] as NSString).doubleValue))
                 break
             case "C":
+                if (splitted[2] as NSString).integerValue<earliest {
+                    earliest=(splitted[2] as NSString).integerValue
+                }
                 if splitted.count==10 {
                     commands.append(SBColor(easing: (splitted[1] as NSString).integerValue, starttime: (splitted[2] as NSString).integerValue, endtime: (splitted[3] as NSString).integerValue, startr: (splitted[4] as NSString).doubleValue, startg: (splitted[5] as NSString).doubleValue, startb: (splitted[6] as NSString).doubleValue, endr: (splitted[7] as NSString).doubleValue, endg: (splitted[8] as NSString).doubleValue, endb: (splitted[9] as NSString).doubleValue))
                 }
                 if splitted.count==7 {
-                    let r=Double(Int(splitted[4],radix:16)!)
+                    /*let r=Double(Int(splitted[4],radix:16)!)
                     let g=Double(Int(splitted[5],radix:16)!)
-                    let b=Double(Int(splitted[6],radix:16)!)
+                    let b=Double(Int(splitted[6],radix:16)!)*/
+                    let r=(splitted[4] as NSString).doubleValue
+                    let g=(splitted[5] as NSString).doubleValue
+                    let b=(splitted[6] as NSString).doubleValue
                     commands.append(SBColor(easing: (splitted[1] as NSString).integerValue, starttime: (splitted[2] as NSString).integerValue, endtime: (splitted[3] as NSString).integerValue, startr: r, startg: g, startb: b, endr: r, endg: g, endb: b))
                 }
                 break
             case "P":
+                if (splitted[2] as NSString).integerValue<earliest {
+                    earliest=(splitted[2] as NSString).integerValue
+                }
                 commands.append(SBParam(easing: (splitted[1] as NSString).integerValue, starttime: (splitted[2] as NSString).integerValue, endtime: (splitted[3] as NSString).integerValue, ptype: splitted[4]))
                 break
             case "L":
+                if (splitted[1] as NSString).integerValue<earliest {
+                    earliest=(splitted[1] as NSString).integerValue
+                }
                 var looplines=ArraySlice<String>()
                 for i in index+1...digested.count-1 {
                     if digested[i].hasPrefix(" ") || digested[i].hasPrefix("_") {
@@ -315,6 +446,8 @@ class BasicImage {
         }
         let texture=SKTexture(image: image!)
         sprite=SKSpriteNode(texture: texture)
+        //let scale=Double((image?.size.height)!/1080)*StoryBoard.actualheight
+        //sprite?.size=CGSize(width: Double((image?.size.width)!)*scale, height: Double((image?.size.height)!)*scale)
         sprite?.zPosition=CGFloat(rlayer)
         sprite?.position=CGPoint(x: StoryBoard.conv(x: x), y: StoryBoard.conv(y: y))
         sprite?.blendMode = .alpha
@@ -355,17 +488,33 @@ class BasicImage {
         var action:[SKAction]=[]
         for cmd in commands {
             cmd.sprite=self.sprite
-            debugPrint("after: \(cmd.starttime-self.starttime)")
+            //debugPrint("after: \(cmd.starttime-self.starttime)")
             action.append(SKAction.sequence([SKAction.wait(forDuration: Double(cmd.starttime-self.starttime)/1000),(cmd as! SBCAction).toAction()]))
         }
-        debugPrint("action count: \(action.count)")
-        sprite?.run(SKAction.sequence([SKAction.wait(forDuration: Double(offset)/1000),SKAction.group(action)]),completion:{ ()->Void in
+        //debugPrint("action count: \(action.count)")
+        /*
+        let spriteguard=SKAction.sequence([SKAction.wait(forDuration: Double(self.endtime-self.starttime)/1000),SKAction.run {
+            let finalpos=self.sprite?.position
+                //if (finalpos?.x)! < CGFloat(StoryBoard.leftedge) || (finalpos?.x)! > CGFloat(StoryBoard.leftedge+StoryBoard.actualwidth) || (finalpos?.y)! < CGFloat(0) || (finalpos?.y)! > CGFloat(StoryBoard.actualheight) || self.sprite?.alpha == CGFloat(0) {
+                    self.sprite?.removeFromParent()
+                    self.sprite=nil
+                    self.commands=[]
+                //}
+            }])
+        action.append(spriteguard)
+        sprite?.run(SKAction.sequence([SKAction.wait(forDuration: Double(offset)/1000),SKAction.group(action)]))*/
+        /*sprite?.run(SKAction.sequence([SKAction.wait(forDuration: Double(offset)/1000),SKAction.group(action)]),completion:{ ()->Void in
             let finalpos=self.sprite?.position
             if (finalpos?.x)! < CGFloat(StoryBoard.leftedge) || (finalpos?.x)! > CGFloat(StoryBoard.leftedge+StoryBoard.actualwidth) || (finalpos?.y)! < CGFloat(0) || (finalpos?.y)! > CGFloat(StoryBoard.actualheight) || self.sprite?.alpha == CGFloat(0) {
                 self.sprite?.removeFromParent()
                 self.sprite=nil
             }
-        })
+         })*/
+        sprite?.run(SKAction.sequence([SKAction.wait(forDuration: Double(offset)/1000),SKAction.group(action)]),completion:{ ()->Void in
+            self.sprite?.removeFromParent()
+            self.sprite=nil
+            self.commands=[]
+         })
     }
     
 }

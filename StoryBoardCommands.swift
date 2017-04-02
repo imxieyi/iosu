@@ -108,12 +108,6 @@ class SBCommand {
         self.easing=SBCHelper.num2easing(num: easing)
         self.starttime=starttime
         self.endtime=endtime
-        if self.starttime<0 {
-            self.starttime=0
-        }
-        if self.endtime<0 {
-            self.endtime=0
-        }
         duration=(Double(endtime)-Double(starttime))/1000
     }
     
@@ -404,6 +398,7 @@ class SBLoop:SBCommand,SBCAction {
             duration+=cmd.endtime-cmd.starttime
         }
         endtime=starttime+duration*loopcount
+        self.duration=Double(endtime-starttime)/1000
         return
     }
     
