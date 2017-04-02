@@ -285,12 +285,12 @@ class SBColor:SBCommand,SBCAction {
     var endb:Double
     
     init(easing:Int,starttime:Int,endtime:Int,startr:Double,startg:Double,startb:Double,endr:Double,endg:Double,endb:Double) {
-        self.startr=startr
-        self.startg=startg
-        self.startb=startb
-        self.endr=endr
-        self.endg=endg
-        self.endb=endb
+        self.startr=startr/255
+        self.startg=startg/255
+        self.startb=startb/255
+        self.endr=endr/255
+        self.endg=endg/255
+        self.endb=endb/255
         super.init(type: .Color, easing: easing, starttime: starttime, endtime: endtime)
     }
     
