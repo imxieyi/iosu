@@ -288,7 +288,7 @@ class SBParam:SBCommand,SBCAction {
     var paramtype:SBParameterType
     
     init(easing:Int,starttime:Int,endtime:Int,ptype:String) {
-        switch ptype {
+        switch (ptype as NSString).substring(to: 0) {
         case "H":
             self.paramtype = .H
             break
@@ -313,12 +313,16 @@ class SBParam:SBCommand,SBCAction {
             return SKEase.vscale(easeFunction: easing.function, easeType: easing.type, time: duration, xfrom: (sprite?.xScale)!, yfrom: (sprite?.yScale)!, xto: (sprite?.xScale)!, yto: -(sprite?.yScale)!)
         case .A:
             return SKAction.customAction(withDuration: duration, actionBlock: { (node:SKNode, elapsedTime:CGFloat) -> Void in
+                (node as! SKSpriteNode).blendMode = .add
+            })
+            /*
+            return SKAction.customAction(withDuration: duration, actionBlock: { (node:SKNode, elapsedTime:CGFloat) -> Void in
                 if elapsedTime < CGFloat(self.duration) {
                     (node as! SKSpriteNode).blendMode = .add
                 } else {
                     (node as! SKSpriteNode).blendMode = .alpha
                 }
-            })
+            })*/
         default:
             return SKAction.group([])
         }
@@ -331,15 +335,18 @@ class SBParam:SBCommand,SBCAction {
 class SBLoop:SBCommand,SBCAction {
     
     var loopcount:Int
-    var commands:[SKAction]=[]
+    var commands:[SBCommand]=[]
     
-    init(easing:Int,starttime:Int,endtime:Int,loopcount:Int) {
+    init(starttime:Int,loopcount:Int) {
         self.loopcount=loopcount
-        super.init(type: .Loop, easing: easing, starttime: starttime, endtime: endtime)
+        super.init(type: .Loop, easing: 0, starttime: starttime, endtime: 0)
     }
     
     func toAction() -> SKAction {
-        return SKAction.repeat(SKAction.group(commands), count: loopcount)
+        //return SKAction.repeat(SKAction.group(commands), count: loopcount)
+        return SKAction.run {
+            
+        }
     }
     
 }

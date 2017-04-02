@@ -18,6 +18,11 @@ class StoryBoard {
     private static var actualheight:Double = 0
     private static var leftedge:Double = 0
     private var layer:Double
+    private var bglayer:Double = 0
+    private var passlayer:Double = 0
+    private var faillayer:Double = 0
+    private var fglayer:Double = 0
+    private var sbsprites:[BasicImage]=[]
     public var sbactions:[SKAction]=[]
     
     init(file:String,width:Double,height:Double,layer:Double) throws {
@@ -66,15 +71,152 @@ class StoryBoard {
         return h/stdheight*actualheight
     }
     
+    private func str2layer(str:String) -> SBLayer {
+        switch str {
+        case "Background":return .Background
+        case "Fail":return .Fail
+        case "Pass":return .Pass
+        case "Foreground":return .Foreground
+        default:return .Background
+        }
+    }
+    
+    private func str2origin(str:String) -> SBOrigin {
+        switch str {
+        case "TopLeft":return .TopLeft
+        case "TopCentre":return .TopCentre
+        case "TopRight":return .TopRight
+        case "CentreLeft":return .CentreLeft
+        case "Centre":return .Centre
+        case "CentreRight":return .CentreRight
+        case "BottomLeft":return .BottomLeft
+        case "BottomCentre":return .BottomCentre
+        case "BottomRight":return .BottomRight
+        default:return .Centre
+        }
+    }
+    
     private func parseSBEvents(lines:ArraySlice<String>) {
+        var index:Int
+        index = -1
         for line in lines{
+            index += 1
             if line.hasPrefix("//"){
                 continue
             }
             if line.hasPrefix("Sprite"){
-                
+                var slines=ArraySlice<String>()
+                var sindex=index+1
+                while lines[sindex].hasPrefix(" ") || lines[sindex].hasPrefix("_") {
+                    slines.append(lines[sindex])
+                    sindex+=1
+                }
+                let splitted=line.components(separatedBy: ",")
+                var sprite:BasicImage
+                switch str2layer(str: splitted[1]) {
+                case .Background:
+                    bglayer-=1
+                    sprite=BasicImage(layer: .Background, rlayer:bglayer, origin: str2origin(str: splitted[2]), filepath: splitted[3], x: (splitted[4] as NSString).doubleValue, y: (splitted[5] as NSString).doubleValue)
+                    break
+                case .Pass:
+                    passlayer-=1
+                    sprite=BasicImage(layer: .Background, rlayer:passlayer, origin: str2origin(str: splitted[2]), filepath: splitted[3], x: (splitted[4] as NSString).doubleValue, y: (splitted[5] as NSString).doubleValue)
+                    break
+                case .Fail:
+                    faillayer-=1
+                    sprite=BasicImage(layer: .Background, rlayer:faillayer, origin: str2origin(str: splitted[2]), filepath: splitted[3], x: (splitted[4] as NSString).doubleValue, y: (splitted[5] as NSString).doubleValue)
+                    break
+                case .Foreground:
+                    fglayer-=1
+                    sprite=BasicImage(layer: .Background, rlayer:fglayer, origin: str2origin(str: splitted[2]), filepath: splitted[3], x: (splitted[4] as NSString).doubleValue, y: (splitted[5] as NSString).doubleValue)
+                    break
+                }
+                if slines.count>0 {
+                    sprite.commands=parseCommands(lines: slines)
+                }
             }
         }
+    }
+    
+    private func parseCommands(lines:ArraySlice<String>) -> [SBCommand] {
+        var digested:[String]=[]
+        for i in 0...(lines.count-1) {
+            digested.append((lines[i] as NSString).substring(from: 1))
+        }
+        var commands:[SBCommand]=[]
+        var index = -1
+        for line in digested {
+            index+=1
+            var splitted=line.components(separatedBy: ",")
+            if splitted.count<=1 {
+                continue
+            }
+            if splitted[3]=="" {
+                splitted[3]=splitted[2]
+                for i in 4...(splitted.count-1) {
+                    splitted.append(splitted[i])
+                }
+            }
+            switch splitted[0] {
+            case "F":
+                if splitted.count==5 {
+                    splitted.append(splitted[4])
+                }
+                commands.append(SBFade(easing: (splitted[1] as NSString).integerValue, starttime: (splitted[2] as NSString).integerValue, endtime: (splitted[3] as NSString).integerValue, startopacity: (splitted[4] as NSString).doubleValue, endopacity: (splitted[5] as NSString).doubleValue))
+                break
+            case "M":
+                commands.append(SBMove(easing: (splitted[1] as NSString).integerValue, starttime: (splitted[2] as NSString).integerValue, endtime: (splitted[3] as NSString).integerValue, startx: (splitted[4] as NSString).doubleValue, starty: (splitted[5] as NSString).doubleValue, endx: (splitted[6] as NSString).doubleValue, endy: (splitted[7] as NSString).doubleValue))
+                break
+            case "MX":
+                commands.append(SBMoveX(easing: (splitted[1] as NSString).integerValue, starttime: (splitted[2] as NSString).integerValue, endtime: (splitted[3] as NSString).integerValue, startx: (splitted[4] as NSString).doubleValue, endx: (splitted[5] as NSString).doubleValue))
+                break
+            case "MY":
+                commands.append(SBMoveY(easing: (splitted[1] as NSString).integerValue, starttime: (splitted[2] as NSString).integerValue, endtime: (splitted[3] as NSString).integerValue, starty: (splitted[4] as NSString).doubleValue, endy: (splitted[5] as NSString).doubleValue))
+                break
+            case "S":
+                commands.append(SBScale(easing: (splitted[1] as NSString).integerValue, starttime: (splitted[2] as NSString).integerValue, endtime: (splitted[3] as NSString).integerValue, starts: (splitted[4] as NSString).doubleValue, ends: (splitted[5] as NSString).doubleValue))
+                break
+            case "V":
+                commands.append(SBVScale(easing: (splitted[1] as NSString).integerValue, starttime: (splitted[2] as NSString).integerValue, endtime: (splitted[3] as NSString).integerValue, startsx: (splitted[4] as NSString).doubleValue, startsy: (splitted[5] as NSString).doubleValue, endsx: (splitted[6] as NSString).doubleValue, endsy: (splitted[7] as NSString).doubleValue))
+                break
+            case "R":
+                commands.append(SBRotate(easing: (splitted[1] as NSString).integerValue, starttime: (splitted[2] as NSString).integerValue, endtime: (splitted[3] as NSString).integerValue, startr: (splitted[4] as NSString).doubleValue, endr: (splitted[5] as NSString).doubleValue))
+                break
+            case "C":
+                if splitted.count==10 {
+                    commands.append(SBColor(easing: (splitted[1] as NSString).integerValue, starttime: (splitted[2] as NSString).integerValue, endtime: (splitted[3] as NSString).integerValue, startr: (splitted[4] as NSString).doubleValue, startg: (splitted[5] as NSString).doubleValue, startb: (splitted[6] as NSString).doubleValue, endr: (splitted[7] as NSString).doubleValue, endg: (splitted[8] as NSString).doubleValue, endb: (splitted[9] as NSString).doubleValue))
+                }
+                if splitted.count==7 {
+                    let r=Double(Int(splitted[4],radix:16)!)
+                    let g=Double(Int(splitted[5],radix:16)!)
+                    let b=Double(Int(splitted[6],radix:16)!)
+                    commands.append(SBColor(easing: (splitted[1] as NSString).integerValue, starttime: (splitted[2] as NSString).integerValue, endtime: (splitted[3] as NSString).integerValue, startr: r, startg: g, startb: b, endr: r, endg: g, endb: b))
+                }
+                break
+            case "P":
+                commands.append(SBParam(easing: (splitted[1] as NSString).integerValue, starttime: (splitted[2] as NSString).integerValue, endtime: (splitted[3] as NSString).integerValue, ptype: splitted[4]))
+                break
+            case "L":
+                var looplines=ArraySlice<String>()
+                for i in index+1...digested.count-1 {
+                    if digested[i].hasPrefix(" ") || digested[i].hasPrefix("_") {
+                        looplines.append(digested[i])
+                    } else {
+                        break
+                    }
+                }
+                let loop=SBLoop(starttime: (splitted[1] as NSString).integerValue, loopcount: (splitted[2] as NSString).integerValue)
+                loop.commands=parseCommands(lines: looplines)
+                commands.append(loop)
+                break
+            case "T":
+                //TODO: Parse trigger
+                continue
+            default:
+                continue
+            }
+        }
+        return commands
     }
     
 }
@@ -82,15 +224,26 @@ class StoryBoard {
 class BasicImage {
     
     var layer:SBLayer
+    var rlayer:Double
     var origin:SBOrigin
     var filepath:String
     var x:Double
     var y:Double
+    var commands:[SBCommand]=[]
+    var starttime=0
+    var endtime=0
     
-    init(layer:SBLayer,origin:SBOrigin,filepath:String,x:Double,y:Double) {
+    init(layer:SBLayer,rlayer:Double,origin:SBOrigin,filepath:String,x:Double,y:Double) {
         self.layer=layer
+        self.rlayer=rlayer
         self.origin=origin
         self.filepath=filepath
+        while self.filepath.hasPrefix("\"") {
+            self.filepath=(self.filepath as NSString).substring(from: 1)
+        }
+        while self.filepath.hasSuffix("\"") {
+            self.filepath=(self.filepath as NSString).substring(to: self.filepath.lengthOfBytes(using: .ascii)-2)
+        }
         self.x=x
         self.y=y
     }
@@ -103,11 +256,11 @@ class MovingImage:BasicImage {
     var framerate:Int
     var looptype:LoopType
     
-    init(layer:SBLayer,origin:SBOrigin,filepath:String,x:Double,y:Double,framecount:Int,framerate:Int,looptype:LoopType) {
+    init(layer:SBLayer,rlayer:Double,origin:SBOrigin,filepath:String,x:Double,y:Double,framecount:Int,framerate:Int,looptype:LoopType) {
         self.framecount=framecount
         self.framerate=framerate
         self.looptype=looptype
-        super.init(layer: layer, origin: origin, filepath: filepath, x: x, y: y)
+        super.init(layer: layer, rlayer: rlayer, origin: origin, filepath: filepath, x: x, y: y)
     }
     
 }
