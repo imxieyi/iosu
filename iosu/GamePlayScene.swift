@@ -7,6 +7,7 @@
 //
 
 import SpriteKit
+import SpriteKitEasingSwift
 import GameplayKit
 
 class GamePlayScene: SKScene {

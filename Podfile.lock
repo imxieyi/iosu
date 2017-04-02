@@ -1,0 +1,12 @@
+PODS:
+  - SpriteKitEasingSwift (0.10)
+
+DEPENDENCIES:
+  - SpriteKitEasingSwift
+
+SPEC CHECKSUMS:
+  SpriteKitEasingSwift: 511748b42a203e93a800dc6cd07f71e8b37c6401
+
+PODFILE CHECKSUM: ac4651c6f944ff60c5b8222b3ed0506ed72e2c4f
+
+COCOAPODS: 1.1.1

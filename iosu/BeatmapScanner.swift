@@ -13,6 +13,8 @@ class BeatmapScanner{
     //var docPath:NSString
     public var beatmapdirs:[String]=[]
     public var beatmaps:[String]=[]
+    public var storyboards=[String:String]()
+    public var dirscontainsb:[String]=[]
     
     init() {
         //let home=NSHomeDirectory() as NSString
@@ -27,11 +29,19 @@ class BeatmapScanner{
             for subentry in contentsOfBMPath!{
                 //debugPrint("       \(subentry)")
                 if subentry.hasSuffix(".osu"){
-                    var fullpath=url.appendingPathComponent(entry, isDirectory: true)
+                    let fullpath=url.appendingPathComponent(entry, isDirectory: true)
                     beatmapdirs.append(fullpath.path)
                     //fullpath=fullpath.appendingPathComponent(subentry, isDirectory: false)
                     //beatmaps.append(fullpath.path)
                     beatmaps.append(subentry)
+                }
+                if subentry.hasSuffix(".osb"){
+                    let fullpath=url.appendingPathComponent(entry, isDirectory: true)
+                    beatmapdirs.append(fullpath.path)
+                    //fullpath=fullpath.appendingPathComponent(subentry, isDirectory: false)
+                    //beatmaps.append(fullpath.path)
+                    dirscontainsb.append(fullpath.path)
+                    storyboards.updateValue(subentry, forKey: fullpath.path)
                 }
             }
         }
