@@ -15,7 +15,7 @@ class GamePlayScene: SKScene {
     let mplayer=BGMusicPlayer()
     var bmactions:[SKAction] = []
     var actiontimepoints:[Int] = []
-    let testBMIndex = 6 //The index of beatmap to test in the beatmaps
+    static var testBMIndex = 6 //The index of beatmap to test in the beatmaps
     var minlayer:CGFloat=0.0
     var hitaudioHeader:String = "normal-"
     
@@ -25,10 +25,10 @@ class GamePlayScene: SKScene {
         for item in beatmaps.beatmaps {
             debugPrint("\(beatmaps.beatmaps.index(of: item)!): \(item)")
         }
-        debugPrint("test beatmap:\(beatmaps.beatmaps[testBMIndex])")
+        debugPrint("test beatmap:\(beatmaps.beatmaps[GamePlayScene.testBMIndex])")
         debugPrint("Enter GamePlayScene, screen size: \(size.width)*\(size.height)")
         do{
-            let bm=try Beatmap(file: (beatmaps.beatmapdirs[testBMIndex] as NSString).strings(byAppendingPaths: [beatmaps.beatmaps[testBMIndex]])[0])
+            let bm=try Beatmap(file: (beatmaps.beatmapdirs[GamePlayScene.testBMIndex] as NSString).strings(byAppendingPaths: [beatmaps.beatmaps[GamePlayScene.testBMIndex]])[0])
             switch bm.sampleSet {
             case .Auto:
                 //Likely to be an error
@@ -50,7 +50,7 @@ class GamePlayScene: SKScene {
             debugPrint("timingpoints: \(bm.timingpoints.count)")
             debugPrint("hitobjects: \(bm.hitobjects.count)")
             debugPrint("hitsoundset: \(hitaudioHeader)")
-            bm.audiofile=(beatmaps.beatmapdirs[testBMIndex] as NSString).strings(byAppendingPaths: [bm.audiofile])[0] as String
+            bm.audiofile=(beatmaps.beatmapdirs[GamePlayScene.testBMIndex] as NSString).strings(byAppendingPaths: [bm.audiofile])[0] as String
             if !FileManager.default.fileExists(atPath: bm.audiofile){
                 throw BeatmapError.AudioFileNotExist
             }

@@ -60,6 +60,7 @@
 		8A6743891E90075800818D55 /* StoryBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6743881E90075800818D55 /* StoryBoard.swift */; };
 		8A67438B1E9011D800818D55 /* SpriteKitEasingSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A67438A1E9011D800818D55 /* SpriteKitEasingSwift.framework */; };
 		8A72A5621E9018EF000BEE3C /* StoryBoardCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A72A5611E9018EF000BEE3C /* StoryBoardCommands.swift */; };
+		8A7615CB1E91702E00AE5580 /* SelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7615CA1E91702E00AE5580 /* SelectionView.swift */; };
 		8AC188441E8EAE3300C9BB98 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 8AC188431E8EAE3300C9BB98 /* README.md */; };
 		8ACA3AE61E90EE6F00057AA6 /* StoryBoardScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACA3AE51E90EE6F00057AA6 /* StoryBoardScene.swift */; };
 		99B4058382CF96D791075AB4 /* Pods_iosu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A76F916780A6E7BFEFB56503 /* Pods_iosu.framework */; };
@@ -135,6 +136,7 @@
 		8A6743881E90075800818D55 /* StoryBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryBoard.swift; sourceTree = "<group>"; };
 		8A67438A1E9011D800818D55 /* SpriteKitEasingSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKitEasingSwift.framework; path = "../../Library/Developer/Xcode/DerivedData/iosu-gddpvylvaevfhyenmhqlpckshyiw/Build/Products/Debug-iphonesimulator/SpriteKitEasingSwift/SpriteKitEasingSwift.framework"; sourceTree = "<group>"; };
 		8A72A5611E9018EF000BEE3C /* StoryBoardCommands.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StoryBoardCommands.swift; path = ../StoryBoardCommands.swift; sourceTree = "<group>"; };
+		8A7615CA1E91702E00AE5580 /* SelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionView.swift; sourceTree = "<group>"; };
 		8AC188431E8EAE3300C9BB98 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8ACA3AE51E90EE6F00057AA6 /* StoryBoardScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryBoardScene.swift; sourceTree = "<group>"; };
 		A76F916780A6E7BFEFB56503 /* Pods_iosu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iosu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -241,6 +243,7 @@
 				8A3E5C221E8D375A00C28C9D /* HitObjects.swift */,
 				8A4D5C3B1E8A8AEC00319D91 /* GameViewController.swift */,
 				8A4D5C3D1E8A8AEC00319D91 /* Main.storyboard */,
+				8A7615CA1E91702E00AE5580 /* SelectionView.swift */,
 				8A4D5C401E8A8AEC00319D91 /* Assets.xcassets */,
 				8A4D5C421E8A8AEC00319D91 /* LaunchScreen.storyboard */,
 				8A4D5C451E8A8AEC00319D91 /* Info.plist */,
@@ -482,6 +485,7 @@
 				8A3E5C231E8D375A00C28C9D /* HitObjects.swift in Sources */,
 				8AC188441E8EAE3300C9BB98 /* README.md in Sources */,
 				8A4D5C341E8A8AEB00319D91 /* AppDelegate.swift in Sources */,
+				8A7615CB1E91702E00AE5580 /* SelectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

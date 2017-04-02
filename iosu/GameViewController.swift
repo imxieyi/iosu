@@ -14,20 +14,30 @@ class GameViewController: UIViewController {
     
     let screenWidth=UIScreen.main.bounds.width*UIScreen.main.scale
     let screenHeight=UIScreen.main.bounds.height*UIScreen.main.scale
+    static var sbmode=true
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // Load 'GameScene.sks' as a GKScene. This provides gameplay related content
         // including entities and graphs.
         //let scene=GamePlayScene(size: CGSize(width: screenWidth, height: screenHeight))
-        let scene=StoryBoardScene(size: CGSize(width: screenWidth, height: screenHeight))
-        let skView=self.view as! SKView
-        skView.showsFPS=true
-        skView.showsNodeCount=true
-        skView.ignoresSiblingOrder=true
-        scene.scaleMode = .aspectFill
-        skView.presentScene(scene)
+        if GameViewController.sbmode {
+            let scene=StoryBoardScene(size: CGSize(width: screenWidth, height: screenHeight))
+            let skView=self.view as! SKView
+            skView.showsFPS=true
+            skView.showsNodeCount=true
+            skView.ignoresSiblingOrder=true
+            scene.scaleMode = .aspectFill
+            skView.presentScene(scene)
+        } else {
+            let scene=GamePlayScene(size: CGSize(width: screenWidth, height: screenHeight))
+            let skView=self.view as! SKView
+            skView.showsFPS=true
+            skView.showsNodeCount=true
+            skView.ignoresSiblingOrder=true
+            scene.scaleMode = .aspectFill
+            skView.presentScene(scene)
+        }
     }
 
     override var shouldAutorotate: Bool {
