@@ -22,10 +22,12 @@ class StoryBoard {
     private var passlayer:Double = 0
     private var faillayer:Double = 0
     private var fglayer:Double = 0
-    private var sbsprites:[BasicImage]=[]
+    public var sbsprites:[BasicImage]=[]
     public var sbactions:[SKAction]=[]
+    public var sbdirectory:String
     
-    init(file:String,width:Double,height:Double,layer:Double) throws {
+    init(directory:String,file:String,width:Double,height:Double,layer:Double) throws {
+        self.sbdirectory=directory
         StoryBoard.actualheight=height
         StoryBoard.actualwidth=height/StoryBoard.stdheight*StoryBoard.stdwidth
         StoryBoard.leftedge=(width-StoryBoard.actualwidth)/2
@@ -34,19 +36,26 @@ class StoryBoard {
         if readFile===nil{
             throw StoryBoardError.FileNotFound
         }
-        let bmData=readFile?.readDataToEndOfFile()
-        let bmString=String(data: bmData!, encoding: .utf8)
-        let lines=bmString?.components(separatedBy: CharacterSet.newlines)
-        if lines?.count==0{
+        let sbData=readFile?.readDataToEndOfFile()
+        let sbString=String(data: sbData!, encoding: .utf8)
+        let rawlines=sbString?.components(separatedBy: CharacterSet.newlines)
+        var lines=ArraySlice<String>()
+        for line in rawlines! {
+            if line != "" {
+                lines.append(line)
+            }
+        }
+        //debugPrint("line count:\(lines?.count)")
+        if lines.count==0{
             throw StoryBoardError.IllegalFormat
         }
         var index:Int
         index = -1
-        for line in lines!{
+        for line in lines{
             index += 1
             switch line {
             case "[Events]":
-                parseSBEvents(lines: (lines?.suffix(from: index+1))!)
+                parseSBEvents(lines: lines.suffix(from: index+1))
                 break
             default:
                 continue
@@ -106,11 +115,13 @@ class StoryBoard {
             }
             if line.hasPrefix("Sprite"){
                 var slines=ArraySlice<String>()
-                var sindex=index+1
+                var sindex=index+2
+                //debugPrint("first cmd:\(lines[sindex])")
                 while lines[sindex].hasPrefix(" ") || lines[sindex].hasPrefix("_") {
                     slines.append(lines[sindex])
                     sindex+=1
                 }
+                //debugPrint("cmd lines:\(slines.count)")
                 let splitted=line.components(separatedBy: ",")
                 var sprite:BasicImage
                 switch str2layer(str: splitted[1]) {
@@ -134,6 +145,12 @@ class StoryBoard {
                 if slines.count>0 {
                     sprite.commands=parseCommands(lines: slines)
                 }
+                sprite.filepath=(sprite.filepath as NSString).replacingOccurrences(of: "\\", with: "/")
+                sprite.filepath=(sbdirectory as NSString).appending("/"+sprite.filepath)
+                //sprite.convertsprite()
+                //sprite.sprite=nil
+                debugPrint("number of commands:\(sprite.commands.count)")
+                sbsprites.append(sprite)
             }
         }
     }
@@ -147,14 +164,17 @@ class StoryBoard {
         var index = -1
         for line in digested {
             index+=1
+            debugPrint("raw cmd:\(line)")
             var splitted=line.components(separatedBy: ",")
             if splitted.count<=1 {
                 continue
             }
+            if splitted[0] != "L" {
             if splitted[3]=="" {
-                splitted[3]=splitted[2]
-                for i in 4...(splitted.count-1) {
-                    splitted.append(splitted[i])
+                    splitted[3]=splitted[2]
+                    for i in 4...(splitted.count-1) {
+                        splitted.append(splitted[i])
+                    }
                 }
             }
             switch splitted[0] {
@@ -165,6 +185,10 @@ class StoryBoard {
                 commands.append(SBFade(easing: (splitted[1] as NSString).integerValue, starttime: (splitted[2] as NSString).integerValue, endtime: (splitted[3] as NSString).integerValue, startopacity: (splitted[4] as NSString).doubleValue, endopacity: (splitted[5] as NSString).doubleValue))
                 break
             case "M":
+                if splitted.count==6 {
+                    splitted.append(splitted[4])
+                    splitted.append(splitted[5])
+                }
                 commands.append(SBMove(easing: (splitted[1] as NSString).integerValue, starttime: (splitted[2] as NSString).integerValue, endtime: (splitted[3] as NSString).integerValue, startx: (splitted[4] as NSString).doubleValue, starty: (splitted[5] as NSString).doubleValue, endx: (splitted[6] as NSString).doubleValue, endy: (splitted[7] as NSString).doubleValue))
                 break
             case "MX":
@@ -174,12 +198,22 @@ class StoryBoard {
                 commands.append(SBMoveY(easing: (splitted[1] as NSString).integerValue, starttime: (splitted[2] as NSString).integerValue, endtime: (splitted[3] as NSString).integerValue, starty: (splitted[4] as NSString).doubleValue, endy: (splitted[5] as NSString).doubleValue))
                 break
             case "S":
+                if splitted.count==5{
+                    splitted.append(splitted[4])
+                }
                 commands.append(SBScale(easing: (splitted[1] as NSString).integerValue, starttime: (splitted[2] as NSString).integerValue, endtime: (splitted[3] as NSString).integerValue, starts: (splitted[4] as NSString).doubleValue, ends: (splitted[5] as NSString).doubleValue))
                 break
             case "V":
+                if splitted.count==6{
+                    splitted.append(splitted[4])
+                    splitted.append(splitted[5])
+                }
                 commands.append(SBVScale(easing: (splitted[1] as NSString).integerValue, starttime: (splitted[2] as NSString).integerValue, endtime: (splitted[3] as NSString).integerValue, startsx: (splitted[4] as NSString).doubleValue, startsy: (splitted[5] as NSString).doubleValue, endsx: (splitted[6] as NSString).doubleValue, endsy: (splitted[7] as NSString).doubleValue))
                 break
             case "R":
+                if splitted.count==5{
+                    splitted.append(splitted[4])
+                }
                 commands.append(SBRotate(easing: (splitted[1] as NSString).integerValue, starttime: (splitted[2] as NSString).integerValue, endtime: (splitted[3] as NSString).integerValue, startr: (splitted[4] as NSString).doubleValue, endr: (splitted[5] as NSString).doubleValue))
                 break
             case "C":
@@ -232,6 +266,7 @@ class BasicImage {
     var commands:[SBCommand]=[]
     var starttime=0
     var endtime=0
+    var sprite:SKSpriteNode?
     
     init(layer:SBLayer,rlayer:Double,origin:SBOrigin,filepath:String,x:Double,y:Double) {
         self.layer=layer
@@ -242,10 +277,20 @@ class BasicImage {
             self.filepath=(self.filepath as NSString).substring(from: 1)
         }
         while self.filepath.hasSuffix("\"") {
-            self.filepath=(self.filepath as NSString).substring(to: self.filepath.lengthOfBytes(using: .ascii)-2)
+            self.filepath=(self.filepath as NSString).substring(to: self.filepath.lengthOfBytes(using: .ascii)-1)
         }
         self.x=x
         self.y=y
+    }
+    
+    func convertsprite(){
+        let image=UIImage(contentsOfFile: filepath)
+        if image==nil {
+            debugPrint("image not found: \(filepath)")
+            return
+        }
+        let texture=SKTexture(image: image!)
+        sprite=SKSpriteNode(texture: texture)
     }
     
 }
