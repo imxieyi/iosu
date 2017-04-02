@@ -14,7 +14,7 @@ class StoryBoardScene: SKScene {
     
     let mplayer=BGMusicPlayer()
     var actiontimepoints:[Int] = []
-    let testBMIndex = 48 //The index of beatmap to test in the beatmaps
+    let testBMIndex = 42 //The index of beatmap to test in the beatmaps
     var minlayer:CGFloat=0.0
     var hitaudioHeader:String = "normal-"
     var sb:StoryBoard?
@@ -111,7 +111,7 @@ class StoryBoardScene: SKScene {
                 debugPrint("storyboard earliest time: \(sb?.earliest)")
                 //debugPrint("6400 starttime: \(sb?.sbsprites[6400].starttime)")
                 //var count=0
-                debugPrint("\(sb?.sbsprites[index].starttime) \(sb?.sbsprites[index].commands.count)")
+                //debugPrint("\(sb?.sbsprites[index].starttime) \(sb?.sbsprites[index].commands.count)")
                 while (sb?.sbsprites[index].starttime)!<=0 {
                     //if count<=StoryBoardScene.renderlimit {
                     sb?.sbsprites[index].convertsprite()

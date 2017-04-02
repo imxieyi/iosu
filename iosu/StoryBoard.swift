@@ -209,8 +209,12 @@ class StoryBoard {
             if line.hasPrefix("Sprite"){
                 var slines=ArraySlice<String>()
                 var sindex=index+1
+                if lines[sindex].hasPrefix("Sprite")||lines[sindex].hasPrefix("Animation") {
+                    sindex+=1
+                }
                 //debugPrint("first cmd:\(lines[sindex])")
                 while sindex<=lines.count{
+                    //debugPrint("line: \(lines[sindex])")
                     if lines[sindex].hasPrefix(" ") || lines[sindex].hasPrefix("_") {
                         slines.append(lines[sindex])
                     }else{

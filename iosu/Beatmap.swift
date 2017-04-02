@@ -20,6 +20,7 @@ class Beatmap{
     public var sampleSet:SampleSet = .Auto //Set of audios
     
     init(file:String) throws {
+        debugPrint("full path: \(file)")
         let readFile=FileHandle(forReadingAtPath: file)
         if readFile===nil{
             throw BeatmapError.FileNotFound

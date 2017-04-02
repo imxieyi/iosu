@@ -37,7 +37,7 @@ class BeatmapScanner{
                 }
                 if subentry.hasSuffix(".osb"){
                     let fullpath=url.appendingPathComponent(entry, isDirectory: true)
-                    beatmapdirs.append(fullpath.path)
+                    //beatmapdirs.append(fullpath.path)
                     //fullpath=fullpath.appendingPathComponent(subentry, isDirectory: false)
                     //beatmaps.append(fullpath.path)
                     dirscontainsb.append(fullpath.path)

@@ -404,9 +404,11 @@ class SBLoop:SBCommand,SBCAction {
     
     func toAction() -> SKAction {
         //return SKAction.repeat(SKAction.group(commands), count: loopcount)
-        return SKAction.run {
-            
+        var loopactions:[SKAction]=[]
+        for cmd in commands {
+            loopactions.append(SKAction.sequence([SKAction.wait(forDuration: Double(cmd.starttime)/1000),(cmd as! SBCAction).toAction()]))
         }
+        return SKAction.repeat(SKAction.group(loopactions), count: self.loopcount)
     }
     
 }
