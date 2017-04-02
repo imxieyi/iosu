@@ -406,6 +406,7 @@ class SBLoop:SBCommand,SBCAction {
         //return SKAction.repeat(SKAction.group(commands), count: loopcount)
         var loopactions:[SKAction]=[]
         for cmd in commands {
+            cmd.sprite=self.sprite
             loopactions.append(SKAction.sequence([SKAction.wait(forDuration: Double(cmd.starttime)/1000),(cmd as! SBCAction).toAction()]))
         }
         return SKAction.repeat(SKAction.group(loopactions), count: self.loopcount)
