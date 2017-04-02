@@ -82,15 +82,19 @@ class StoryBoardScene: SKScene {
                 debugPrint("storyboard earliest time: \(sb?.earliest)")
                 //debugPrint("6400 starttime: \(sb?.sbsprites[6400].starttime)")
                 //var count=0
+                //debugPrint("\(sb?.sbsprites[index].starttime) \(sb?.sbsprites[index].commands.count)")
                 while (sb?.sbsprites[index].starttime)!<=0 {
                     //if count<=StoryBoardScene.renderlimit {
                         sb?.sbsprites[index].convertsprite()
                         self.addChild((sb?.sbsprites[index].sprite)!)
+                    if (sb?.sbsprites[index].commands.count)!>0 {
                         sb?.sbsprites[index].runaction(offset: (sb?.sbsprites[index].starttime)!-(sb?.earliest)!)
+                    }
                     //}
                     //count+=1
                     index+=1
                 }
+                debugPrint("start playing music")
                 if (sb?.earliest)!<0 {
                     self.run(SKAction.sequence([SKAction.wait(forDuration: Double(-(sb?.earliest)!)/1000),mplayer.play(file: audiofile)]))
                 } else {
@@ -234,7 +238,9 @@ class StoryBoardScene: SKScene {
                         }
                     }*/
                     self.addChild((sb?.sbsprites[index].sprite)!)
-                    sb?.sbsprites[index].runaction(offset: offset)
+                    if (sb?.sbsprites[index].commands.count)!>0{
+                        sb?.sbsprites[index].runaction(offset: offset)
+                    }
                     index+=1
                     rendercount+=1
                     if index>=(sb?.sbsprites.count)!{

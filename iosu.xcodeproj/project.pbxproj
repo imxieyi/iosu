@@ -623,6 +623,7 @@
 			baseConfigurationReference = 746E95FF2AA386585463E0D9 /* Pods-iosu.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				DEVELOPMENT_TEAM = 34A2STWT5M;
 				INFOPLIST_FILE = iosu/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -639,6 +640,7 @@
 			baseConfigurationReference = 6105515E76E704F6DD9D2521 /* Pods-iosu.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				DEVELOPMENT_TEAM = 34A2STWT5M;
 				INFOPLIST_FILE = iosu/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
