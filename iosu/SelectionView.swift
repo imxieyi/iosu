@@ -18,6 +18,7 @@ class SelectionViewController:UIViewController,UIPickerViewDelegate,UIPickerView
     override func viewDidLoad() {
         picker.dataSource=self
         picker.delegate=self
+        UIApplication.shared.isIdleTimerDisabled=true
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {

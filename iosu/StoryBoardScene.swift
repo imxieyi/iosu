@@ -83,15 +83,11 @@ class StoryBoardScene: SKScene {
                 //debugPrint("6400 starttime: \(sb?.sbsprites[6400].starttime)")
                 //var count=0
                 //debugPrint("\(sb?.sbsprites[index].starttime) \(sb?.sbsprites[index].commands.count)")
-                while (sb?.sbsprites[index].starttime)!<=0 {
-                    //if count<=StoryBoardScene.renderlimit {
-                        sb?.sbsprites[index].convertsprite()
+                while (sb?.sbsprites[index].starttime)!<=0 {                        sb?.sbsprites[index].convertsprite()
                         self.addChild((sb?.sbsprites[index].sprite)!)
                     if (sb?.sbsprites[index].commands.count)!>0 {
                         sb?.sbsprites[index].runaction(offset: (sb?.sbsprites[index].starttime)!-(sb?.earliest)!)
                     }
-                    //}
-                    //count+=1
                     index+=1
                 }
                 debugPrint("start playing music")
@@ -168,81 +164,23 @@ class StoryBoardScene: SKScene {
     }
     
     var index = 0
-    //Too many objects loaded at the same time will crash the game
-    static private let renderlimit=1000
-    //Too many objects shown at the same time will crash the game too
-    static private let spritelimit=40000
-    private var rendercount=0
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
-        rendercount=0
         if sb != nil {
             if index<(sb?.sbsprites.count)! {
-                if self.children.count>=StoryBoardScene.spritelimit {
-                    let musictime=Int(mplayer.getTime()*1000)
-                    while (sb?.sbsprites[index].starttime)! - musictime<50{
-                        index+=1
-                        if index>=(sb?.sbsprites.count)!{
-                            return
-                        }
-                    }
-                    return
-                }
                 let musictime=Int(mplayer.getTime()*1000)
-                while (sb?.sbsprites[index].starttime)! - musictime <= 100 {
-                    /*if (sb?.sbsprites[index].starttime)!<=0 {
-                        index+=1
-                        continue
-                    }*/
-                    if rendercount>StoryBoardScene.renderlimit {
-                        index+=1
-                        continue
-                    }
-                    //if offset<50 {
-                        while (sb?.sbsprites[index].starttime)! - musictime<50{
-                            index+=1
-                            if index>=(sb?.sbsprites.count)!{
-                                return
-                            }
-                        }
-                        //continue
-                        //offset=0
-                    //}
-                    let offset=(sb?.sbsprites[index].starttime)! - musictime
-                    //debugPrint("Add sprite \(index)/\((sb?.sbsprites.count)!-1) at layer \(sb?.sbsprites[index].rlayer) with offset \(offset)")
+                while (sb?.sbsprites[index].starttime)! - musictime <= 1000 {
+                    var offset=(sb?.sbsprites[index].starttime)! - musictime
                     sb?.sbsprites[index].convertsprite()
-                    /*debugPrint("sprite status: \(sb?.sbsprites[index].sprite)")
-                    debugPrint("sprite time: \(sb?.sbsprites[index].starttime) -> \(sb?.sbsprites[index].endtime)")
-                    debugPrint("sprite cmds:")
-                    for cmd in (sb?.sbsprites[index].commands)! {
-                        switch cmd.type {
-                        case .Fade:
-                            let c=cmd as! SBFade
-                            debugPrint("F \(c.starttime)->\(c.endtime) \(c.startopacity)->\(c.endopacity)")
-                            break
-                        case .MoveX:
-                            let c=cmd as! SBMoveX
-                            debugPrint("MX \(c.starttime)->\(c.endtime) \(c.startx)->\(c.endx)")
-                            break
-                        case .MoveY:
-                            let c=cmd as! SBMoveY
-                            debugPrint("MY \(c.starttime)->\(c.endtime) \(c.starty)->\(c.endy)")
-                            break
-                        case .Scale:
-                            let c=cmd as! SBScale
-                            debugPrint("S \(c.starttime)->\(c.endtime) \(c.starts)->\(c.ends)")
-                            break
-                        default:
-                            debugPrint(cmd)
-                        }
-                    }*/
+                    if offset<0{
+                        offset = 0
+                    }
                     self.addChild((sb?.sbsprites[index].sprite)!)
                     if (sb?.sbsprites[index].commands.count)!>0{
                         sb?.sbsprites[index].runaction(offset: offset)
                     }
                     index+=1
-                    rendercount+=1
                     if index>=(sb?.sbsprites.count)!{
                         return
                     }

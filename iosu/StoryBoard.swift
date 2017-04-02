@@ -246,6 +246,7 @@ class StoryBoard {
                 if slines.count>0 {
                     sprite.commands=parseCommands(lines: slines)
                     sprite.gentime()
+                    sprite.genaction()
                 }
                 sprite.filepath=(sprite.filepath as NSString).replacingOccurrences(of: "\\", with: "/")
                 sprite.filepath=(sbdirectory as NSString).appending("/"+sprite.filepath)
@@ -401,6 +402,35 @@ class StoryBoard {
     
 }
 
+
+//Significantly optimize memory usage and framerate
+class ImageBuffer{
+    
+    static var buffer=[String:SKTexture]()
+    
+    static func addtobuffer(file:String) {
+        if buffer[file] != nil {
+            return
+        }
+        let image=UIImage(contentsOfFile: file)
+        if image==nil {
+            debugPrint("image not found: \(file)")
+            return
+        }
+        let texture=SKTexture(image: image!)
+        buffer[file]=texture
+    }
+    
+    static func get(file:String) ->SKTexture {
+        addtobuffer(file: file)
+        if buffer[file] != nil {
+            return buffer[file]!
+        }
+        return SKTexture()
+    }
+    
+}
+
 class BasicImage {
     
     var layer:SBLayer
@@ -413,6 +443,7 @@ class BasicImage {
     var starttime=0
     var endtime=0
     var sprite:SKSpriteNode?
+    var actions:SKAction?
     
     init(layer:SBLayer,rlayer:Double,origin:SBOrigin,filepath:String,x:Double,y:Double) {
         self.layer=layer
@@ -442,14 +473,74 @@ class BasicImage {
         }
     }
     
-    func convertsprite(){
-        let image=UIImage(contentsOfFile: filepath)
-        if image==nil {
-            debugPrint("image not found: \(filepath)")
-            return
+    func hasFadein() -> Bool {
+        var earliestfade:SBFade?
+        var earliesttime=Int.max
+        var earliestactiontime=Int.max
+        var earliestaction:SBCommand?
+        for cmd in commands {
+            switch cmd.type {
+            case .Fade:
+                let fadecmd=cmd as! SBFade
+                if earliesttime>fadecmd.starttime {
+                //if fadecmd.endopacity==1 {
+                    //return true
+                    earliesttime=fadecmd.starttime
+                    earliestfade=fadecmd
+                }
+                break
+            default:
+                if cmd.starttime<earliestactiontime {
+                    earliestactiontime=cmd.starttime
+                    earliestaction=cmd
+                }
+                break
+            }
         }
-        let texture=SKTexture(image: image!)
-        sprite=SKSpriteNode(texture: texture)
+        if earliestfade != nil {
+            if earliesttime<=earliestactiontime {
+                //if earliestfade?.starttime==earliestfade?.endtime && earliestfade?.endopacity==0 {
+                    return true
+                //}
+            }
+            if earliestfade?.startopacity==0 {
+                return true
+            }
+        }
+        if earliestaction != nil {
+            if earliestaction?.starttime==earliestaction?.endtime {
+                if (earliestaction?.type)! == .Parameter{
+                    let act=(earliestaction as! SBParam)
+                    if act.paramtype != .A {
+                        return true
+                    }
+                } else {
+                    return true
+                }
+            } else {
+                switch (earliestaction?.type)! {
+                case .Scale:
+                    let act=(earliestaction as! SBScale)
+                    if act.starts==0 {
+                        return true
+                    }
+                    break
+                case .VScale:
+                    let act=(earliestaction as! SBVScale)
+                    if act.startsx==0 || act.startsy==0 {
+                        return true
+                    }
+                    break
+                default:
+                    break
+                }
+            }
+        }
+        return false
+    }
+    
+    func convertsprite(){
+        sprite=SKSpriteNode(texture: ImageBuffer.get(file: filepath))
         //let scale=Double((image?.size.height)!/1080)*StoryBoard.actualheight
         //sprite?.size=CGSize(width: Double((image?.size.width)!)*scale, height: Double((image?.size.height)!)*scale)
         sprite?.zPosition=CGFloat(rlayer)
@@ -457,6 +548,9 @@ class BasicImage {
         sprite?.blendMode = .alpha
         sprite?.color = .white
         sprite?.colorBlendFactor=1.0
+        if hasFadein() {
+            sprite?.alpha=0
+        }
         switch origin {
         case .TopLeft:
             sprite?.anchorPoint=CGPoint(x: 0, y: 1)
@@ -488,37 +582,23 @@ class BasicImage {
         }
     }
     
-    func runaction(offset:Int){
+    func genaction(){
         var action:[SKAction]=[]
         for cmd in commands {
-            cmd.sprite=self.sprite
+            //cmd.sprite=self.sprite
             //debugPrint("after: \(cmd.starttime-self.starttime)")
             action.append(SKAction.sequence([SKAction.wait(forDuration: Double(cmd.starttime-self.starttime)/1000),(cmd as! SBCAction).toAction()]))
         }
-        //debugPrint("action count: \(action.count)")
-        /*
-        let spriteguard=SKAction.sequence([SKAction.wait(forDuration: Double(self.endtime-self.starttime)/1000),SKAction.run {
-            let finalpos=self.sprite?.position
-                //if (finalpos?.x)! < CGFloat(StoryBoard.leftedge) || (finalpos?.x)! > CGFloat(StoryBoard.leftedge+StoryBoard.actualwidth) || (finalpos?.y)! < CGFloat(0) || (finalpos?.y)! > CGFloat(StoryBoard.actualheight) || self.sprite?.alpha == CGFloat(0) {
-                    self.sprite?.removeFromParent()
-                    self.sprite=nil
-                    self.commands=[]
-                //}
-            }])
-        action.append(spriteguard)
-        sprite?.run(SKAction.sequence([SKAction.wait(forDuration: Double(offset)/1000),SKAction.group(action)]))*/
-        /*sprite?.run(SKAction.sequence([SKAction.wait(forDuration: Double(offset)/1000),SKAction.group(action)]),completion:{ ()->Void in
-            let finalpos=self.sprite?.position
-            if (finalpos?.x)! < CGFloat(StoryBoard.leftedge) || (finalpos?.x)! > CGFloat(StoryBoard.leftedge+StoryBoard.actualwidth) || (finalpos?.y)! < CGFloat(0) || (finalpos?.y)! > CGFloat(StoryBoard.actualheight) || self.sprite?.alpha == CGFloat(0) {
-                self.sprite?.removeFromParent()
-                self.sprite=nil
-            }
-         })*/
-        sprite?.run(SKAction.sequence([SKAction.wait(forDuration: Double(offset)/1000),SKAction.group(action)]),completion:{ ()->Void in
+        self.actions=SKAction.group(action)
+    }
+    
+    func runaction(offset:Int){
+        sprite?.run(SKAction.sequence([SKAction.wait(forDuration: Double(offset)/1000),self.actions!]),completion:{ ()->Void in
             self.sprite?.removeFromParent()
             self.sprite=nil
             self.commands=[]
-         })
+            self.actions=nil
+        })
     }
     
 }

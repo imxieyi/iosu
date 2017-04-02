@@ -88,6 +88,46 @@ open class SKEase {
         return action
     }
     /**
+     Create a tween for flip horizontally.
+     - parameter time: duration of tween
+     - parameter easingFunction: ease function - create an ease function with the getEaseFunction method.
+     - parameter setterBlock: Any additional properties to tween.
+     */
+    open class func createHFlipTween(_ time:TimeInterval,easingFunction:@escaping AHEasingFunction, setterBlock setter:@escaping ((SKNode,CGFloat)->Void))->SKAction {
+        var firstcall=true
+        var oriscale:CGFloat=0
+        let action:SKAction = SKAction.customAction(withDuration: time, actionBlock: { (node:SKNode, elapsedTime:CGFloat) -> Void in
+            if firstcall {
+                oriscale=node.xScale
+                firstcall=false
+            }
+            let timeEq = easingFunction(Float(elapsedTime)/Float(time))
+            let value:CGFloat = oriscale+CGFloat(timeEq) * (-2*oriscale)
+            setter(node,value)
+        })
+        return action
+    }
+    /**
+     Create a tween for flip vertically.
+     - parameter time: duration of tween
+     - parameter easingFunction: ease function - create an ease function with the getEaseFunction method.
+     - parameter setterBlock: Any additional properties to tween.
+     */
+    open class func createVFlipTween(_ time:TimeInterval,easingFunction:@escaping AHEasingFunction, setterBlock setter:@escaping ((SKNode,CGFloat)->Void))->SKAction {
+        var firstcall=true
+        var oriscale:CGFloat=0
+        let action:SKAction = SKAction.customAction(withDuration: time, actionBlock: { (node:SKNode, elapsedTime:CGFloat) -> Void in
+            if firstcall {
+                oriscale=node.yScale
+                firstcall=false
+            }
+            let timeEq = easingFunction(Float(elapsedTime)/Float(time))
+            let value:CGFloat = oriscale+CGFloat(timeEq) * (-2*oriscale)
+            setter(node,value)
+        })
+        return action
+    }
+    /**
      Create a tween between two colors.
      - parameter rstart: Start r
      - parameter gstart: Start g
@@ -231,6 +271,34 @@ open class SKEase {
             node.yScale = scale
         }
         let action=SKAction.group([xaction,yaction])
+        return action
+    }
+    
+    //MARK: Flip horizontally
+    /**
+     - parameter easeFunction: Curve type
+     - parameter easeType: Ease type
+     - parameter time: duration of tween
+     */
+    open class func hflip(easeFunction curve:CurveType, easeType:EaseType, time:TimeInterval)->SKAction {
+        let easingFunction = SKEase.getEaseFunction(curve, easeType: easeType)
+        let action = self.createHFlipTween(time, easingFunction: easingFunction) { (node:SKNode, scale:CGFloat) -> Void in
+            node.xScale = scale
+        }
+        return action
+    }
+    
+    //MARK: Flip vertically
+    /**
+     - parameter easeFunction: Curve type
+     - parameter easeType: Ease type
+     - parameter time: duration of tween
+     */
+    open class func vflip(easeFunction curve:CurveType, easeType:EaseType, time:TimeInterval)->SKAction {
+        let easingFunction = SKEase.getEaseFunction(curve, easeType: easeType)
+        let action = self.createVFlipTween(time, easingFunction: easingFunction) { (node:SKNode, scale:CGFloat) -> Void in
+            node.yScale = scale
+        }
         return action
     }
     

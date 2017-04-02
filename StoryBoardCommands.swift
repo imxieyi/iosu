@@ -101,7 +101,7 @@ class SBCommand {
     var starttime:Int
     var endtime:Int
     var duration:Double
-    var sprite:SKSpriteNode?
+    //var sprite:SKSpriteNode?
     
     init(type:StoryBoardCommand,easing:Int,starttime:Int,endtime:Int) {
         self.type=type
@@ -349,18 +349,40 @@ class SBParam:SBCommand,SBCAction {
         switch paramtype {
         case .H:
             if starttime==endtime {
-                return SKAction.scaleX(to: -(sprite?.xScale)!, duration: 0)
+                //return SKAction.scaleX(to: -(sprite?.xScale)!, duration: 0)
+                var firstcall=true
+                return SKAction.customAction(withDuration: 0, actionBlock: {(node:SKNode,time:CGFloat)->Void in
+                    if firstcall {
+                        node.xScale = -node.xScale
+                        firstcall=false
+                    }
+                })
             }
-            return SKEase.vscale(easeFunction: easing.function, easeType: easing.type, time: duration, xfrom: (sprite?.xScale)!, yfrom: (sprite?.yScale)!, xto: -(sprite?.xScale)!, yto: (sprite?.yScale)!)
+            return SKEase.hflip(easeFunction: easing.function, easeType: easing.type, time: duration)
+            //return SKEase.vscale(easeFunction: easing.function, easeType: easing.type, time: duration, xfrom: (sprite?.xScale)!, yfrom: (sprite?.yScale)!, xto: -(sprite?.xScale)!, yto: (sprite?.yScale)!)
         case .V:
             if starttime==endtime {
+                //return SKAction.scaleX(to: -(sprite?.xScale)!, duration: 0)
+                var firstcall=true
+                return SKAction.customAction(withDuration: 0, actionBlock: {(node:SKNode,time:CGFloat)->Void in
+                    if firstcall {
+                        node.yScale = -node.yScale
+                        firstcall=false
+                    }
+                })
+            }
+            return SKEase.vflip(easeFunction: easing.function, easeType: easing.type, time: duration)
+            /*if starttime==endtime {
                 return SKAction.scaleY(to: -(sprite?.yScale)!, duration: 0)
             }
-            return SKEase.vscale(easeFunction: easing.function, easeType: easing.type, time: duration, xfrom: (sprite?.xScale)!, yfrom: (sprite?.yScale)!, xto: (sprite?.xScale)!, yto: -(sprite?.yScale)!)
+            return SKEase.vscale(easeFunction: easing.function, easeType: easing.type, time: duration, xfrom: (sprite?.xScale)!, yfrom: (sprite?.yScale)!, xto: (sprite?.xScale)!, yto: -(sprite?.yScale)!)*/
         case .A:
-            return SKAction.run {
+            return SKAction.customAction(withDuration: 0, actionBlock: {(node:SKNode,time:CGFloat)->Void in
+                (node as! SKSpriteNode).blendMode = .add
+            })
+            /*return SKAction.run {
                 self.sprite?.blendMode = .add
-            }
+            }*/
             /*return SKAction.customAction(withDuration: duration, actionBlock: { (node:SKNode, elapsedTime:CGFloat) -> Void in
                 (node as! SKSpriteNode).blendMode = .add
             })*/
@@ -406,7 +428,7 @@ class SBLoop:SBCommand,SBCAction {
         //return SKAction.repeat(SKAction.group(commands), count: loopcount)
         var loopactions:[SKAction]=[]
         for cmd in commands {
-            cmd.sprite=self.sprite
+            //cmd.sprite=self.sprite
             loopactions.append(SKAction.sequence([SKAction.wait(forDuration: Double(cmd.starttime)/1000),(cmd as! SBCAction).toAction()]))
         }
         return SKAction.repeat(SKAction.group(loopactions), count: self.loopcount)
