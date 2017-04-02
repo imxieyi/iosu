@@ -473,72 +473,6 @@ class BasicImage {
         }
     }
     
-    func hasFadein() -> Bool {
-        var earliestfade:SBFade?
-        var earliesttime=Int.max
-        var earliestactiontime=Int.max
-        var earliestaction:SBCommand?
-        for cmd in commands {
-            switch cmd.type {
-            case .Fade:
-                let fadecmd=cmd as! SBFade
-                if earliesttime>fadecmd.starttime {
-                //if fadecmd.endopacity==1 {
-                    //return true
-                    earliesttime=fadecmd.starttime
-                    earliestfade=fadecmd
-                }
-                break
-            default:
-                if cmd.starttime<earliestactiontime {
-                    earliestactiontime=cmd.starttime
-                    earliestaction=cmd
-                }
-                break
-            }
-        }
-        if earliestfade != nil {
-            if earliesttime<=earliestactiontime {
-                //if earliestfade?.starttime==earliestfade?.endtime && earliestfade?.endopacity==0 {
-                    return true
-                //}
-            }
-            if earliestfade?.startopacity==0 {
-                return true
-            }
-        }
-        if earliestaction != nil {
-            if earliestaction?.starttime==earliestaction?.endtime {
-                if (earliestaction?.type)! == .Parameter{
-                    let act=(earliestaction as! SBParam)
-                    if act.paramtype != .A {
-                        return true
-                    }
-                } else {
-                    return true
-                }
-            } else {
-                switch (earliestaction?.type)! {
-                case .Scale:
-                    let act=(earliestaction as! SBScale)
-                    if act.starts==0 {
-                        return true
-                    }
-                    break
-                case .VScale:
-                    let act=(earliestaction as! SBVScale)
-                    if act.startsx==0 || act.startsy==0 {
-                        return true
-                    }
-                    break
-                default:
-                    break
-                }
-            }
-        }
-        return false
-    }
-    
     func convertsprite(){
         sprite=SKSpriteNode(texture: ImageBuffer.get(file: filepath))
         //let scale=Double((image?.size.height)!/1080)*StoryBoard.actualheight
@@ -548,9 +482,7 @@ class BasicImage {
         sprite?.blendMode = .alpha
         sprite?.color = .white
         sprite?.colorBlendFactor=1.0
-        if hasFadein() {
-            sprite?.alpha=0
-        }
+        sprite?.alpha=0
         switch origin {
         case .TopLeft:
             sprite?.anchorPoint=CGPoint(x: 0, y: 1)
@@ -593,7 +525,11 @@ class BasicImage {
     }
     
     func runaction(offset:Int){
-        sprite?.run(SKAction.sequence([SKAction.wait(forDuration: Double(offset)/1000),self.actions!]),completion:{ ()->Void in
+        var acts:[SKAction]=[SKAction.wait(forDuration: Double(offset)/1000)]
+        acts.append(SKAction.customAction(withDuration: 0, actionBlock: {(node:SKNode,time:CGFloat)->Void in
+            node.alpha=1
+        }))
+        sprite?.run(SKAction.sequence([SKAction.sequence(acts),self.actions!]),completion:{ ()->Void in
             self.sprite?.removeFromParent()
             self.sprite=nil
             self.commands=[]
