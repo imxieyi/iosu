@@ -92,6 +92,12 @@ class Beatmap{
             case "SampleSet":
                 sampleSet=samplesetConv(str: value as String)
                 break
+            case "WidescreenStoryboard":
+                if (value as NSString).integerValue==1 {
+                    debugPrint("Widescreen Storyboard enabled")
+                    StoryBoard.stdwidth=854
+                }
+                break
             default:break
             }
         }

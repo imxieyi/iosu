@@ -12,8 +12,9 @@ import SpriteKitEasingSwift
 
 class StoryBoard {
     
-    private static let stdwidth=640.0
-    private static let stdheight=480.0
+    public static var stdwidth:Double=640.0
+    public static let stdswidth:Double=640.0
+    public static let stdheight:Double=480.0
     public static var actualwidth:Double = 0
     public static var actualheight:Double = 0
     public static var leftedge:Double = 0
@@ -32,6 +33,9 @@ class StoryBoard {
         StoryBoard.actualheight=height
         StoryBoard.actualwidth=height/StoryBoard.stdheight*StoryBoard.stdwidth
         StoryBoard.leftedge=(width-StoryBoard.actualwidth)/2
+        debugPrint("actualh:\(StoryBoard.actualheight)")
+        debugPrint("actualw:\(StoryBoard.actualwidth)")
+        debugPrint("ledge:\(StoryBoard.leftedge)")
         self.layer=layer
         //osu file
         let readFile=FileHandle(forReadingAtPath: osufile)
@@ -82,6 +86,9 @@ class StoryBoard {
         StoryBoard.actualheight=height
         StoryBoard.actualwidth=height/StoryBoard.stdheight*StoryBoard.stdwidth
         StoryBoard.leftedge=(width-StoryBoard.actualwidth)/2
+        debugPrint("actualh:\(StoryBoard.actualheight)")
+        debugPrint("actualw:\(StoryBoard.actualwidth)")
+        debugPrint("ledge:\(StoryBoard.leftedge)")
         self.layer=layer
         //osu file
         var readFile=FileHandle(forReadingAtPath: osufile)
@@ -161,7 +168,7 @@ class StoryBoard {
     
     //Convert StoryBoard x and y to screen x and y
     static public func conv(x:Double) -> Double {
-        return leftedge+x/stdwidth*actualwidth
+        return leftedge+x/stdswidth*actualwidth
     }
     
     static public func conv(y:Double) -> Double {
@@ -456,8 +463,8 @@ class BasicImage {
         while self.filepath.hasSuffix("\"") {
             self.filepath=(self.filepath as NSString).substring(to: self.filepath.lengthOfBytes(using: .ascii)-1)
         }
-        self.x=x
-        self.y=y
+        self.x=StoryBoard.conv(x: x)
+        self.y=StoryBoard.conv(y: y)
     }
     
     func gentime() {
@@ -542,8 +549,12 @@ class BasicImage {
         sprite=SKSpriteNode(texture: ImageBuffer.get(file: filepath))
         //let scale=Double((image?.size.height)!/1080)*StoryBoard.actualheight
         //sprite?.size=CGSize(width: Double((image?.size.width)!)*scale, height: Double((image?.size.height)!)*scale)
+        var size=sprite?.size
+        size?.width*=CGFloat(StoryBoard.actualwidth/StoryBoard.stdwidth)
+        size?.height*=CGFloat(StoryBoard.actualheight/StoryBoard.stdheight)
+        sprite?.size=size!
         sprite?.zPosition=CGFloat(rlayer)
-        sprite?.position=CGPoint(x: StoryBoard.conv(x: x), y: StoryBoard.conv(y: y))
+        sprite?.position=CGPoint(x: x, y: y)
         sprite?.blendMode = .alpha
         sprite?.color = .white
         sprite?.colorBlendFactor=1.0
