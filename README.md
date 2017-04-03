@@ -25,11 +25,15 @@ This is an ios port of the rhythm game [osu!](https://osu.ppy.sh). It is written
 6. Now with the help of image buffer, you can load any complicated storyboard. **But be sure to correct storyboard image paths because in Unix-like system file name is case sensitive.** Also, there is still some bugs in the render and processor. But in most of the time it works well.
 7. Both the osu game and StoryBoard player are unfinished.
 8. I'm new to iOS development, Swift and SpriteKit. And I don't like to insert a lot of comments. So please tolerate my awful code.
-### Screenshot
+### GamePlay Screenshot
 
 ![](screenshots/run.png)
 
-![](screenshots/storyboard.png)
+### StoryBoard demo videos
+[http://www.bilibili.com/video/av9580463/](http://www.bilibili.com/video/av9580463/)
+[http://www.bilibili.com/video/av9582040/](http://www.bilibili.com/video/av9582040/)
+[http://www.bilibili.com/video/av9582174/](http://www.bilibili.com/video/av9582174/)
+[http://www.bilibili.com/video/av9582511/](http://www.bilibili.com/video/av9582511/)
 
 ### Credit
  - [osu!](https://osu.ppy.sh)
