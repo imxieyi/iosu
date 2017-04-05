@@ -15,6 +15,7 @@ class GameViewController: UIViewController {
     let screenWidth=UIScreen.main.bounds.width*UIScreen.main.scale
     let screenHeight=UIScreen.main.bounds.height*UIScreen.main.scale
     static var sbmode=true
+    var alert:UIAlertController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +23,7 @@ class GameViewController: UIViewController {
         // including entities and graphs.
         //let scene=GamePlayScene(size: CGSize(width: screenWidth, height: screenHeight))
         if GameViewController.sbmode {
-            let scene=StoryBoardScene(size: CGSize(width: screenWidth, height: screenHeight))
+            let scene=StoryBoardScene(size: CGSize(width: screenWidth, height: screenHeight),parent:self)
             let skView=self.view as! SKView
             skView.showsFPS=true
             skView.showsNodeCount=true
@@ -40,6 +41,14 @@ class GameViewController: UIViewController {
         }
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        debugPrint("scene appears,\(alert)")
+        if alert != nil {
+            debugPrint("show alert")
+            self.present(alert!, animated: true, completion: nil)
+        }
+    }
+    
     override var shouldAutorotate: Bool {
         return true
     }

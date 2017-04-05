@@ -44,6 +44,7 @@
 		8A2A44E61E8E742200B78DDE /* spinnerbonus.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8A2A44E41E8E742200B78DDE /* spinnerbonus.wav */; };
 		8A2A44E71E8E742200B78DDE /* spinnerspin.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8A2A44E51E8E742200B78DDE /* spinnerspin.wav */; };
 		8A2AAE101E90FE39005D52E7 /* test.osb in Resources */ = {isa = PBXBuildFile; fileRef = 8A2AAE0F1E90FE39005D52E7 /* test.osb */; };
+		8A2B382E1E949C6D005B35F6 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2B382D1E949C6D005B35F6 /* AlertView.swift */; };
 		8A3E5C211E8D259C00C28C9D /* Beatmap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3E5C201E8D259C00C28C9D /* Beatmap.swift */; };
 		8A3E5C231E8D375A00C28C9D /* HitObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3E5C221E8D375A00C28C9D /* HitObjects.swift */; };
 		8A3E5C251E8D4A9D00C28C9D /* BGMusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3E5C241E8D4A9D00C28C9D /* BGMusicPlayer.swift */; };
@@ -116,6 +117,7 @@
 		8A2A44E41E8E742200B78DDE /* spinnerbonus.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = spinnerbonus.wav; sourceTree = "<group>"; };
 		8A2A44E51E8E742200B78DDE /* spinnerspin.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = spinnerspin.wav; sourceTree = "<group>"; };
 		8A2AAE0F1E90FE39005D52E7 /* test.osb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.osb; sourceTree = "<group>"; };
+		8A2B382D1E949C6D005B35F6 /* AlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
 		8A3E5C201E8D259C00C28C9D /* Beatmap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Beatmap.swift; sourceTree = "<group>"; };
 		8A3E5C221E8D375A00C28C9D /* HitObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HitObjects.swift; sourceTree = "<group>"; };
 		8A3E5C241E8D4A9D00C28C9D /* BGMusicPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BGMusicPlayer.swift; sourceTree = "<group>"; };
@@ -235,6 +237,7 @@
 				8A4D5C591E8A981400319D91 /* GamePlayScene.sks */,
 				8A4D5C391E8A8AEB00319D91 /* GamePlayScene.swift */,
 				8ACA3AE51E90EE6F00057AA6 /* StoryBoardScene.swift */,
+				8A2B382D1E949C6D005B35F6 /* AlertView.swift */,
 				8A3E5C241E8D4A9D00C28C9D /* BGMusicPlayer.swift */,
 				8A5437B31E8D15BF00F25E63 /* BeatmapScanner.swift */,
 				8A6743881E90075800818D55 /* StoryBoard.swift */,
@@ -482,6 +485,7 @@
 				8A5437B41E8D15BF00F25E63 /* BeatmapScanner.swift in Sources */,
 				8A72A5621E9018EF000BEE3C /* StoryBoardCommands.swift in Sources */,
 				8ACA3AE61E90EE6F00057AA6 /* StoryBoardScene.swift in Sources */,
+				8A2B382E1E949C6D005B35F6 /* AlertView.swift in Sources */,
 				8A3E5C231E8D375A00C28C9D /* HitObjects.swift in Sources */,
 				8AC188441E8EAE3300C9BB98 /* README.md in Sources */,
 				8A4D5C341E8A8AEB00319D91 /* AppDelegate.swift in Sources */,

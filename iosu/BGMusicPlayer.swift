@@ -34,4 +34,11 @@ class BGMusicPlayer{
         return musicPlayer.currentTime
     }
     
+    func isplaying() -> Bool{
+        if musicPlayer==nil {
+            return false
+        }
+        return musicPlayer.isPlaying
+    }
+    
 }

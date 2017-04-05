@@ -257,7 +257,7 @@ class StoryBoard {
                 }
                 sprite.filepath=(sprite.filepath as NSString).replacingOccurrences(of: "\\", with: "/")
                 sprite.filepath=(sbdirectory as NSString).appending("/"+sprite.filepath)
-                //sprite.convertsprite()
+                sprite.convertsprite()
                 //sprite.sprite=nil
                 //debugPrint("number of commands:\(sprite.commands.count)")
                 sbsprites.append(sprite)
@@ -414,6 +414,7 @@ class StoryBoard {
 class ImageBuffer{
     
     static var buffer=[String:SKTexture]()
+    static var notfoundimages=Set<String>()
     
     static func addtobuffer(file:String) {
         if buffer[file] != nil {
@@ -422,18 +423,28 @@ class ImageBuffer{
         let image=UIImage(contentsOfFile: file)
         if image==nil {
             debugPrint("image not found: \(file)")
+            notfoundimages.insert(file)
             return
         }
         let texture=SKTexture(image: image!)
         buffer[file]=texture
     }
     
-    static func get(file:String) ->SKTexture {
+    static func notfound2str() -> String {
+        var str="Cannot find following images:\n"
+        for line in notfoundimages {
+            str+=line+"\n"
+        }
+        return str
+    }
+    
+    static func get(file:String) ->SKTexture? {
         addtobuffer(file: file)
         if buffer[file] != nil {
             return buffer[file]!
         }
-        return SKTexture()
+        return nil
+        //return SKTexture()
     }
     
 }
@@ -547,6 +558,9 @@ class BasicImage {
     
     func convertsprite(){
         sprite=SKSpriteNode(texture: ImageBuffer.get(file: filepath))
+        if sprite==nil {
+            return
+        }
         //let scale=Double((image?.size.height)!/1080)*StoryBoard.actualheight
         //sprite?.size=CGSize(width: Double((image?.size.width)!)*scale, height: Double((image?.size.height)!)*scale)
         var size=sprite?.size
@@ -601,6 +615,9 @@ class BasicImage {
     }
     
     func runaction(offset:Int){
+        if sprite==nil {
+            return
+        }
         var acts:[SKAction]=[SKAction.wait(forDuration: Double(offset)/1000)]
         if !hasFadein() {
             acts.append(SKAction.customAction(withDuration: 0, actionBlock: {(node:SKNode,time:CGFloat)->Void in
