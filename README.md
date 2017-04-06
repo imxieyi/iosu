@@ -31,9 +31,15 @@ This is an ios port of the rhythm game [osu!](https://osu.ppy.sh). It is written
 ![](screenshots/run.png)
 
 ### StoryBoard demo videos
+
+Notice: The following videos is outdated. If you want to see the latest version, please clone and install the latest version on your device.
+
 [http://www.bilibili.com/video/av9580463/](http://www.bilibili.com/video/av9580463/)
+
 [http://www.bilibili.com/video/av9582040/](http://www.bilibili.com/video/av9582040/)
+
 [http://www.bilibili.com/video/av9582174/](http://www.bilibili.com/video/av9582174/)
+
 [http://www.bilibili.com/video/av9582511/](http://www.bilibili.com/video/av9582511/)
 
 ### Credit

@@ -603,7 +603,7 @@ class BasicImage {
         sprite?.blendMode = .alpha
         sprite?.color = UIColor(red: CGFloat(r), green: CGFloat(g), blue: CGFloat(b), alpha: 1)
         sprite?.colorBlendFactor=1.0
-        sprite?.alpha=CGFloat(alpha)
+        sprite?.alpha=0
         sprite?.setScale(CGFloat(scale))
         sprite?.zRotation=CGFloat(angle)
         switch origin {
@@ -639,6 +639,9 @@ class BasicImage {
     
     func genaction(){
         var action:[SKAction]=[]
+        action.append(SKAction.customAction(withDuration: 0, actionBlock: {(node:SKNode,time:CGFloat) -> Void in
+            node.alpha=CGFloat(self.alpha)
+        }))
         for cmd in commands {
             //cmd.sprite=self.sprite
             //debugPrint("after: \(cmd.starttime-self.starttime)")
