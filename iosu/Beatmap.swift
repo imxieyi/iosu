@@ -95,7 +95,7 @@ class Beatmap{
             case "WidescreenStoryboard":
                 if (value as NSString).integerValue==1 {
                     debugPrint("Widescreen Storyboard enabled")
-                    StoryBoard.stdwidth=854
+                    //StoryBoard.stdwidth=854
                 }
                 break
             default:break

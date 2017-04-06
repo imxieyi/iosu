@@ -261,8 +261,8 @@ class SBRotate:SBCommand,SBCAction {
     var endr:Double
     
     init(easing:Int,starttime:Int,endtime:Int,startr:Double,endr:Double) {
-        self.startr=startr
-        self.endr=endr
+        self.startr = -startr
+        self.endr = -endr
         super.init(type: .Rotate, easing: easing, starttime: starttime, endtime: endtime)
     }
     

@@ -136,7 +136,6 @@ class StoryBoardScene: SKScene {
                 index+=1
             }
         }
-        debugPrint("start playing music")
         if (sb?.earliest)!<0 {
             self.run(SKAction.sequence([SKAction.wait(forDuration: Double(-(sb?.earliest)!)/1000),mplayer.play(file: audiofile)]))
         } else {

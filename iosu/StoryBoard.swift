@@ -606,6 +606,11 @@ class BasicImage {
     
     func genaction(){
         var action:[SKAction]=[]
+        if !hasFadein() {
+            action.append(SKAction.customAction(withDuration: 0, actionBlock: {(node:SKNode,time:CGFloat)->Void in
+                node.alpha=1
+            }))
+        }
         for cmd in commands {
             //cmd.sprite=self.sprite
             //debugPrint("after: \(cmd.starttime-self.starttime)")
@@ -618,13 +623,10 @@ class BasicImage {
         if sprite==nil {
             return
         }
-        var acts:[SKAction]=[SKAction.wait(forDuration: Double(offset)/1000)]
-        if !hasFadein() {
-            acts.append(SKAction.customAction(withDuration: 0, actionBlock: {(node:SKNode,time:CGFloat)->Void in
-                node.alpha=1
-            }))
-        }
-        sprite?.run(SKAction.sequence([SKAction.sequence(acts),self.actions!]),completion:{ ()->Void in
+        //var acts:[SKAction]=[SKAction.wait(forDuration: Double(offset)/1000)]
+        //sprite?.run(SKAction.sequence([SKAction.sequence(acts),self.actions!]),completion:{ ()->Void in
+        sprite?.run(SKAction.sequence([SKAction.wait(forDuration: Double(offset)/1000),self.actions!]),completion:{ ()->Void in
+            //debugPrint("destroy sprite")
             self.sprite?.removeFromParent()
             self.sprite=nil
             self.commands=[]
