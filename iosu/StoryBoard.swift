@@ -13,7 +13,6 @@ import SpriteKitEasingSwift
 class StoryBoard {
     
     public static var stdwidth:Double=640.0
-    public static let stdswidth:Double=640.0
     public static let stdheight:Double=480.0
     public static var actualwidth:Double = 0
     public static var actualheight:Double = 0
@@ -26,7 +25,7 @@ class StoryBoard {
     public var sbsprites:[BasicImage]=[]
     public var sbactions:[SKAction]=[]
     public var sbdirectory:String
-    public var earliest=Int.max
+    public var earliest = Int.max
     
     init(directory:String,osufile:String,width:Double,height:Double,layer:Double) throws {
         self.sbdirectory=directory
@@ -168,7 +167,7 @@ class StoryBoard {
     
     //Convert StoryBoard x and y to screen x and y
     static public func conv(x:Double) -> Double {
-        return leftedge+x/stdswidth*actualwidth
+        return leftedge+x/stdwidth*actualwidth
     }
     
     static public func conv(y:Double) -> Double {
@@ -254,6 +253,7 @@ class StoryBoard {
                     sprite.commands=parseCommands(lines: slines)
                     sprite.gentime()
                     sprite.genaction()
+                    sprite.geninitials()
                 }
                 sprite.filepath=(sprite.filepath as NSString).replacingOccurrences(of: "\\", with: "/")
                 sprite.filepath=(sbdirectory as NSString).appending("/"+sprite.filepath)
@@ -361,13 +361,10 @@ class StoryBoard {
                 if (splitted[2] as NSString).integerValue<earliest {
                     earliest=(splitted[2] as NSString).integerValue
                 }
-                if splitted.count==10 {
+                if splitted.count>=10 {
                     commands.append(SBColor(easing: (splitted[1] as NSString).integerValue, starttime: (splitted[2] as NSString).integerValue, endtime: (splitted[3] as NSString).integerValue, startr: (splitted[4] as NSString).doubleValue, startg: (splitted[5] as NSString).doubleValue, startb: (splitted[6] as NSString).doubleValue, endr: (splitted[7] as NSString).doubleValue, endg: (splitted[8] as NSString).doubleValue, endb: (splitted[9] as NSString).doubleValue))
                 }
                 if splitted.count==7 {
-                    /*let r=Double(Int(splitted[4],radix:16)!)
-                    let g=Double(Int(splitted[5],radix:16)!)
-                    let b=Double(Int(splitted[6],radix:16)!)*/
                     let r=(splitted[4] as NSString).doubleValue
                     let g=(splitted[5] as NSString).doubleValue
                     let b=(splitted[6] as NSString).doubleValue
@@ -455,13 +452,20 @@ class BasicImage {
     var rlayer:Double
     var origin:SBOrigin
     var filepath:String
-    var x:Double
-    var y:Double
     var commands:[SBCommand]=[]
     var starttime=0
     var endtime=0
     var sprite:SKSpriteNode?
     var actions:SKAction?
+    //Initial value
+    var x:Double
+    var y:Double
+    var alpha:Double = 1
+    var r:Double = 1
+    var g:Double = 1
+    var b:Double = 1
+    var scale:Double = 1
+    var angle:Double = 0
     
     init(layer:SBLayer,rlayer:Double,origin:SBOrigin,filepath:String,x:Double,y:Double) {
         self.layer=layer
@@ -491,69 +495,98 @@ class BasicImage {
         }
     }
     
-    func hasFadein() -> Bool {
-        var earliestfade:SBFade?
-        var earliesttime=Int.max
-        var earliestactiontime=Int.max
-        //var earliestaction:SBCommand?
+    func geninitials(){
+        var FirstMove=SBMove(easing: 0, starttime: .max, endtime: .max, startx: 0, starty: 0, endx: 0, endy: 0)
+        var FirstMoveX=SBMoveX(easing: 0, starttime: .max, endtime: .max, startx: 0, endx: 0)
+        var FirstMoveY=SBMoveY(easing: 0, starttime: .max, endtime: .max, starty: 0, endy: 0)
+        var FirstScale=SBScale(easing: 0, starttime: .max, endtime: .max, starts: 0, ends: 0)
+        var FirstVScale=SBVScale(easing: 0, starttime: .max, endtime: .max, startsx: 0, startsy: 0, endsx: 0, endsy: 0)
+        var FirstColor=SBColor(easing: 0, starttime: .max, endtime: .max, startr: 0, startg: 0, startb: 0, endr: 0, endg: 0, endb: 0)
+        var FirstFade=SBFade(easing: 0, starttime: .max, endtime: .max, startopacity: 0, endopacity: 0)
+        var FirstRotate=SBRotate(easing: 0, starttime: .max, endtime: .max, startr: 0, endr: 0)
         for cmd in commands {
             switch cmd.type {
-            case .Fade:
-                let fadecmd=cmd as! SBFade
-                if earliesttime>fadecmd.starttime {
-                //if fadecmd.endopacity==1 {
-                    //return true
-                    earliesttime=fadecmd.starttime
-                    earliestfade=fadecmd
-                }
-            default:
-                if cmd.starttime<earliestactiontime {
-                    earliestactiontime=cmd.starttime
-                    //earliestaction=cmd
+            case .Move:
+                if FirstMove.starttime>cmd.starttime {
+                    FirstMove=cmd as! SBMove
                 }
                 break
-            }
-        }
-        if earliestfade != nil {
-            if earliesttime==earliestactiontime {
-                //if earliestfade?.starttime==earliestfade?.endtime && earliestfade?.endopacity==0 {
-                    return true
-                //}
-            }
-            if earliestfade?.startopacity==0 {
-                return true
-            }
-        }
-        /*if earliestaction != nil {
-            if earliestaction?.starttime==earliestaction?.endtime {
-                if (earliestaction?.type)! == .Parameter{
-                    let act=(earliestaction as! SBParam)
-                    if act.paramtype != .A {
-                        return true
-                    }
-                } else {
-                    return true
+            case .MoveX:
+                if FirstMoveX.starttime>cmd.starttime {
+                    FirstMoveX=cmd as! SBMoveX
                 }
+                break
+            case .MoveY:
+                if FirstMoveY.starttime>cmd.starttime {
+                    FirstMoveY=cmd as! SBMoveY
+                }
+                break
+            case .Scale:
+                if FirstScale.starttime>cmd.starttime {
+                    FirstScale=cmd as! SBScale
+                }
+                break
+            case .VScale:
+                if FirstVScale.starttime>cmd.starttime {
+                    FirstVScale=cmd as! SBVScale
+                }
+                break
+            case .Color:
+                if FirstColor.starttime>cmd.starttime {
+                    FirstColor=cmd as! SBColor
+                }
+                break
+            case .Fade:
+                if FirstFade.starttime>cmd.starttime {
+                    FirstFade=cmd as! SBFade
+                }
+                break
+            case .Rotate:
+                if FirstRotate.starttime>cmd.starttime {
+                    FirstRotate=cmd as! SBRotate
+                }
+                break
+            default:
+                continue
+            }
+        }
+        //Generate initial values
+        if FirstMove.starttime != .max {
+            if FirstMove.starttime<FirstMoveX.starttime {
+                x=FirstMove.startx
             } else {
-                switch (earliestaction?.type)! {
-                case .Scale:
-                    let act=(earliestaction as! SBScale)
-                    if act.starts==0 {
-                        return true
-                    }
-                    break
-                case .VScale:
-                    let act=(earliestaction as! SBVScale)
-                    if act.startsx==0 || act.startsy==0 {
-                        return true
-                    }
-                    break
-                default:
-                    break
-                }
+                x=FirstMoveX.startx
             }
-        }*/
-        return false
+        } else {
+            if FirstMoveX.starttime != .max {
+                x=FirstMoveX.startx
+            }
+        }
+        if FirstMove.starttime != .max {
+            if FirstMove.starttime<FirstMoveY.starttime {
+                y=FirstMove.starty
+            } else {
+                y=FirstMoveY.starty
+            }
+        } else {
+            if FirstMoveY.starttime != .max {
+                y=FirstMoveY.starty
+            }
+        }
+        if FirstScale.starttime != .max {
+            scale=FirstScale.starts
+        }
+        if FirstColor.starttime != .max {
+            r=FirstColor.startr
+            g=FirstColor.startg
+            b=FirstColor.startb
+        }
+        if FirstFade.starttime != .max {
+            alpha=FirstFade.startopacity
+        }
+        if FirstRotate.starttime != .max {
+            angle=FirstRotate.startr
+        }
     }
     
     func convertsprite(){
@@ -561,8 +594,6 @@ class BasicImage {
         if sprite==nil {
             return
         }
-        //let scale=Double((image?.size.height)!/1080)*StoryBoard.actualheight
-        //sprite?.size=CGSize(width: Double((image?.size.width)!)*scale, height: Double((image?.size.height)!)*scale)
         var size=sprite?.size
         size?.width*=CGFloat(StoryBoard.actualwidth/StoryBoard.stdwidth)
         size?.height*=CGFloat(StoryBoard.actualheight/StoryBoard.stdheight)
@@ -570,9 +601,11 @@ class BasicImage {
         sprite?.zPosition=CGFloat(rlayer)
         sprite?.position=CGPoint(x: x, y: y)
         sprite?.blendMode = .alpha
-        sprite?.color = .white
+        sprite?.color = UIColor(red: CGFloat(r), green: CGFloat(g), blue: CGFloat(b), alpha: 1)
         sprite?.colorBlendFactor=1.0
-        sprite?.alpha=0
+        sprite?.alpha=CGFloat(alpha)
+        sprite?.setScale(CGFloat(scale))
+        sprite?.zRotation=CGFloat(angle)
         switch origin {
         case .TopLeft:
             sprite?.anchorPoint=CGPoint(x: 0, y: 1)
@@ -606,11 +639,6 @@ class BasicImage {
     
     func genaction(){
         var action:[SKAction]=[]
-        if !hasFadein() {
-            action.append(SKAction.customAction(withDuration: 0, actionBlock: {(node:SKNode,time:CGFloat)->Void in
-                node.alpha=1
-            }))
-        }
         for cmd in commands {
             //cmd.sprite=self.sprite
             //debugPrint("after: \(cmd.starttime-self.starttime)")
