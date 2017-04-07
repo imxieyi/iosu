@@ -218,7 +218,9 @@ class GamePlayScene: SKScene {
             slidernode.position = .zero
             slidernode.zPosition=layer
             self.addChild(slidernode)
-            slidernode.run(SKAction.sequence([SKAction.wait(forDuration: Double(time)/1000+1),SKAction.fadeOut(withDuration: 1)]))
+            slidernode.run(SKAction.sequence([SKAction.wait(forDuration: Double(time)/1000+1),SKAction.fadeOut(withDuration: 1),SKAction.removeFromParent()]),completion: {
+                slider.image=nil
+            })
         }
     }
     
