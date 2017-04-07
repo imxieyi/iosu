@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class HitObject{
     
@@ -17,13 +18,15 @@ class HitObject{
     var hitSound:HitSound
     var newCombo:Bool
     
-    init() {
-        self.type=HitObjectType.None
-        self.x=0
-        self.y=0
-        self.time=0
-        self.hitSound = .Normal
-        self.newCombo=false
+    init(type:HitObjectType,x:Int,y:Int,time:Int,hitsound:HitSound,newcombo:Bool) {
+        self.type=type
+        debugPrint("before:\(x),\(y)")
+        self.x=Int(GamePlayScene.conv(x: Double(x)))
+        self.y=Int(GamePlayScene.conv(y: Double(y)))
+        debugPrint("after:\(self.x),\(self.y)")
+        self.time=time
+        self.hitSound = hitsound
+        self.newCombo=newcombo
     }
     
     static func getObjectType(num:String) -> HitObjectType {
@@ -69,24 +72,12 @@ class HitCircle:HitObject{
     var ctype:CircleType = .Plain
     
     init(x:Int,y:Int,time:Int,hitsound:Int,newCombo:Bool) {
-        super.init()
-        self.type=HitObjectType.Circle
-        self.x=x
-        self.y=y
-        self.time=time
-        self.hitSound=HitObject.hitsoundDecode(num: hitsound)
-        self.newCombo=newCombo
+        super.init(type: .Circle, x: x, y: y, time: time, hitsound: HitObject.hitsoundDecode(num: hitsound), newcombo: newCombo)
     }
     
     init(x:Int,y:Int,time:Int,hitsound:Int,newCombo:Bool,type:CircleType) {
-        super.init()
-        self.type=HitObjectType.Circle
-        self.x=x
-        self.y=y
-        self.time=time
-        self.hitSound=HitObject.hitsoundDecode(num: hitsound)
-        self.newCombo=newCombo
         self.ctype=type
+        super.init(type: .Circle, x: x, y: y, time: time, hitsound: HitObject.hitsoundDecode(num: hitsound), newcombo: newCombo)
     }
     
 }
@@ -97,19 +88,46 @@ class Slider:HitObject{
     var cy:[Int] = []
     var repe:Int = 0
     var length:Int = 0
+    var image:UIImage?
     
     init(x:Int,y:Int,curveX:[Int],curveY:[Int],time:Int,hitsound:Int,newCombo:Bool,repe:Int,length:Int) {
-        super.init()
-        self.type=HitObjectType.Slider
-        self.x=x
-        self.y=y
         self.cx=curveX
         self.cy=curveY
-        self.time=time
-        self.hitSound=HitObject.hitsoundDecode(num: hitsound)
-        self.newCombo=newCombo
+        for i in 0...cx.count-1 {
+            cx[i]=Int(GamePlayScene.conv(x: Double(cx[i])))
+            cy[i]=Int(GamePlayScene.conv(y: Double(cy[i])))
+        }
         self.repe=repe
         self.length=length
+        super.init(type: .Slider, x: x, y: y, time: time, hitsound: HitObject.hitsoundDecode(num: hitsound), newcombo: newCombo)
+    }
+    
+    func genimage(color:UIColor,layer:CGFloat,inwidth:CGFloat,outwidth:CGFloat){
+        let size=CGSize(width: GamePlayScene.scrwidth, height: GamePlayScene.scrheight)
+        let path=UIBezierPath()
+        path.move(to: CGPoint(x: x, y: Int(GamePlayScene.scrheight)-y))
+        path.addLine(to: CGPoint(x: cx[cx.count-1], y: Int(GamePlayScene.scrheight)-cy[cy.count-1]))
+        let pathlayer=CAShapeLayer()
+        pathlayer.frame=CGRect(origin: CGPoint.zero, size: size)
+        pathlayer.path=path.cgPath
+        pathlayer.strokeColor=color.cgColor
+        pathlayer.lineWidth=inwidth
+        pathlayer.lineCap="round"
+        pathlayer.lineJoin=kCALineJoinBevel
+        pathlayer.zPosition=1
+        let pathlayer2=CAShapeLayer()
+        pathlayer2.frame=CGRect(origin: CGPoint.zero, size: size)
+        pathlayer2.path=path.cgPath
+        pathlayer2.strokeColor=UIColor.white.cgColor
+        pathlayer2.lineWidth=outwidth
+        pathlayer2.lineCap="round"
+        pathlayer2.lineJoin=kCALineJoinBevel
+        pathlayer2.zPosition=0
+        UIGraphicsBeginImageContextWithOptions(size, false, 1)
+        pathlayer2.render(in: UIGraphicsGetCurrentContext()!)
+        pathlayer.render(in: UIGraphicsGetCurrentContext()!)
+        image=UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
     }
     
 }
@@ -120,13 +138,7 @@ class Spinner:HitObject{
     
     init(time:Int,hitsound:Int,endtime:Int,newcombo:Bool) {
         self.endtime=endtime
-        super.init()
-        self.time=time
-        self.hitSound=HitObject.hitsoundDecode(num: hitsound)
-        self.type = .Spinner
-        self.x=256
-        self.y=192
-        self.newCombo=newcombo
+        super.init(type: .Spinner, x: 0, y: 0, time: time, hitsound: HitObject.hitsoundDecode(num: hitsound), newcombo: newcombo)
     }
     
 }

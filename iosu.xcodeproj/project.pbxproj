@@ -62,6 +62,7 @@
 		8A67438B1E9011D800818D55 /* SpriteKitEasingSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A67438A1E9011D800818D55 /* SpriteKitEasingSwift.framework */; };
 		8A72A5621E9018EF000BEE3C /* StoryBoardCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A72A5611E9018EF000BEE3C /* StoryBoardCommands.swift */; };
 		8A7615CB1E91702E00AE5580 /* SelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7615CA1E91702E00AE5580 /* SelectionView.swift */; };
+		8AAA496D1E97BD87001BDB5B /* TestScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAA496C1E97BD87001BDB5B /* TestScene.swift */; };
 		8AC188441E8EAE3300C9BB98 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 8AC188431E8EAE3300C9BB98 /* README.md */; };
 		8ACA3AE61E90EE6F00057AA6 /* StoryBoardScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACA3AE51E90EE6F00057AA6 /* StoryBoardScene.swift */; };
 		99B4058382CF96D791075AB4 /* Pods_iosu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A76F916780A6E7BFEFB56503 /* Pods_iosu.framework */; };
@@ -139,6 +140,7 @@
 		8A67438A1E9011D800818D55 /* SpriteKitEasingSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKitEasingSwift.framework; path = "../../Library/Developer/Xcode/DerivedData/iosu-gddpvylvaevfhyenmhqlpckshyiw/Build/Products/Debug-iphonesimulator/SpriteKitEasingSwift/SpriteKitEasingSwift.framework"; sourceTree = "<group>"; };
 		8A72A5611E9018EF000BEE3C /* StoryBoardCommands.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StoryBoardCommands.swift; path = ../StoryBoardCommands.swift; sourceTree = "<group>"; };
 		8A7615CA1E91702E00AE5580 /* SelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionView.swift; sourceTree = "<group>"; };
+		8AAA496C1E97BD87001BDB5B /* TestScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestScene.swift; sourceTree = "<group>"; };
 		8AC188431E8EAE3300C9BB98 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8ACA3AE51E90EE6F00057AA6 /* StoryBoardScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryBoardScene.swift; sourceTree = "<group>"; };
 		A76F916780A6E7BFEFB56503 /* Pods_iosu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iosu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -238,6 +240,7 @@
 				8A4D5C391E8A8AEB00319D91 /* GamePlayScene.swift */,
 				8ACA3AE51E90EE6F00057AA6 /* StoryBoardScene.swift */,
 				8A2B382D1E949C6D005B35F6 /* AlertView.swift */,
+				8AAA496C1E97BD87001BDB5B /* TestScene.swift */,
 				8A3E5C241E8D4A9D00C28C9D /* BGMusicPlayer.swift */,
 				8A5437B31E8D15BF00F25E63 /* BeatmapScanner.swift */,
 				8A6743881E90075800818D55 /* StoryBoard.swift */,
@@ -484,6 +487,7 @@
 				8A3E5C211E8D259C00C28C9D /* Beatmap.swift in Sources */,
 				8A5437B41E8D15BF00F25E63 /* BeatmapScanner.swift in Sources */,
 				8A72A5621E9018EF000BEE3C /* StoryBoardCommands.swift in Sources */,
+				8AAA496D1E97BD87001BDB5B /* TestScene.swift in Sources */,
 				8ACA3AE61E90EE6F00057AA6 /* StoryBoardScene.swift in Sources */,
 				8A2B382E1E949C6D005B35F6 /* AlertView.swift in Sources */,
 				8A3E5C231E8D375A00C28C9D /* HitObjects.swift in Sources */,

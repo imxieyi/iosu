@@ -18,8 +18,22 @@ class GamePlayScene: SKScene {
     static var testBMIndex = 6 //The index of beatmap to test in the beatmaps
     var minlayer:CGFloat=0.0
     var hitaudioHeader:String = "normal-"
+    static var realwidth:Double=512
+    static var realheight:Double=384
+    static var scrwidth:Double=750
+    static var scrheight:Double=750
+    static var scrscale:Double=1
+    static var leftedge:Double=0
+    static var bottomedge:Double=0
     
     override func sceneDidLoad() {
+        GamePlayScene.scrscale=Double(size.height)/480.0
+        GamePlayScene.realwidth=512.0*GamePlayScene.scrscale
+        GamePlayScene.realheight=384.0*GamePlayScene.scrscale
+        GamePlayScene.scrwidth=Double(size.width)
+        GamePlayScene.scrheight=Double(size.height)
+        GamePlayScene.bottomedge=(Double(size.height)-GamePlayScene.realheight)/2
+        GamePlayScene.leftedge=(Double(size.width)-GamePlayScene.realwidth)/2
         let beatmaps=BeatmapScanner()
         debugPrint("list of detected beatmaps:")
         for item in beatmaps.beatmaps {
@@ -27,6 +41,11 @@ class GamePlayScene: SKScene {
         }
         debugPrint("test beatmap:\(beatmaps.beatmaps[GamePlayScene.testBMIndex])")
         debugPrint("Enter GamePlayScene, screen size: \(size.width)*\(size.height)")
+        debugPrint("scrscale:\(GamePlayScene.scrscale)")
+        debugPrint("realwidth:\(GamePlayScene.realwidth)")
+        debugPrint("realheight:\(GamePlayScene.realheight)")
+        debugPrint("bottomedge:\(GamePlayScene.bottomedge)")
+        debugPrint("leftedge:\(GamePlayScene.leftedge)")
         do{
             let bm=try Beatmap(file: (beatmaps.beatmapdirs[GamePlayScene.testBMIndex] as NSString).strings(byAppendingPaths: [beatmaps.beatmaps[GamePlayScene.testBMIndex]])[0])
             switch bm.sampleSet {
@@ -77,14 +96,22 @@ class GamePlayScene: SKScene {
         } catch let error {
             debugPrint("ERROR:unknown error(\(error.localizedDescription))")
         }
-        /*
-        self.run(SKAction.repeatForever(SKAction.sequence([
-            self.addHitCircleAfter(color: .red,after:1.0,x:self.size.width/2,y:self.size.height/2),
-            self.addHitCircleAfter(color: .green,after:2.0,x:self.size.width/2-200,y:self.size.height/2),
-            self.addHitCircleAfter(color: .blue,after:3.0,x:self.size.width/2+200,y:self.size.height/2),
-            self.addHitCircleAfter(color: .cyan,after:4.0,x:self.size.width/2,y:self.size.height/2+200),
-            SKAction.wait(forDuration: 4)
-            ])))*/
+    }
+    
+    static func conv(x:Double) -> Double {
+        return leftedge+x*scrscale
+    }
+    
+    static func conv(y:Double) -> Double {
+        return scrheight-bottomedge-y*scrscale
+    }
+    
+    static func conv(w:Double) -> Double {
+        return w*scrscale
+    }
+    
+    static func conv(h:Double) -> Double {
+        return h*scrscale
     }
     
     func playBeatmap(beatmap:Beatmap) -> [SKAction] {
@@ -114,7 +141,7 @@ class GamePlayScene: SKScene {
                         colorindex=0
                     }
                 }
-                actions.append(addHitCircleAction(color: beatmap.colors[colorindex], x: CGFloat(obj.x)/512*size.width, y: size.height-CGFloat(obj.y)/384*size.height,z:layer,hitsound:obj.hitSound,type:.Plain,number:number,islast:islast))
+                actions.append(addHitCircleAction(color: beatmap.colors[colorindex], x: CGFloat(obj.x), y: CGFloat(obj.y),z:layer,hitsound:obj.hitSound,type:.Plain,number:number,islast:islast))
                 actiontimepoints.append(obj.time)
                 break
             case HitObjectType.Slider:
@@ -129,7 +156,7 @@ class GamePlayScene: SKScene {
                         colorindex=0
                     }
                 }
-                actions.append(addHitCircleAction(color: beatmap.colors[colorindex], x: CGFloat(obj.x)/512*size.width, y: size.height-CGFloat(obj.y)/384*size.height,z:layer,hitsound:obj.hitSound,type:.SliderHead,number:number,islast:false))
+                actions.append(addHitCircleAction(color: beatmap.colors[colorindex], x: CGFloat(obj.x), y: CGFloat(obj.y),z:layer,hitsound:obj.hitSound,type:.SliderHead,number:number,islast:false))
                 actiontimepoints.append(obj.time)
                 let slider=obj as! Slider
                 var repe=slider.repe
@@ -143,15 +170,18 @@ class GamePlayScene: SKScene {
                 let pxPerBeat=100*beatmap.difficulty.slidermultiplier
                 let beatsNumber=Double(slider.length)/pxPerBeat
                 let singleduration=Int(ceil(beatsNumber*timingpoint.timeperbeat))
+                let fulltime=repe*singleduration
+                actiontimepoints.append(obj.time)
+                actions.append(addSliderAction(slider: slider, color: beatmap.colors[colorindex], layer: layer-1-CGFloat(repe), time: fulltime))
                 while repe>1 {
                     layer-=1
                     timepoint+=singleduration
                     actiontimepoints.append(timepoint)
                     if atstart {
-                        actions.append(addHitCircleAction(color: beatmap.colors[colorindex], x: CGFloat(obj.x)/512*size.width, y: size.height-CGFloat(obj.y)/384*size.height,z:layer,hitsound:obj.hitSound,type:.SliderArrow,number:number,islast:false))
+                        actions.append(addHitCircleAction(color: beatmap.colors[colorindex], x: CGFloat(obj.x), y: CGFloat(obj.y),z:layer,hitsound:obj.hitSound,type:.SliderArrow,number:number,islast:false))
                         atstart=false
                     } else {
-                        actions.append(addHitCircleAction(color: beatmap.colors[colorindex], x: CGFloat(endx)/512*size.width, y: size.height-CGFloat(endy)/384*size.height,z:layer,hitsound:obj.hitSound,type:.SliderArrow,number:number,islast:false))
+                        actions.append(addHitCircleAction(color: beatmap.colors[colorindex], x: CGFloat(endx), y: CGFloat(endy),z:layer,hitsound:obj.hitSound,type:.SliderArrow,number:number,islast:false))
                         atstart=true
                     }
                     repe-=1
@@ -160,10 +190,11 @@ class GamePlayScene: SKScene {
                 timepoint+=singleduration
                 actiontimepoints.append(timepoint)
                 if atstart {
-                    actions.append(addHitCircleAction(color: beatmap.colors[colorindex], x: CGFloat(obj.x)/512*size.width, y: size.height-CGFloat(obj.y)/384*size.height,z:layer,hitsound:obj.hitSound,type:.SliderEnd,number:number,islast:islast))
+                    actions.append(addHitCircleAction(color: beatmap.colors[colorindex], x: CGFloat(obj.x), y: CGFloat(obj.y),z:layer,hitsound:obj.hitSound,type:.SliderEnd,number:number,islast:islast))
                 } else {
-                    actions.append(addHitCircleAction(color: beatmap.colors[colorindex], x: CGFloat(endx)/512*size.width, y: size.height-CGFloat(endy)/384*size.height,z:layer,hitsound:obj.hitSound,type:.SliderEnd,number:number,islast:islast))
+                    actions.append(addHitCircleAction(color: beatmap.colors[colorindex], x: CGFloat(endx), y: CGFloat(endy),z:layer,hitsound:obj.hitSound,type:.SliderEnd,number:number,islast:islast))
                 }
+                layer-=1
                 break
             case HitObjectType.Spinner:
                 //TODO: Draw Spinner
@@ -178,21 +209,24 @@ class GamePlayScene: SKScene {
         return actions
     }
     
+    func addSliderAction(slider:Slider,color:UIColor,layer:CGFloat,time:Int) -> SKAction {
+        return SKAction.run {
+            slider.genimage(color: color, layer: layer,inwidth:112,outwidth:128)
+            let slidernode=SKSpriteNode(texture: SKTexture(image: slider.image!))
+            //slidernode.alpha=1
+            slidernode.anchorPoint=CGPoint(x: 0, y: 0)
+            slidernode.position = .zero
+            slidernode.zPosition=layer
+            self.addChild(slidernode)
+            slidernode.run(SKAction.sequence([SKAction.wait(forDuration: Double(time)/1000+1),SKAction.fadeOut(withDuration: 1)]))
+        }
+    }
+    
     func addHitCircleAction(color:UIColor,x:CGFloat,y:CGFloat,z:CGFloat,hitsound:HitSound,type:CircleType,number:Int,islast:Bool) -> SKAction{
         return SKAction.run({() -> Void in
             self.addHitCircle(color: color,x:x,y:y,z:z,hitsound:hitsound,type:type,number:number,islast:islast)
         })
     }
-    
-    /*func addHitCircleAfter(color:UIColor,after:TimeInterval,x:CGFloat,y:CGFloat,z:CGFloat,hitsound:HitSound,type:CircleType,number:Int) -> SKAction{
-        return SKAction.run({() -> Void in
-            let wait=SKAction.wait(forDuration: after)
-            let action=SKAction.run {
-                self.addHitCircle(color: color,x:x,y:y,z:z,hitsound:hitsound,type:type,number:number)
-            }
-            self.run(SKAction.sequence([wait,action]))
-        })
-    }*/
     
     func addHitCircle(color:UIColor,x:CGFloat,y:CGFloat,z:CGFloat,hitsound:HitSound,type:CircleType,number:Int,islast:Bool){
         let hitCircleInner=SKSpriteNode(imageNamed: "hitcircle")
