@@ -27,29 +27,40 @@ class Beatmap{
         }
         let bmData=readFile?.readDataToEndOfFile()
         let bmString=String(data: bmData!, encoding: .utf8)
-        let lines=bmString?.components(separatedBy: CharacterSet.newlines)
-        if lines?.count==0{
+        let rawlines=bmString?.components(separatedBy: CharacterSet.newlines)
+        if rawlines?.count==0{
             throw BeatmapError.IllegalFormat
+        }
+        var lines=ArraySlice<String>()
+        for line in rawlines! {
+            if line != "" {
+                if !line.hasPrefix("//"){
+                    lines.append(line)
+                }
+            }
         }
         var index:Int
         index = -1
-        for line in lines!{
+        for line in lines{
             index += 1
             switch line {
             case "[General]":
-                try parseGeneral(lines: (lines?.suffix(from: index+1))!)
+                try parseGeneral(lines: lines.suffix(from: index+1))
                 break
             case "[Difficulty]":
-                parseDifficulty(lines: (lines?.suffix(from: index+1))!)
+                parseDifficulty(lines: lines.suffix(from: index+1))
+                break
+            case "[Events]":
+                parseEvents(lines: lines.suffix(from: index+1))
                 break
             case "[TimingPoints]":
-                try parseTimingPoints(lines: (lines?.suffix(from: index+1))!)
+                try parseTimingPoints(lines: lines.suffix(from: index+1))
                 break
             case "[Colours]":
-                try parseColors(lines: (lines?.suffix(from: index+1))!)
+                try parseColors(lines: lines.suffix(from: index+1))
                 break
             case "[HitObjects]":
-                try parseHitObjects(lines: (lines?.suffix(from: index+1))!)
+                try parseHitObjects(lines: lines.suffix(from: index+1))
                 break
             default:
                 continue
@@ -148,6 +159,21 @@ class Beatmap{
             default:
                 break
             }
+        }
+    }
+    
+    func parseEvents(lines:ArraySlice<String>) -> Void {
+        let splitted=lines.first?.components(separatedBy: ",")
+        if (splitted?.count)! < 5 {
+            return
+        }
+        bgimg=(splitted?[2])!
+        bgimg=(bgimg as NSString).replacingOccurrences(of: "\\", with: "/")
+        while bgimg.hasPrefix("\"") {
+            bgimg=(bgimg as NSString).substring(from: 1)
+        }
+        while bgimg.hasSuffix("\"") {
+            bgimg=(bgimg as NSString).substring(to: bgimg.lengthOfBytes(using: .ascii)-1)
         }
     }
     

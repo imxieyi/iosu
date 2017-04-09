@@ -8,8 +8,10 @@ This is an ios port of the rhythm game [osu!](https://osu.ppy.sh). It is written
  - Scan beatmaps imported by iTunes
  - Decode .osu file (partly)
  - Timing
+ - Render background image & Background dim
  - Draw Plain HitCircle
  - Draw HitCircle in Slider
+ - Draw straight slider
  - **Play StoryBoard**
 ### How to use
 1. Install the latest version of XCode.
@@ -35,7 +37,7 @@ This is an ios port of the rhythm game [osu!](https://osu.ppy.sh). It is written
 
 ### StoryBoard demo videos
 
-Notice: The following videos is outdated. If you want to see the latest version, please clone and install the latest version on your device.
+Notice: The following videos are outdated. If you want to see the latest version, please clone and install the latest version on your device.
 
 [http://www.bilibili.com/video/av9580463/](http://www.bilibili.com/video/av9580463/)
 

@@ -16,7 +16,8 @@ class GamePlayScene: SKScene {
     var bmactions:[SKAction] = []
     var actiontimepoints:[Int] = []
     static var testBMIndex = 6 //The index of beatmap to test in the beatmaps
-    var minlayer:CGFloat=0.0
+    var maxlayer:CGFloat=100000
+    var minlayer:CGFloat=0
     var hitaudioHeader:String = "normal-"
     static var realwidth:Double=512
     static var realheight:Double=384
@@ -25,6 +26,7 @@ class GamePlayScene: SKScene {
     static var scrscale:Double=1
     static var leftedge:Double=0
     static var bottomedge:Double=0
+    static var bgdim:Double=0.2
     
     override func sceneDidLoad() {
         GamePlayScene.scrscale=Double(size.height)/480.0
@@ -48,6 +50,25 @@ class GamePlayScene: SKScene {
         debugPrint("leftedge:\(GamePlayScene.leftedge)")
         do{
             let bm=try Beatmap(file: (beatmaps.beatmapdirs[GamePlayScene.testBMIndex] as NSString).strings(byAppendingPaths: [beatmaps.beatmaps[GamePlayScene.testBMIndex]])[0])
+            if bm.bgimg != "" {
+                debugPrint("got bgimg:\(bm.bgimg)")
+                let bgimg=UIImage(contentsOfFile: (beatmaps.beatmapdirs[GamePlayScene.testBMIndex] as NSString).strings(byAppendingPaths: [bm.bgimg])[0])
+                if bgimg==nil {
+                    debugPrint("Background image not found")
+                } else {
+                    let bgnode=SKSpriteNode(texture: SKTexture(image: bgimg!))
+                    let bgscale=size.width/(bgimg?.size.width)!
+                    bgnode.setScale(bgscale)
+                    bgnode.zPosition=0
+                    bgnode.position=CGPoint(x: size.width/2, y: size.height/2)
+                    addChild(bgnode)
+                }
+            }
+            let dimnode=SKShapeNode(rect: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+            dimnode.fillColor = .black
+            dimnode.alpha=CGFloat(GamePlayScene.bgdim)
+            dimnode.zPosition=1
+            addChild(dimnode)
             switch bm.sampleSet {
             case .Auto:
                 //Likely to be an error
@@ -118,7 +139,7 @@ class GamePlayScene: SKScene {
         var actions:[SKAction]=[]
         //actions.append(mplayer.play(file: beatmap.audiofile))
         var colorindex=0
-        var layer:CGFloat=0.0
+        var layer:CGFloat=maxlayer
         var number=0
         var index = -1
         for obj in beatmap.hitobjects {
@@ -273,17 +294,20 @@ class GamePlayScene: SKScene {
                         ApproachCircle.run(SKAction.removeFromParent())
                         let disappear=SKAction.group([SKAction.scale(by: 1.5, duration: 1),SKAction.sequence([SKAction.fadeOut(withDuration: 1.0),SKAction.removeFromParent()])])
                         hitCircleInner.run(SKAction.group([self.moveToBack(sender: hitCircleInner),disappear]))
-                        hitCircleNumber.run(SKAction.group([self.moveToBack(sender: hitCircleInner),disappear]))
-                        hitCircleOverlay.run(SKAction.group([self.moveToBack(sender: hitCircleInner),disappear]))
+                        hitCircleNumber.run(SKAction.group([self.moveToBack(sender: hitCircleNumber),disappear]))
+                        hitCircleOverlay.run(SKAction.group([self.moveToBack(sender: hitCircleOverlay),disappear]))
                         //ApproachCircle.run(disappear)
                 })
             } else { //SliderHead
                 ApproachCircle.run(SKAction.sequence([SKAction.scale(to: 1.0, duration: 1),SKAction.playSoundFileNamed(hitaudioHeader + hitsound2str(hitsound: hitsound), waitForCompletion: false),SKAction.removeFromParent()]),completion:{()->Void in
                         ApproachCircle.run(SKAction.removeFromParent())
                         let disappear=SKAction.group([SKAction.scale(by: 1.5, duration: 1),SKAction.sequence([SKAction.fadeOut(withDuration: 1.0),SKAction.removeFromParent()])])
-                        hitCircleInner.run(SKAction.group([self.moveToBack(sender: hitCircleInner),disappear]))
-                        hitCircleNumber.run(SKAction.group([self.moveToBack(sender: hitCircleInner),disappear]))
-                        hitCircleOverlay.run(SKAction.group([self.moveToBack(sender: hitCircleInner),disappear]))
+                        //hitCircleInner.run(SKAction.group([self.moveToBack(sender: hitCircleInner),disappear]))
+                        //hitCircleNumber.run(SKAction.group([self.moveToBack(sender: hitCircleNumber),disappear]))
+                    //hitCircleOverlay.run(SKAction.group([self.moveToBack(sender: hitCircleOverlay),disappear]))
+                    hitCircleInner.run(disappear)
+                    hitCircleNumber.run(disappear)
+                    hitCircleOverlay.run(disappear)
                         //ApproachCircle.run(disappear)
                 })
             }
@@ -291,8 +315,10 @@ class GamePlayScene: SKScene {
         if type == .SliderArrow {
             hitCircleInner.run(SKAction.sequence([SKAction.wait(forDuration: 1.0),SKAction.playSoundFileNamed(hitaudioHeader + hitsound2str(hitsound: hitsound), waitForCompletion: false)]), completion: {()->Void in
                 let disappear=SKAction.group([SKAction.scale(by: 1.5, duration: 1),SKAction.sequence([SKAction.fadeOut(withDuration: 1.0),SKAction.removeFromParent()])])
-                hitCircleInner.run(SKAction.group([self.moveToBack(sender: hitCircleInner),disappear]))
-                hitCircleOverlay.run(SKAction.group([self.moveToBack(sender: hitCircleInner),disappear]))
+                //hitCircleInner.run(SKAction.group([self.moveToBack(sender: hitCircleInner),disappear]))
+                //hitCircleOverlay.run(SKAction.group([self.moveToBack(sender: hitCircleOverlay),disappear]))
+                hitCircleInner.run(disappear)
+                hitCircleOverlay.run(disappear)
             })
         }
         if type == .SliderEnd {
@@ -300,7 +326,7 @@ class GamePlayScene: SKScene {
                 self.showResult(x:x,y:y,z:z,islast:islast)
                 let disappear=SKAction.group([SKAction.scale(by: 1.5, duration: 1),SKAction.sequence([SKAction.fadeOut(withDuration: 1.0),SKAction.removeFromParent()])])
                 hitCircleInner.run(SKAction.group([self.moveToBack(sender: hitCircleInner),disappear]))
-                hitCircleOverlay.run(SKAction.group([self.moveToBack(sender: hitCircleInner),disappear]))
+                hitCircleOverlay.run(SKAction.group([self.moveToBack(sender: hitCircleOverlay),disappear]))
             })
         }
     }
@@ -318,13 +344,9 @@ class GamePlayScene: SKScene {
         }
     }
     
-    func addSlider(slider:Slider,layer:Double) {
-        
-    }
-    
     func moveToBack(sender:SKNode) -> SKAction{
         return SKAction.run {
-            sender.zPosition+=self.minlayer
+            sender.zPosition-=self.maxlayer-self.minlayer
         }
     }
     
