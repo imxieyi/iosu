@@ -286,38 +286,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		000DFECF7230D5E35122F8C87BD48C8B /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 50C6892D0754B8DDE6A637C283C171ED /* SpriteKitEasingSwift.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/SpriteKitEasingSwift/SpriteKitEasingSwift-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SpriteKitEasingSwift/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SpriteKitEasingSwift/SpriteKitEasingSwift.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = SpriteKitEasingSwift;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
 		12914D756594D15C6F2CA12FE5F89F1B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -398,7 +366,7 @@
 			};
 			name = Debug;
 		};
-		866457FA2B583D16AB65BF2631AFA8F2 /* Debug */ = {
+		A4F6BF0D94BC79A716D0396ADECA6C8C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 50C6892D0754B8DDE6A637C283C171ED /* SpriteKitEasingSwift.xcconfig */;
 			buildSettings = {
@@ -416,7 +384,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/SpriteKitEasingSwift/SpriteKitEasingSwift-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/SpriteKitEasingSwift/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/SpriteKitEasingSwift/SpriteKitEasingSwift.modulemap";
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -506,6 +474,38 @@
 			};
 			name = Release;
 		};
+		E84C8BFDF8E02BCEF3D916E4F8E1A40E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 50C6892D0754B8DDE6A637C283C171ED /* SpriteKitEasingSwift.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/SpriteKitEasingSwift/SpriteKitEasingSwift-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SpriteKitEasingSwift/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SpriteKitEasingSwift/SpriteKitEasingSwift.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = SpriteKitEasingSwift;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -530,8 +530,8 @@
 		4DA7C47BD169799B4789F2B1FF53E52D /* Build configuration list for PBXNativeTarget "SpriteKitEasingSwift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				866457FA2B583D16AB65BF2631AFA8F2 /* Debug */,
-				000DFECF7230D5E35122F8C87BD48C8B /* Release */,
+				A4F6BF0D94BC79A716D0396ADECA6C8C /* Debug */,
+				E84C8BFDF8E02BCEF3D916E4F8E1A40E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
