@@ -4,4 +4,5 @@ xcode_project: iosu.xcworkspace
 xcode_scheme: iosu
 xcode_sdk: iphonesimulator10.0
 script:
+ - xcodebuild clean build -sdk iphonesimulator -workspace iosu.xcworkspace -list
  - xcodebuild clean build -sdk iphonesimulator -workspace iosu.xcworkspace -scheme iosu CODE_SIGNING_REQUIRED=NO
