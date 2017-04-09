@@ -20,10 +20,10 @@ class HitObject{
     
     init(type:HitObjectType,x:Int,y:Int,time:Int,hitsound:HitSound,newcombo:Bool) {
         self.type=type
-        debugPrint("before:\(x),\(y)")
+        //debugPrint("before:\(x),\(y)")
         self.x=Int(GamePlayScene.conv(x: Double(x)))
         self.y=Int(GamePlayScene.conv(y: Double(y)))
-        debugPrint("after:\(self.x),\(self.y)")
+        //debugPrint("after:\(self.x),\(self.y)")
         self.time=time
         self.hitSound = hitsound
         self.newCombo=newcombo
