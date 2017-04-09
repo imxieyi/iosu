@@ -302,9 +302,12 @@ class GamePlayScene: SKScene {
                 ApproachCircle.run(SKAction.sequence([SKAction.scale(to: 1.0, duration: 1),SKAction.playSoundFileNamed(hitaudioHeader + hitsound2str(hitsound: hitsound), waitForCompletion: false),SKAction.removeFromParent()]),completion:{()->Void in
                         ApproachCircle.run(SKAction.removeFromParent())
                         let disappear=SKAction.group([SKAction.scale(by: 1.5, duration: 1),SKAction.sequence([SKAction.fadeOut(withDuration: 1.0),SKAction.removeFromParent()])])
-                        hitCircleInner.run(SKAction.group([self.moveToBack(sender: hitCircleInner),disappear]))
-                        hitCircleNumber.run(SKAction.group([self.moveToBack(sender: hitCircleNumber),disappear]))
-                        hitCircleOverlay.run(SKAction.group([self.moveToBack(sender: hitCircleOverlay),disappear]))
+                        //hitCircleInner.run(SKAction.group([self.moveToBack(sender: hitCircleInner),disappear]))
+                        //hitCircleNumber.run(SKAction.group([self.moveToBack(sender: hitCircleNumber),disappear]))
+                    //hitCircleOverlay.run(SKAction.group([self.moveToBack(sender: hitCircleOverlay),disappear]))
+                    hitCircleInner.run(disappear)
+                    hitCircleNumber.run(disappear)
+                    hitCircleOverlay.run(disappear)
                         //ApproachCircle.run(disappear)
                 })
             }
@@ -312,8 +315,10 @@ class GamePlayScene: SKScene {
         if type == .SliderArrow {
             hitCircleInner.run(SKAction.sequence([SKAction.wait(forDuration: 1.0),SKAction.playSoundFileNamed(hitaudioHeader + hitsound2str(hitsound: hitsound), waitForCompletion: false)]), completion: {()->Void in
                 let disappear=SKAction.group([SKAction.scale(by: 1.5, duration: 1),SKAction.sequence([SKAction.fadeOut(withDuration: 1.0),SKAction.removeFromParent()])])
-                hitCircleInner.run(SKAction.group([self.moveToBack(sender: hitCircleInner),disappear]))
-                hitCircleOverlay.run(SKAction.group([self.moveToBack(sender: hitCircleOverlay),disappear]))
+                //hitCircleInner.run(SKAction.group([self.moveToBack(sender: hitCircleInner),disappear]))
+                //hitCircleOverlay.run(SKAction.group([self.moveToBack(sender: hitCircleOverlay),disappear]))
+                hitCircleInner.run(disappear)
+                hitCircleOverlay.run(disappear)
             })
         }
         if type == .SliderEnd {

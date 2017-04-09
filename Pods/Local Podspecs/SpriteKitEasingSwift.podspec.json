@@ -1,0 +1,22 @@
+{
+  "name": "SpriteKitEasingSwift",
+  "version": "0.0.1",
+  "summary": "SpriteKitEasingSwift optimized for iosu.",
+  "homepage": "https://github.com/imxieyi/SpriteKitEasingSwift",
+  "license": "MIT",
+  "authors": {
+    "imxieyi": ""
+  },
+  "platforms": {
+    "ios": "10.0"
+  },
+  "source": {
+    "git": "https://github.com/imxieyi/SpriteKitEasingSwift.git",
+    "tag": "0.0.1"
+  },
+  "source_files": [
+    "Pod/Classes",
+    "Classes/**/*.{swift}"
+  ],
+  "exclude_files": "Pod/Classes/Exclude"
+}

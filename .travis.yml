@@ -1,0 +1,5 @@
+language: objective-c
+osx_image: xcode8.3
+xcode_project: iosu.xcworkspace
+xcode_scheme: iosu
+xcode_sdk: iphonesimulator10.0

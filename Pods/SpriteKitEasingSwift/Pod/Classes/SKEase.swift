@@ -152,13 +152,13 @@ open class SKEase {
     
     //MARK: Move
     /**
-    Animate x/y movement
+     Animate x/y movement
      - parameter easeFunction: Curve type
      - parameter easeType: Ease type
      - parameter time: duration of tween
      - parameter from: initial point
      - parameter to: destination point
-    */
+     */
     open class func move(easeFunction curve:CurveType, easeType:EaseType, time:TimeInterval, from:CGPoint, to:CGPoint)->SKAction {
         let easingFunction = SKEase.getEaseFunction(curve, easeType: easeType)
         let action = self.createPointTween(from, end: to, time: time, easingFunction: easingFunction) { (node:SKNode, point:CGPoint) -> Void in
