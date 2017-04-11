@@ -13,6 +13,7 @@ This is an ios port of the rhythm game [osu!](https://osu.ppy.sh). It is written
  - Draw Plain HitCircle
  - Draw HitCircle in Slider
  - Draw straight slider
+ - **Play backgound video**
  - **Play StoryBoard**
 
 ### How to use
@@ -36,9 +37,25 @@ This is an ios port of the rhythm game [osu!](https://osu.ppy.sh). It is written
 
 ### GamePlay Screenshot
 
+With background image:
+
 ![](screenshots/run.png)
 
-### StoryBoard demo videos
+beatmap:[yuikonnu - Tsumi no Namae](https://osu.ppy.sh/s/548999)
+
+With background video:
+
+![](screenshots/vrun.png)
+
+beatmap:[Hatsune Miku - SPiCa](https://osu.ppy.sh/s/16226)
+
+### StoryBoard Screenshot
+
+![](screenshots/sbplayer.png)
+
+beatmap:[Tatsumi Megumi featured by Sano Hiroaki - Tsubomi (Long Version)](https://osu.ppy.sh/s/311064)
+
+### StoryBoard Demo Videos
 
 Notice: The following videos are outdated. If you want to see the latest version, please clone and install the latest version on your device.
 
@@ -54,5 +71,6 @@ Notice: The following videos are outdated. If you want to see the latest version
  - [osu!](https://osu.ppy.sh)
  - [osu-parser](https://github.com/nojhamster/osu-parser)
  - [SpriteKitEasingSwift](https://github.com/craiggrummitt/SpriteKitEasingSwift)
+ - [KSYMediaPlayer_iOS](https://github.com/ksvc/KSYMediaPlayer_iOS)
  - [Stack Overflow](http://stackoverflow.com)
  - [Apple Developer Documentation](https://developer.apple.com/reference/)

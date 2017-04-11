@@ -27,6 +27,8 @@ class GamePlayScene: SKScene {
     static var leftedge:Double=0
     static var bottomedge:Double=0
     static var bgdim:Double=0.2
+    var bgvactions:[SKAction]=[]
+    var bgvtimes:[Int]=[]
     
     override func sceneDidLoad() {
         GamePlayScene.scrscale=Double(size.height)/480.0
@@ -50,7 +52,20 @@ class GamePlayScene: SKScene {
         debugPrint("leftedge:\(GamePlayScene.leftedge)")
         do{
             let bm=try Beatmap(file: (beatmaps.beatmapdirs[GamePlayScene.testBMIndex] as NSString).strings(byAppendingPaths: [beatmaps.beatmaps[GamePlayScene.testBMIndex]])[0])
-            if bm.bgimg != "" {
+            if bm.bgvideos.count > 0 {
+                debugPrint("got \(bm.bgvideos.count) videos")
+                for i in 0...bm.bgvideos.count-1 {
+                    let file=(beatmaps.beatmapdirs[GamePlayScene.testBMIndex] as NSString).strings(byAppendingPaths: [bm.bgvideos[i]])[0]
+                    //var file=URL(fileURLWithPath: beatmaps.beatmapdirs[GamePlayScene.testBMIndex], isDirectory: true)
+                    //let file=beatmaps.bmdirurls[GamePlayScene.testBMIndex].appendingPathComponent(bm.bgvideos[i])
+                    if FileManager.default.fileExists(atPath: file) {
+                        bgvactions.append(BGVPlayer.setcontent(file: file))
+                        bgvtimes.append(bm.bgvtimes[i])
+                    } else {
+                        debugPrint("video not found: \(file)")
+                    }
+                }
+            } else if bm.bgimg != "" {
                 debugPrint("got bgimg:\(bm.bgimg)")
                 let bgimg=UIImage(contentsOfFile: (beatmaps.beatmapdirs[GamePlayScene.testBMIndex] as NSString).strings(byAppendingPaths: [bm.bgimg])[0])
                 if bgimg==nil {
@@ -395,9 +410,18 @@ class GamePlayScene: SKScene {
     }
     
     var index = 0
+    var bgvindex = 0
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
+        if bgvindex < bgvactions.count {
+            if bgvtimes[bgvindex] - Int(mplayer.getTime()*1000) < 1000 {
+                let offset=bgvtimes[bgvindex] - Int(mplayer.getTime()*1000)
+                debugPrint("push bgvideo \(bgvindex) with offset \(offset)")
+                self.run(SKAction.group([bgvactions[bgvindex],SKAction.sequence([SKAction.wait(forDuration: Double(offset)/1000),BGVPlayer.play()])]))
+                bgvindex+=1
+            }
+        }
         if index<bmactions.count {
             //If the frame rate drops under 10, the timing will be inaccurate
             //However, if the frame rate drops under 10, the game will be hardly playable!

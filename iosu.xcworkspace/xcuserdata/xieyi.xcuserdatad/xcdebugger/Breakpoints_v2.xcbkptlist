@@ -57,29 +57,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "iosu/AlertView.swift"
-            timestampString = "513062183.164294"
+            filePath = "iosu/StoryBoard.swift"
+            timestampString = "513610915.617144"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "39"
-            endingLineNumber = "39"
-            landmarkName = "create(title:message:style:action1title:action1style:handler1:action2title:action2style:handler2:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "iosu/AlertView.swift"
-            timestampString = "513062184.318279"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "31"
-            endingLineNumber = "31"
-            landmarkName = "create(title:message:style:actiontitle:actionstyle:handler:)"
+            startingLineNumber = "680"
+            endingLineNumber = "680"
+            landmarkName = "schedule()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

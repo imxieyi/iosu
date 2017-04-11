@@ -18,6 +18,8 @@ class Beatmap{
     public var colors:[UIColor] = []
     public var hitobjects:[HitObject] = []
     public var sampleSet:SampleSet = .Auto //Set of audios
+    public var bgvideos:[String]=[]
+    public var bgvtimes:[Int]=[]
     
     init(file:String) throws {
         debugPrint("full path: \(file)")
@@ -164,16 +166,31 @@ class Beatmap{
     
     func parseEvents(lines:ArraySlice<String>) -> Void {
         let splitted=lines.first?.components(separatedBy: ",")
-        if (splitted?.count)! < 5 {
-            return
+        if (splitted?.count)! >= 5 {
+            bgimg=(splitted?[2])!
+            bgimg=(bgimg as NSString).replacingOccurrences(of: "\\", with: "/")
+            while bgimg.hasPrefix("\"") {
+                bgimg=(bgimg as NSString).substring(from: 1)
+            }
+            while bgimg.hasSuffix("\"") {
+                bgimg=(bgimg as NSString).substring(to: bgimg.lengthOfBytes(using: .ascii)-1)
+            }
         }
-        bgimg=(splitted?[2])!
-        bgimg=(bgimg as NSString).replacingOccurrences(of: "\\", with: "/")
-        while bgimg.hasPrefix("\"") {
-            bgimg=(bgimg as NSString).substring(from: 1)
-        }
-        while bgimg.hasSuffix("\"") {
-            bgimg=(bgimg as NSString).substring(to: bgimg.lengthOfBytes(using: .ascii)-1)
+        for line in lines {
+            if line.hasPrefix("Video") {
+                let splitted=line.components(separatedBy: ",")
+                var vstr=splitted[2]
+                vstr=(vstr as NSString).replacingOccurrences(of: "\\", with: "/")
+                while vstr.hasPrefix("\"") {
+                    vstr=(vstr as NSString).substring(from: 1)
+                }
+                while vstr.hasSuffix("\"") {
+                    vstr=(vstr as NSString).substring(to: vstr.lengthOfBytes(using: .ascii)-1)
+                }
+                bgvideos.append(vstr)
+                bgvtimes.append((splitted[1] as NSString).integerValue)
+                debugPrint("find video \(vstr) with offset \(bgvtimes.last!)")
+            }
         }
     }
     

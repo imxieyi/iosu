@@ -12,6 +12,7 @@ class BeatmapScanner{
     
     //var docPath:NSString
     public var beatmapdirs:[String]=[]
+    public var bmdirurls:[URL]=[]
     public var beatmaps:[String]=[]
     public var storyboards=[String:String]()
     public var dirscontainsb:[String]=[]
@@ -26,11 +27,15 @@ class BeatmapScanner{
         for entry in contentsOfPath!{
             //debugPrint("folder:\(entry)")
             let contentsOfBMPath=try? manager.contentsOfDirectory(atPath: url.appendingPathComponent(entry).path)
+            if contentsOfBMPath == nil {
+                continue
+            }
             for subentry in contentsOfBMPath!{
                 //debugPrint("       \(subentry)")
                 if subentry.hasSuffix(".osu"){
                     let fullpath=url.appendingPathComponent(entry, isDirectory: true)
                     beatmapdirs.append(fullpath.path)
+                    bmdirurls.append(fullpath)
                     //fullpath=fullpath.appendingPathComponent(subentry, isDirectory: false)
                     //beatmaps.append(fullpath.path)
                     beatmaps.append(subentry)
