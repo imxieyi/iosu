@@ -17,6 +17,8 @@ class StoryBoard {
     public static var actualwidth:Double = 0
     public static var actualheight:Double = 0
     public static var leftedge:Double = 0
+    public static var before:Int=0
+    public static var after:Int=0
     private var layer:Double
     private var bglayer:Double = 0
     private var passlayer:Double = 0
@@ -28,6 +30,8 @@ class StoryBoard {
     public var earliest = Int.max
     
     init(directory:String,osufile:String,width:Double,height:Double,layer:Double) throws {
+        StoryBoard.before=0
+        StoryBoard.after=0
         self.sbdirectory=directory
         StoryBoard.actualheight=height
         StoryBoard.actualwidth=height/StoryBoard.stdheight*StoryBoard.stdwidth
@@ -81,6 +85,8 @@ class StoryBoard {
     }
     
     init(directory:String,osufile:String,osbfile:String,width:Double,height:Double,layer:Double) throws {
+        StoryBoard.before=0
+        StoryBoard.after=0
         self.sbdirectory=directory
         StoryBoard.actualheight=height
         StoryBoard.actualwidth=height/StoryBoard.stdheight*StoryBoard.stdwidth
@@ -163,6 +169,7 @@ class StoryBoard {
         sbsprites.sort(by: {(s1,s2) -> Bool in
             return s1.starttime<s2.starttime
         })
+        debugPrint("before schedule:\(StoryBoard.before) after:\(StoryBoard.after) reduce rate:\(Double(StoryBoard.before-StoryBoard.after)/Double(StoryBoard.before)*100)%")
     }
     
     //Convert StoryBoard x and y to screen x and y
@@ -252,8 +259,8 @@ class StoryBoard {
                 if slines.count>0 {
                     sprite.commands=parseCommands(lines: slines)
                     sprite.gentime()
-                    sprite.genaction()
                     sprite.geninitials()
+                    sprite.schedule()
                 }
                 sprite.filepath=(sprite.filepath as NSString).replacingOccurrences(of: "\\", with: "/")
                 sprite.filepath=(sbdirectory as NSString).appending("/"+sprite.filepath)
@@ -637,17 +644,51 @@ class BasicImage {
         }
     }
     
-    func genaction(){
-        var action:[SKAction]=[]
-        action.append(SKAction.customAction(withDuration: 0, actionBlock: {(node:SKNode,time:CGFloat) -> Void in
+    func schedule(){
+        commands.sort(by: {(c1,c2)->Bool in
+            return c1.endtime<c2.endtime
+        })
+        var temp:[[SKAction]]=[]
+        var endtime:[Int]=[]
+        for cmd in commands {
+            var flag=false
+            if endtime.count>0 {
+                for i in 0...endtime.count-1 {
+                    if cmd.starttime == endtime[i] {
+                        flag=true
+                        temp[i].append((cmd as! SBCAction).toAction())
+                        endtime[i]=cmd.endtime
+                        break
+                    } else if cmd.starttime > endtime[i] {
+                        flag=true
+                        temp[i].append(SKAction.wait(forDuration: Double(cmd.starttime-endtime[i])/1000))
+                        temp[i].append((cmd as! SBCAction).toAction())
+                        endtime[i]=cmd.endtime
+                        break
+                    }
+                }
+            }
+            if !flag {
+                if cmd.starttime == self.starttime {
+                    temp.append([(cmd as! SBCAction).toAction()])
+                } else {
+                    temp.append([SKAction.wait(forDuration: Double(cmd.starttime-self.starttime)/1000),(cmd as! SBCAction).toAction()])
+                }
+                endtime.append(cmd.endtime)
+            }
+        }
+        StoryBoard.before+=commands.count
+        StoryBoard.after+=temp.count
+        //debugPrint("before:\(commands.count) after:\(temp.count)")
+        var actions:[SKAction]=[]
+        actions.append(SKAction.customAction(withDuration: 0, actionBlock: {(node:SKNode,time:CGFloat) -> Void in
             node.alpha=CGFloat(self.alpha)
         }))
-        for cmd in commands {
-            //cmd.sprite=self.sprite
-            //debugPrint("after: \(cmd.starttime-self.starttime)")
-            action.append(SKAction.sequence([SKAction.wait(forDuration: Double(cmd.starttime-self.starttime)/1000),(cmd as! SBCAction).toAction()]))
+        for group in temp {
+            actions.append(SKAction.sequence(group))
         }
-        self.actions=SKAction.group(action)
+        self.actions=SKAction.group(actions)
+        self.commands=[]
     }
     
     func runaction(offset:Int){

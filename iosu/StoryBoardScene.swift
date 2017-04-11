@@ -122,17 +122,10 @@ class StoryBoardScene: SKScene {
     
     func startplaying(){
         debugPrint("start playing music")
-        //debugPrint("6400 starttime: \(sb?.sbsprites[6400].starttime)")
-        //var count=0
-        //debugPrint("\(sb?.sbsprites[index].starttime) \(sb?.sbsprites[index].commands.count)")
         if ((sb?.sbsprites.count)!>0){
             while (sb?.sbsprites[index].starttime)!<=0 {
-                //if count<=StoryBoardScene.renderlimit {
-                //sb?.sbsprites[index].convertsprite()
                 self.addChild((sb?.sbsprites[index].sprite)!)
                 sb?.sbsprites[index].runaction(offset: (sb?.sbsprites[index].starttime)!-(sb?.earliest)!)
-                //}
-                //count+=1
                 index+=1
             }
         }
@@ -174,7 +167,7 @@ class StoryBoardScene: SKScene {
         // Called before each frame is rendered
         if sb != nil && mplayer.isplaying() {
             if index<(sb?.sbsprites.count)! {
-                let musictime=Int(mplayer.getTime()*1000)
+                var musictime=Int(mplayer.getTime()*1000)
                 while (sb?.sbsprites[index].starttime)! - musictime <= 2000 {
                     var offset=(sb?.sbsprites[index].starttime)! - musictime
                     sb?.sbsprites[index].convertsprite()
@@ -182,13 +175,14 @@ class StoryBoardScene: SKScene {
                         offset = 0
                     }
                     self.addChild((sb?.sbsprites[index].sprite)!)
-                    if (sb?.sbsprites[index].commands.count)!>0{
+                    if sb?.sbsprites[index].actions != nil {
                         sb?.sbsprites[index].runaction(offset: offset)
                     }
                     index+=1
                     if index>=(sb?.sbsprites.count)!{
                         return
                     }
+                    musictime=Int(mplayer.getTime()*1000)
                 }
             }
         }
