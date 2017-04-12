@@ -39,10 +39,6 @@ class GamePlayScene: SKScene {
         GamePlayScene.bottomedge=(Double(size.height)-GamePlayScene.realheight)/2
         GamePlayScene.leftedge=(Double(size.width)-GamePlayScene.realwidth)/2
         let beatmaps=BeatmapScanner()
-        debugPrint("list of detected beatmaps:")
-        for item in beatmaps.beatmaps {
-            debugPrint("\(beatmaps.beatmaps.index(of: item)!): \(item)")
-        }
         debugPrint("test beatmap:\(beatmaps.beatmaps[GamePlayScene.testBMIndex])")
         debugPrint("Enter GamePlayScene, screen size: \(size.width)*\(size.height)")
         debugPrint("scrscale:\(GamePlayScene.scrscale)")
@@ -416,7 +412,10 @@ class GamePlayScene: SKScene {
         // Called before each frame is rendered
         if bgvindex < bgvactions.count {
             if bgvtimes[bgvindex] - Int(mplayer.getTime()*1000) < 1000 {
-                let offset=bgvtimes[bgvindex] - Int(mplayer.getTime()*1000)
+                var offset=bgvtimes[bgvindex] - Int(mplayer.getTime()*1000)
+                if offset<0 {
+                    offset=0
+                }
                 debugPrint("push bgvideo \(bgvindex) with offset \(offset)")
                 self.run(SKAction.group([bgvactions[bgvindex],SKAction.sequence([SKAction.wait(forDuration: Double(offset)/1000),BGVPlayer.play()])]))
                 bgvindex+=1
