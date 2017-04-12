@@ -89,8 +89,9 @@ class Slider:HitObject{
     var repe:Int = 0
     var length:Int = 0
     var image:UIImage?
+    var stype:SliderType
     
-    init(x:Int,y:Int,curveX:[Int],curveY:[Int],time:Int,hitsound:Int,newCombo:Bool,repe:Int,length:Int) {
+    init(x:Int,y:Int,slidertype:SliderType,curveX:[Int],curveY:[Int],time:Int,hitsound:Int,newCombo:Bool,repe:Int,length:Int) {
         self.cx=curveX
         self.cy=curveY
         for i in 0...cx.count-1 {
@@ -99,14 +100,76 @@ class Slider:HitObject{
         }
         self.repe=repe
         self.length=length
+        self.stype=slidertype
         super.init(type: .Slider, x: x, y: y, time: time, hitsound: HitObject.hitsoundDecode(num: hitsound), newcombo: newCombo)
     }
     
     func genimage(color:UIColor,layer:CGFloat,inwidth:CGFloat,outwidth:CGFloat){
         let size=CGSize(width: GamePlayScene.scrwidth, height: GamePlayScene.scrheight)
+        UIGraphicsBeginImageContextWithOptions(size, false, 1)
         let path=UIBezierPath()
-        path.move(to: CGPoint(x: x, y: Int(GamePlayScene.scrheight)-y))
-        path.addLine(to: CGPoint(x: cx[cx.count-1], y: Int(GamePlayScene.scrheight)-cy[cy.count-1]))
+        var allx:[Int]=[x]
+        var ally:[Int]=[y]
+        allx.append(contentsOf: cx)
+        ally.append(contentsOf: cy)
+        switch self.stype {
+        case .Linear:
+            for i in 1...allx.count-1 {
+                path.move(to: CGPoint(x: allx[i-1], y: Int(GamePlayScene.scrheight)-ally[i-1]))
+                path.addLine(to: CGPoint(x: allx[i], y: Int(GamePlayScene.scrheight)-ally[i]))
+            }
+            renderpath(path: path, color: color, inwidth: inwidth, outwidth: outwidth, size: size)
+            break
+        case .PassThrough:
+            let x1=CGFloat(allx[0])
+            let y1=CGFloat(Int(GamePlayScene.scrheight)-ally[0])
+            let x2=CGFloat(allx[1])
+            let y2=CGFloat(Int(GamePlayScene.scrheight)-ally[1])
+            let x3=CGFloat(allx[2])
+            let y3=CGFloat(Int(GamePlayScene.scrheight)-ally[2])
+            //Reference:http://blog.csdn.net/xiaogugood/article/details/28238349
+            let t1=x1*x1+y1*y1
+            let t2=x2*x2+y2*y2
+            let t3=x3*x3+y3*y3
+            let temp=x1*y2+x2*y3+x3*y1-x1*y3-x2*y1-x3*y2
+            let x=(t2*y3+t1*y2+t3*y1-t2*y1-t3*y2-t1*y3)/temp/2
+            let y=(t3*x2+t2*x1+t1*x3-t1*x2-t2*x3-t3*x1)/temp/2
+            let r=sqrt((x1-x)*(x1-x)+(y1-y)*(y1-y))
+            var a1=atan2(y1-y, x1-x)
+            var a2=atan2(y2-y, x2-x)
+            var a3=atan2(y3-y, x3-x)
+            if a1<0 {
+                a1 += .pi*2
+            }
+            if a2<0 {
+                a2 += .pi*2
+            }
+            if a3<0 {
+                a3 += .pi*2
+            }
+            var clockwise=true
+            if (a1<a2 && a2>a3 && a1<a3)||(a1>a2 && a3>a1)||(a1>a2 && a2>a3) {
+                clockwise=false
+            }
+            path.addArc(withCenter: CGPoint(x:x,y:y), radius: r, startAngle: a1, endAngle: a3, clockwise: clockwise)
+            renderpath(path: path, color: color, inwidth: inwidth, outwidth: outwidth, size: size)
+            break
+        //case .Bezier:
+            //TODO: Parse Bezier
+            //https://zh.wikipedia.org/wiki/貝茲曲線
+        default:
+            for i in 1...allx.count-1 {
+                path.move(to: CGPoint(x: allx[i-1], y: Int(GamePlayScene.scrheight)-ally[i-1]))
+                path.addLine(to: CGPoint(x: allx[i], y: Int(GamePlayScene.scrheight)-ally[i]))
+            }
+            renderpath(path: path, color: color, inwidth: inwidth, outwidth: outwidth, size: size)
+            break
+        }
+        image=UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+    }
+    
+    private func renderpath(path:UIBezierPath,color:UIColor,inwidth:CGFloat,outwidth:CGFloat,size:CGSize) {
         let pathlayer=CAShapeLayer()
         pathlayer.frame=CGRect(origin: CGPoint.zero, size: size)
         pathlayer.path=path.cgPath
@@ -123,11 +186,8 @@ class Slider:HitObject{
         pathlayer2.lineCap="round"
         pathlayer2.lineJoin=kCALineJoinBevel
         pathlayer2.zPosition=0
-        UIGraphicsBeginImageContextWithOptions(size, false, 1)
         pathlayer2.render(in: UIGraphicsGetCurrentContext()!)
         pathlayer.render(in: UIGraphicsGetCurrentContext()!)
-        image=UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
     }
     
 }

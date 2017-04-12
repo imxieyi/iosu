@@ -19,6 +19,7 @@ class Beatmap{
     public var hitobjects:[HitObject] = []
     public var sampleSet:SampleSet = .Auto //Set of audios
     public var bgvideos:[BGVideo]=[]
+    public var widesb=false
     
     init(file:String) throws {
         debugPrint("full path: \(file)")
@@ -107,7 +108,7 @@ class Beatmap{
             case "WidescreenStoryboard":
                 if (value as NSString).integerValue==1 {
                     debugPrint("Widescreen Storyboard enabled")
-                    //StoryBoard.stdwidth=854
+                    widesb=true
                 }
                 break
             default:break
@@ -165,6 +166,9 @@ class Beatmap{
     
     func parseEvents(lines:ArraySlice<String>) -> Void {
         for line in lines {
+            if line.hasPrefix("[") {
+                return
+            }
             if line.hasPrefix("Video") {
                 let splitted=line.components(separatedBy: ",")
                 var vstr=splitted[2]
@@ -301,7 +305,7 @@ class Beatmap{
             case .Slider:
                 newcombo=newcombo || HitObject.getNewCombo(num: splitted[3])
                 let dslider=decodeSlider(sliderinfo: splitted[5])
-                hitobjects.append(Slider(x: (splitted[0] as NSString).integerValue, y: (splitted[1] as NSString).integerValue, curveX: dslider.cx, curveY: dslider.cy, time: (splitted[2] as NSString).integerValue, hitsound: (splitted[4] as NSString).integerValue, newCombo: newcombo, repe: (splitted[6] as NSString).integerValue,length:(splitted[7] as NSString).integerValue))
+                hitobjects.append(Slider(x: (splitted[0] as NSString).integerValue, y: (splitted[1] as NSString).integerValue, slidertype: dslider.type, curveX: dslider.cx, curveY: dslider.cy, time: (splitted[2] as NSString).integerValue, hitsound: (splitted[4] as NSString).integerValue, newCombo: newcombo, repe: (splitted[6] as NSString).integerValue,length:(splitted[7] as NSString).integerValue))
                 break
             case .Spinner:
                 newcombo=true //TODO: Maybe wrong

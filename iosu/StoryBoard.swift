@@ -697,13 +697,15 @@ class BasicImage {
         }
         //var acts:[SKAction]=[SKAction.wait(forDuration: Double(offset)/1000)]
         //sprite?.run(SKAction.sequence([SKAction.sequence(acts),self.actions!]),completion:{ ()->Void in
-        sprite?.run(SKAction.sequence([SKAction.wait(forDuration: Double(offset)/1000),self.actions!]),completion:{ ()->Void in
-            //debugPrint("destroy sprite")
-            self.sprite?.removeFromParent()
-            self.sprite=nil
-            self.commands=[]
-            self.actions=nil
-        })
+        if self.actions != nil {
+            sprite?.run(SKAction.sequence([SKAction.wait(forDuration: Double(offset)/1000),self.actions!]),completion:{ ()->Void in
+                //debugPrint("destroy sprite")
+                self.sprite?.removeFromParent()
+                self.sprite=nil
+                self.commands=[]
+                self.actions=nil
+            })
+        }
     }
     
 }

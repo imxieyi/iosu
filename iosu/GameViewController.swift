@@ -20,19 +20,7 @@ class GameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Load 'GameScene.sks' as a GKScene. This provides gameplay related content
-        // including entities and graphs.
-        //let scene=GamePlayScene(size: CGSize(width: screenWidth, height: screenHeight))
         if runtestscene {
-            //let vplayer=KSYMoviePlayerController(contentURL:URL(string: "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"))
-            let docURL=FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-            let url=docURL[0] as URL
-            let vplayer=KSYMoviePlayerController(contentURL: url.appendingPathComponent("SPiCa.avi"))
-            debugPrint("fileurl:\(vplayer?.contentURL)")
-            debugPrint("fileexist:\(FileManager.default.fileExists(atPath: (vplayer?.contentURL.absoluteString)!))")
-            vplayer?.controlStyle = .none
-            vplayer?.prepareToPlay()
-            view.addSubview((vplayer?.view)!)
             view?.autoresizesSubviews=true
             let scene=TestScene(size: CGSize(width: screenWidth, height: screenHeight))
             let skView=self.view as! SKView

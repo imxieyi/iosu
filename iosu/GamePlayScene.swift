@@ -116,6 +116,8 @@ class GamePlayScene: SKScene {
                 if bgvtimes.first!<=0 {
                     self.run(SKAction.group([bgvactions[bgvindex],SKAction.sequence([SKAction.wait(forDuration: Double(abs(bgvtimes.first!))/1000),SKAction.group([BGVPlayer.play(),mplayer.play(file: bm.audiofile)])])]))
                     bgvindex+=1
+                } else {
+                    self.run(mplayer.play(file: bm.audiofile))
                 }
             } else {
                 self.run(mplayer.play(file: bm.audiofile))
