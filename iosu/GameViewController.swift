@@ -58,7 +58,7 @@ class GameViewController: UIViewController {
             //let skView=self.view as! SKView
             let skView=SKView(frame: UIScreen.main.bounds)
             //For video play
-            BGVPlayer.vplayer?.view.layer.zPosition = -1
+            BGVPlayer.vplayer?.view.layer.zPosition = -1000
             skView.autoresizesSubviews=true
             self.view.autoresizesSubviews=true
             self.view.addSubview((BGVPlayer.vplayer?.view)!)

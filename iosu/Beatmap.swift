@@ -18,8 +18,7 @@ class Beatmap{
     public var colors:[UIColor] = []
     public var hitobjects:[HitObject] = []
     public var sampleSet:SampleSet = .Auto //Set of audios
-    public var bgvideos:[String]=[]
-    public var bgvtimes:[Int]=[]
+    public var bgvideos:[BGVideo]=[]
     
     init(file:String) throws {
         debugPrint("full path: \(file)")
@@ -176,9 +175,8 @@ class Beatmap{
                 while vstr.hasSuffix("\"") {
                     vstr=(vstr as NSString).substring(to: vstr.lengthOfBytes(using: .ascii)-1)
                 }
-                bgvideos.append(vstr)
-                bgvtimes.append((splitted[1] as NSString).integerValue)
-                debugPrint("find video \(vstr) with offset \(bgvtimes.last!)")
+                bgvideos.append(BGVideo(file: vstr, time: (splitted[1] as NSString).integerValue))
+                debugPrint("find video \(vstr) with offset \(bgvideos.last?.time)")
             } else {
                 let splitted=line.components(separatedBy: ",")
                 if splitted.count>=3 {
@@ -203,8 +201,7 @@ class Beatmap{
                         while vstr.hasSuffix("\"") {
                             vstr=(vstr as NSString).substring(to: vstr.lengthOfBytes(using: .ascii)-1)
                         }
-                        bgvideos.append(vstr)
-                        bgvtimes.append((splitted[1] as NSString).integerValue)
+                        bgvideos.append(BGVideo(file: vstr, time: (splitted[1] as NSString).integerValue))
                         break
                     default:
                         continue
@@ -212,6 +209,9 @@ class Beatmap{
                 }
             }
         }
+        bgvideos.sort(by: {(v1,v2)->Bool in
+            return v1.time<v2.time
+        })
     }
     
     func parseTimingPoints(lines:ArraySlice<String>) throws -> Void {
@@ -406,6 +406,18 @@ class Difficulty {
         self.approachrate=approachrate
         self.slidermultiplier=slidermultiplier
         self.slidertickrate=slidertickrate
+    }
+    
+}
+
+class BGVideo {
+    
+    var file:String
+    var time:Int
+    
+    init(file:String,time:Int) {
+        self.file=file
+        self.time=time
     }
     
 }

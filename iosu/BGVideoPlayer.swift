@@ -15,19 +15,19 @@ class BGVPlayer {
     
     static func setcontent(file:String) -> SKAction {
         return SKAction.run {
-            vplayer?.setUrl(URL(fileURLWithPath: file))
+            let view=vplayer?.view.superview
+            if (vplayer?.isPlaying())! {
+                vplayer?.stop()
+            }
+            let layer=vplayer?.view.layer.zPosition
+            vplayer?.view.removeFromSuperview()
+            vplayer=KSYMoviePlayerController(contentURL: URL(fileURLWithPath: file))
+            vplayer?.view.layer.zPosition=layer!+1
+            //vplayer?.setUrl(URL(fileURLWithPath: file))
             vplayer?.controlStyle = .none
             vplayer?.setVolume(0, rigthVolume: 0)
             vplayer?.shouldAutoplay=true
-        }
-    }
-    
-    static func setcontent(file:URL) -> SKAction {
-        return SKAction.run {
-            vplayer?.setUrl(file)
-            vplayer?.controlStyle = .none
-            vplayer?.setVolume(0, rigthVolume: 0)
-            vplayer?.shouldAutoplay=true
+            view?.addSubview((vplayer?.view)!)
         }
     }
     
@@ -35,7 +35,6 @@ class BGVPlayer {
         return SKAction.run {
             debugPrint("start playing video \(vplayer?.contentURL.absoluteString)")
             vplayer!.prepareToPlay()
-            //vplayer?.play()
         }
     }
     

@@ -51,12 +51,12 @@ class GamePlayScene: SKScene {
             if bm.bgvideos.count > 0 {
                 debugPrint("got \(bm.bgvideos.count) videos")
                 for i in 0...bm.bgvideos.count-1 {
-                    let file=(beatmaps.beatmapdirs[GamePlayScene.testBMIndex] as NSString).strings(byAppendingPaths: [bm.bgvideos[i]])[0]
+                    let file=(beatmaps.beatmapdirs[GamePlayScene.testBMIndex] as NSString).strings(byAppendingPaths: [bm.bgvideos[i].file])[0]
                     //var file=URL(fileURLWithPath: beatmaps.beatmapdirs[GamePlayScene.testBMIndex], isDirectory: true)
                     //let file=beatmaps.bmdirurls[GamePlayScene.testBMIndex].appendingPathComponent(bm.bgvideos[i])
                     if FileManager.default.fileExists(atPath: file) {
                         bgvactions.append(BGVPlayer.setcontent(file: file))
-                        bgvtimes.append(bm.bgvtimes[i])
+                        bgvtimes.append(bm.bgvideos[i].time)
                     } else {
                         debugPrint("video not found: \(file)")
                     }
@@ -112,7 +112,14 @@ class GamePlayScene: SKScene {
             //for action in bmactions{
             //    self.run(action)
             //}
-            self.run(mplayer.play(file: bm.audiofile))
+            if bgvtimes.count>0 {
+                if bgvtimes.first!<=0 {
+                    self.run(SKAction.group([bgvactions[bgvindex],SKAction.sequence([SKAction.wait(forDuration: Double(abs(bgvtimes.first!))/1000),SKAction.group([BGVPlayer.play(),mplayer.play(file: bm.audiofile)])])]))
+                    bgvindex+=1
+                }
+            } else {
+                self.run(mplayer.play(file: bm.audiofile))
+            }
         } catch BeatmapError.FileNotFound {
             debugPrint("ERROR:beatmap file not found")
         } catch BeatmapError.IllegalFormat {
@@ -426,8 +433,8 @@ class GamePlayScene: SKScene {
             //However, if the frame rate drops under 10, the game will be hardly playable!
             while actiontimepoints[index]-Int(mplayer.getTime()*1000) <= 1100 {
                 let offset=actiontimepoints[index]-Int(mplayer.getTime()*1000)-1000
-                debugPrint("time:\(mplayer.getTime())")
-                debugPrint("push hit circle \(index)/\(bmactions.count-1) with offset \(offset)")
+                //debugPrint("time:\(mplayer.getTime())")
+                //debugPrint("push hit circle \(index)/\(bmactions.count-1) with offset \(offset)")
                 self.run(SKAction.sequence([SKAction.wait(forDuration: TimeInterval(Double(offset)/1000)),bmactions[index]]))
                 //self.run(bmactions[index])
                 index+=1
