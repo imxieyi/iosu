@@ -462,7 +462,7 @@ class BasicImage {
     var commands:[SBCommand]=[]
     var starttime=0
     var endtime=0
-    var sprite:SKSpriteNode?
+    var sprite:FlipNode?
     var actions:SKAction?
     //Initial value
     var x:Double
@@ -597,7 +597,7 @@ class BasicImage {
     }
     
     func convertsprite(){
-        sprite=SKSpriteNode(texture: ImageBuffer.get(file: filepath))
+        sprite=FlipNode(texture: ImageBuffer.get(file: filepath))
         if sprite==nil {
             return
         }

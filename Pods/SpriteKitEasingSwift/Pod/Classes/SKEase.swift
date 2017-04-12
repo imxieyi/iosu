@@ -231,7 +231,16 @@ open class SKEase {
     open class func scale(easeFunction curve:CurveType, easeType:EaseType, time:TimeInterval, from:CGFloat, to:CGFloat)->SKAction {
         let easingFunction = SKEase.getEaseFunction(curve, easeType: easeType)
         let action = self.createFloatTween(from, end: to, time: time, easingFunction: easingFunction) { (node:SKNode, scale:CGFloat) -> Void in
-            node.setScale(scale)
+            if (node as! FlipNode).hflip {
+                node.xScale = -scale
+            } else {
+                node.xScale = scale
+            }
+            if (node as! FlipNode).vflip {
+                node.yScale = -scale
+            } else {
+                node.yScale = scale
+            }
         }
         return action
     }
@@ -265,10 +274,18 @@ open class SKEase {
     open class func vscale(easeFunction curve:CurveType, easeType:EaseType, time:TimeInterval, xfrom:CGFloat, yfrom:CGFloat, xto:CGFloat, yto:CGFloat)->SKAction {
         let easingFunction = SKEase.getEaseFunction(curve, easeType: easeType)
         let xaction = self.createFloatTween(xfrom, end: xto, time: time, easingFunction: easingFunction) { (node:SKNode, scale:CGFloat) -> Void in
-            node.xScale = scale
+            if (node as! FlipNode).hflip {
+                node.xScale = -scale
+            } else {
+                node.xScale = scale
+            }
         }
         let yaction = self.createFloatTween(yfrom, end: yto, time: time, easingFunction: easingFunction) { (node:SKNode, scale:CGFloat) -> Void in
-            node.yScale = scale
+            if (node as! FlipNode).vflip {
+                node.yScale = -scale
+            } else {
+                node.yScale = scale
+            }
         }
         let action=SKAction.group([xaction,yaction])
         return action

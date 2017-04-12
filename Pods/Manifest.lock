@@ -1,5 +1,5 @@
 PODS:
-  - SpriteKitEasingSwift (0.0.1)
+  - SpriteKitEasingSwift (0.0.3)
 
 DEPENDENCIES:
   - SpriteKitEasingSwift (from `https://github.com/imxieyi/SpriteKitEasingSwift.git`)
@@ -10,11 +10,11 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   SpriteKitEasingSwift:
-    :commit: ee314ecdf53ef791cc79326d4825e4a4d7e1ee9e
+    :commit: d1523badacd7330f56b683ef1cd787895c12232e
     :git: https://github.com/imxieyi/SpriteKitEasingSwift.git
 
 SPEC CHECKSUMS:
-  SpriteKitEasingSwift: 68f02d65e56cbabc66d74ee433e820a0ac7efeb7
+  SpriteKitEasingSwift: b8ab132e41d3c686e648ae22a5b10a7b8f8d699c
 
 PODFILE CHECKSUM: e582f5dfed36b3a0fa0696508210fe69f8ac2c34
 

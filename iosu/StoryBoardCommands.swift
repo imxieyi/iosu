@@ -325,22 +325,6 @@ class SBParam:SBCommand,SBCAction {
         } else {
             self.paramtype = .N
         }
-        /*switch (ptype as NSString).substring(to: 0) {
-        case "H":
-            self.paramtype = .H
-            break
-        case "V":
-            self.paramtype = .V
-            break
-        case "A":
-            debugPrint("set to a")
-            self.paramtype = .A
-            break
-        default:
-            debugPrint("set to n")
-            self.paramtype = .N
-            break
-        }*/
         super.init(type: .Parameter, easing: easing, starttime: starttime, endtime: endtime)
     }
     
@@ -348,43 +332,27 @@ class SBParam:SBCommand,SBCAction {
         //debugPrint("convert parameter to action, type \(self.paramtype)")
         switch paramtype {
         case .H:
-            var firstcall1=true
-            let flip1={(node:SKNode,time:CGFloat)->Void in
-                if firstcall1 {
-                    node.xScale = -node.xScale
-                    firstcall1=false
-                }
+            let flip={(node:SKNode,time:CGFloat)->Void in
+                (node as! FlipNode).hflip=true
             }
             if starttime==endtime {
-                return SKAction.customAction(withDuration: 0, actionBlock: flip1)
+                return SKAction.customAction(withDuration: 0, actionBlock: flip)
             }
-            var firstcall2=true
-            let flip2={(node:SKNode,time:CGFloat)->Void in
-                if firstcall2 {
-                    node.xScale = -node.xScale
-                    firstcall2=false
-                }
+            let restore={(node:SKNode,time:CGFloat)->Void in
+                (node as! FlipNode).hflip=false
             }
-            return SKAction.sequence([SKAction.customAction(withDuration: 0, actionBlock: flip1),SKAction.wait(forDuration: duration),SKAction.customAction(withDuration: 0, actionBlock: flip2)])
+            return SKAction.sequence([SKAction.customAction(withDuration: 0, actionBlock: flip),SKAction.wait(forDuration: duration),SKAction.customAction(withDuration: 0, actionBlock: restore)])
         case .V:
-            var firstcall1=true
-            let flip1={(node:SKNode,time:CGFloat)->Void in
-                if firstcall1 {
-                    node.yScale = -node.yScale
-                    firstcall1=false
-                }
+            let flip={(node:SKNode,time:CGFloat)->Void in
+                (node as! FlipNode).vflip=true
             }
             if starttime==endtime {
-                return SKAction.customAction(withDuration: 0, actionBlock: flip1)
+                return SKAction.customAction(withDuration: 0, actionBlock: flip)
             }
-            var firstcall2=true
-            let flip2={(node:SKNode,time:CGFloat)->Void in
-                if firstcall2 {
-                    node.yScale = -node.yScale
-                    firstcall2=false
-                }
+            let restore={(node:SKNode,time:CGFloat)->Void in
+                (node as! FlipNode).vflip=false
             }
-            return SKAction.sequence([SKAction.customAction(withDuration: 0, actionBlock: flip1),SKAction.wait(forDuration: duration),SKAction.customAction(withDuration: 0, actionBlock: flip2)])
+            return SKAction.sequence([SKAction.customAction(withDuration: 0, actionBlock: flip),SKAction.wait(forDuration: duration),SKAction.customAction(withDuration: 0, actionBlock: restore)])
         case .A:
             return SKAction.customAction(withDuration: 0, actionBlock: {(node:SKNode,time:CGFloat)->Void in
                 (node as! SKSpriteNode).blendMode = .add

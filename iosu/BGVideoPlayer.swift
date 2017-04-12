@@ -15,19 +15,16 @@ class BGVPlayer {
     
     static func setcontent(file:String) -> SKAction {
         return SKAction.run {
-            let view=vplayer?.view.superview
-            if (vplayer?.isPlaying())! {
-                vplayer?.stop()
-            }
-            let layer=vplayer?.view.layer.zPosition
-            vplayer?.view.removeFromSuperview()
-            vplayer=KSYMoviePlayerController(contentURL: URL(fileURLWithPath: file))
-            vplayer?.view.layer.zPosition=layer!+1
-            //vplayer?.setUrl(URL(fileURLWithPath: file))
+            vplayer?.reset(false)
+            vplayer?.setUrl(URL(fileURLWithPath: file))
             vplayer?.controlStyle = .none
             vplayer?.setVolume(0, rigthVolume: 0)
             vplayer?.shouldAutoplay=true
-            view?.addSubview((vplayer?.view)!)
+            let notification=NotificationCenter.default
+            let operationQueue=OperationQueue.main
+            let observer=notification.addObserver(forName: NSNotification.Name.MPMoviePlayerPlaybackDidFinish, object: nil, queue: operationQueue, using: {(notif) in
+                vplayer?.reset(false)
+            })
         }
     }
     
