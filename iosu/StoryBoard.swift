@@ -226,7 +226,7 @@ class StoryBoard {
                     sindex+=1
                 }
                 //debugPrint("first cmd:\(lines[sindex])")
-                while sindex<=lines.count{
+                while sindex<lines.count{
                     //debugPrint("line: \(lines[sindex])")
                     if lines[sindex].hasPrefix(" ") || lines[sindex].hasPrefix("_") {
                         slines.append(lines[sindex])
@@ -424,11 +424,18 @@ class ImageBuffer{
         if buffer[file] != nil {
             return
         }
-        let image=UIImage(contentsOfFile: file)
+        var image=UIImage(contentsOfFile: file)
         if image==nil {
-            debugPrint("image not found: \(file)")
-            notfoundimages.insert(file)
-            return
+            debugPrint("image not found: \(file)\nTrying to fix")
+            image=UIImage(contentsOfFile: file.replacingOccurrences(of: "/sb/", with: "/SB/"))
+            if image==nil {
+                image=UIImage(contentsOfFile: file.replacingOccurrences(of: "/SB/", with: "/sb/"))
+                if image==nil {
+                    debugPrint("Failed.")
+                    notfoundimages.insert(file)
+                    return
+                }
+            }
         }
         let texture=SKTexture(image: image!)
         buffer[file]=texture
