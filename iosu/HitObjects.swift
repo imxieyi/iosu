@@ -106,34 +106,29 @@ class Slider:HitObject{
     }
     
     func genpath() {
-        var allx:[Int]=[x]
-        var ally:[Int]=[y]
-        allx.append(contentsOf: cx)
-        ally.append(contentsOf: cy)
+        var allx:[CGFloat]=[CGFloat(x)]
+        var ally:[CGFloat]=[CGFloat(GamePlayScene.scrheight)-CGFloat(y)]
+        for i in 0...cx.count-1 {
+            allx.append(CGFloat(cx[i]))
+            ally.append(CGFloat(GamePlayScene.scrheight)-CGFloat(cy[i]))
+        }
         switch self.stype {
         case .Linear:
             for i in 1...allx.count-1 {
-                path.move(to: CGPoint(x: allx[i-1], y: Int(GamePlayScene.scrheight)-ally[i-1]))
-                path.addLine(to: CGPoint(x: allx[i], y: Int(GamePlayScene.scrheight)-ally[i]))
+                path.move(to: CGPoint(x: allx[i-1], y: ally[i-1]))
+                path.addLine(to: CGPoint(x: allx[i], y: ally[i]))
             }
             break
         case .PassThrough:
-            let x1=CGFloat(allx[0])
-            let y1=CGFloat(Int(GamePlayScene.scrheight)-ally[0])
-            let x2=CGFloat(allx[1])
-            let y2=CGFloat(Int(GamePlayScene.scrheight)-ally[1])
-            let x3=CGFloat(allx[2])
-            let y3=CGFloat(Int(GamePlayScene.scrheight)-ally[2])
-            genpassthrough(x1: x1, y1: y1, x2: x2, y2: y2, x3: x3, y3: y3)
+            genpassthrough(x1: allx[0], y1: ally[0], x2: allx[1], y2: ally[1], x3: allx[2], y3: ally[2])
             break
         case .Bezier:
-            //https://zh.wikipedia.org/wiki/貝茲曲線
             //https://pomax.github.io/bezierinfo/zh-CN/
             var xx:[CGFloat]=[]
             var yy:[CGFloat]=[]
             for i in 0...allx.count-2 {
                 xx.append(CGFloat(allx[i]))
-                yy.append(CGFloat(Int(GamePlayScene.scrheight)-ally[i]))
+                yy.append(ally[i])
                 if(allx[i]==allx[i+1] && ally[i]==ally[i+1]) {
                     genbezier(x: xx, y: yy)
                     xx=[]
@@ -141,19 +136,22 @@ class Slider:HitObject{
                 }
             }
             xx.append(CGFloat(allx[allx.count-1]))
-            yy.append(CGFloat(Int(GamePlayScene.scrheight)-ally[allx.count-1]))
+            yy.append(ally[allx.count-1])
             genbezier(x: xx, y: yy)
+            break
+        case .Catmull:
+            gencatmull(x: allx, y: ally)
             break
         default:
             for i in 1...allx.count-1 {
-                path.move(to: CGPoint(x: allx[i-1], y: Int(GamePlayScene.scrheight)-ally[i-1]))
-                path.addLine(to: CGPoint(x: allx[i], y: Int(GamePlayScene.scrheight)-ally[i]))
+                path.move(to: CGPoint(x: allx[i-1], y: ally[i-1]))
+                path.addLine(to: CGPoint(x: allx[i], y: ally[i]))
             }
             break
         }
     }
     
-    func genpassthrough(x1:CGFloat,y1:CGFloat,x2:CGFloat,y2:CGFloat,x3:CGFloat,y3:CGFloat) {
+    private func genpassthrough(x1:CGFloat,y1:CGFloat,x2:CGFloat,y2:CGFloat,x3:CGFloat,y3:CGFloat) {
         //Reference:http://blog.csdn.net/xiaogugood/article/details/28238349
         let t1=x1*x1+y1*y1
         let t2=x2*x2+y2*y2
@@ -181,7 +179,7 @@ class Slider:HitObject{
         path.addArc(withCenter: CGPoint(x:x,y:y), radius: r, startAngle: a1, endAngle: a3, clockwise: clockwise)
     }
     
-    func genbezier(x:[CGFloat],y:[CGFloat]) {
+    private func genbezier(x:[CGFloat],y:[CGFloat]) {
         switch x.count {
         case 0:
             break
@@ -204,7 +202,7 @@ class Slider:HitObject{
         }
     }
     
-    func genhighbezier(x:[CGFloat],y:[CGFloat]) {
+    private func genhighbezier(x:[CGFloat],y:[CGFloat]) {
         var points:[CGPoint]=[]
         for i in 0...x.count-1 {
             points.append(CGPoint(x: x[i], y: y[i]))
@@ -218,7 +216,7 @@ class Slider:HitObject{
         }
     }
     
-    func drawbezier(points:[CGPoint],t:CGFloat) {
+    private func drawbezier(points:[CGPoint],t:CGFloat) {
         if(points.count==1) {
             path.addLine(to: points[0])
         } else {
@@ -230,6 +228,50 @@ class Slider:HitObject{
             }
             drawbezier(points: newpoints, t: t)
         }
+    }
+    
+    //opsu: itdelatrisu.opsu.objects.curves.CatmullCurve
+    private func gencatmull(x:[CGFloat],y:[CGFloat]) {
+        var points:[CGPoint]=[]
+        if(x[0] != x[1] || y[0] != y[1]) {
+            points.append(CGPoint(x: x[0], y: y[0]))
+        }
+        for i in 0...x.count-1 {
+            points.append(CGPoint(x: x[i], y: y[i]))
+            if(points.count>=4) {
+                path.move(to: points[0])
+                path.close()
+                let sections=50
+                let interval=1.0/CGFloat(sections)
+                for i in 1...sections {
+                    drawcatmull(points: points, t: interval*CGFloat(i))
+                }
+                points.removeFirst()
+            }
+        }
+        if(x[x.count-2] != x[x.count-1] || y[x.count-2] != y[x.count-1]) {
+            points.append(CGPoint(x: x[x.count-1], y: y[x.count-1]))
+        }
+        if(points.count>=4){
+            path.move(to: points[0])
+            path.close()
+            let sections=50
+            let interval=1.0/CGFloat(sections)
+            for i in 1...sections {
+                drawcatmull(points: points, t: interval*CGFloat(i))
+            }
+        }
+    }
+    
+    //http://blog.csdn.net/i_dovelemon/article/details/47984241
+    private func drawcatmull(points:[CGPoint],t:CGFloat) {
+        if(points.count != 4) {
+            debugPrint("4 points are needed to draw catmull, got \(points.count)")
+            return
+        }
+        let x = points[0].x * (-0.5*t*t*t + t*t - 0.5*t) + points[1].x * (1.5*t*t*t - 2.5*t*t + 1) + points[2].x * (-1.5*t*t*t + 2.0*t*t + 0.5*t) + points[3].x * (0.5*t*t*t - 0.5*t*t)
+        let y = points[0].y * (-0.5*t*t*t + t*t - 0.5*t) + points[1].y * (1.5*t*t*t - 2.5*t*t + 1) + points[2].y * (-1.5*t*t*t + 2.0*t*t + 0.5*t) + points[3].y * (0.5*t*t*t - 0.5*t*t)
+        path.addLine(to: CGPoint(x: x,y: y))
     }
     
     func genimage(color:UIColor,layer:CGFloat,inwidth:CGFloat,outwidth:CGFloat){

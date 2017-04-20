@@ -11,8 +11,7 @@ This is an ios port of the rhythm game [osu!](https://osu.ppy.sh). It is written
  - Timing
  - Render background image & Background dim
  - Draw Plain HitCircle
- - Draw HitCircle in Slider
- - Draw straight & passthrough(arc) & bezier slider
+ - Draw all types of Slider
  - **Play backgound video**
  - **Play StoryBoard**
 
