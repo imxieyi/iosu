@@ -90,6 +90,7 @@ class Slider:HitObject{
     var length:Int = 0
     var image:UIImage?
     var stype:SliderType
+    let path=UIBezierPath()
     
     init(x:Int,y:Int,slidertype:SliderType,curveX:[Int],curveY:[Int],time:Int,hitsound:Int,newCombo:Bool,repe:Int,length:Int) {
         self.cx=curveX
@@ -104,10 +105,7 @@ class Slider:HitObject{
         super.init(type: .Slider, x: x, y: y, time: time, hitsound: HitObject.hitsoundDecode(num: hitsound), newcombo: newCombo)
     }
     
-    func genimage(color:UIColor,layer:CGFloat,inwidth:CGFloat,outwidth:CGFloat){
-        let size=CGSize(width: GamePlayScene.scrwidth, height: GamePlayScene.scrheight)
-        UIGraphicsBeginImageContextWithOptions(size, false, 1)
-        let path=UIBezierPath()
+    func genpath() {
         var allx:[Int]=[x]
         var ally:[Int]=[y]
         allx.append(contentsOf: cx)
@@ -118,7 +116,6 @@ class Slider:HitObject{
                 path.move(to: CGPoint(x: allx[i-1], y: Int(GamePlayScene.scrheight)-ally[i-1]))
                 path.addLine(to: CGPoint(x: allx[i], y: Int(GamePlayScene.scrheight)-ally[i]))
             }
-            renderpath(path: path, color: color, inwidth: inwidth, outwidth: outwidth, size: size)
             break
         case .PassThrough:
             let x1=CGFloat(allx[0])
@@ -152,19 +149,23 @@ class Slider:HitObject{
                 clockwise=false
             }
             path.addArc(withCenter: CGPoint(x:x,y:y), radius: r, startAngle: a1, endAngle: a3, clockwise: clockwise)
-            renderpath(path: path, color: color, inwidth: inwidth, outwidth: outwidth, size: size)
             break
-        //case .Bezier:
+            //case .Bezier:
             //TODO: Parse Bezier
-            //https://zh.wikipedia.org/wiki/貝茲曲線
+        //https://zh.wikipedia.org/wiki/貝茲曲線
         default:
             for i in 1...allx.count-1 {
                 path.move(to: CGPoint(x: allx[i-1], y: Int(GamePlayScene.scrheight)-ally[i-1]))
                 path.addLine(to: CGPoint(x: allx[i], y: Int(GamePlayScene.scrheight)-ally[i]))
             }
-            renderpath(path: path, color: color, inwidth: inwidth, outwidth: outwidth, size: size)
             break
         }
+    }
+    
+    func genimage(color:UIColor,layer:CGFloat,inwidth:CGFloat,outwidth:CGFloat){
+        let size=CGSize(width: GamePlayScene.scrwidth, height: GamePlayScene.scrheight)
+        UIGraphicsBeginImageContextWithOptions(size, false, 1)
+        renderpath(path: path, color: color, inwidth: inwidth, outwidth: outwidth, size: size)
         image=UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
     }

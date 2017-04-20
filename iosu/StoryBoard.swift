@@ -478,7 +478,8 @@ class BasicImage {
     var r:Double = 1
     var g:Double = 1
     var b:Double = 1
-    var scale:Double = 1
+    var xscale:Double = 1
+    var yscale:Double = 1
     var angle:Double = 0
     
     init(layer:SBLayer,rlayer:Double,origin:SBOrigin,filepath:String,x:Double,y:Double) {
@@ -588,7 +589,18 @@ class BasicImage {
             }
         }
         if FirstScale.starttime != .max {
-            scale=FirstScale.starts
+            if FirstScale.starttime<FirstVScale.starttime {
+                xscale=FirstScale.starts
+                yscale=FirstScale.starts
+            } else {
+                xscale=FirstVScale.startsx
+                yscale=FirstVScale.startsy
+            }
+        } else {
+            if FirstVScale.starttime != .max {
+                xscale=FirstVScale.startsx
+                yscale=FirstVScale.startsy
+            }
         }
         if FirstColor.starttime != .max {
             r=FirstColor.startr
@@ -618,7 +630,8 @@ class BasicImage {
         sprite?.color = UIColor(red: CGFloat(r), green: CGFloat(g), blue: CGFloat(b), alpha: 1)
         sprite?.colorBlendFactor=1.0
         sprite?.alpha=0
-        sprite?.setScale(CGFloat(scale))
+        sprite?.xScale=CGFloat(xscale)
+        sprite?.yScale=CGFloat(yscale)
         sprite?.zRotation=CGFloat(angle)
         switch origin {
         case .TopLeft:

@@ -354,23 +354,13 @@ class SBParam:SBCommand,SBCAction {
             }
             return SKAction.sequence([SKAction.customAction(withDuration: 0, actionBlock: flip),SKAction.wait(forDuration: duration),SKAction.customAction(withDuration: 0, actionBlock: restore)])
         case .A:
-            return SKAction.customAction(withDuration: 0, actionBlock: {(node:SKNode,time:CGFloat)->Void in
+            let set={(node:SKNode,time:CGFloat)->Void in
                 (node as! SKSpriteNode).blendMode = .add
-            })
-            /*return SKAction.run {
-                self.sprite?.blendMode = .add
-            }*/
-            /*return SKAction.customAction(withDuration: duration, actionBlock: { (node:SKNode, elapsedTime:CGFloat) -> Void in
-                (node as! SKSpriteNode).blendMode = .add
-            })*/
-            /*
-            return SKAction.customAction(withDuration: duration, actionBlock: { (node:SKNode, elapsedTime:CGFloat) -> Void in
-                if elapsedTime < CGFloat(self.duration) {
-                    (node as! SKSpriteNode).blendMode = .add
-                } else {
-                    (node as! SKSpriteNode).blendMode = .alpha
-                }
-            })*/
+            }
+            let restore={(node:SKNode,time:CGFloat)->Void in
+                (node as! SKSpriteNode).blendMode = .alpha
+            }
+            return SKAction.sequence([SKAction.customAction(withDuration: 0, actionBlock: set),SKAction.wait(forDuration: duration),SKAction.customAction(withDuration: 0, actionBlock: restore)])
         case .N:
             return SKAction.run {
             }
