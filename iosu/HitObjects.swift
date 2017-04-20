@@ -114,8 +114,8 @@ class Slider:HitObject{
         }
         switch self.stype {
         case .Linear:
+            path.move(to: CGPoint(x: allx[0], y: ally[0]))
             for i in 1...allx.count-1 {
-                path.move(to: CGPoint(x: allx[i-1], y: ally[i-1]))
                 path.addLine(to: CGPoint(x: allx[i], y: ally[i]))
             }
             break
@@ -239,7 +239,7 @@ class Slider:HitObject{
         for i in 0...x.count-1 {
             points.append(CGPoint(x: x[i], y: y[i]))
             if(points.count>=4) {
-                path.move(to: points[0])
+                path.move(to: points[1])
                 path.close()
                 let sections=50
                 let interval=1.0/CGFloat(sections)
@@ -253,7 +253,7 @@ class Slider:HitObject{
             points.append(CGPoint(x: x[x.count-1], y: y[x.count-1]))
         }
         if(points.count>=4){
-            path.move(to: points[0])
+            path.move(to: points[1])
             path.close()
             let sections=50
             let interval=1.0/CGFloat(sections)
