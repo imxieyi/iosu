@@ -125,9 +125,12 @@ class SBFade:SBCommand,SBCAction {
     }
     
     func toAction() -> SKAction {
-        if starttime==endtime {
+        if starttime==endtime{
             //debugPrint("set alpha: \(endopacity)")
             return SKAction.fadeAlpha(to: CGFloat(endopacity), duration: 0)
+        }
+        if startopacity==endopacity {
+            return SKAction.sequence([SKAction.fadeAlpha(to: CGFloat(endopacity), duration: 0),SKAction.wait(forDuration: duration)])
         }
         return SKEase.fade(easeFunction: easing.function, easeType: easing.type, time: duration, fromValue: CGFloat(startopacity), toValue: CGFloat(endopacity))
     }
@@ -382,11 +385,17 @@ class SBLoop:SBCommand,SBCAction {
     }
     
     func genendtime() {
-        var duration=0
+        var latest:Int = .min
         for cmd in commands {
-            duration+=cmd.endtime-cmd.starttime
+            if(latest<cmd.endtime) {
+                latest=cmd.endtime
+            }
         }
-        endtime=starttime+duration*loopcount
+        if(latest != .min) {
+            endtime=starttime+latest*loopcount
+        } else {
+            endtime=starttime
+        }
         self.duration=Double(endtime-starttime)/1000
         return
     }

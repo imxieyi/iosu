@@ -257,7 +257,7 @@ class StoryBoard {
                     break
                 }
                 if slines.count>0 {
-                    sprite.commands=parseCommands(lines: slines)
+                    sprite.commands=parseCommands(lines: slines,inloop: false)
                     sprite.gentime()
                     sprite.geninitials()
                     sprite.schedule()
@@ -272,7 +272,7 @@ class StoryBoard {
         }
     }
     
-    private func parseCommands(lines:ArraySlice<String>) -> [SBCommand] {
+    private func parseCommands(lines:ArraySlice<String>,inloop:Bool) -> [SBCommand] {
         var digested:[String]=[]
         for i in 0...(lines.count-1) {
             digested.append((lines[i] as NSString).substring(from: 1))
@@ -302,8 +302,10 @@ class StoryBoard {
                 if splitted.count==5 {
                     splitted.append(splitted[4])
                 }
-                if (splitted[2] as NSString).integerValue<earliest {
-                    earliest=(splitted[2] as NSString).integerValue
+                if(!inloop) {
+                    if (splitted[2] as NSString).integerValue<earliest {
+                        earliest=(splitted[2] as NSString).integerValue
+                    }
                 }
                 commands.append(SBFade(easing: (splitted[1] as NSString).integerValue, starttime: (splitted[2] as NSString).integerValue, endtime: (splitted[3] as NSString).integerValue, startopacity: (splitted[4] as NSString).doubleValue, endopacity: (splitted[5] as NSString).doubleValue))
                 break
@@ -312,15 +314,18 @@ class StoryBoard {
                     splitted.append(splitted[4])
                     splitted.append(splitted[5])
                 }
-                //debugPrint("\(splitted[2])")
-                if (splitted[2] as NSString).integerValue<earliest {
-                    earliest=(splitted[2] as NSString).integerValue
+                if(!inloop) {
+                    if (splitted[2] as NSString).integerValue<earliest {
+                        earliest=(splitted[2] as NSString).integerValue
+                    }
                 }
                 commands.append(SBMove(easing: (splitted[1] as NSString).integerValue, starttime: (splitted[2] as NSString).integerValue, endtime: (splitted[3] as NSString).integerValue, startx: (splitted[4] as NSString).doubleValue, starty: (splitted[5] as NSString).doubleValue, endx: (splitted[6] as NSString).doubleValue, endy: (splitted[7] as NSString).doubleValue))
                 break
             case "MX":
-                if (splitted[2] as NSString).integerValue<earliest {
-                    earliest=(splitted[2] as NSString).integerValue
+                if(!inloop) {
+                    if (splitted[2] as NSString).integerValue<earliest {
+                        earliest=(splitted[2] as NSString).integerValue
+                    }
                 }
                 if splitted.count==5 {
                     splitted.append(splitted[4])
@@ -328,8 +333,10 @@ class StoryBoard {
                 commands.append(SBMoveX(easing: (splitted[1] as NSString).integerValue, starttime: (splitted[2] as NSString).integerValue, endtime: (splitted[3] as NSString).integerValue, startx: (splitted[4] as NSString).doubleValue, endx: (splitted[5] as NSString).doubleValue))
                 break
             case "MY":
-                if (splitted[2] as NSString).integerValue<earliest {
-                    earliest=(splitted[2] as NSString).integerValue
+                if(!inloop) {
+                    if (splitted[2] as NSString).integerValue<earliest {
+                        earliest=(splitted[2] as NSString).integerValue
+                    }
                 }
                 if splitted.count==5 {
                     splitted.append(splitted[4])
@@ -340,8 +347,10 @@ class StoryBoard {
                 if splitted.count==5{
                     splitted.append(splitted[4])
                 }
-                if (splitted[2] as NSString).integerValue<earliest {
-                    earliest=(splitted[2] as NSString).integerValue
+                if(!inloop) {
+                    if (splitted[2] as NSString).integerValue<earliest {
+                        earliest=(splitted[2] as NSString).integerValue
+                    }
                 }
                 commands.append(SBScale(easing: (splitted[1] as NSString).integerValue, starttime: (splitted[2] as NSString).integerValue, endtime: (splitted[3] as NSString).integerValue, starts: (splitted[4] as NSString).doubleValue, ends: (splitted[5] as NSString).doubleValue))
                 break
@@ -350,8 +359,10 @@ class StoryBoard {
                     splitted.append(splitted[4])
                     splitted.append(splitted[5])
                 }
-                if (splitted[2] as NSString).integerValue<earliest {
-                    earliest=(splitted[2] as NSString).integerValue
+                if(!inloop) {
+                    if (splitted[2] as NSString).integerValue<earliest {
+                        earliest=(splitted[2] as NSString).integerValue
+                    }
                 }
                 commands.append(SBVScale(easing: (splitted[1] as NSString).integerValue, starttime: (splitted[2] as NSString).integerValue, endtime: (splitted[3] as NSString).integerValue, startsx: (splitted[4] as NSString).doubleValue, startsy: (splitted[5] as NSString).doubleValue, endsx: (splitted[6] as NSString).doubleValue, endsy: (splitted[7] as NSString).doubleValue))
                 break
@@ -359,14 +370,18 @@ class StoryBoard {
                 if splitted.count==5{
                     splitted.append(splitted[4])
                 }
-                if (splitted[2] as NSString).integerValue<earliest {
-                    earliest=(splitted[2] as NSString).integerValue
+                if(!inloop) {
+                    if (splitted[2] as NSString).integerValue<earliest {
+                        earliest=(splitted[2] as NSString).integerValue
+                    }
                 }
                 commands.append(SBRotate(easing: (splitted[1] as NSString).integerValue, starttime: (splitted[2] as NSString).integerValue, endtime: (splitted[3] as NSString).integerValue, startr: (splitted[4] as NSString).doubleValue, endr: (splitted[5] as NSString).doubleValue))
                 break
             case "C":
-                if (splitted[2] as NSString).integerValue<earliest {
-                    earliest=(splitted[2] as NSString).integerValue
+                if(!inloop) {
+                    if (splitted[2] as NSString).integerValue<earliest {
+                        earliest=(splitted[2] as NSString).integerValue
+                    }
                 }
                 if splitted.count>=10 {
                     commands.append(SBColor(easing: (splitted[1] as NSString).integerValue, starttime: (splitted[2] as NSString).integerValue, endtime: (splitted[3] as NSString).integerValue, startr: (splitted[4] as NSString).doubleValue, startg: (splitted[5] as NSString).doubleValue, startb: (splitted[6] as NSString).doubleValue, endr: (splitted[7] as NSString).doubleValue, endg: (splitted[8] as NSString).doubleValue, endb: (splitted[9] as NSString).doubleValue))
@@ -379,14 +394,18 @@ class StoryBoard {
                 }
                 break
             case "P":
-                if (splitted[2] as NSString).integerValue<earliest {
-                    earliest=(splitted[2] as NSString).integerValue
+                if(!inloop) {
+                    if (splitted[2] as NSString).integerValue<earliest {
+                        earliest=(splitted[2] as NSString).integerValue
+                    }
                 }
                 commands.append(SBParam(easing: (splitted[1] as NSString).integerValue, starttime: (splitted[2] as NSString).integerValue, endtime: (splitted[3] as NSString).integerValue, ptype: splitted[4]))
                 break
             case "L":
-                if (splitted[1] as NSString).integerValue<earliest {
-                    earliest=(splitted[1] as NSString).integerValue
+                if(!inloop) {
+                    if (splitted[1] as NSString).integerValue<earliest {
+                        earliest=(splitted[1] as NSString).integerValue
+                    }
                 }
                 var looplines=ArraySlice<String>()
                 for i in index+1...digested.count-1 {
@@ -397,7 +416,7 @@ class StoryBoard {
                     }
                 }
                 let loop=SBLoop(starttime: (splitted[1] as NSString).integerValue, loopcount: (splitted[2] as NSString).integerValue)
-                loop.commands=parseCommands(lines: looplines)
+                loop.commands=parseCommands(lines: looplines,inloop: true)
                 loop.genendtime()
                 commands.append(loop)
                 break
