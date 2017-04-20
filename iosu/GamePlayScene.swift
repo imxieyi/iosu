@@ -186,7 +186,6 @@ class GamePlayScene: SKScene {
                 actiontimepoints.append(obj.time)
                 break
             case HitObjectType.Slider:
-                //TODO: Draw Slider
                 layer-=1
                 number+=1
                 if obj.newCombo{
@@ -257,6 +256,7 @@ class GamePlayScene: SKScene {
             //slidernode.alpha=1
             slidernode.anchorPoint=CGPoint(x: 0, y: 0)
             slidernode.position = .zero
+            slidernode.alpha = 0.85
             slidernode.zPosition=layer
             self.addChild(slidernode)
             slidernode.run(SKAction.sequence([SKAction.wait(forDuration: Double(time)/1000+1),SKAction.fadeOut(withDuration: 1),SKAction.removeFromParent()]),completion: {

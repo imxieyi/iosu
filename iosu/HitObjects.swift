@@ -124,41 +124,111 @@ class Slider:HitObject{
             let y2=CGFloat(Int(GamePlayScene.scrheight)-ally[1])
             let x3=CGFloat(allx[2])
             let y3=CGFloat(Int(GamePlayScene.scrheight)-ally[2])
-            //Reference:http://blog.csdn.net/xiaogugood/article/details/28238349
-            let t1=x1*x1+y1*y1
-            let t2=x2*x2+y2*y2
-            let t3=x3*x3+y3*y3
-            let temp=x1*y2+x2*y3+x3*y1-x1*y3-x2*y1-x3*y2
-            let x=(t2*y3+t1*y2+t3*y1-t2*y1-t3*y2-t1*y3)/temp/2
-            let y=(t3*x2+t2*x1+t1*x3-t1*x2-t2*x3-t3*x1)/temp/2
-            let r=sqrt((x1-x)*(x1-x)+(y1-y)*(y1-y))
-            var a1=atan2(y1-y, x1-x)
-            var a2=atan2(y2-y, x2-x)
-            var a3=atan2(y3-y, x3-x)
-            if a1<0 {
-                a1 += .pi*2
-            }
-            if a2<0 {
-                a2 += .pi*2
-            }
-            if a3<0 {
-                a3 += .pi*2
-            }
-            var clockwise=true
-            if (a1<a2 && a2>a3 && a1<a3)||(a1>a2 && a3>a1)||(a1>a2 && a2>a3) {
-                clockwise=false
-            }
-            path.addArc(withCenter: CGPoint(x:x,y:y), radius: r, startAngle: a1, endAngle: a3, clockwise: clockwise)
+            genpassthrough(x1: x1, y1: y1, x2: x2, y2: y2, x3: x3, y3: y3)
             break
-            //case .Bezier:
-            //TODO: Parse Bezier
-        //https://zh.wikipedia.org/wiki/貝茲曲線
+        case .Bezier:
+            //https://zh.wikipedia.org/wiki/貝茲曲線
+            //https://pomax.github.io/bezierinfo/zh-CN/
+            var xx:[CGFloat]=[]
+            var yy:[CGFloat]=[]
+            for i in 0...allx.count-2 {
+                xx.append(CGFloat(allx[i]))
+                yy.append(CGFloat(Int(GamePlayScene.scrheight)-ally[i]))
+                if(allx[i]==allx[i+1] && ally[i]==ally[i+1]) {
+                    genbezier(x: xx, y: yy)
+                    xx=[]
+                    yy=[]
+                }
+            }
+            xx.append(CGFloat(allx[allx.count-1]))
+            yy.append(CGFloat(Int(GamePlayScene.scrheight)-ally[allx.count-1]))
+            genbezier(x: xx, y: yy)
+            break
         default:
             for i in 1...allx.count-1 {
                 path.move(to: CGPoint(x: allx[i-1], y: Int(GamePlayScene.scrheight)-ally[i-1]))
                 path.addLine(to: CGPoint(x: allx[i], y: Int(GamePlayScene.scrheight)-ally[i]))
             }
             break
+        }
+    }
+    
+    func genpassthrough(x1:CGFloat,y1:CGFloat,x2:CGFloat,y2:CGFloat,x3:CGFloat,y3:CGFloat) {
+        //Reference:http://blog.csdn.net/xiaogugood/article/details/28238349
+        let t1=x1*x1+y1*y1
+        let t2=x2*x2+y2*y2
+        let t3=x3*x3+y3*y3
+        let temp=x1*y2+x2*y3+x3*y1-x1*y3-x2*y1-x3*y2
+        let x=(t2*y3+t1*y2+t3*y1-t2*y1-t3*y2-t1*y3)/temp/2
+        let y=(t3*x2+t2*x1+t1*x3-t1*x2-t2*x3-t3*x1)/temp/2
+        let r=sqrt((x1-x)*(x1-x)+(y1-y)*(y1-y))
+        var a1=atan2(y1-y, x1-x)
+        var a2=atan2(y2-y, x2-x)
+        var a3=atan2(y3-y, x3-x)
+        if a1<0 {
+            a1 += .pi*2
+        }
+        if a2<0 {
+            a2 += .pi*2
+        }
+        if a3<0 {
+            a3 += .pi*2
+        }
+        var clockwise=true
+        if (a1<a2 && a2>a3 && a1<a3)||(a1>a2 && a3>a1)||(a1>a2 && a2>a3) {
+            clockwise=false
+        }
+        path.addArc(withCenter: CGPoint(x:x,y:y), radius: r, startAngle: a1, endAngle: a3, clockwise: clockwise)
+    }
+    
+    func genbezier(x:[CGFloat],y:[CGFloat]) {
+        switch x.count {
+        case 0:
+            break
+        case 1:
+            break
+        case 2: //Line
+            path.move(to: CGPoint(x: x[0], y: y[0]))
+            path.addLine(to: CGPoint(x: x[1], y: y[1]))
+            break
+        case 3:
+            path.move(to: CGPoint(x: x[0], y: y[0]))
+            path.addQuadCurve(to: CGPoint(x: x[2], y: y[2]), controlPoint: CGPoint(x: x[1], y: y[1]))
+            break
+        case 4:
+            path.move(to: CGPoint(x: x[0], y: y[0]))
+            path.addCurve(to: CGPoint(x: x[3], y: y[3]), controlPoint1: CGPoint(x: x[1], y: y[1]), controlPoint2: CGPoint(x: x[2], y: y[2]))
+            break
+        default:
+            genhighbezier(x: x, y: y)
+        }
+    }
+    
+    func genhighbezier(x:[CGFloat],y:[CGFloat]) {
+        var points:[CGPoint]=[]
+        for i in 0...x.count-1 {
+            points.append(CGPoint(x: x[i], y: y[i]))
+        }
+        path.move(to: points.first!)
+        path.close()
+        let sections=50
+        let interval=1.0/CGFloat(sections)
+        for i in 1...sections {
+            drawbezier(points: points, t: interval*CGFloat(i))
+        }
+    }
+    
+    func drawbezier(points:[CGPoint],t:CGFloat) {
+        if(points.count==1) {
+            path.addLine(to: points[0])
+        } else {
+            var newpoints:[CGPoint]=[]
+            for i in 0...points.count-2 {
+                let x=(1-t)*points[i].x+t*points[i+1].x
+                let y=(1-t)*points[i].y+t*points[i+1].y
+                newpoints.append(CGPoint(x: x, y: y))
+            }
+            drawbezier(points: newpoints, t: t)
         }
     }
     
@@ -175,16 +245,18 @@ class Slider:HitObject{
         pathlayer.frame=CGRect(origin: CGPoint.zero, size: size)
         pathlayer.path=path.cgPath
         pathlayer.strokeColor=color.cgColor
+        pathlayer.fillColor=UIColor.clear.cgColor
         pathlayer.lineWidth=inwidth
-        pathlayer.lineCap="round"
+        pathlayer.lineCap=kCALineCapRound
         pathlayer.lineJoin=kCALineJoinBevel
         pathlayer.zPosition=1
         let pathlayer2=CAShapeLayer()
         pathlayer2.frame=CGRect(origin: CGPoint.zero, size: size)
         pathlayer2.path=path.cgPath
         pathlayer2.strokeColor=UIColor.white.cgColor
+        pathlayer2.fillColor=UIColor.clear.cgColor
         pathlayer2.lineWidth=outwidth
-        pathlayer2.lineCap="round"
+        pathlayer2.lineCap=kCALineCapRound
         pathlayer2.lineJoin=kCALineJoinBevel
         pathlayer2.zPosition=0
         pathlayer2.render(in: UIGraphicsGetCurrentContext()!)

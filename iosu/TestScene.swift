@@ -30,12 +30,12 @@ class TestScene:SKScene {
     override func update(_ currentTime: TimeInterval) {
         if firstrun {
             path=UIBezierPath()
-            let x1:CGFloat=100
-            let y1:CGFloat=100
-            let x2:CGFloat=200
-            let y2:CGFloat=200
-            let x3:CGFloat=300
-            let y3:CGFloat=150
+            let x1:CGFloat=200
+            let y1:CGFloat=200
+            let x2:CGFloat=300
+            let y2:CGFloat=300
+            let x3:CGFloat=400
+            let y3:CGFloat=250
             //source:http://blog.csdn.net/xiaogugood/article/details/28238349
             let t1=x1*x1+y1*y1
             let t2=x2*x2+y2*y2
@@ -63,19 +63,21 @@ class TestScene:SKScene {
             //path?.addLine(to: CGPoint(x: 200, y: 200))
             pathlayer=CAShapeLayer()
             pathlayer?.frame=CGRect(origin: CGPoint.zero, size: self.size)
+            pathlayer?.fillColor=UIColor.clear.cgColor
             pathlayer?.path=path?.cgPath
             pathlayer?.strokeColor=UIColor.red.cgColor
             pathlayer?.lineWidth=50.0*2
-            pathlayer?.lineCap="round"
+            pathlayer?.lineCap=kCALineCapRound
             pathlayer?.lineJoin=kCALineJoinBevel
             pathlayer?.zPosition=1
             pathlayer2=CAShapeLayer()
             pathlayer2?.frame=CGRect(origin: CGPoint.zero, size: self.size)
+            pathlayer2?.fillColor=UIColor.clear.cgColor
             pathlayer2?.path=path?.cgPath
             pathlayer2?.strokeColor=UIColor.white.cgColor
-            pathlayer2?.lineWidth=58.0*2
-            pathlayer2?.lineCap="round"
-            pathlayer2?.lineJoin=kCALineJoinBevel
+            pathlayer2?.lineWidth=58*2
+            pathlayer2?.lineCap=kCALineCapRound
+            pathlayer2?.lineJoin=kCALineJoinRound
             pathlayer2?.zPosition=0.5
             firstrun=false
             UIGraphicsBeginImageContextWithOptions((pathlayer?.frame.size)!, false, 1)

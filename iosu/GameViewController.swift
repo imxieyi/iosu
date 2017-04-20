@@ -29,7 +29,7 @@ class GameViewController: UIViewController {
             skView.ignoresSiblingOrder=true
             skView.allowsTransparency=true
             scene.scaleMode = .aspectFit
-            scene.backgroundColor = .clear
+            scene.backgroundColor = .cyan
             skView.presentScene(scene)
             return
         }
