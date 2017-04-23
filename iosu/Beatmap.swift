@@ -306,7 +306,11 @@ class Beatmap{
                 newcombo=newcombo || HitObject.getNewCombo(num: splitted[3])
                 let dslider=decodeSlider(sliderinfo: splitted[5])
                 let slider=Slider(x: (splitted[0] as NSString).integerValue, y: (splitted[1] as NSString).integerValue, slidertype: dslider.type, curveX: dslider.cx, curveY: dslider.cy, time: (splitted[2] as NSString).integerValue, hitsound: (splitted[4] as NSString).integerValue, newCombo: newcombo, repe: (splitted[6] as NSString).integerValue,length:(splitted[7] as NSString).integerValue)
-                slider.genpath()
+                if(slider.time==19829){
+                    slider.genpath(debug: true)
+                }else{
+                    slider.genpath(debug: false)
+                }
                 hitobjects.append(slider)
                 break
             case .Spinner:

@@ -20,76 +20,53 @@ class TestScene:SKScene {
     }
     
     var firstrun=true
-    var path:UIBezierPath?
-    var pathlayer:CAShapeLayer?
-    var pathlayer2:CAShapeLayer?
-    //var x:[Int]=[100,200,300,400]
-    //var y:[Int]=[100,200,100,200]
-    //var pathanimation:CABasicAnimation?
+    
+    private func sliderballimg(file:String) -> SKTexture {
+        let img=UIImage(named: file)
+        let rotatedViewBox=UIView(frame: CGRect(x: 0, y: 0, width: (img?.size.width)!, height: (img?.size.height)!))
+        rotatedViewBox.transform=CGAffineTransform(rotationAngle: -.pi/2)
+        let rotatedSize=rotatedViewBox.frame.size
+        UIGraphicsBeginImageContext(rotatedSize)
+        let bitmap=UIGraphicsGetCurrentContext()
+        bitmap?.translateBy(x: rotatedSize.width/2, y: rotatedSize.height/2)
+        bitmap?.rotate(by: -.pi/2)
+        bitmap?.scaleBy(x: 1.0, y: -1.0)
+        bitmap?.draw((img?.cgImage)!, in: CGRect(x: -(img?.size.width)!/2, y: -(img?.size.height)!/2, width: (img?.size.width)!, height: (img?.size.height)!))
+        let newimg=UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return SKTexture(image: newimg!)
+    }
     
     override func update(_ currentTime: TimeInterval) {
         if firstrun {
-            path=UIBezierPath()
-            let x1:CGFloat=200
-            let y1:CGFloat=200
-            let x2:CGFloat=300
-            let y2:CGFloat=300
-            let x3:CGFloat=400
-            let y3:CGFloat=250
-            //source:http://blog.csdn.net/xiaogugood/article/details/28238349
-            let t1=x1*x1+y1*y1
-            let t2=x2*x2+y2*y2
-            let t3=x3*x3+y3*y3
-            let temp=x1*y2+x2*y3+x3*y1-x1*y3-x2*y1-x3*y2
-            let x=(t2*y3+t1*y2+t3*y1-t2*y1-t3*y2-t1*y3)/temp/2
-            let y=(t3*x2+t2*x1+t1*x3-t1*x2-t2*x3-t3*x1)/temp/2
-            let r=sqrt((x1-x)*(x1-x)+(y1-y)*(y1-y))
-            var a1=atan2(y1-y, x1-x)
-            let a2=atan2(y2-y, x2-x)
-            var a3=atan2(y3-y, x3-x)
-            var clockwise=false
-            if a3>a1 {
-                clockwise=true
+            let sliderball1=SKSpriteNode(texture: sliderballimg(file: "sliderb0"))
+            sliderball1.position=CGPoint(x: self.size.width/2, y: self.size.height/2)
+            sliderball1.color = .red
+            sliderball1.colorBlendFactor = 1
+            sliderball1.blendMode = .alpha
+            let sliderball2=SKSpriteNode(texture: sliderballimg(file: "sliderb5"))
+            sliderball2.position=CGPoint(x: self.size.width/2, y: self.size.height/2)
+            sliderball2.color = .black
+            sliderball2.colorBlendFactor = 1
+            sliderball2.blendMode = .alpha
+            var textures1:[SKTexture]=[]
+            var textures2:[SKTexture]=[]
+            for i in 0...9 {
+                textures1.append(sliderballimg(file: "sliderb\(i)"))
+                textures2.append(sliderballimg(file: "sliderb\((i+5)%10)"))
             }
-            debugPrint("\(a1) \(a2) \(a3)")
-            if a1>a3 {
-                let t=a1
-                a1=a3
-                a3=t
-            }
-            path?.addArc(withCenter: CGPoint(x:x,y:y), radius: r, startAngle: a1, endAngle: a3, clockwise: clockwise)
-            //path?.move(to: CGPoint(x: x.first!, y: y.first!))
-            //path?.addCurve(to: CGPoint(x:x.last!,y:y.last!), controlPoint1: CGPoint(x:x[1],y:y[1]), controlPoint2: CGPoint(x:x[2],y:y[2]))
-            //path?.addLine(to: CGPoint(x: 200, y: 200))
-            pathlayer=CAShapeLayer()
-            pathlayer?.frame=CGRect(origin: CGPoint.zero, size: self.size)
-            pathlayer?.fillColor=UIColor.clear.cgColor
-            pathlayer?.path=path?.cgPath
-            pathlayer?.strokeColor=UIColor.red.cgColor
-            pathlayer?.lineWidth=50.0*2
-            pathlayer?.lineCap=kCALineCapRound
-            pathlayer?.lineJoin=kCALineJoinBevel
-            pathlayer?.zPosition=1
-            pathlayer2=CAShapeLayer()
-            pathlayer2?.frame=CGRect(origin: CGPoint.zero, size: self.size)
-            pathlayer2?.fillColor=UIColor.clear.cgColor
-            pathlayer2?.path=path?.cgPath
-            pathlayer2?.strokeColor=UIColor.white.cgColor
-            pathlayer2?.lineWidth=58*2
-            pathlayer2?.lineCap=kCALineCapRound
-            pathlayer2?.lineJoin=kCALineJoinRound
-            pathlayer2?.zPosition=0.5
+            addChild(sliderball1)
+            addChild(sliderball2)
+            sliderball1.run(.repeatForever(.animate(with: textures1, timePerFrame: 0.1)))
+            sliderball2.run(.repeatForever(.animate(with: textures2, timePerFrame: 0.1)))
+            let path=UIBezierPath()
+            path.move(to: CGPoint(x: 0, y: self.size.height/2))
+            path.addCurve(to: CGPoint(x: 1200, y: self.size.height/2), controlPoint1: CGPoint(x: 400, y: self.size.height/2+800), controlPoint2: CGPoint(x: 800, y: self.size.height/2-800))
+            //path.addLine(to: CGPoint(x: 500, y: self.size.height/2))
+            let action=SKAction.repeatForever(.sequence([.follow(path.cgPath, asOffset: false, orientToPath: true, duration: 10),.follow(path.reversing().cgPath, asOffset: false, orientToPath: true, duration: 10)]))
+            sliderball1.run(action)
+            sliderball2.run(action)
             firstrun=false
-            UIGraphicsBeginImageContextWithOptions((pathlayer?.frame.size)!, false, 1)
-            pathlayer2?.render(in: UIGraphicsGetCurrentContext()!)
-            pathlayer?.render(in: UIGraphicsGetCurrentContext()!)
-            let image=UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-            let rect=SKSpriteNode(texture: SKTexture(image: image!))
-            rect.anchorPoint = CGPoint(x: 0, y: 0)
-            rect.position = CGPoint(x: 0, y: 0)
-            //rect.setScale(2)
-            self.addChild(rect)
         }
     }
     

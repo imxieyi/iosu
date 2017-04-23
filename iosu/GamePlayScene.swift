@@ -30,7 +30,10 @@ class GamePlayScene: SKScene {
     var bgvactions:[SKAction]=[]
     var bgvtimes:[Int]=[]
     
+    var sliderball:SliderBall?
+    
     override func sceneDidLoad() {
+        sliderball=SliderBall(scene: self)
         GamePlayScene.scrscale=Double(size.height)/480.0
         GamePlayScene.realwidth=512.0*GamePlayScene.scrscale
         GamePlayScene.realheight=384.0*GamePlayScene.scrscale
@@ -196,23 +199,26 @@ class GamePlayScene: SKScene {
                         colorindex=0
                     }
                 }
-                actions.append(addHitCircleAction(color: beatmap.colors[colorindex], x: CGFloat(obj.x), y: CGFloat(obj.y),z:layer,hitsound:obj.hitSound,type:.SliderHead,number:number,islast:false))
-                actiontimepoints.append(obj.time)
                 let slider=obj as! Slider
-                var repe=slider.repe
-                let endx=slider.cx[slider.cx.count-1]
-                let endy=slider.cy[slider.cy.count-1]
-                var atstart=false
                 var timepoint=obj.time
+                var repe=slider.repe
                 //Calculate time of single run
                 //Reference: https://github.com/nojhamster/osu-parser
                 let timingpoint=beatmap.getTimingPoint(offset: timepoint)
                 let pxPerBeat=100*beatmap.difficulty.slidermultiplier
                 let beatsNumber=Double(slider.length)/pxPerBeat
                 let singleduration=Int(ceil(beatsNumber*timingpoint.timeperbeat))
+                //debugPrint("\(obj.time) - \(singleduration) - \(repe)")
                 let fulltime=repe*singleduration
+                actions.append(addHitCircleAction(color: beatmap.colors[colorindex], x: CGFloat(obj.x), y: CGFloat(obj.y),z:layer,hitsound:obj.hitSound,type:.SliderHead,number:number,islast:false))
+                actiontimepoints.append(obj.time)
+                let endx=slider.cx[slider.cx.count-1]
+                let endy=slider.cy[slider.cy.count-1]
+                var atstart=false
                 actiontimepoints.append(obj.time)
                 actions.append(addSliderAction(slider: slider, color: beatmap.colors[colorindex], layer: layer-1-CGFloat(repe), time: fulltime))
+                actions.append((sliderball?.show(scene: self, color: beatmap.colors[colorindex], path: slider.path, repe: repe, duration: Double(singleduration)/1000))!)
+                actiontimepoints.append(obj.time)
                 while repe>1 {
                     layer-=1
                     timepoint+=singleduration
@@ -251,7 +257,8 @@ class GamePlayScene: SKScene {
     
     func addSliderAction(slider:Slider,color:UIColor,layer:CGFloat,time:Int) -> SKAction {
         return SKAction.run {
-            slider.genimage(color: color, layer: layer,inwidth:112,outwidth:128)
+            slider.genimage(color: color, layer: layer,inwidth:110,outwidth:126)
+            //slider.genimage(color: color, layer: layer,inwidth:5,outwidth:10)
             let slidernode=SKSpriteNode(texture: SKTexture(image: slider.image!))
             //slidernode.alpha=1
             slidernode.anchorPoint=CGPoint(x: 0, y: 0)
@@ -416,9 +423,14 @@ class GamePlayScene: SKScene {
     
     var index = 0
     var bgvindex = 0
+    var firstrun=true
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
+        if(firstrun){
+            firstrun=false
+            sliderball?.initialize(scene: self)
+        }
         if bgvindex < bgvactions.count {
             if bgvtimes[bgvindex] - Int(mplayer.getTime()*1000) < 1000 {
                 var offset=bgvtimes[bgvindex] - Int(mplayer.getTime()*1000)

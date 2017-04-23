@@ -12,6 +12,7 @@ This is an ios port of the rhythm game [osu!](https://osu.ppy.sh). It is written
  - Render background image & Background dim
  - Draw Plain HitCircle
  - Draw all types of Slider
+ - Draw slider ball (impact performance a lot)
  - **Play backgound video**
  - **Play StoryBoard**
 
@@ -39,7 +40,9 @@ This is an ios port of the rhythm game [osu!](https://osu.ppy.sh). It is written
 
 **With background image:**
 
-![](screenshots/run.png)
+![](screenshots/run2.png)
+
+![](screenshots/run1.png)
 
 beatmap: [yuikonnu - Tsumi no Namae](https://osu.ppy.sh/s/548999)
 
@@ -57,7 +60,7 @@ beatmap: [Tatsumi Megumi featured by Sano Hiroaki - Tsubomi (Long Version)](http
 
 ### StoryBoard Demo Videos
 
-Notice: The following videos are outdated. If you want to see the latest version, please clone and install the latest version on your device.
+Notice: The following videos are outdated. If you want to see the latest version, please clone and install this repository on your device.
 
 [http://www.bilibili.com/video/av9580463/](http://www.bilibili.com/video/av9580463/)
 
@@ -69,6 +72,7 @@ Notice: The following videos are outdated. If you want to see the latest version
 
 ### Credit
  - [osu!](https://osu.ppy.sh)
+ - [opsu!](https://github.com/itdelatrisu/opsu)
  - [osu-parser](https://github.com/nojhamster/osu-parser)
  - [SpriteKitEasingSwift](https://github.com/craiggrummitt/SpriteKitEasingSwift)
  - [KSYMediaPlayer_iOS](https://github.com/ksvc/KSYMediaPlayer_iOS)
