@@ -40,15 +40,15 @@ This is an ios port of the rhythm game [osu!](https://osu.ppy.sh). It is written
 
 **With background image:**
 
-![](screenshots/run2.png)
+![](screenshots/run_2.png)
 
-![](screenshots/run1.png)
+![](screenshots/run_1.png)
 
 beatmap: [yuikonnu - Tsumi no Namae](https://osu.ppy.sh/s/548999)
 
 **With background video:**
 
-![](screenshots/vrun.png)
+![](screenshots/v_run.png)
 
 beatmap: [Hatsune Miku - SPiCa](https://osu.ppy.sh/s/16226)
 
