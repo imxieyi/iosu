@@ -68,6 +68,9 @@ class Beatmap{
                 continue
             }
         }
+        bgvideos.sort(by: {(v1,v2)->Bool in
+            return v1.time<v2.time
+        })
     }
     
     func getTimingPoint(offset:Int) -> TimingPoint {
@@ -213,9 +216,6 @@ class Beatmap{
                 }
             }
         }
-        bgvideos.sort(by: {(v1,v2)->Bool in
-            return v1.time<v2.time
-        })
     }
     
     func parseTimingPoints(lines:ArraySlice<String>) throws -> Void {
