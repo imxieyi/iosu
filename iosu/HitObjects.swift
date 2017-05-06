@@ -336,8 +336,8 @@ class SliderBall {
         }
         scene.addChild(self.sliderball1)
         scene.addChild(self.sliderball2)
-        sliderball1.run(.repeatForever(.animate(with: textures1, timePerFrame: 0.1)))
-        sliderball2.run(.repeatForever(.animate(with: textures2, timePerFrame: 0.1)))
+        sliderball1.run(.repeatForever(.animate(with: textures1, timePerFrame: 0.03)))
+        sliderball2.run(.repeatForever(.animate(with: textures2, timePerFrame: 0.03)))
     }
     
     public func show(scene:SKScene, color:UIColor, path:UIBezierPath, repe:Int, duration:Double) -> SKAction {

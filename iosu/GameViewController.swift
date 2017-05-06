@@ -38,6 +38,8 @@ class GameViewController: UIViewController {
             let skView=self.view as! SKView
             skView.showsFPS=true
             skView.showsNodeCount=true
+            skView.showsDrawCount=true
+            skView.showsQuadCount=true
             skView.ignoresSiblingOrder=true
             scene.scaleMode = .aspectFit
             skView.presentScene(scene)

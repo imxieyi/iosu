@@ -127,6 +127,9 @@ class StoryBoardScene: SKScene {
                 self.addChild((sb?.sbsprites[index].sprite)!)
                 sb?.sbsprites[index].runaction(offset: (sb?.sbsprites[index].starttime)!-(sb?.earliest)!)
                 index+=1
+                if(index>=(sb?.sbsprites.count)!){
+                    break
+                }
             }
         }
         if (sb?.earliest)!<0 {
