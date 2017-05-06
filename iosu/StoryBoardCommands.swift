@@ -360,6 +360,9 @@ class SBParam:SBCommand,SBCAction {
             let set={(node:SKNode,time:CGFloat)->Void in
                 (node as! SKSpriteNode).blendMode = .add
             }
+            if(starttime==endtime){
+                return SKAction.customAction(withDuration: 0, actionBlock: set)
+            }
             let restore={(node:SKNode,time:CGFloat)->Void in
                 (node as! SKSpriteNode).blendMode = .alpha
             }
