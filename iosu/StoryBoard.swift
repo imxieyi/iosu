@@ -219,7 +219,7 @@ class StoryBoard {
         index = -1
         for line in lines{
             index += 1
-            if line.hasPrefix("Sprite"){
+            if line.hasPrefix("Sprite")||line.hasPrefix("Animation"){
                 var slines=ArraySlice<String>()
                 var sindex=index+1
                 if lines[sindex].hasPrefix("Sprite")||lines[sindex].hasPrefix("Animation") {
@@ -238,23 +238,48 @@ class StoryBoard {
                 //debugPrint("cmd lines:\(slines.count)")
                 let splitted=line.components(separatedBy: ",")
                 var sprite:BasicImage
-                switch str2layer(str: splitted[1]) {
-                case .Background:
-                    bglayer+=1
-                    sprite=BasicImage(layer: .Background, rlayer:bglayer, origin: str2origin(str: splitted[2]), filepath: splitted[3], x: (splitted[4] as NSString).doubleValue, y: (splitted[5] as NSString).doubleValue)
+                switch splitted[0]{
+                case "Sprite":
+                    switch str2layer(str: splitted[1]) {
+                    case .Background:
+                        bglayer+=1
+                        sprite=BasicImage(layer: .Background, rlayer:bglayer, origin: str2origin(str: splitted[2]), filepath: splitted[3], x: (splitted[4] as NSString).doubleValue, y: (splitted[5] as NSString).doubleValue)
+                        break
+                    case .Pass:
+                        passlayer+=1
+                        sprite=BasicImage(layer: .Background, rlayer:passlayer, origin: str2origin(str: splitted[2]), filepath: splitted[3], x: (splitted[4] as NSString).doubleValue, y: (splitted[5] as NSString).doubleValue)
+                        break
+                    case .Fail:
+                        faillayer+=1
+                        sprite=BasicImage(layer: .Background, rlayer:faillayer, origin: str2origin(str: splitted[2]), filepath: splitted[3], x: (splitted[4] as NSString).doubleValue, y: (splitted[5] as NSString).doubleValue)
+                        break
+                    case .Foreground:
+                        fglayer+=1
+                        sprite=BasicImage(layer: .Background, rlayer:fglayer, origin: str2origin(str: splitted[2]), filepath: splitted[3], x: (splitted[4] as NSString).doubleValue, y: (splitted[5] as NSString).doubleValue)
+                        break
+                    }
                     break
-                case .Pass:
-                    passlayer+=1
-                    sprite=BasicImage(layer: .Background, rlayer:passlayer, origin: str2origin(str: splitted[2]), filepath: splitted[3], x: (splitted[4] as NSString).doubleValue, y: (splitted[5] as NSString).doubleValue)
-                    break
-                case .Fail:
-                    faillayer+=1
-                    sprite=BasicImage(layer: .Background, rlayer:faillayer, origin: str2origin(str: splitted[2]), filepath: splitted[3], x: (splitted[4] as NSString).doubleValue, y: (splitted[5] as NSString).doubleValue)
-                    break
-                case .Foreground:
-                    fglayer+=1
-                    sprite=BasicImage(layer: .Background, rlayer:fglayer, origin: str2origin(str: splitted[2]), filepath: splitted[3], x: (splitted[4] as NSString).doubleValue, y: (splitted[5] as NSString).doubleValue)
-                    break
+                case "Animation":
+                    switch str2layer(str: splitted[1]) {
+                    case .Background:
+                        bglayer+=1
+                        sprite=MovingImage(layer: .Background, rlayer:bglayer, origin: str2origin(str: splitted[2]), filepath: splitted[3], x: (splitted[4] as NSString).doubleValue, y: (splitted[5] as NSString).doubleValue, framecount: (splitted[6] as NSString).integerValue, framedelay: (splitted[7] as NSString).doubleValue, looptype: str2looptype(str: splitted[8]))
+                        break
+                    case .Pass:
+                        passlayer+=1
+                        sprite=MovingImage(layer: .Background, rlayer:passlayer, origin: str2origin(str: splitted[2]), filepath: splitted[3], x: (splitted[4] as NSString).doubleValue, y: (splitted[5] as NSString).doubleValue, framecount: (splitted[6] as NSString).integerValue, framedelay: (splitted[7] as NSString).doubleValue, looptype: str2looptype(str: splitted[8]))
+                        break
+                    case .Fail:
+                        faillayer+=1
+                        sprite=MovingImage(layer: .Background, rlayer:faillayer, origin: str2origin(str: splitted[2]), filepath: splitted[3], x: (splitted[4] as NSString).doubleValue, y: (splitted[5] as NSString).doubleValue, framecount: (splitted[6] as NSString).integerValue, framedelay: (splitted[7] as NSString).doubleValue, looptype: str2looptype(str: splitted[8]))
+                        break
+                    case .Foreground:
+                        fglayer+=1
+                        sprite=MovingImage(layer: .Background, rlayer:fglayer, origin: str2origin(str: splitted[2]), filepath: splitted[3], x: (splitted[4] as NSString).doubleValue, y: (splitted[5] as NSString).doubleValue, framecount: (splitted[6] as NSString).integerValue, framedelay: (splitted[7] as NSString).doubleValue, looptype: str2looptype(str: splitted[8]))
+                        break
+                    }
+                default:
+                    continue
                 }
                 if slines.count>0 {
                     sprite.commands=parseCommands(lines: slines,inloop: false)
@@ -264,11 +289,24 @@ class StoryBoard {
                 }
                 sprite.filepath=(sprite.filepath as NSString).replacingOccurrences(of: "\\", with: "/")
                 sprite.filepath=(sbdirectory as NSString).appending("/"+sprite.filepath)
-                sprite.convertsprite()
+                if(sprite.isanimation){
+                    (sprite as! MovingImage).convertsprite()
+                    (sprite as! MovingImage).animate()
+                }else{
+                    sprite.convertsprite()
+                }
                 //sprite.sprite=nil
                 //debugPrint("number of commands:\(sprite.commands.count)")
                 sbsprites.append(sprite)
             }
+        }
+    }
+    
+    private func str2looptype(str:String)->LoopType{
+        switch str{
+        case "LoopForever":return .LoopForever
+        case "LoopOnce":return .LoopOnce
+        default:return .LoopForever
         }
     }
     
@@ -500,6 +538,7 @@ class BasicImage {
     var xscale:Double = 1
     var yscale:Double = 1
     var angle:Double = 0
+    var isanimation=false
     
     init(layer:SBLayer,rlayer:Double,origin:SBOrigin,filepath:String,x:Double,y:Double) {
         self.layer=layer
@@ -514,6 +553,22 @@ class BasicImage {
         }
         self.x=StoryBoard.conv(x: x)
         self.y=StoryBoard.conv(y: y)
+    }
+    
+    init(layer:SBLayer,rlayer:Double,origin:SBOrigin,filepath:String,x:Double,y:Double,isanimation:Bool) {
+        self.layer=layer
+        self.rlayer=rlayer
+        self.origin=origin
+        self.filepath=filepath
+        while self.filepath.hasPrefix("\"") {
+            self.filepath=(self.filepath as NSString).substring(from: 1)
+        }
+        while self.filepath.hasSuffix("\"") {
+            self.filepath=(self.filepath as NSString).substring(to: self.filepath.lengthOfBytes(using: .ascii)-1)
+        }
+        self.x=StoryBoard.conv(x: x)
+        self.y=StoryBoard.conv(y: y)
+        self.isanimation=isanimation
     }
     
     func gentime() {
@@ -752,14 +807,42 @@ class BasicImage {
 class MovingImage:BasicImage {
     
     var framecount:Int
-    var framerate:Int
+    var framedelay:Double
     var looptype:LoopType
+    var paths:[String]=[]
     
-    init(layer:SBLayer,rlayer:Double,origin:SBOrigin,filepath:String,x:Double,y:Double,framecount:Int,framerate:Int,looptype:LoopType) {
+    init(layer:SBLayer,rlayer:Double,origin:SBOrigin,filepath:String,x:Double,y:Double,framecount:Int,framedelay:Double,looptype:LoopType) {
         self.framecount=framecount
-        self.framerate=framerate
+        self.framedelay=framedelay
         self.looptype=looptype
-        super.init(layer: layer, rlayer: rlayer, origin: origin, filepath: filepath, x: x, y: y)
+        super.init(layer: layer, rlayer: rlayer, origin: origin, filepath: filepath, x: x, y: y,isanimation:true)
+    }
+    
+    override func convertsprite() {
+        let ext=filepath.components(separatedBy: ".").last
+        let extlen=ext?.lengthOfBytes(using: .utf8)
+        for i in 0...framecount-1 {
+            var path=filepath.substring(to:filepath.index(filepath.endIndex, offsetBy: -(extlen!+1)))
+            path+="\(i)."+ext!
+            paths.append(path)
+        }
+        filepath=paths.first!
+        super.convertsprite()
+    }
+    
+    func animate(){
+        var textures:[SKTexture]=[]
+        for path in paths {
+            textures.append(ImageBuffer.get(file: path)!)
+        }
+        var animateaction=SKAction.animate(with: textures, timePerFrame: framedelay/1000)
+        switch looptype {
+        case .LoopForever:
+            animateaction=SKAction.repeatForever(animateaction)
+        case .LoopOnce:
+            break
+        }
+        actions=SKAction.group([animateaction,actions!])
     }
     
 }
