@@ -250,12 +250,13 @@ class Beatmap{
                 lasttimeperbeat=timeperbeat
             }else{ //Inherited
                 let offset=(splitted[0] as NSString).integerValue
+                let timeperbeat=(splitted[1] as NSString).doubleValue
                 let meter=(splitted[2] as NSString).integerValue
                 let sampleset=samplesetConv(str: splitted[3])
                 let samplesetid=(splitted[4] as NSString).integerValue
                 let volume=(splitted[5] as NSString).integerValue
                 let kiai=((splitted[7] as NSString).integerValue == 1)
-                timingpoints.append(TimingPoint(offset: offset, timeperbeat: lasttimeperbeat, beattype: meter, sampleset: sampleset, samplesetid: samplesetid, volume: volume, inherited: true, kiai: kiai))
+                timingpoints.append(TimingPoint(offset: offset, timeperbeat: lasttimeperbeat*abs(timeperbeat/100), beattype: meter, sampleset: sampleset, samplesetid: samplesetid, volume: volume, inherited: true, kiai: kiai))
             }
         }
     }
