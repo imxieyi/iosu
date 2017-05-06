@@ -833,7 +833,14 @@ class MovingImage:BasicImage {
     func animate(){
         var textures:[SKTexture]=[]
         for path in paths {
-            textures.append(ImageBuffer.get(file: path)!)
+            let image=ImageBuffer.get(file: path)
+            if(image==nil){
+                continue
+            }
+            textures.append(image!)
+        }
+        if(textures.count==0){
+            return
         }
         var animateaction=SKAction.animate(with: textures, timePerFrame: framedelay/1000)
         switch looptype {
