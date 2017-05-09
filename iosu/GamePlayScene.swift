@@ -31,6 +31,7 @@ class GamePlayScene: SKScene {
     var bgvtimes:[Int]=[]
     
     var sliderball:SliderBall?
+    var bm:Beatmap?
     
     override func sceneDidLoad() {
         sliderball=SliderBall(scene: self)
@@ -50,23 +51,23 @@ class GamePlayScene: SKScene {
         debugPrint("bottomedge:\(GamePlayScene.bottomedge)")
         debugPrint("leftedge:\(GamePlayScene.leftedge)")
         do{
-            let bm=try Beatmap(file: (beatmaps.beatmapdirs[GamePlayScene.testBMIndex] as NSString).strings(byAppendingPaths: [beatmaps.beatmaps[GamePlayScene.testBMIndex]])[0])
-            if bm.bgvideos.count > 0 {
-                debugPrint("got \(bm.bgvideos.count) videos")
-                for i in 0...bm.bgvideos.count-1 {
-                    let file=(beatmaps.beatmapdirs[GamePlayScene.testBMIndex] as NSString).strings(byAppendingPaths: [bm.bgvideos[i].file])[0]
+            bm=try Beatmap(file: (beatmaps.beatmapdirs[GamePlayScene.testBMIndex] as NSString).strings(byAppendingPaths: [beatmaps.beatmaps[GamePlayScene.testBMIndex]])[0])
+            if (bm?.bgvideos.count)! > 0 {
+                debugPrint("got \(bm?.bgvideos.count) videos")
+                for i in 0...(bm?.bgvideos.count)!-1 {
+                    let file=(beatmaps.beatmapdirs[GamePlayScene.testBMIndex] as NSString).strings(byAppendingPaths: [(bm?.bgvideos[i].file)!])[0]
                     //var file=URL(fileURLWithPath: beatmaps.beatmapdirs[GamePlayScene.testBMIndex], isDirectory: true)
-                    //let file=beatmaps.bmdirurls[GamePlayScene.testBMIndex].appendingPathComponent(bm.bgvideos[i])
+                    //let file=beatmaps.bmdirurls[GamePlayScene.testBMIndex].appendingPathComponent(bm?.bgvideos[i])
                     if FileManager.default.fileExists(atPath: file) {
                         bgvactions.append(BGVPlayer.setcontent(file: file))
-                        bgvtimes.append(bm.bgvideos[i].time)
+                        bgvtimes.append((bm?.bgvideos[i].time)!)
                     } else {
                         debugPrint("video not found: \(file)")
                     }
                 }
-            } else if bm.bgimg != "" {
-                debugPrint("got bgimg:\(bm.bgimg)")
-                let bgimg=UIImage(contentsOfFile: (beatmaps.beatmapdirs[GamePlayScene.testBMIndex] as NSString).strings(byAppendingPaths: [bm.bgimg])[0])
+            } else if bm?.bgimg != "" {
+                debugPrint("got bgimg:\(bm?.bgimg)")
+                let bgimg=UIImage(contentsOfFile: (beatmaps.beatmapdirs[GamePlayScene.testBMIndex] as NSString).strings(byAppendingPaths: [(bm?.bgimg)!])[0])
                 if bgimg==nil {
                     debugPrint("Background image not found")
                 } else {
@@ -83,7 +84,7 @@ class GamePlayScene: SKScene {
             dimnode.alpha=CGFloat(GamePlayScene.bgdim)
             dimnode.zPosition=1
             addChild(dimnode)
-            switch bm.sampleSet {
+            switch (bm?.sampleSet)! {
             case .Auto:
                 //Likely to be an error
                 hitaudioHeader="normal-"
@@ -98,32 +99,32 @@ class GamePlayScene: SKScene {
                 hitaudioHeader="drum-"
                 break
             }
-            debugPrint("bgimg:\(bm.bgimg)")
-            debugPrint("audio:\(bm.audiofile)")
-            debugPrint("colors: \(bm.colors.count)")
-            debugPrint("timingpoints: \(bm.timingpoints.count)")
-            debugPrint("hitobjects: \(bm.hitobjects.count)")
+            debugPrint("bgimg:\(bm?.bgimg)")
+            debugPrint("audio:\(bm?.audiofile)")
+            debugPrint("colors: \(bm?.colors.count)")
+            debugPrint("timingpoints: \(bm?.timingpoints.count)")
+            debugPrint("hitobjects: \(bm?.hitobjects.count)")
             debugPrint("hitsoundset: \(hitaudioHeader)")
-            bm.audiofile=(beatmaps.beatmapdirs[GamePlayScene.testBMIndex] as NSString).strings(byAppendingPaths: [bm.audiofile])[0] as String
-            if !FileManager.default.fileExists(atPath: bm.audiofile){
+            bm?.audiofile=(beatmaps.beatmapdirs[GamePlayScene.testBMIndex] as NSString).strings(byAppendingPaths: [(bm?.audiofile)!])[0] as String
+            if !FileManager.default.fileExists(atPath: (bm?.audiofile)!){
                 throw BeatmapError.AudioFileNotExist
             }
             //let bmactions=SKAction.sequence(playBeatmap(beatmap: bm))
-            bmactions=playBeatmap(beatmap: bm)
-            ///try mplayer.play(file: bm.audiofile)
+            bmactions=playBeatmap(beatmap: bm!)
+            ///try mplayer.play(file: bm?.audiofile)
             //self.run(bmactions)
             //for action in bmactions{
             //    self.run(action)
             //}
             if bgvtimes.count>0 {
                 if bgvtimes.first!<=0 {
-                    self.run(SKAction.group([bgvactions[bgvindex],SKAction.sequence([SKAction.wait(forDuration: Double(abs(bgvtimes.first!))/1000),SKAction.group([BGVPlayer.play(),mplayer.play(file: bm.audiofile)])])]))
+                    self.run(SKAction.group([bgvactions[bgvindex],SKAction.sequence([SKAction.wait(forDuration: Double(abs(bgvtimes.first!))/1000),SKAction.group([BGVPlayer.play(),mplayer.play(file: (bm?.audiofile)!)])])]))
                     bgvindex+=1
                 } else {
-                    self.run(mplayer.play(file: bm.audiofile))
+                    self.run(mplayer.play(file: (bm?.audiofile)!))
                 }
             } else {
-                self.run(mplayer.play(file: bm.audiofile))
+                self.run(mplayer.play(file: (bm?.audiofile)!))
             }
         } catch BeatmapError.FileNotFound {
             debugPrint("ERROR:beatmap file not found")
@@ -205,7 +206,7 @@ class GamePlayScene: SKScene {
                 //Calculate time of single run
                 //Reference: https://github.com/nojhamster/osu-parser
                 let timingpoint=beatmap.getTimingPoint(offset: timepoint)
-                let pxPerBeat=100*beatmap.difficulty.slidermultiplier
+                let pxPerBeat=100*(bm?.difficulty?.SliderMultiplier)!
                 let beatsNumber=Double(slider.length)/pxPerBeat
                 let singleduration=Int(ceil(beatsNumber*timingpoint.timeperbeat))
                 //debugPrint("\(obj.time) - \(singleduration) - \(repe)")
@@ -217,7 +218,7 @@ class GamePlayScene: SKScene {
                 var atstart=false
                 actiontimepoints.append(obj.time)
                 actions.append(addSliderAction(slider: slider, color: beatmap.colors[colorindex], layer: layer-1-CGFloat(repe), time: fulltime))
-                actions.append((sliderball?.show(scene: self, color: beatmap.colors[colorindex], path: slider.path, repe: repe, duration: Double(singleduration)/1000))!)
+                actions.append((sliderball?.show(scene: self, color: beatmap.colors[colorindex], path: slider.path, repe: repe, duration: Double(singleduration)/1000,waittime:(bm?.difficulty?.ARTime)!/1000))!)
                 actiontimepoints.append(obj.time)
                 while repe>1 {
                     layer-=1
@@ -257,7 +258,7 @@ class GamePlayScene: SKScene {
     
     func addSliderAction(slider:Slider,color:UIColor,layer:CGFloat,time:Int) -> SKAction {
         return SKAction.run {
-            slider.genimage(color: color, layer: layer,inwidth:110,outwidth:126)
+            slider.genimage(color: color, layer: layer,inwidth:CGFloat((self.bm?.difficulty?.AbsoluteCS)!)/128*110,outwidth:CGFloat((self.bm?.difficulty?.AbsoluteCS)!))
             //slider.genimage(color: color, layer: layer,inwidth:5,outwidth:10)
             let slidernode=SKSpriteNode(texture: SKTexture(image: slider.image!))
             //slidernode.alpha=1
@@ -284,7 +285,7 @@ class GamePlayScene: SKScene {
         hitCircleInner.color=color
         hitCircleInner.colorBlendFactor=1.0
         hitCircleInner.position=CGPoint(x: x, y: y)
-        hitCircleInner.size=CGSize(width: 128, height: 128)
+        hitCircleInner.size=CGSize(width: CGFloat((self.bm?.difficulty?.AbsoluteCS)!), height: CGFloat((self.bm?.difficulty?.AbsoluteCS)!))
         hitCircleInner.setScale(1.0)
         hitCircleInner.alpha=1.0
         hitCircleInner.zPosition=z+0.1
@@ -292,7 +293,7 @@ class GamePlayScene: SKScene {
         let hitCircleOverlay=SKSpriteNode(imageNamed: "hitcircleoverlay")
         hitCircleOverlay.colorBlendFactor=0.0
         hitCircleOverlay.position=CGPoint(x: x, y: y)
-        hitCircleOverlay.size=CGSize(width: 128, height: 128)
+        hitCircleOverlay.size=CGSize(width: CGFloat((self.bm?.difficulty?.AbsoluteCS)!), height: CGFloat((self.bm?.difficulty?.AbsoluteCS)!))
         hitCircleOverlay.setScale(1.0)
         hitCircleOverlay.alpha=1.0
         hitCircleOverlay.zPosition=z+0.3
@@ -301,7 +302,7 @@ class GamePlayScene: SKScene {
             let hitCircleNumber=SKSpriteNode(imageNamed: num2img(num: number))
             hitCircleNumber.colorBlendFactor=0.0
             hitCircleNumber.position=CGPoint(x: x, y: y)
-            hitCircleNumber.size=CGSize(width: num2width(num: number), height: num2height(num: number))
+            hitCircleNumber.size=CGSize(width: CGFloat((self.bm?.difficulty?.AbsoluteCS)!)/128*num2width(num: number), height: CGFloat((self.bm?.difficulty?.AbsoluteCS)!)/128*num2height(num: number))
             hitCircleNumber.setScale(1.0)
             hitCircleNumber.alpha=1.0
             hitCircleNumber.zPosition=z+0.2
@@ -309,13 +310,13 @@ class GamePlayScene: SKScene {
             let ApproachCircle=SKSpriteNode(imageNamed: "approachcircle")
             ApproachCircle.colorBlendFactor=0.0
             ApproachCircle.position=CGPoint(x: x, y: y)
-            ApproachCircle.size=CGSize(width: 128, height: 128)
+            ApproachCircle.size=CGSize(width: CGFloat((self.bm?.difficulty?.AbsoluteCS)!), height: CGFloat((self.bm?.difficulty?.AbsoluteCS)!))
             ApproachCircle.setScale(2.5)
             ApproachCircle.alpha=1.0
             ApproachCircle.zPosition=z+0.0
             addChild(ApproachCircle)
             if type == .Plain {
-                ApproachCircle.run(SKAction.sequence([SKAction.scale(to: 1.0, duration: 1),SKAction.playSoundFileNamed(hitaudioHeader + hitsound2str(hitsound: hitsound), waitForCompletion: false),SKAction.run {
+                ApproachCircle.run(SKAction.sequence([SKAction.scale(to: 1.0, duration: (bm?.difficulty?.ARTime)!/1000),SKAction.playSoundFileNamed(hitaudioHeader + hitsound2str(hitsound: hitsound), waitForCompletion: false),SKAction.run {
                     self.showResult(x:x,y:y,z:z,islast:islast)
                     },SKAction.removeFromParent()]),completion:{()->Void in
                         ApproachCircle.run(SKAction.removeFromParent())
@@ -326,7 +327,7 @@ class GamePlayScene: SKScene {
                         //ApproachCircle.run(disappear)
                 })
             } else { //SliderHead
-                ApproachCircle.run(SKAction.sequence([SKAction.scale(to: 1.0, duration: 1),SKAction.playSoundFileNamed(hitaudioHeader + hitsound2str(hitsound: hitsound), waitForCompletion: false),SKAction.removeFromParent()]),completion:{()->Void in
+                ApproachCircle.run(SKAction.sequence([SKAction.scale(to: 1.0, duration: (bm?.difficulty?.ARTime)!/1000),SKAction.playSoundFileNamed(hitaudioHeader + hitsound2str(hitsound: hitsound), waitForCompletion: false),SKAction.removeFromParent()]),completion:{()->Void in
                         ApproachCircle.run(SKAction.removeFromParent())
                         let disappear=SKAction.group([SKAction.scale(by: 1.5, duration: 1),SKAction.sequence([SKAction.fadeOut(withDuration: 1.0),SKAction.removeFromParent()])])
                         //hitCircleInner.run(SKAction.group([self.moveToBack(sender: hitCircleInner),disappear]))
@@ -340,7 +341,7 @@ class GamePlayScene: SKScene {
             }
         }
         if type == .SliderArrow {
-            hitCircleInner.run(SKAction.sequence([SKAction.wait(forDuration: 1.0),SKAction.playSoundFileNamed(hitaudioHeader + hitsound2str(hitsound: hitsound), waitForCompletion: false)]), completion: {()->Void in
+            hitCircleInner.run(SKAction.sequence([SKAction.wait(forDuration: (bm?.difficulty?.ARTime)!/1000),SKAction.playSoundFileNamed(hitaudioHeader + hitsound2str(hitsound: hitsound), waitForCompletion: false)]), completion: {()->Void in
                 let disappear=SKAction.group([SKAction.scale(by: 1.5, duration: 1),SKAction.sequence([SKAction.fadeOut(withDuration: 1.0),SKAction.removeFromParent()])])
                 //hitCircleInner.run(SKAction.group([self.moveToBack(sender: hitCircleInner),disappear]))
                 //hitCircleOverlay.run(SKAction.group([self.moveToBack(sender: hitCircleOverlay),disappear]))
@@ -349,7 +350,7 @@ class GamePlayScene: SKScene {
             })
         }
         if type == .SliderEnd {
-            hitCircleInner.run(SKAction.sequence([SKAction.wait(forDuration: 1.0),SKAction.playSoundFileNamed(hitaudioHeader + hitsound2str(hitsound: hitsound), waitForCompletion: false)]), completion: {()->Void in
+            hitCircleInner.run(SKAction.sequence([SKAction.wait(forDuration: (bm?.difficulty?.ARTime)!/1000),SKAction.playSoundFileNamed(hitaudioHeader + hitsound2str(hitsound: hitsound), waitForCompletion: false)]), completion: {()->Void in
                 self.showResult(x:x,y:y,z:z,islast:islast)
                 let disappear=SKAction.group([SKAction.scale(by: 1.5, duration: 1),SKAction.sequence([SKAction.fadeOut(withDuration: 1.0),SKAction.removeFromParent()])])
                 hitCircleInner.run(SKAction.group([self.moveToBack(sender: hitCircleInner),disappear]))
@@ -381,10 +382,10 @@ class GamePlayScene: SKScene {
         var resultShow:SKSpriteNode
         if islast {
             resultShow=SKSpriteNode(imageNamed: "hit300g")
-            resultShow.size=CGSize(width: 81, height: 82)
+            resultShow.size=CGSize(width: CGFloat((self.bm?.difficulty?.AbsoluteCS)!)/128*81, height: CGFloat((self.bm?.difficulty?.AbsoluteCS)!)/128*82)
         } else {
             resultShow=SKSpriteNode(imageNamed: "hit300")
-            resultShow.size=CGSize(width: 103, height: 60)
+            resultShow.size=CGSize(width: CGFloat((self.bm?.difficulty?.AbsoluteCS)!)/128*103, height: CGFloat((self.bm?.difficulty?.AbsoluteCS)!)/128*60)
         }
         resultShow.position=CGPoint(x:x,y:y)
         resultShow.alpha=0.0
@@ -429,7 +430,7 @@ class GamePlayScene: SKScene {
         // Called before each frame is rendered
         if(firstrun){
             firstrun=false
-            sliderball?.initialize(scene: self)
+            sliderball?.initialize(scene: self,size: CGFloat((bm?.difficulty?.AbsoluteCS)!))
         }
         if bgvindex < bgvactions.count {
             if bgvtimes[bgvindex] - Int(mplayer.getTime()*1000) < 1000 {
@@ -445,11 +446,11 @@ class GamePlayScene: SKScene {
         if index<bmactions.count {
             //If the frame rate drops under 10, the timing will be inaccurate
             //However, if the frame rate drops under 10, the game will be hardly playable!
-            while actiontimepoints[index]-Int(mplayer.getTime()*1000) <= 1100 {
-                let offset=actiontimepoints[index]-Int(mplayer.getTime()*1000)-1000
+            while actiontimepoints[index]-Int(mplayer.getTime()*1000) <= 100+Int((bm?.difficulty?.ARTime)!) {
+                let offset=actiontimepoints[index]-Int(mplayer.getTime()*1000)-Int((bm?.difficulty?.ARTime)!)
                 //debugPrint("time:\(mplayer.getTime())")
                 //debugPrint("push hit circle \(index)/\(bmactions.count-1) with offset \(offset)")
-                self.run(SKAction.sequence([SKAction.wait(forDuration: TimeInterval(Double(offset)/1000)),bmactions[index]]))
+                self.run(SKAction.sequence([SKAction.wait(forDuration: TimeInterval(offset/1000)),bmactions[index]]))
                 //self.run(bmactions[index])
                 index+=1
                 if index>=bmactions.count{
@@ -485,7 +486,7 @@ class GamePlayScene: SKScene {
         }
     }
     
-    func num2width(num:Int) -> Int {
+    func num2width(num:Int) -> CGFloat {
         switch num {
         case 1:
             return 25
@@ -511,7 +512,7 @@ class GamePlayScene: SKScene {
         }
     }
     
-    func num2height(num:Int) -> Int {
+    func num2height(num:Int) -> CGFloat {
         switch num {
         case 1:
             return 50

@@ -317,16 +317,18 @@ class SliderBall {
     init(scene:SKScene) {
     }
     
-    public func initialize(scene:SKScene) {
+    public func initialize(scene:SKScene,size:CGFloat) {
         sliderball1.color = .red
         sliderball1.colorBlendFactor = 1
         sliderball1.blendMode = .alpha
         sliderball1.zPosition=500000
+        sliderball1.size=CGSize(width: size, height: size)
         sliderball1.alpha=0
         sliderball2.color = .black
         sliderball2.colorBlendFactor = 1
         sliderball2.blendMode = .alpha
         sliderball2.zPosition=500000
+        sliderball2.size=CGSize(width: size, height: size)
         sliderball2.alpha=0
         var textures1:[SKTexture]=[]
         var textures2:[SKTexture]=[]
@@ -340,8 +342,8 @@ class SliderBall {
         sliderball2.run(.repeatForever(.animate(with: textures2, timePerFrame: 0.03)))
     }
     
-    public func show(scene:SKScene, color:UIColor, path:UIBezierPath, repe:Int, duration:Double) -> SKAction {
-        return SKAction.sequence([.wait(forDuration: 1),.run {
+    public func show(scene:SKScene, color:UIColor, path:UIBezierPath, repe:Int, duration:Double,waittime:Double) -> SKAction {
+        return SKAction.sequence([.wait(forDuration: waittime),.run {
             let mirror=CGAffineTransform(scaleX: 1, y: -1)
             let translate=CGAffineTransform(translationX: 0, y: CGFloat(GamePlayScene.scrheight))
             path.apply(mirror)

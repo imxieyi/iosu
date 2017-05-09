@@ -54,9 +54,19 @@ beatmap: [Hatsune Miku - SPiCa](https://osu.ppy.sh/s/16226)
 
 ### StoryBoard Screenshot
 
-![](screenshots/sbplayer.png)
+![](screenshots/sbplayer1.png)
 
 beatmap: [Tatsumi Megumi featured by Sano Hiroaki - Tsubomi (Long Version)](https://osu.ppy.sh/s/311064)
+
+![](screenshots/sbplayer2.png)
+
+![](screenshots/sbplayer3.png)
+
+beatmap: [Kana Nishino - Sweet Dreams (11t dnb mix)](https://osu.ppy.sh/s/499488)
+
+![](screenshots/sbplayer4.png)
+
+beatmap: [DM vs. POCKET - uNDeRWoRLD MoNaRCHy](https://osu.ppy.sh/s/412938)
 
 ### StoryBoard Demo Videos
 

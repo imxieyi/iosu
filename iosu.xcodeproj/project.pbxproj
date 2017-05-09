@@ -59,6 +59,7 @@
 		8A4D5C5A1E8A981400319D91 /* GamePlayScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8A4D5C591E8A981400319D91 /* GamePlayScene.sks */; };
 		8A4D5C5C1E8A9F9500319D91 /* normal-hitclap.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8A4D5C5B1E8A9F9500319D91 /* normal-hitclap.wav */; };
 		8A5437B41E8D15BF00F25E63 /* BeatmapScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5437B31E8D15BF00F25E63 /* BeatmapScanner.swift */; };
+		8A64446F1EC1864E007E8D5E /* Difficulty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A64446E1EC1864E007E8D5E /* Difficulty.swift */; };
 		8A6743891E90075800818D55 /* StoryBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6743881E90075800818D55 /* StoryBoard.swift */; };
 		8A67438B1E9011D800818D55 /* SpriteKitEasingSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A67438A1E9011D800818D55 /* SpriteKitEasingSwift.framework */; };
 		8A7615CB1E91702E00AE5580 /* SelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7615CA1E91702E00AE5580 /* SelectionView.swift */; };
@@ -144,6 +145,7 @@
 		8A4D5C591E8A981400319D91 /* GamePlayScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GamePlayScene.sks; sourceTree = "<group>"; };
 		8A4D5C5B1E8A9F9500319D91 /* normal-hitclap.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "normal-hitclap.wav"; sourceTree = "<group>"; };
 		8A5437B31E8D15BF00F25E63 /* BeatmapScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeatmapScanner.swift; sourceTree = "<group>"; };
+		8A64446E1EC1864E007E8D5E /* Difficulty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Difficulty.swift; sourceTree = "<group>"; };
 		8A6743881E90075800818D55 /* StoryBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryBoard.swift; sourceTree = "<group>"; };
 		8A67438A1E9011D800818D55 /* SpriteKitEasingSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKitEasingSwift.framework; path = "../../Library/Developer/Xcode/DerivedData/iosu-gddpvylvaevfhyenmhqlpckshyiw/Build/Products/Debug-iphonesimulator/SpriteKitEasingSwift/SpriteKitEasingSwift.framework"; sourceTree = "<group>"; };
 		8A7615CA1E91702E00AE5580 /* SelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionView.swift; sourceTree = "<group>"; };
@@ -274,6 +276,7 @@
 				8A4D5C421E8A8AEC00319D91 /* LaunchScreen.storyboard */,
 				8A4D5C451E8A8AEC00319D91 /* Info.plist */,
 				8ABA55261E9D23FD006530EC /* iosu-Bridging-Header.h */,
+				8A64446E1EC1864E007E8D5E /* Difficulty.swift */,
 			);
 			path = iosu;
 			sourceTree = "<group>";
@@ -520,6 +523,7 @@
 				8A7F7E211E9D32C300595A13 /* BGVideoPlayer.swift in Sources */,
 				8AC188441E8EAE3300C9BB98 /* README.md in Sources */,
 				8A4D5C341E8A8AEB00319D91 /* AppDelegate.swift in Sources */,
+				8A64446F1EC1864E007E8D5E /* Difficulty.swift in Sources */,
 				8A96535A1E9A978700864415 /* StoryBoardCommands.swift in Sources */,
 				8A7615CB1E91702E00AE5580 /* SelectionView.swift in Sources */,
 			);

@@ -13,7 +13,7 @@ class Beatmap{
     
     public var bgimg:String = ""
     public var audiofile:String = ""
-    public var difficulty = Difficulty(hpdrainrate: 1, circlesize: 1, overall: 1, approachrate: 1, slidermultiplier: 1.4, slidertickrate: 1)
+    public var difficulty:BMDifficulty?
     public var timingpoints:[TimingPoint] = []
     public var colors:[UIColor] = []
     public var hitobjects:[HitObject] = []
@@ -133,8 +133,24 @@ class Beatmap{
     }
     
     func parseDifficulty(lines:ArraySlice<String>) -> Void {
+        var hp:Double = -1
+        var cs:Double = -1
+        var od:Double = 5
+        var ar:Double = -1
+        var sm:Double = 1.4
+        var st:Double = 1
         for line in lines{
             if line.hasPrefix("["){
+                if(hp == -1){
+                    hp=od
+                }
+                if(cs == -1){
+                    cs=od
+                }
+                if(ar == -1){
+                    ar=od
+                }
+                difficulty=BMDifficulty(HP: hp, CS: cs, OD: od, AR: ar, SM: sm, ST: st)
                 return
             }
             let splitted=line.components(separatedBy: ":")
@@ -144,27 +160,37 @@ class Beatmap{
             let value=(splitted[1] as NSString).doubleValue
             switch splitted[0] {
             case "HPDrainRate":
-                difficulty.hpdarin=value
+                hp=value
                 break
             case "CircleSize":
-                difficulty.circlesize=value
+                cs=value
                 break
             case "OverallDifficulty":
-                difficulty.overall=value
+                od=value
                 break
             case "ApproachRate":
-                difficulty.approachrate=value
+                ar=value
                 break
             case "SliderMultiplier":
-                difficulty.slidermultiplier=value
+                sm=value
                 break
             case "SliderTickRate":
-                difficulty.slidertickrate=value
+                st=value
                 break
             default:
                 break
             }
         }
+        if(hp == -1){
+            hp=od
+        }
+        if(cs == -1){
+            cs=od
+        }
+        if(ar == -1){
+            ar=od
+        }
+        difficulty=BMDifficulty(HP: hp, CS: cs, OD: od, AR: ar, SM: sm, ST: st)
     }
     
     func parseEvents(lines:ArraySlice<String>) -> Void {
@@ -397,26 +423,6 @@ class TimingPoint {
         self.volume=volume
         self.inherited=inherited
         self.kiai=kiai
-    }
-    
-}
-
-class Difficulty {
-    
-    var hpdarin:Double
-    var circlesize:Double
-    var overall:Double
-    var approachrate:Double
-    var slidermultiplier:Double
-    var slidertickrate:Double
-    
-    init(hpdrainrate:Double,circlesize:Double,overall:Double,approachrate:Double,slidermultiplier:Double,slidertickrate:Double) {
-        self.hpdarin=hpdrainrate
-        self.circlesize=circlesize
-        self.overall=overall
-        self.approachrate=approachrate
-        self.slidermultiplier=slidermultiplier
-        self.slidertickrate=slidertickrate
     }
     
 }
