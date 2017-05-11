@@ -27,8 +27,11 @@ class GamePlayScene: SKScene {
     static var leftedge:Double=0
     static var bottomedge:Double=0
     static var bgdim:Double=0.2
-    var bgvactions:[SKAction]=[]
-    var bgvtimes:[Int]=[]
+    
+    private var actions:ActionSet?
+    
+    private var bgvactions:[SKAction]=[]
+    private var bgvtimes:[Int]=[]
     
     var sliderball:SliderBall?
     var bm:Beatmap?
@@ -109,13 +112,8 @@ class GamePlayScene: SKScene {
             if !FileManager.default.fileExists(atPath: (bm?.audiofile)!){
                 throw BeatmapError.AudioFileNotExist
             }
-            //let bmactions=SKAction.sequence(playBeatmap(beatmap: bm))
-            bmactions=playBeatmap(beatmap: bm!)
-            ///try mplayer.play(file: bm?.audiofile)
-            //self.run(bmactions)
-            //for action in bmactions{
-            //    self.run(action)
-            //}
+            actions = ActionSet(beatmap: bm!, scene: self)
+            actions?.prepare()
             if bgvtimes.count>0 {
                 if bgvtimes.first!<=0 {
                     self.run(SKAction.group([bgvactions[bgvindex],SKAction.sequence([SKAction.wait(forDuration: Double(abs(bgvtimes.first!))/1000),SKAction.group([BGVPlayer.play(),mplayer.play(file: (bm?.audiofile)!)])])]))
@@ -159,204 +157,36 @@ class GamePlayScene: SKScene {
         return h*scrscale
     }
     
-    func playBeatmap(beatmap:Beatmap) -> [SKAction] {
-        var actions:[SKAction]=[]
-        //actions.append(mplayer.play(file: beatmap.audiofile))
-        var colorindex=0
-        var layer:CGFloat=maxlayer
-        var number=0
-        var index = -1
-        for obj in beatmap.hitobjects {
-            layer-=1
-            index+=1
-            var islast=false
-            if index==beatmap.hitobjects.count-1 {
-                islast=true
-            } else {
-                islast=beatmap.hitobjects[index+1].newCombo
-            }
-            switch obj.type{
-            case HitObjectType.Circle:
-                number+=1
-                if obj.newCombo{
-                    number=1
-                    if colorindex<beatmap.colors.count-1 {// && obj.newCombo{
-                        colorindex+=1
-                    }else{
-                        colorindex=0
-                    }
-                }
-                actions.append(addHitCircleAction(color: beatmap.colors[colorindex], x: CGFloat(obj.x), y: CGFloat(obj.y),z:layer,hitsound:obj.hitSound,type:.Plain,number:number,islast:islast))
-                actiontimepoints.append(obj.time)
-                break
-            case HitObjectType.Slider:
-                layer-=1
-                number+=1
-                if obj.newCombo{
-                    number=1
-                    if colorindex<beatmap.colors.count-1 {// && obj.newCombo{
-                        colorindex+=1
-                    }else{
-                        colorindex=0
-                    }
-                }
-                let slider=obj as! Slider
-                var timepoint=obj.time
-                var repe=slider.repe
-                //Calculate time of single run
-                //Reference: https://github.com/nojhamster/osu-parser
-                let timingpoint=beatmap.getTimingPoint(offset: timepoint)
-                let pxPerBeat=100*(bm?.difficulty?.SliderMultiplier)!
-                let beatsNumber=Double(slider.length)/pxPerBeat
-                let singleduration=Int(ceil(beatsNumber*timingpoint.timeperbeat))
-                //debugPrint("\(obj.time) - \(singleduration) - \(repe)")
-                let fulltime=repe*singleduration
-                actions.append(addHitCircleAction(color: beatmap.colors[colorindex], x: CGFloat(obj.x), y: CGFloat(obj.y),z:layer,hitsound:obj.hitSound,type:.SliderHead,number:number,islast:false))
-                actiontimepoints.append(obj.time)
-                let endx=slider.cx[slider.cx.count-1]
-                let endy=slider.cy[slider.cy.count-1]
-                var atstart=false
-                actiontimepoints.append(obj.time)
-                actions.append(addSliderAction(slider: slider, color: beatmap.colors[colorindex], layer: layer-1-CGFloat(repe), time: fulltime))
-                actions.append((sliderball?.show(scene: self, color: beatmap.colors[colorindex], path: slider.path, repe: repe, duration: Double(singleduration)/1000,waittime:(bm?.difficulty?.ARTime)!/1000))!)
-                actiontimepoints.append(obj.time)
-                while repe>1 {
-                    layer-=1
-                    timepoint+=singleduration
-                    actiontimepoints.append(timepoint)
-                    if atstart {
-                        actions.append(addHitCircleAction(color: beatmap.colors[colorindex], x: CGFloat(obj.x), y: CGFloat(obj.y),z:layer,hitsound:obj.hitSound,type:.SliderArrow,number:number,islast:false))
-                        atstart=false
-                    } else {
-                        actions.append(addHitCircleAction(color: beatmap.colors[colorindex], x: CGFloat(endx), y: CGFloat(endy),z:layer,hitsound:obj.hitSound,type:.SliderArrow,number:number,islast:false))
-                        atstart=true
-                    }
-                    repe-=1
-                }
-                layer-=1
-                timepoint+=singleduration
-                actiontimepoints.append(timepoint)
-                if atstart {
-                    actions.append(addHitCircleAction(color: beatmap.colors[colorindex], x: CGFloat(obj.x), y: CGFloat(obj.y),z:layer,hitsound:obj.hitSound,type:.SliderEnd,number:number,islast:islast))
-                } else {
-                    actions.append(addHitCircleAction(color: beatmap.colors[colorindex], x: CGFloat(endx), y: CGFloat(endy),z:layer,hitsound:obj.hitSound,type:.SliderEnd,number:number,islast:islast))
-                }
-                layer-=1
-                break
-            case HitObjectType.Spinner:
-                //TODO: Draw Spinner
-                number=1
-                break
-            case HitObjectType.None:
-                //Do nothing
-                break
-            }
+    func showresult(x:CGFloat,y:CGFloat,result:HitResult,audio:String) {
+        var img:SKTexture
+        switch result {
+        case .S300:
+            img = BundleImageBuffer.get(file: "hit300")!
+            break
+        case .S100:
+            img = BundleImageBuffer.get(file: "hit100")!
+            break
+        case .S50:
+            img = BundleImageBuffer.get(file: "hit50")!
+            break
+        case .Fail:
+            img = BundleImageBuffer.get(file: "hit0")!
+            break
         }
-        minlayer=layer
-        return actions
-    }
-    
-    func addSliderAction(slider:Slider,color:UIColor,layer:CGFloat,time:Int) -> SKAction {
-        return SKAction.run {
-            slider.genimage(color: color, layer: layer,inwidth:CGFloat((self.bm?.difficulty?.AbsoluteCS)!)/128*110,outwidth:CGFloat((self.bm?.difficulty?.AbsoluteCS)!))
-            //slider.genimage(color: color, layer: layer,inwidth:5,outwidth:10)
-            let slidernode=SKSpriteNode(texture: SKTexture(image: slider.image!))
-            //slidernode.alpha=1
-            slidernode.anchorPoint=CGPoint(x: 0, y: 0)
-            slidernode.position = .zero
-            slidernode.alpha = 0.85
-            slidernode.zPosition=layer
-            self.addChild(slidernode)
-            slidernode.run(SKAction.sequence([SKAction.wait(forDuration: Double(time)/1000+1),SKAction.fadeOut(withDuration: 1),SKAction.removeFromParent()]),completion: {
-                slider.image=nil
-            })
+        let node = SKSpriteNode(texture: img)
+        let scale = CGFloat((bm?.difficulty?.AbsoluteCS)! / 128)
+        node.setScale(scale)
+        node.colorBlendFactor = 0
+        node.alpha = 0
+        node.position = CGPoint(x: x, y: y)
+        node.zPosition = 100001
+        self.addChild(node)
+        if result != .Fail {
+            self.run(.playSoundFileNamed(audio, waitForCompletion: false))
+        } else {
+            self.run(.playSoundFileNamed("combobreak.mp3", waitForCompletion: false))
         }
-    }
-    
-    func addHitCircleAction(color:UIColor,x:CGFloat,y:CGFloat,z:CGFloat,hitsound:HitSound,type:CircleType,number:Int,islast:Bool) -> SKAction{
-        return SKAction.run({() -> Void in
-            self.addHitCircle(color: color,x:x,y:y,z:z,hitsound:hitsound,type:type,number:number,islast:islast)
-        })
-    }
-    
-    func addHitCircle(color:UIColor,x:CGFloat,y:CGFloat,z:CGFloat,hitsound:HitSound,type:CircleType,number:Int,islast:Bool){
-        let hitCircleInner=SKSpriteNode(imageNamed: "hitcircle")
-        hitCircleInner.blendMode=SKBlendMode.alpha
-        hitCircleInner.color=color
-        hitCircleInner.colorBlendFactor=1.0
-        hitCircleInner.position=CGPoint(x: x, y: y)
-        hitCircleInner.size=CGSize(width: CGFloat((self.bm?.difficulty?.AbsoluteCS)!), height: CGFloat((self.bm?.difficulty?.AbsoluteCS)!))
-        hitCircleInner.setScale(1.0)
-        hitCircleInner.alpha=1.0
-        hitCircleInner.zPosition=z+0.1
-        addChild(hitCircleInner)
-        let hitCircleOverlay=SKSpriteNode(imageNamed: "hitcircleoverlay")
-        hitCircleOverlay.colorBlendFactor=0.0
-        hitCircleOverlay.position=CGPoint(x: x, y: y)
-        hitCircleOverlay.size=CGSize(width: CGFloat((self.bm?.difficulty?.AbsoluteCS)!), height: CGFloat((self.bm?.difficulty?.AbsoluteCS)!))
-        hitCircleOverlay.setScale(1.0)
-        hitCircleOverlay.alpha=1.0
-        hitCircleOverlay.zPosition=z+0.3
-        addChild(hitCircleOverlay)
-        if type == .Plain || type == .SliderHead {
-            let hitCircleNumber=SKSpriteNode(imageNamed: num2img(num: number))
-            hitCircleNumber.colorBlendFactor=0.0
-            hitCircleNumber.position=CGPoint(x: x, y: y)
-            hitCircleNumber.size=CGSize(width: CGFloat((self.bm?.difficulty?.AbsoluteCS)!)/128*num2width(num: number), height: CGFloat((self.bm?.difficulty?.AbsoluteCS)!)/128*num2height(num: number))
-            hitCircleNumber.setScale(1.0)
-            hitCircleNumber.alpha=1.0
-            hitCircleNumber.zPosition=z+0.2
-            addChild(hitCircleNumber)
-            let ApproachCircle=SKSpriteNode(imageNamed: "approachcircle")
-            ApproachCircle.colorBlendFactor=0.0
-            ApproachCircle.position=CGPoint(x: x, y: y)
-            ApproachCircle.size=CGSize(width: CGFloat((self.bm?.difficulty?.AbsoluteCS)!), height: CGFloat((self.bm?.difficulty?.AbsoluteCS)!))
-            ApproachCircle.setScale(2.5)
-            ApproachCircle.alpha=1.0
-            ApproachCircle.zPosition=z+0.0
-            addChild(ApproachCircle)
-            if type == .Plain {
-                ApproachCircle.run(SKAction.sequence([SKAction.scale(to: 1.0, duration: (bm?.difficulty?.ARTime)!/1000),SKAction.playSoundFileNamed(hitaudioHeader + hitsound2str(hitsound: hitsound), waitForCompletion: false),SKAction.run {
-                    self.showResult(x:x,y:y,z:z,islast:islast)
-                    },SKAction.removeFromParent()]),completion:{()->Void in
-                        ApproachCircle.run(SKAction.removeFromParent())
-                        let disappear=SKAction.group([SKAction.scale(by: 1.5, duration: 1),SKAction.sequence([SKAction.fadeOut(withDuration: 1.0),SKAction.removeFromParent()])])
-                        hitCircleInner.run(SKAction.group([self.moveToBack(sender: hitCircleInner),disappear]))
-                        hitCircleNumber.run(SKAction.group([self.moveToBack(sender: hitCircleNumber),disappear]))
-                        hitCircleOverlay.run(SKAction.group([self.moveToBack(sender: hitCircleOverlay),disappear]))
-                        //ApproachCircle.run(disappear)
-                })
-            } else { //SliderHead
-                ApproachCircle.run(SKAction.sequence([SKAction.scale(to: 1.0, duration: (bm?.difficulty?.ARTime)!/1000),SKAction.playSoundFileNamed(hitaudioHeader + hitsound2str(hitsound: hitsound), waitForCompletion: false),SKAction.removeFromParent()]),completion:{()->Void in
-                        ApproachCircle.run(SKAction.removeFromParent())
-                        let disappear=SKAction.group([SKAction.scale(by: 1.5, duration: 1),SKAction.sequence([SKAction.fadeOut(withDuration: 1.0),SKAction.removeFromParent()])])
-                        //hitCircleInner.run(SKAction.group([self.moveToBack(sender: hitCircleInner),disappear]))
-                        //hitCircleNumber.run(SKAction.group([self.moveToBack(sender: hitCircleNumber),disappear]))
-                    //hitCircleOverlay.run(SKAction.group([self.moveToBack(sender: hitCircleOverlay),disappear]))
-                    hitCircleInner.run(disappear)
-                    hitCircleNumber.run(disappear)
-                    hitCircleOverlay.run(disappear)
-                        //ApproachCircle.run(disappear)
-                })
-            }
-        }
-        if type == .SliderArrow {
-            hitCircleInner.run(SKAction.sequence([SKAction.wait(forDuration: (bm?.difficulty?.ARTime)!/1000),SKAction.playSoundFileNamed(hitaudioHeader + hitsound2str(hitsound: hitsound), waitForCompletion: false)]), completion: {()->Void in
-                let disappear=SKAction.group([SKAction.scale(by: 1.5, duration: 1),SKAction.sequence([SKAction.fadeOut(withDuration: 1.0),SKAction.removeFromParent()])])
-                //hitCircleInner.run(SKAction.group([self.moveToBack(sender: hitCircleInner),disappear]))
-                //hitCircleOverlay.run(SKAction.group([self.moveToBack(sender: hitCircleOverlay),disappear]))
-                hitCircleInner.run(disappear)
-                hitCircleOverlay.run(disappear)
-            })
-        }
-        if type == .SliderEnd {
-            hitCircleInner.run(SKAction.sequence([SKAction.wait(forDuration: (bm?.difficulty?.ARTime)!/1000),SKAction.playSoundFileNamed(hitaudioHeader + hitsound2str(hitsound: hitsound), waitForCompletion: false)]), completion: {()->Void in
-                self.showResult(x:x,y:y,z:z,islast:islast)
-                let disappear=SKAction.group([SKAction.scale(by: 1.5, duration: 1),SKAction.sequence([SKAction.fadeOut(withDuration: 1.0),SKAction.removeFromParent()])])
-                hitCircleInner.run(SKAction.group([self.moveToBack(sender: hitCircleInner),disappear]))
-                hitCircleOverlay.run(SKAction.group([self.moveToBack(sender: hitCircleOverlay),disappear]))
-            })
-        }
+        node.run(.group([.sequence([.fadeIn(withDuration: 0.2),.fadeOut(withDuration: 0.6),.removeFromParent()]),.sequence([.scale(by: 1.5, duration: 0.1),.scale(to: scale, duration: 0.1)])]))
     }
     
     func hitsound2str(hitsound:HitSound) -> String {
@@ -372,32 +202,28 @@ class GamePlayScene: SKScene {
         }
     }
     
-    func moveToBack(sender:SKNode) -> SKAction{
-        return SKAction.run {
-            sender.zPosition-=self.maxlayer-self.minlayer
-        }
+    func distance(x1:CGFloat,y1:CGFloat,x2:CGFloat,y2:CGFloat) -> CGFloat {
+        return sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2))
     }
-    
-    func showResult(x:CGFloat,y:CGFloat,z:CGFloat,islast:Bool){
-        var resultShow:SKSpriteNode
-        if islast {
-            resultShow=SKSpriteNode(imageNamed: "hit300g")
-            resultShow.size=CGSize(width: CGFloat((self.bm?.difficulty?.AbsoluteCS)!)/128*81, height: CGFloat((self.bm?.difficulty?.AbsoluteCS)!)/128*82)
-        } else {
-            resultShow=SKSpriteNode(imageNamed: "hit300")
-            resultShow.size=CGSize(width: CGFloat((self.bm?.difficulty?.AbsoluteCS)!)/128*103, height: CGFloat((self.bm?.difficulty?.AbsoluteCS)!)/128*60)
-        }
-        resultShow.position=CGPoint(x:x,y:y)
-        resultShow.alpha=0.0
-        resultShow.zPosition=z+0.4
-        addChild(resultShow)
-        var disappear=SKAction.sequence([SKAction.fadeIn(withDuration: 0.1),SKAction.wait(forDuration: 0.4),SKAction.fadeOut(withDuration: 0.5),SKAction.removeFromParent()])
-        disappear=SKAction.group([disappear,SKAction.sequence([SKAction.scale(to: 1.2, duration: 0.07),SKAction.scale(to: 1.0, duration: 0.07)])])
-        resultShow.run(disappear)
-    }
-    
     
     func touchDown(atPoint pos : CGPoint) {
+        let act = actions?.currentact()
+        if act != nil {
+            let time = mplayer.getTime()*1000
+            switch (act?.getobj().type)! {
+            case .Circle:
+                if (act?.gettime())! - time < (bm?.difficulty?.ARTime)! {
+                    let circle = act?.getobj() as! HitCircle
+                    if distance(x1: pos.x, y1: pos.y, x2: CGFloat(circle.x), y2: CGFloat(circle.y)) <= CGFloat((bm?.difficulty?.AbsoluteCS)!) {
+                        //debugPrint("time:\(time) required:\(act?.gettime())")
+                        let result = (act as! CircleAction).judge(time: time)
+                        showresult(x: CGFloat(circle.x), y: CGFloat(circle.y), result: result, audio: hitaudioHeader + hitsound2str(hitsound: circle.hitSound))
+                    }
+                }
+            default:
+                break
+            }
+        }
     }
     
     func touchMoved(toPoint pos : CGPoint) {
@@ -422,7 +248,6 @@ class GamePlayScene: SKScene {
         for t in touches { self.touchUp(atPoint: t.location(in: self)) }
     }
     
-    var index = 0
     var bgvindex = 0
     var firstrun=true
     
@@ -432,9 +257,10 @@ class GamePlayScene: SKScene {
             firstrun=false
             sliderball?.initialize(scene: self,size: CGFloat((bm?.difficulty?.AbsoluteCS)!))
         }
+        let mtime=mplayer.getTime()*1000
         if bgvindex < bgvactions.count {
-            if bgvtimes[bgvindex] - Int(mplayer.getTime()*1000) < 1000 {
-                var offset=bgvtimes[bgvindex] - Int(mplayer.getTime()*1000)
+            if bgvtimes[bgvindex] - Int(mtime) < 1000 {
+                var offset=bgvtimes[bgvindex] - Int(mtime)
                 if offset<0 {
                     offset=0
                 }
@@ -443,98 +269,10 @@ class GamePlayScene: SKScene {
                 bgvindex+=1
             }
         }
-        if index<bmactions.count {
-            //If the frame rate drops under 10, the timing will be inaccurate
-            //However, if the frame rate drops under 10, the game will be hardly playable!
-            while actiontimepoints[index]-Int(mplayer.getTime()*1000) <= 100+Int((bm?.difficulty?.ARTime)!) {
-                let offset=actiontimepoints[index]-Int(mplayer.getTime()*1000)-Int((bm?.difficulty?.ARTime)!)
-                //debugPrint("time:\(mplayer.getTime())")
-                //debugPrint("push hit circle \(index)/\(bmactions.count-1) with offset \(offset)")
-                self.run(SKAction.sequence([SKAction.wait(forDuration: TimeInterval(offset/1000)),bmactions[index]]))
-                //self.run(bmactions[index])
-                index+=1
-                if index>=bmactions.count{
-                    return
-                }
-            }
-        }
-    }
-    
-    func num2img(num:Int) -> String {
-        switch num {
-        case 1:
-            return "default-1"
-        case 2:
-            return "default-2"
-        case 3:
-            return "default-3"
-        case 4:
-            return "default-4"
-        case 5:
-            return "default-5"
-        case 6:
-            return "default-6"
-        case 7:
-            return "default-7"
-        case 8:
-            return "default-8"
-        case 9:
-            return "default-9"
-        default:
-            //TODO: more than 1 digits
-            return "default-0"
-        }
-    }
-    
-    func num2width(num:Int) -> CGFloat {
-        switch num {
-        case 1:
-            return 25
-        case 2:
-            return 32
-        case 3:
-            return 32
-        case 4:
-            return 36
-        case 5:
-            return 32
-        case 6:
-            return 34
-        case 7:
-            return 32
-        case 8:
-            return 34
-        case 9:
-            return 34
-        default:
-            //TODO: more than 1 digits
-            return 32
-        }
-    }
-    
-    func num2height(num:Int) -> CGFloat {
-        switch num {
-        case 1:
-            return 50
-        case 2:
-            return 51
-        case 3:
-            return 52
-        case 4:
-            return 51
-        case 5:
-            return 51
-        case 6:
-            return 52
-        case 7:
-            return 50
-        case 8:
-            return 52
-        case 9:
-            return 52
-        default:
-            //TODO: more than 1 digits
-            return 52
+        var offset = (actions?.nexttime())! - mtime - (bm?.difficulty?.ARTime)!
+        while (actions?.hasnext())! && offset <= 1000 {
+            actions?.shownext(offset: offset)
+            offset = (actions?.nexttime())! - mtime - (bm?.difficulty?.ARTime)!
         }
     }
     

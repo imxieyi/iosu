@@ -5,14 +5,14 @@
 ### Introduction
 This is an ios port of the rhythm game [osu!](https://osu.ppy.sh). It is written in Swift based on [SpriteKit](https://developer.apple.com/spritekit/) framework. **It is just for fun**. So don't expect that I can make it full functional in a short time. Most importantly, I'm using a hackintosh for developing. So if it stops working, I cannot continue developing until it is fixed. Also, I don't have much time to spend on this project. But you can still watch the progress. It will be great if you can join and help me make it work.
 
+**NOTICE:** This is the branch with rewritten renderer and it is not complete yet. But it has basic handle and judge for touch input. If you want to see the old version, please turn to branch [oldrenderer](https://github.com/imxieyi/iosu/tree/oldrenderer).
+
 ### What has been done
  - Scan beatmaps imported by iTunes
  - Decode .osu file (partly)
  - Timing
  - Render background image & Background dim
- - Draw Plain HitCircle
- - Draw all types of Slider
- - Draw slider ball (impact performance a lot)
+ - Draw Plain HitCircle & Judge
  - **Play backgound video**
  - **Play StoryBoard**
 
@@ -27,7 +27,7 @@ This is an ios port of the rhythm game [osu!](https://osu.ppy.sh). It is written
 
 ### Notice
 1. Currently there is no database, so please do not import too many beatmaps.
-2. Currently there is no handle for touch input, so what you can see is just a demo.
+2. I don't know if the timing is accurate because I always get "100" on hit circles! :)
 3. I only have an iPhone6s to test, so it may render terribly on devices with different resolutions.
 4. If the framerate drops under 10, the timing will be inaccurate. So do not try to run it in the simulator. If that happens on your device, maybe you can consider update it because of low performance.
 5. I have modified the SpriteKitEasingSwift framework to meet the need of osu! storyboard. The [modified version](https://github.com/imxieyi/SpriteKitEasingSwift) can also be installed by CocoaPods.
