@@ -33,11 +33,11 @@ class GamePlayScene: SKScene {
     private var bgvactions:[SKAction]=[]
     private var bgvtimes:[Int]=[]
     
-    var sliderball:SliderBall?
+    public static var sliderball:SliderBall?
     var bm:Beatmap?
     
     override func sceneDidLoad() {
-        sliderball=SliderBall(scene: self)
+        GamePlayScene.sliderball=SliderBall(scene: self)
         GamePlayScene.scrscale=Double(size.height)/480.0
         GamePlayScene.realwidth=512.0*GamePlayScene.scrscale
         GamePlayScene.realheight=384.0*GamePlayScene.scrscale
@@ -206,7 +206,58 @@ class GamePlayScene: SKScene {
         return sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2))
     }
     
+    //Slider Status
+    private var onslider = false
+    private var hastouch = false
+    private var lastpoint:CGPoint = .zero
+    
+    private func updateslider(time:Double) {
+        let act = actions?.currentact()
+        if act?.getobj().type != .Slider {
+            return
+        }
+        let sact = act as! SliderAction
+        let sliderpoint = sact.getposition(time: time)
+        if hastouch {
+            if distance(x1: lastpoint.x, y1: lastpoint.y, x2: sliderpoint.x, y2: sliderpoint.y) <= CGFloat((bm?.difficulty?.AbsoluteCS)!) {
+                onslider = true
+                GamePlayScene.sliderball?.showfollowcircle()
+            } else {
+                GamePlayScene.sliderball?.hidefollowcircle()
+                onslider = false
+            }
+        } else {
+            onslider = false
+        }
+        switch sact.update(time: time, following: onslider) {
+        case .FailOnce:
+            //self.run(.playSoundFileNamed("combobreak.mp3", waitForCompletion: false))
+            break
+        case .FailAll:
+            showresult(x: sliderpoint.x, y: sliderpoint.y, result: .Fail, audio: "")
+            actions?.pointer += 1
+            hastouch = false
+            break
+        case .EdgePass:
+            self.run(.playSoundFileNamed(hitaudioHeader + hitsound2str(hitsound: sact.getobj().hitSound), waitForCompletion: false))
+            break
+        case .End:
+            if sact.failcount > 0 {
+                showresult(x: sact.endx, y: sact.endy, result: .S100, audio: hitaudioHeader + hitsound2str(hitsound: sact.getobj().hitSound))
+            } else {
+                showresult(x: sact.endx, y: sact.endy, result: .S300, audio: hitaudioHeader + hitsound2str(hitsound: sact.getobj().hitSound))
+            }
+            GamePlayScene.sliderball?.hideall()
+            actions?.pointer += 1
+            hastouch = false
+            break
+        default:
+            break
+        }
+    }
+    
     func touchDown(atPoint pos : CGPoint) {
+        hastouch = true
         let act = actions?.currentact()
         if act != nil {
             let time = mplayer.getTime()*1000
@@ -220,6 +271,12 @@ class GamePlayScene: SKScene {
                         showresult(x: CGFloat(circle.x), y: CGFloat(circle.y), result: result, audio: hitaudioHeader + hitsound2str(hitsound: circle.hitSound))
                     }
                 }
+                hastouch = false
+                break
+            case .Slider:
+                lastpoint = pos
+                updateslider(time: time)
+                break
             default:
                 break
             }
@@ -227,9 +284,24 @@ class GamePlayScene: SKScene {
     }
     
     func touchMoved(toPoint pos : CGPoint) {
+        let act = actions?.currentact()
+        if act == nil {
+            return
+        }
+        if (act?.getobj().type)! == .Slider {
+            lastpoint = pos
+            updateslider(time: mplayer.getTime()*1000)
+        }
     }
     
     func touchUp(atPoint pos : CGPoint) {
+        hastouch = false
+        GamePlayScene.sliderball?.hidefollowcircle()
+        let act = actions?.currentact()
+        if act == nil {
+            return
+        }
+        updateslider(time: mplayer.getTime()*1000)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -255,9 +327,15 @@ class GamePlayScene: SKScene {
         // Called before each frame is rendered
         if(firstrun){
             firstrun=false
-            sliderball?.initialize(scene: self,size: CGFloat((bm?.difficulty?.AbsoluteCS)!))
+            GamePlayScene.sliderball?.initialize(size: CGFloat((bm?.difficulty?.AbsoluteCS)!))
         }
         let mtime=mplayer.getTime()*1000
+        let act = actions?.currentact()
+        if act != nil {
+            if act?.getobj().type == .Slider {
+                updateslider(time: mtime)
+            }
+        }
         if bgvindex < bgvactions.count {
             if bgvtimes[bgvindex] - Int(mtime) < 1000 {
                 var offset=bgvtimes[bgvindex] - Int(mtime)

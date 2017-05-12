@@ -13,6 +13,7 @@ This is an ios port of the rhythm game [osu!](https://osu.ppy.sh). It is written
  - Timing
  - Render background image & Background dim
  - Draw Plain HitCircle & Judge
+ - Draw Sliders & Judge
  - **Play backgound video**
  - **Play StoryBoard**
 

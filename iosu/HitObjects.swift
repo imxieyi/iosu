@@ -313,11 +313,14 @@ class SliderBall {
     
     let sliderball1=SKSpriteNode(texture: SliderBall.sliderballimg(file: "sliderb0"))
     let sliderball2=SKSpriteNode(texture: SliderBall.sliderballimg(file: "sliderb5"))
+    let followcircle=SKSpriteNode(texture: SKTexture(imageNamed: "sliderfollowcircle"))
+    let scene:SKScene
     
     init(scene:SKScene) {
+        self.scene = scene
     }
     
-    public func initialize(scene:SKScene,size:CGFloat) {
+    public func initialize(size:CGFloat) {
         sliderball1.color = .red
         sliderball1.colorBlendFactor = 1
         sliderball1.blendMode = .alpha
@@ -338,11 +341,16 @@ class SliderBall {
         }
         scene.addChild(self.sliderball1)
         scene.addChild(self.sliderball2)
-        sliderball1.run(.repeatForever(.animate(with: textures1, timePerFrame: 0.03)))
-        sliderball2.run(.repeatForever(.animate(with: textures2, timePerFrame: 0.03)))
+        sliderball1.run(.repeatForever(.animate(with: textures1, timePerFrame: 0.05)))
+        sliderball2.run(.repeatForever(.animate(with: textures2, timePerFrame: 0.05)))
+        //Follow circle
+        followcircle.size=CGSize(width: size*2, height: size*2)
+        followcircle.alpha=0
+        followcircle.zPosition=500000
+        scene.addChild(followcircle)
     }
     
-    public func show(scene:SKScene, color:UIColor, path:UIBezierPath, repe:Int, duration:Double,waittime:Double) -> SKAction {
+    public func show(color:UIColor, path:UIBezierPath, repe:Int, duration:Double, waittime:Double) -> SKAction {
         return SKAction.sequence([.wait(forDuration: waittime),.run {
             let mirror=CGAffineTransform(scaleX: 1, y: -1)
             let translate=CGAffineTransform(translationX: 0, y: CGFloat(GamePlayScene.scrheight))
@@ -363,7 +371,23 @@ class SliderBall {
             let action=SKAction.sequence([SKAction.fadeIn(withDuration:0),SKAction.sequence(moving),SKAction.fadeOut(withDuration: 0)])
             self.sliderball1.run(action)
             self.sliderball2.run(action)
-            }])
+            self.followcircle.run(.sequence([.sequence(moving),.fadeOut(withDuration: 0.1)]))
+        }])
+    }
+    
+    public func hideall() {
+        sliderball1.alpha = 0
+        sliderball2.alpha = 0
+        hidefollowcircle()
+        followcircle.removeAllActions()
+    }
+    
+    public func showfollowcircle() {
+        followcircle.run(.fadeIn(withDuration: 0.1))
+    }
+    
+    public func hidefollowcircle() {
+        followcircle.run(.fadeOut(withDuration: 0.1))
     }
     
     private static func sliderballimg(file:String) -> SKTexture {

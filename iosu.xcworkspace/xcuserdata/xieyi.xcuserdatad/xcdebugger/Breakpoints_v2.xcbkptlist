@@ -74,12 +74,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iosu/HitObjectRenderer.swift"
-            timestampString = "516214792.394391"
+            timestampString = "516298305.68183"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "319"
-            endingLineNumber = "319"
-            landmarkName = "shownext(offset:)"
+            startingLineNumber = "332"
+            endingLineNumber = "332"
+            landmarkName = "prepare(color:number:layer:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
