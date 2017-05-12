@@ -379,7 +379,6 @@ class SliderBall {
         sliderball1.alpha = 0
         sliderball2.alpha = 0
         hidefollowcircle()
-        followcircle.removeAllActions()
     }
     
     public func showfollowcircle() {

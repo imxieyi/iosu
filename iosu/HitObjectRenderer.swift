@@ -351,7 +351,8 @@ class SliderAction:HitObjectAction {
     
     func show(scene:SKScene,offset:Double) {
         let artime = (ActionSet.difficulty?.ARTime)!/1000
-        obj.genimage(color: color, layer: layer, inwidth: edge * 4 / 5, outwidth: edge)
+        let outwidth = edge * 120 / 128
+        obj.genimage(color: color, layer: layer, inwidth: outwidth * 7 / 8, outwidth: outwidth)
         body = SKSpriteNode(texture: SKTexture(image: obj.image!))
         body.anchorPoint = .zero
         body.position = .zero
@@ -639,7 +640,9 @@ class ActionSet {
     
     //In ms
     public func shownext(offset:Double) {
-        actions[nextindex].show(scene: scene, offset: offset)
+        if offset >= 0 {
+            actions[nextindex].show(scene: scene, offset: offset)
+        }
         nextindex+=1
     }
     
