@@ -158,9 +158,7 @@ class Slider:HitObject{
     }
     
     private func genpassthrough(x1:CGFloat,y1:CGFloat,x2:CGFloat,y2:CGFloat,x3:CGFloat,y3:CGFloat) {
-        if debug {
-            debugPrint("\(time) (\(x1),\(y1)) (\(x2),\(y2)) (\(x3),\(y3))")
-        }
+        //debugPrint("\(time) (\(x1),\(y1)) (\(x2),\(y2)) (\(x3),\(y3))")
         //Reference:http://blog.csdn.net/xiaogugood/article/details/28238349
         let t1=x1*x1+y1*y1
         let t2=x2*x2+y2*y2
