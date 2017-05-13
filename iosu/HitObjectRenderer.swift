@@ -452,6 +452,7 @@ class SliderAction:HitObjectAction {
                             self.obj.image = nil
                         })
                         GamePlayScene.sliderball?.hideall()
+                        pointer = stats.count
                         return .FailAll
                     } else {
                         arrowinners[pointer - 2].run(CircleAction.faildisappear)

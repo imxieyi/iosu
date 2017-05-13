@@ -323,14 +323,15 @@ class Beatmap{
             if splitted.count<5{
                 continue
             }
-            switch HitObject.getObjectType(num: splitted[3]) {
+            let typenum = (splitted[3] as NSString).integerValue % 16
+            switch HitObject.getObjectType(num: typenum) {
             case .Circle:
-                newcombo=newcombo || HitObject.getNewCombo(num: splitted[3])
+                newcombo=newcombo || HitObject.getNewCombo(num: typenum)
                 hitobjects.append(HitCircle(x: (splitted[0] as NSString).integerValue, y: (splitted[1] as NSString).integerValue, time: (splitted[2] as NSString).integerValue, hitsound: (splitted[4] as NSString).integerValue, newCombo: newcombo))
                 newcombo=false
                 break
             case .Slider:
-                newcombo=newcombo || HitObject.getNewCombo(num: splitted[3])
+                newcombo=newcombo || HitObject.getNewCombo(num: typenum)
                 let dslider=decodeSlider(sliderinfo: splitted[5])
                 let slider=Slider(x: (splitted[0] as NSString).integerValue, y: (splitted[1] as NSString).integerValue, slidertype: dslider.type, curveX: dslider.cx, curveY: dslider.cy, time: (splitted[2] as NSString).integerValue, hitsound: (splitted[4] as NSString).integerValue, newCombo: newcombo, repe: (splitted[6] as NSString).integerValue,length:(splitted[7] as NSString).integerValue)
                 if(slider.time==19829){

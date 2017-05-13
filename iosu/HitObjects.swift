@@ -30,21 +30,21 @@ class HitObject{
         self.newCombo=newcombo
     }
     
-    static func getObjectType(num:String) -> HitObjectType {
-        if num=="1" || num=="5" {
+    static func getObjectType(num:Int) -> HitObjectType {
+        if num==1 || num==5 {
             return HitObjectType.Circle
         }
-        if num=="2" || num=="6" {
+        if num==2 || num==6 {
             return HitObjectType.Slider
         }
-        if num=="8" || num=="12" {
+        if num==8 || num==12 {
             return HitObjectType.Spinner
         }
         return HitObjectType.None
     }
     
-    static func getNewCombo(num:String) -> Bool {
-        if num=="5" || num=="6" || num=="12" {
+    static func getNewCombo(num:Int) -> Bool {
+        if num==5 || num==6 || num==12 {
             return true
         }
         return false
@@ -158,6 +158,9 @@ class Slider:HitObject{
     }
     
     private func genpassthrough(x1:CGFloat,y1:CGFloat,x2:CGFloat,y2:CGFloat,x3:CGFloat,y3:CGFloat) {
+        if debug {
+            debugPrint("\(time) (\(x1),\(y1)) (\(x2),\(y2)) (\(x3),\(y3))")
+        }
         //Reference:http://blog.csdn.net/xiaogugood/article/details/28238349
         let t1=x1*x1+y1*y1
         let t2=x2*x2+y2*y2
