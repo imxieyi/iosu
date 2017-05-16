@@ -69,6 +69,12 @@ beatmap: [Kana Nishino - Sweet Dreams (11t dnb mix)](https://osu.ppy.sh/s/499488
 
 beatmap: [DM vs. POCKET - uNDeRWoRLD MoNaRCHy](https://osu.ppy.sh/s/412938)
 
+### Gameplay Demo Video
+
+[http://www.bilibili.com/video/av10522729/](http://www.bilibili.com/video/av10522729/)
+
+beatmap: [GhostFinal - Gan Xie](https://osu.ppy.sh/s/84520)
+
 ### StoryBoard Demo Videos
 
 Notice: The following videos are outdated. If you want to see the latest version, please clone and install this repository on your device.
