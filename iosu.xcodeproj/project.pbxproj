@@ -7,74 +7,103 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8A10C43D1EC37C850052E487 /* HitObjectRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A10C43C1EC37C850052E487 /* HitObjectRenderer.swift */; };
 		8A26ECAE1E9D3F7F007D08FB /* KSYMediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A26ECAC1E9D3F0A007D08FB /* KSYMediaPlayer.framework */; };
-		8A2A02591EC4AA65008E095A /* Scoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2A02581EC4AA65008E095A /* Scoring.swift */; };
-		8A2A44A71E8E739C00B78DDE /* drum-hitclap.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8A2A44A01E8E739C00B78DDE /* drum-hitclap.wav */; };
-		8A2A44A81E8E739C00B78DDE /* drum-hitfinish.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8A2A44A11E8E739C00B78DDE /* drum-hitfinish.wav */; };
-		8A2A44A91E8E739C00B78DDE /* drum-hitnormal.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8A2A44A21E8E739C00B78DDE /* drum-hitnormal.wav */; };
-		8A2A44AA1E8E739C00B78DDE /* drum-hitwhistle.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8A2A44A31E8E739C00B78DDE /* drum-hitwhistle.wav */; };
-		8A2A44AB1E8E739C00B78DDE /* drum-sliderslide.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8A2A44A41E8E739C00B78DDE /* drum-sliderslide.wav */; };
-		8A2A44AC1E8E739C00B78DDE /* drum-slidertick.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8A2A44A51E8E739C00B78DDE /* drum-slidertick.wav */; };
-		8A2A44AD1E8E739C00B78DDE /* drum-sliderwhistle.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8A2A44A61E8E739C00B78DDE /* drum-sliderwhistle.wav */; };
-		8A2A44B11E8E73B700B78DDE /* applause.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8A2A44AE1E8E73B600B78DDE /* applause.mp3 */; };
-		8A2A44B21E8E73B700B78DDE /* combobreak.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8A2A44AF1E8E73B700B78DDE /* combobreak.mp3 */; };
-		8A2A44B31E8E73B700B78DDE /* count.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8A2A44B01E8E73B700B78DDE /* count.wav */; };
-		8A2A44B71E8E73C000B78DDE /* count1s.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8A2A44B41E8E73C000B78DDE /* count1s.wav */; };
-		8A2A44B81E8E73C000B78DDE /* count2s.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8A2A44B51E8E73C000B78DDE /* count2s.wav */; };
-		8A2A44B91E8E73C000B78DDE /* count3s.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8A2A44B61E8E73C000B78DDE /* count3s.wav */; };
-		8A2A44BC1E8E73CE00B78DDE /* failsound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8A2A44BA1E8E73CE00B78DDE /* failsound.mp3 */; };
-		8A2A44BD1E8E73CE00B78DDE /* gos.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8A2A44BB1E8E73CE00B78DDE /* gos.wav */; };
-		8A2A44C11E8E73DB00B78DDE /* menuback.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8A2A44BE1E8E73DB00B78DDE /* menuback.wav */; };
-		8A2A44C21E8E73DB00B78DDE /* menuclick.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8A2A44BF1E8E73DB00B78DDE /* menuclick.wav */; };
-		8A2A44C31E8E73DB00B78DDE /* menuhit.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8A2A44C01E8E73DB00B78DDE /* menuhit.wav */; };
-		8A2A44CA1E8E73E600B78DDE /* normal-hitfinish.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8A2A44C41E8E73E600B78DDE /* normal-hitfinish.wav */; };
-		8A2A44CB1E8E73E600B78DDE /* normal-hitnormal.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8A2A44C51E8E73E600B78DDE /* normal-hitnormal.wav */; };
-		8A2A44CC1E8E73E600B78DDE /* normal-hitwhistle.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8A2A44C61E8E73E600B78DDE /* normal-hitwhistle.wav */; };
-		8A2A44CD1E8E73E600B78DDE /* normal-sliderslide.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8A2A44C71E8E73E600B78DDE /* normal-sliderslide.wav */; };
-		8A2A44CE1E8E73E600B78DDE /* normal-slidertick.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8A2A44C81E8E73E600B78DDE /* normal-slidertick.wav */; };
-		8A2A44CF1E8E73E600B78DDE /* normal-sliderwhistle.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8A2A44C91E8E73E600B78DDE /* normal-sliderwhistle.wav */; };
-		8A2A44D11E8E740100B78DDE /* readys.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8A2A44D01E8E740100B78DDE /* readys.wav */; };
-		8A2A44D41E8E740B00B78DDE /* sectionfail.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8A2A44D21E8E740B00B78DDE /* sectionfail.mp3 */; };
-		8A2A44D51E8E740B00B78DDE /* sectionpass.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8A2A44D31E8E740B00B78DDE /* sectionpass.mp3 */; };
-		8A2A44DD1E8E741900B78DDE /* soft-hitclap.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8A2A44D61E8E741900B78DDE /* soft-hitclap.wav */; };
-		8A2A44DE1E8E741900B78DDE /* soft-hitfinish.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8A2A44D71E8E741900B78DDE /* soft-hitfinish.wav */; };
-		8A2A44DF1E8E741900B78DDE /* soft-hitnormal.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8A2A44D81E8E741900B78DDE /* soft-hitnormal.wav */; };
-		8A2A44E01E8E741900B78DDE /* soft-hitwhistle.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8A2A44D91E8E741900B78DDE /* soft-hitwhistle.wav */; };
-		8A2A44E11E8E741900B78DDE /* soft-sliderslide.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8A2A44DA1E8E741900B78DDE /* soft-sliderslide.wav */; };
-		8A2A44E21E8E741900B78DDE /* soft-slidertick.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8A2A44DB1E8E741900B78DDE /* soft-slidertick.wav */; };
-		8A2A44E31E8E741900B78DDE /* soft-sliderwhistle.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8A2A44DC1E8E741900B78DDE /* soft-sliderwhistle.wav */; };
-		8A2A44E61E8E742200B78DDE /* spinnerbonus.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8A2A44E41E8E742200B78DDE /* spinnerbonus.wav */; };
-		8A2A44E71E8E742200B78DDE /* spinnerspin.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8A2A44E51E8E742200B78DDE /* spinnerspin.wav */; };
 		8A2AAE101E90FE39005D52E7 /* test.osb in Resources */ = {isa = PBXBuildFile; fileRef = 8A2AAE0F1E90FE39005D52E7 /* test.osb */; };
-		8A2B382E1E949C6D005B35F6 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2B382D1E949C6D005B35F6 /* AlertView.swift */; };
-		8A3E5C211E8D259C00C28C9D /* Beatmap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3E5C201E8D259C00C28C9D /* Beatmap.swift */; };
-		8A3E5C231E8D375A00C28C9D /* HitObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3E5C221E8D375A00C28C9D /* HitObjects.swift */; };
-		8A3E5C251E8D4A9D00C28C9D /* BGMusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3E5C241E8D4A9D00C28C9D /* BGMusicPlayer.swift */; };
 		8A4D5C341E8A8AEB00319D91 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4D5C331E8A8AEB00319D91 /* AppDelegate.swift */; };
-		8A4D5C3A1E8A8AEB00319D91 /* GamePlayScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4D5C391E8A8AEB00319D91 /* GamePlayScene.swift */; };
-		8A4D5C3C1E8A8AEC00319D91 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4D5C3B1E8A8AEC00319D91 /* GameViewController.swift */; };
 		8A4D5C3F1E8A8AEC00319D91 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A4D5C3D1E8A8AEC00319D91 /* Main.storyboard */; };
 		8A4D5C411E8A8AEC00319D91 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A4D5C401E8A8AEC00319D91 /* Assets.xcassets */; };
 		8A4D5C441E8A8AEC00319D91 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A4D5C421E8A8AEC00319D91 /* LaunchScreen.storyboard */; };
 		8A4D5C4F1E8A8AEC00319D91 /* iosuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4D5C4E1E8A8AEC00319D91 /* iosuTests.swift */; };
-		8A4D5C5A1E8A981400319D91 /* GamePlayScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8A4D5C591E8A981400319D91 /* GamePlayScene.sks */; };
-		8A4D5C5C1E8A9F9500319D91 /* normal-hitclap.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8A4D5C5B1E8A9F9500319D91 /* normal-hitclap.wav */; };
-		8A5437B41E8D15BF00F25E63 /* BeatmapScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5437B31E8D15BF00F25E63 /* BeatmapScanner.swift */; };
-		8A64446F1EC1864E007E8D5E /* Difficulty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A64446E1EC1864E007E8D5E /* Difficulty.swift */; };
-		8A6743891E90075800818D55 /* StoryBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6743881E90075800818D55 /* StoryBoard.swift */; };
 		8A67438B1E9011D800818D55 /* SpriteKitEasingSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A67438A1E9011D800818D55 /* SpriteKitEasingSwift.framework */; };
-		8A7615CB1E91702E00AE5580 /* SelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7615CA1E91702E00AE5580 /* SelectionView.swift */; };
 		8A7F7E191E9D2C1000595A13 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A7F7E181E9D2C1000595A13 /* VideoToolbox.framework */; };
 		8A7F7E1B1E9D2C1D00595A13 /* libstdc++.6.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A7F7E1A1E9D2C1D00595A13 /* libstdc++.6.tbd */; };
 		8A7F7E1D1E9D2C2500595A13 /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A7F7E1C1E9D2C2500595A13 /* libbz2.tbd */; };
 		8A7F7E1F1E9D2C2D00595A13 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A7F7E1E1E9D2C2D00595A13 /* libz.tbd */; };
-		8A7F7E211E9D32C300595A13 /* BGVideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7F7E201E9D32C300595A13 /* BGVideoPlayer.swift */; };
-		8A96535A1E9A978700864415 /* StoryBoardCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9653591E9A978700864415 /* StoryBoardCommands.swift */; };
-		8AAA496D1E97BD87001BDB5B /* TestScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAA496C1E97BD87001BDB5B /* TestScene.swift */; };
 		8ABA55271E9D240C006530EC /* iosu-Bridging-Header.h in Sources */ = {isa = PBXBuildFile; fileRef = 8ABA55261E9D23FD006530EC /* iosu-Bridging-Header.h */; };
 		8AC188441E8EAE3300C9BB98 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 8AC188431E8EAE3300C9BB98 /* README.md */; };
-		8ACA3AE61E90EE6F00057AA6 /* StoryBoardScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACA3AE51E90EE6F00057AA6 /* StoryBoardScene.swift */; };
+		8ADC1E0D1ECB0B1B00E0E9AB /* applause.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1DE81ECB0B1B00E0E9AB /* applause.mp3 */; };
+		8ADC1E0E1ECB0B1B00E0E9AB /* combobreak.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1DE91ECB0B1B00E0E9AB /* combobreak.mp3 */; };
+		8ADC1E0F1ECB0B1B00E0E9AB /* count.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1DEA1ECB0B1B00E0E9AB /* count.wav */; };
+		8ADC1E101ECB0B1B00E0E9AB /* count1s.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1DEB1ECB0B1B00E0E9AB /* count1s.wav */; };
+		8ADC1E111ECB0B1B00E0E9AB /* count2s.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1DEC1ECB0B1B00E0E9AB /* count2s.wav */; };
+		8ADC1E121ECB0B1B00E0E9AB /* count3s.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1DED1ECB0B1B00E0E9AB /* count3s.wav */; };
+		8ADC1E131ECB0B1B00E0E9AB /* drum-hitclap.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1DEE1ECB0B1B00E0E9AB /* drum-hitclap.wav */; };
+		8ADC1E141ECB0B1B00E0E9AB /* drum-hitfinish.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1DEF1ECB0B1B00E0E9AB /* drum-hitfinish.wav */; };
+		8ADC1E151ECB0B1B00E0E9AB /* drum-hitnormal.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1DF01ECB0B1B00E0E9AB /* drum-hitnormal.wav */; };
+		8ADC1E161ECB0B1B00E0E9AB /* drum-hitwhistle.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1DF11ECB0B1B00E0E9AB /* drum-hitwhistle.wav */; };
+		8ADC1E171ECB0B1B00E0E9AB /* drum-sliderslide.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1DF21ECB0B1B00E0E9AB /* drum-sliderslide.wav */; };
+		8ADC1E181ECB0B1B00E0E9AB /* drum-slidertick.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1DF31ECB0B1B00E0E9AB /* drum-slidertick.wav */; };
+		8ADC1E191ECB0B1B00E0E9AB /* drum-sliderwhistle.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1DF41ECB0B1B00E0E9AB /* drum-sliderwhistle.wav */; };
+		8ADC1E1A1ECB0B1B00E0E9AB /* failsound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1DF51ECB0B1B00E0E9AB /* failsound.mp3 */; };
+		8ADC1E1B1ECB0B1B00E0E9AB /* gos.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1DF61ECB0B1B00E0E9AB /* gos.wav */; };
+		8ADC1E1C1ECB0B1B00E0E9AB /* menuback.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1DF71ECB0B1B00E0E9AB /* menuback.wav */; };
+		8ADC1E1D1ECB0B1B00E0E9AB /* menuclick.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1DF81ECB0B1B00E0E9AB /* menuclick.wav */; };
+		8ADC1E1E1ECB0B1B00E0E9AB /* menuhit.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1DF91ECB0B1B00E0E9AB /* menuhit.wav */; };
+		8ADC1E1F1ECB0B1B00E0E9AB /* normal-hitclap.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1DFA1ECB0B1B00E0E9AB /* normal-hitclap.wav */; };
+		8ADC1E201ECB0B1B00E0E9AB /* normal-hitfinish.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1DFB1ECB0B1B00E0E9AB /* normal-hitfinish.wav */; };
+		8ADC1E211ECB0B1B00E0E9AB /* normal-hitnormal.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1DFC1ECB0B1B00E0E9AB /* normal-hitnormal.wav */; };
+		8ADC1E221ECB0B1B00E0E9AB /* normal-hitwhistle.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1DFD1ECB0B1B00E0E9AB /* normal-hitwhistle.wav */; };
+		8ADC1E231ECB0B1B00E0E9AB /* normal-sliderslide.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1DFE1ECB0B1B00E0E9AB /* normal-sliderslide.wav */; };
+		8ADC1E241ECB0B1B00E0E9AB /* normal-slidertick.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1DFF1ECB0B1B00E0E9AB /* normal-slidertick.wav */; };
+		8ADC1E251ECB0B1B00E0E9AB /* normal-sliderwhistle.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1E001ECB0B1B00E0E9AB /* normal-sliderwhistle.wav */; };
+		8ADC1E261ECB0B1B00E0E9AB /* readys.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1E011ECB0B1B00E0E9AB /* readys.wav */; };
+		8ADC1E271ECB0B1B00E0E9AB /* sectionfail.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1E021ECB0B1B00E0E9AB /* sectionfail.mp3 */; };
+		8ADC1E281ECB0B1B00E0E9AB /* sectionpass.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1E031ECB0B1B00E0E9AB /* sectionpass.mp3 */; };
+		8ADC1E291ECB0B1B00E0E9AB /* soft-hitclap.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1E041ECB0B1B00E0E9AB /* soft-hitclap.wav */; };
+		8ADC1E2A1ECB0B1B00E0E9AB /* soft-hitfinish.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1E051ECB0B1B00E0E9AB /* soft-hitfinish.wav */; };
+		8ADC1E2B1ECB0B1B00E0E9AB /* soft-hitnormal.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1E061ECB0B1B00E0E9AB /* soft-hitnormal.wav */; };
+		8ADC1E2C1ECB0B1B00E0E9AB /* soft-hitwhistle.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1E071ECB0B1B00E0E9AB /* soft-hitwhistle.wav */; };
+		8ADC1E2D1ECB0B1B00E0E9AB /* soft-sliderslide.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1E081ECB0B1B00E0E9AB /* soft-sliderslide.wav */; };
+		8ADC1E2E1ECB0B1B00E0E9AB /* soft-slidertick.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1E091ECB0B1B00E0E9AB /* soft-slidertick.wav */; };
+		8ADC1E2F1ECB0B1B00E0E9AB /* soft-sliderwhistle.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1E0A1ECB0B1B00E0E9AB /* soft-sliderwhistle.wav */; };
+		8ADC1E301ECB0B1B00E0E9AB /* spinnerbonus.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1E0B1ECB0B1B00E0E9AB /* spinnerbonus.wav */; };
+		8ADC1E311ECB0B1B00E0E9AB /* spinnerspin.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1E0C1ECB0B1B00E0E9AB /* spinnerspin.wav */; };
+		8ADC1E331ECB0B7A00E0E9AB /* TimingPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E321ECB0B7A00E0E9AB /* TimingPoint.swift */; };
+		8ADC1E351ECB0BA900E0E9AB /* BGVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E341ECB0BA900E0E9AB /* BGVideo.swift */; };
+		8ADC1E371ECB0BF600E0E9AB /* BeatmapEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E361ECB0BF600E0E9AB /* BeatmapEnums.swift */; };
+		8ADC1E391ECB0C2B00E0E9AB /* Beatmap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E381ECB0C2B00E0E9AB /* Beatmap.swift */; };
+		8ADC1E3C1ECB0CA500E0E9AB /* HitObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E3B1ECB0CA500E0E9AB /* HitObject.swift */; };
+		8ADC1E3E1ECB0CD900E0E9AB /* HitCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E3D1ECB0CD900E0E9AB /* HitCircle.swift */; };
+		8ADC1E401ECB0CF600E0E9AB /* Slider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E3F1ECB0CF600E0E9AB /* Slider.swift */; };
+		8ADC1E441ECB0D3400E0E9AB /* SliderBall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E431ECB0D3400E0E9AB /* SliderBall.swift */; };
+		8ADC1E461ECB0D5000E0E9AB /* Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E451ECB0D5000E0E9AB /* Spinner.swift */; };
+		8ADC1E481ECB0D7200E0E9AB /* HitObjectEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E471ECB0D7200E0E9AB /* HitObjectEnums.swift */; };
+		8ADC1E4D1ECB0E2600E0E9AB /* CircleAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E4C1ECB0E2600E0E9AB /* CircleAction.swift */; };
+		8ADC1E511ECB0E9500E0E9AB /* SliderAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E501ECB0E9500E0E9AB /* SliderAction.swift */; };
+		8ADC1E531ECB0ECE00E0E9AB /* BundleImageBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E521ECB0ECE00E0E9AB /* BundleImageBuffer.swift */; };
+		8ADC1E551ECB0EFB00E0E9AB /* ActionSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E541ECB0EFB00E0E9AB /* ActionSet.swift */; };
+		8ADC1E571ECB0F2800E0E9AB /* RendererEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E561ECB0F2800E0E9AB /* RendererEnums.swift */; };
+		8ADC1E5A1ECB0FAF00E0E9AB /* StoryBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E591ECB0FAF00E0E9AB /* StoryBoard.swift */; };
+		8ADC1E5D1ECB100A00E0E9AB /* ImageBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E5C1ECB100A00E0E9AB /* ImageBuffer.swift */; };
+		8ADC1E5F1ECB104900E0E9AB /* BasicImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E5E1ECB104900E0E9AB /* BasicImage.swift */; };
+		8ADC1E611ECB108D00E0E9AB /* MovingImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E601ECB108D00E0E9AB /* MovingImage.swift */; };
+		8ADC1E631ECB10B900E0E9AB /* StoryBoardEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E621ECB10B900E0E9AB /* StoryBoardEnums.swift */; };
+		8ADC1E6B1ECB11AB00E0E9AB /* Easing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E691ECB11AB00E0E9AB /* Easing.swift */; };
+		8ADC1E6C1ECB11AB00E0E9AB /* SBCHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E6A1ECB11AB00E0E9AB /* SBCHelper.swift */; };
+		8ADC1E6E1ECB11D000E0E9AB /* SBCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E6D1ECB11D000E0E9AB /* SBCommand.swift */; };
+		8ADC1E721ECB122000E0E9AB /* SBMove.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E711ECB122000E0E9AB /* SBMove.swift */; };
+		8ADC1E741ECB125700E0E9AB /* SBFade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E731ECB125700E0E9AB /* SBFade.swift */; };
+		8ADC1E761ECB128400E0E9AB /* SBMoveX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E751ECB128400E0E9AB /* SBMoveX.swift */; };
+		8ADC1E781ECB12A900E0E9AB /* SBMoveY.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E771ECB12A900E0E9AB /* SBMoveY.swift */; };
+		8ADC1E7A1ECB12CB00E0E9AB /* SBScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E791ECB12CB00E0E9AB /* SBScale.swift */; };
+		8ADC1E7C1ECB12EF00E0E9AB /* SBVScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E7B1ECB12EF00E0E9AB /* SBVScale.swift */; };
+		8ADC1E7E1ECB130D00E0E9AB /* SBRotate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E7D1ECB130D00E0E9AB /* SBRotate.swift */; };
+		8ADC1E801ECB132F00E0E9AB /* SBColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E7F1ECB132F00E0E9AB /* SBColor.swift */; };
+		8ADC1E821ECB135F00E0E9AB /* SBParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E811ECB135F00E0E9AB /* SBParam.swift */; };
+		8ADC1E841ECB138000E0E9AB /* SBLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E831ECB138000E0E9AB /* SBLoop.swift */; };
+		8ADC1E861ECB139D00E0E9AB /* SBTrigger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E851ECB139D00E0E9AB /* SBTrigger.swift */; };
+		8ADC1E8A1ECB148000E0E9AB /* GamePlayScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E881ECB148000E0E9AB /* GamePlayScene.swift */; };
+		8ADC1E8B1ECB148000E0E9AB /* StoryBoardScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E891ECB148000E0E9AB /* StoryBoardScene.swift */; };
+		8ADC1E8F1ECB14DD00E0E9AB /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E8D1ECB14DD00E0E9AB /* GameViewController.swift */; };
+		8ADC1E901ECB14DD00E0E9AB /* SelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E8E1ECB14DD00E0E9AB /* SelectionView.swift */; };
+		8ADC1E921ECB155400E0E9AB /* Difficulty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E911ECB155400E0E9AB /* Difficulty.swift */; };
+		8ADC1E951ECB159700E0E9AB /* ScoringEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E941ECB159700E0E9AB /* ScoringEnums.swift */; };
+		8ADC1E971ECB15D300E0E9AB /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E961ECB15D300E0E9AB /* AlertView.swift */; };
+		8ADC1E991ECB15F100E0E9AB /* TestScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E981ECB15F100E0E9AB /* TestScene.swift */; };
+		8ADC1E9D1ECB163300E0E9AB /* BGMusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E9B1ECB163300E0E9AB /* BGMusicPlayer.swift */; };
+		8ADC1E9E1ECB163300E0E9AB /* BGVideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E9C1ECB163300E0E9AB /* BGVideoPlayer.swift */; };
+		8ADC1EA11ECB167400E0E9AB /* BeatmapScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1EA01ECB167400E0E9AB /* BeatmapScanner.swift */; };
+		8ADC1EA31ECB16C400E0E9AB /* HitObjectAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1EA21ECB16C400E0E9AB /* HitObjectAction.swift */; };
 		99B4058382CF96D791075AB4 /* Pods_iosu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A76F916780A6E7BFEFB56503 /* Pods_iosu.framework */; };
 /* End PBXBuildFile section */
 
@@ -91,54 +120,10 @@
 /* Begin PBXFileReference section */
 		6105515E76E704F6DD9D2521 /* Pods-iosu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosu.release.xcconfig"; path = "Pods/Target Support Files/Pods-iosu/Pods-iosu.release.xcconfig"; sourceTree = "<group>"; };
 		746E95FF2AA386585463E0D9 /* Pods-iosu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosu.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iosu/Pods-iosu.debug.xcconfig"; sourceTree = "<group>"; };
-		8A10C43C1EC37C850052E487 /* HitObjectRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HitObjectRenderer.swift; sourceTree = "<group>"; };
 		8A26ECAC1E9D3F0A007D08FB /* KSYMediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KSYMediaPlayer.framework; sourceTree = "<group>"; };
-		8A2A02581EC4AA65008E095A /* Scoring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scoring.swift; sourceTree = "<group>"; };
-		8A2A44A01E8E739C00B78DDE /* drum-hitclap.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "drum-hitclap.wav"; sourceTree = "<group>"; };
-		8A2A44A11E8E739C00B78DDE /* drum-hitfinish.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "drum-hitfinish.wav"; sourceTree = "<group>"; };
-		8A2A44A21E8E739C00B78DDE /* drum-hitnormal.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "drum-hitnormal.wav"; sourceTree = "<group>"; };
-		8A2A44A31E8E739C00B78DDE /* drum-hitwhistle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "drum-hitwhistle.wav"; sourceTree = "<group>"; };
-		8A2A44A41E8E739C00B78DDE /* drum-sliderslide.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "drum-sliderslide.wav"; sourceTree = "<group>"; };
-		8A2A44A51E8E739C00B78DDE /* drum-slidertick.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "drum-slidertick.wav"; sourceTree = "<group>"; };
-		8A2A44A61E8E739C00B78DDE /* drum-sliderwhistle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "drum-sliderwhistle.wav"; sourceTree = "<group>"; };
-		8A2A44AE1E8E73B600B78DDE /* applause.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = applause.mp3; sourceTree = "<group>"; };
-		8A2A44AF1E8E73B700B78DDE /* combobreak.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = combobreak.mp3; sourceTree = "<group>"; };
-		8A2A44B01E8E73B700B78DDE /* count.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = count.wav; sourceTree = "<group>"; };
-		8A2A44B41E8E73C000B78DDE /* count1s.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = count1s.wav; sourceTree = "<group>"; };
-		8A2A44B51E8E73C000B78DDE /* count2s.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = count2s.wav; sourceTree = "<group>"; };
-		8A2A44B61E8E73C000B78DDE /* count3s.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = count3s.wav; sourceTree = "<group>"; };
-		8A2A44BA1E8E73CE00B78DDE /* failsound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = failsound.mp3; sourceTree = "<group>"; };
-		8A2A44BB1E8E73CE00B78DDE /* gos.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = gos.wav; sourceTree = "<group>"; };
-		8A2A44BE1E8E73DB00B78DDE /* menuback.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = menuback.wav; sourceTree = "<group>"; };
-		8A2A44BF1E8E73DB00B78DDE /* menuclick.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = menuclick.wav; sourceTree = "<group>"; };
-		8A2A44C01E8E73DB00B78DDE /* menuhit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = menuhit.wav; sourceTree = "<group>"; };
-		8A2A44C41E8E73E600B78DDE /* normal-hitfinish.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "normal-hitfinish.wav"; sourceTree = "<group>"; };
-		8A2A44C51E8E73E600B78DDE /* normal-hitnormal.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "normal-hitnormal.wav"; sourceTree = "<group>"; };
-		8A2A44C61E8E73E600B78DDE /* normal-hitwhistle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "normal-hitwhistle.wav"; sourceTree = "<group>"; };
-		8A2A44C71E8E73E600B78DDE /* normal-sliderslide.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "normal-sliderslide.wav"; sourceTree = "<group>"; };
-		8A2A44C81E8E73E600B78DDE /* normal-slidertick.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "normal-slidertick.wav"; sourceTree = "<group>"; };
-		8A2A44C91E8E73E600B78DDE /* normal-sliderwhistle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "normal-sliderwhistle.wav"; sourceTree = "<group>"; };
-		8A2A44D01E8E740100B78DDE /* readys.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = readys.wav; sourceTree = "<group>"; };
-		8A2A44D21E8E740B00B78DDE /* sectionfail.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sectionfail.mp3; sourceTree = "<group>"; };
-		8A2A44D31E8E740B00B78DDE /* sectionpass.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sectionpass.mp3; sourceTree = "<group>"; };
-		8A2A44D61E8E741900B78DDE /* soft-hitclap.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "soft-hitclap.wav"; sourceTree = "<group>"; };
-		8A2A44D71E8E741900B78DDE /* soft-hitfinish.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "soft-hitfinish.wav"; sourceTree = "<group>"; };
-		8A2A44D81E8E741900B78DDE /* soft-hitnormal.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "soft-hitnormal.wav"; sourceTree = "<group>"; };
-		8A2A44D91E8E741900B78DDE /* soft-hitwhistle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "soft-hitwhistle.wav"; sourceTree = "<group>"; };
-		8A2A44DA1E8E741900B78DDE /* soft-sliderslide.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "soft-sliderslide.wav"; sourceTree = "<group>"; };
-		8A2A44DB1E8E741900B78DDE /* soft-slidertick.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "soft-slidertick.wav"; sourceTree = "<group>"; };
-		8A2A44DC1E8E741900B78DDE /* soft-sliderwhistle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "soft-sliderwhistle.wav"; sourceTree = "<group>"; };
-		8A2A44E41E8E742200B78DDE /* spinnerbonus.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = spinnerbonus.wav; sourceTree = "<group>"; };
-		8A2A44E51E8E742200B78DDE /* spinnerspin.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = spinnerspin.wav; sourceTree = "<group>"; };
 		8A2AAE0F1E90FE39005D52E7 /* test.osb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.osb; sourceTree = "<group>"; };
-		8A2B382D1E949C6D005B35F6 /* AlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
-		8A3E5C201E8D259C00C28C9D /* Beatmap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Beatmap.swift; sourceTree = "<group>"; };
-		8A3E5C221E8D375A00C28C9D /* HitObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HitObjects.swift; sourceTree = "<group>"; };
-		8A3E5C241E8D4A9D00C28C9D /* BGMusicPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BGMusicPlayer.swift; sourceTree = "<group>"; };
 		8A4D5C301E8A8AEB00319D91 /* iosu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A4D5C331E8A8AEB00319D91 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8A4D5C391E8A8AEB00319D91 /* GamePlayScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePlayScene.swift; sourceTree = "<group>"; };
-		8A4D5C3B1E8A8AEC00319D91 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		8A4D5C3E1E8A8AEC00319D91 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8A4D5C401E8A8AEC00319D91 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8A4D5C431E8A8AEC00319D91 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -146,23 +131,96 @@
 		8A4D5C4A1E8A8AEC00319D91 /* iosuTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iosuTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A4D5C4E1E8A8AEC00319D91 /* iosuTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosuTests.swift; sourceTree = "<group>"; };
 		8A4D5C501E8A8AEC00319D91 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8A4D5C591E8A981400319D91 /* GamePlayScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GamePlayScene.sks; sourceTree = "<group>"; };
-		8A4D5C5B1E8A9F9500319D91 /* normal-hitclap.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "normal-hitclap.wav"; sourceTree = "<group>"; };
-		8A5437B31E8D15BF00F25E63 /* BeatmapScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeatmapScanner.swift; sourceTree = "<group>"; };
-		8A64446E1EC1864E007E8D5E /* Difficulty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Difficulty.swift; sourceTree = "<group>"; };
-		8A6743881E90075800818D55 /* StoryBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryBoard.swift; sourceTree = "<group>"; };
 		8A67438A1E9011D800818D55 /* SpriteKitEasingSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKitEasingSwift.framework; path = "../../Library/Developer/Xcode/DerivedData/iosu-gddpvylvaevfhyenmhqlpckshyiw/Build/Products/Debug-iphonesimulator/SpriteKitEasingSwift/SpriteKitEasingSwift.framework"; sourceTree = "<group>"; };
-		8A7615CA1E91702E00AE5580 /* SelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionView.swift; sourceTree = "<group>"; };
 		8A7F7E181E9D2C1000595A13 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		8A7F7E1A1E9D2C1D00595A13 /* libstdc++.6.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.tbd"; path = "usr/lib/libstdc++.6.tbd"; sourceTree = SDKROOT; };
 		8A7F7E1C1E9D2C2500595A13 /* libbz2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.tbd; path = usr/lib/libbz2.tbd; sourceTree = SDKROOT; };
 		8A7F7E1E1E9D2C2D00595A13 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		8A7F7E201E9D32C300595A13 /* BGVideoPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BGVideoPlayer.swift; sourceTree = "<group>"; };
-		8A9653591E9A978700864415 /* StoryBoardCommands.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryBoardCommands.swift; sourceTree = "<group>"; };
-		8AAA496C1E97BD87001BDB5B /* TestScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestScene.swift; sourceTree = "<group>"; };
 		8ABA55261E9D23FD006530EC /* iosu-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iosu-Bridging-Header.h"; sourceTree = "<group>"; };
 		8AC188431E8EAE3300C9BB98 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		8ACA3AE51E90EE6F00057AA6 /* StoryBoardScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryBoardScene.swift; sourceTree = "<group>"; };
+		8ADC1DE81ECB0B1B00E0E9AB /* applause.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = applause.mp3; sourceTree = "<group>"; };
+		8ADC1DE91ECB0B1B00E0E9AB /* combobreak.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = combobreak.mp3; sourceTree = "<group>"; };
+		8ADC1DEA1ECB0B1B00E0E9AB /* count.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = count.wav; sourceTree = "<group>"; };
+		8ADC1DEB1ECB0B1B00E0E9AB /* count1s.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = count1s.wav; sourceTree = "<group>"; };
+		8ADC1DEC1ECB0B1B00E0E9AB /* count2s.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = count2s.wav; sourceTree = "<group>"; };
+		8ADC1DED1ECB0B1B00E0E9AB /* count3s.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = count3s.wav; sourceTree = "<group>"; };
+		8ADC1DEE1ECB0B1B00E0E9AB /* drum-hitclap.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "drum-hitclap.wav"; sourceTree = "<group>"; };
+		8ADC1DEF1ECB0B1B00E0E9AB /* drum-hitfinish.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "drum-hitfinish.wav"; sourceTree = "<group>"; };
+		8ADC1DF01ECB0B1B00E0E9AB /* drum-hitnormal.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "drum-hitnormal.wav"; sourceTree = "<group>"; };
+		8ADC1DF11ECB0B1B00E0E9AB /* drum-hitwhistle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "drum-hitwhistle.wav"; sourceTree = "<group>"; };
+		8ADC1DF21ECB0B1B00E0E9AB /* drum-sliderslide.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "drum-sliderslide.wav"; sourceTree = "<group>"; };
+		8ADC1DF31ECB0B1B00E0E9AB /* drum-slidertick.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "drum-slidertick.wav"; sourceTree = "<group>"; };
+		8ADC1DF41ECB0B1B00E0E9AB /* drum-sliderwhistle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "drum-sliderwhistle.wav"; sourceTree = "<group>"; };
+		8ADC1DF51ECB0B1B00E0E9AB /* failsound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = failsound.mp3; sourceTree = "<group>"; };
+		8ADC1DF61ECB0B1B00E0E9AB /* gos.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = gos.wav; sourceTree = "<group>"; };
+		8ADC1DF71ECB0B1B00E0E9AB /* menuback.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = menuback.wav; sourceTree = "<group>"; };
+		8ADC1DF81ECB0B1B00E0E9AB /* menuclick.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = menuclick.wav; sourceTree = "<group>"; };
+		8ADC1DF91ECB0B1B00E0E9AB /* menuhit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = menuhit.wav; sourceTree = "<group>"; };
+		8ADC1DFA1ECB0B1B00E0E9AB /* normal-hitclap.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "normal-hitclap.wav"; sourceTree = "<group>"; };
+		8ADC1DFB1ECB0B1B00E0E9AB /* normal-hitfinish.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "normal-hitfinish.wav"; sourceTree = "<group>"; };
+		8ADC1DFC1ECB0B1B00E0E9AB /* normal-hitnormal.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "normal-hitnormal.wav"; sourceTree = "<group>"; };
+		8ADC1DFD1ECB0B1B00E0E9AB /* normal-hitwhistle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "normal-hitwhistle.wav"; sourceTree = "<group>"; };
+		8ADC1DFE1ECB0B1B00E0E9AB /* normal-sliderslide.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "normal-sliderslide.wav"; sourceTree = "<group>"; };
+		8ADC1DFF1ECB0B1B00E0E9AB /* normal-slidertick.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "normal-slidertick.wav"; sourceTree = "<group>"; };
+		8ADC1E001ECB0B1B00E0E9AB /* normal-sliderwhistle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "normal-sliderwhistle.wav"; sourceTree = "<group>"; };
+		8ADC1E011ECB0B1B00E0E9AB /* readys.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = readys.wav; sourceTree = "<group>"; };
+		8ADC1E021ECB0B1B00E0E9AB /* sectionfail.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sectionfail.mp3; sourceTree = "<group>"; };
+		8ADC1E031ECB0B1B00E0E9AB /* sectionpass.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sectionpass.mp3; sourceTree = "<group>"; };
+		8ADC1E041ECB0B1B00E0E9AB /* soft-hitclap.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "soft-hitclap.wav"; sourceTree = "<group>"; };
+		8ADC1E051ECB0B1B00E0E9AB /* soft-hitfinish.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "soft-hitfinish.wav"; sourceTree = "<group>"; };
+		8ADC1E061ECB0B1B00E0E9AB /* soft-hitnormal.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "soft-hitnormal.wav"; sourceTree = "<group>"; };
+		8ADC1E071ECB0B1B00E0E9AB /* soft-hitwhistle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "soft-hitwhistle.wav"; sourceTree = "<group>"; };
+		8ADC1E081ECB0B1B00E0E9AB /* soft-sliderslide.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "soft-sliderslide.wav"; sourceTree = "<group>"; };
+		8ADC1E091ECB0B1B00E0E9AB /* soft-slidertick.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "soft-slidertick.wav"; sourceTree = "<group>"; };
+		8ADC1E0A1ECB0B1B00E0E9AB /* soft-sliderwhistle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "soft-sliderwhistle.wav"; sourceTree = "<group>"; };
+		8ADC1E0B1ECB0B1B00E0E9AB /* spinnerbonus.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = spinnerbonus.wav; sourceTree = "<group>"; };
+		8ADC1E0C1ECB0B1B00E0E9AB /* spinnerspin.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = spinnerspin.wav; sourceTree = "<group>"; };
+		8ADC1E321ECB0B7A00E0E9AB /* TimingPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TimingPoint.swift; path = Beatmap/TimingPoint.swift; sourceTree = "<group>"; };
+		8ADC1E341ECB0BA900E0E9AB /* BGVideo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BGVideo.swift; path = Beatmap/BGVideo.swift; sourceTree = "<group>"; };
+		8ADC1E361ECB0BF600E0E9AB /* BeatmapEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BeatmapEnums.swift; path = Beatmap/BeatmapEnums.swift; sourceTree = "<group>"; };
+		8ADC1E381ECB0C2B00E0E9AB /* Beatmap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Beatmap.swift; path = Beatmap/Beatmap.swift; sourceTree = "<group>"; };
+		8ADC1E3B1ECB0CA500E0E9AB /* HitObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HitObject.swift; path = Beatmap/HitObjects/HitObject.swift; sourceTree = "<group>"; };
+		8ADC1E3D1ECB0CD900E0E9AB /* HitCircle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HitCircle.swift; path = Beatmap/HitObjects/HitCircle.swift; sourceTree = "<group>"; };
+		8ADC1E3F1ECB0CF600E0E9AB /* Slider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Slider.swift; path = Beatmap/HitObjects/Slider.swift; sourceTree = "<group>"; };
+		8ADC1E431ECB0D3400E0E9AB /* SliderBall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SliderBall.swift; path = Beatmap/HitObjects/SliderBall.swift; sourceTree = "<group>"; };
+		8ADC1E451ECB0D5000E0E9AB /* Spinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Spinner.swift; path = Beatmap/HitObjects/Spinner.swift; sourceTree = "<group>"; };
+		8ADC1E471ECB0D7200E0E9AB /* HitObjectEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HitObjectEnums.swift; path = Beatmap/HitObjects/HitObjectEnums.swift; sourceTree = "<group>"; };
+		8ADC1E4C1ECB0E2600E0E9AB /* CircleAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CircleAction.swift; path = Beatmap/Renderer/CircleAction.swift; sourceTree = "<group>"; };
+		8ADC1E501ECB0E9500E0E9AB /* SliderAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SliderAction.swift; path = Beatmap/Renderer/SliderAction.swift; sourceTree = "<group>"; };
+		8ADC1E521ECB0ECE00E0E9AB /* BundleImageBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BundleImageBuffer.swift; path = Beatmap/Renderer/BundleImageBuffer.swift; sourceTree = "<group>"; };
+		8ADC1E541ECB0EFB00E0E9AB /* ActionSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ActionSet.swift; path = Beatmap/Renderer/ActionSet.swift; sourceTree = "<group>"; };
+		8ADC1E561ECB0F2800E0E9AB /* RendererEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RendererEnums.swift; path = Beatmap/Renderer/RendererEnums.swift; sourceTree = "<group>"; };
+		8ADC1E591ECB0FAF00E0E9AB /* StoryBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StoryBoard.swift; path = StoryBoard/StoryBoard.swift; sourceTree = "<group>"; };
+		8ADC1E5C1ECB100A00E0E9AB /* ImageBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageBuffer.swift; path = StoryBoard/Renderer/ImageBuffer.swift; sourceTree = "<group>"; };
+		8ADC1E5E1ECB104900E0E9AB /* BasicImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BasicImage.swift; path = StoryBoard/BasicImage.swift; sourceTree = "<group>"; };
+		8ADC1E601ECB108D00E0E9AB /* MovingImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MovingImage.swift; path = StoryBoard/MovingImage.swift; sourceTree = "<group>"; };
+		8ADC1E621ECB10B900E0E9AB /* StoryBoardEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StoryBoardEnums.swift; path = StoryBoard/StoryBoardEnums.swift; sourceTree = "<group>"; };
+		8ADC1E691ECB11AB00E0E9AB /* Easing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Easing.swift; path = StoryBoard/Renderer/Easing.swift; sourceTree = "<group>"; };
+		8ADC1E6A1ECB11AB00E0E9AB /* SBCHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SBCHelper.swift; path = StoryBoard/Renderer/SBCHelper.swift; sourceTree = "<group>"; };
+		8ADC1E6D1ECB11D000E0E9AB /* SBCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SBCommand.swift; path = StoryBoard/Renderer/SBCommand.swift; sourceTree = "<group>"; };
+		8ADC1E711ECB122000E0E9AB /* SBMove.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SBMove.swift; path = StoryBoard/Renderer/Commands/SBMove.swift; sourceTree = "<group>"; };
+		8ADC1E731ECB125700E0E9AB /* SBFade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SBFade.swift; path = StoryBoard/Renderer/Commands/SBFade.swift; sourceTree = "<group>"; };
+		8ADC1E751ECB128400E0E9AB /* SBMoveX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SBMoveX.swift; path = StoryBoard/Renderer/Commands/SBMoveX.swift; sourceTree = "<group>"; };
+		8ADC1E771ECB12A900E0E9AB /* SBMoveY.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SBMoveY.swift; path = StoryBoard/Renderer/Commands/SBMoveY.swift; sourceTree = "<group>"; };
+		8ADC1E791ECB12CB00E0E9AB /* SBScale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SBScale.swift; path = StoryBoard/Renderer/Commands/SBScale.swift; sourceTree = "<group>"; };
+		8ADC1E7B1ECB12EF00E0E9AB /* SBVScale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SBVScale.swift; path = StoryBoard/Renderer/Commands/SBVScale.swift; sourceTree = "<group>"; };
+		8ADC1E7D1ECB130D00E0E9AB /* SBRotate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SBRotate.swift; path = StoryBoard/Renderer/Commands/SBRotate.swift; sourceTree = "<group>"; };
+		8ADC1E7F1ECB132F00E0E9AB /* SBColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SBColor.swift; path = StoryBoard/Renderer/Commands/SBColor.swift; sourceTree = "<group>"; };
+		8ADC1E811ECB135F00E0E9AB /* SBParam.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SBParam.swift; path = StoryBoard/Renderer/Commands/SBParam.swift; sourceTree = "<group>"; };
+		8ADC1E831ECB138000E0E9AB /* SBLoop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SBLoop.swift; path = StoryBoard/Renderer/Commands/SBLoop.swift; sourceTree = "<group>"; };
+		8ADC1E851ECB139D00E0E9AB /* SBTrigger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SBTrigger.swift; path = StoryBoard/Renderer/Commands/SBTrigger.swift; sourceTree = "<group>"; };
+		8ADC1E881ECB148000E0E9AB /* GamePlayScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GamePlayScene.swift; path = Scenes/GamePlayScene.swift; sourceTree = "<group>"; };
+		8ADC1E891ECB148000E0E9AB /* StoryBoardScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StoryBoardScene.swift; path = Scenes/StoryBoardScene.swift; sourceTree = "<group>"; };
+		8ADC1E8D1ECB14DD00E0E9AB /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameViewController.swift; path = ViewControllers/GameViewController.swift; sourceTree = "<group>"; };
+		8ADC1E8E1ECB14DD00E0E9AB /* SelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SelectionView.swift; path = ViewControllers/SelectionView.swift; sourceTree = "<group>"; };
+		8ADC1E911ECB155400E0E9AB /* Difficulty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Difficulty.swift; path = Beatmap/Difficulty.swift; sourceTree = "<group>"; };
+		8ADC1E941ECB159700E0E9AB /* ScoringEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScoringEnums.swift; path = Beatmap/Scoring/ScoringEnums.swift; sourceTree = "<group>"; };
+		8ADC1E961ECB15D300E0E9AB /* AlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlertView.swift; path = ViewControllers/AlertView.swift; sourceTree = "<group>"; };
+		8ADC1E981ECB15F100E0E9AB /* TestScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestScene.swift; path = Scenes/TestScene.swift; sourceTree = "<group>"; };
+		8ADC1E9B1ECB163300E0E9AB /* BGMusicPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BGMusicPlayer.swift; path = MediaPlayers/BGMusicPlayer.swift; sourceTree = "<group>"; };
+		8ADC1E9C1ECB163300E0E9AB /* BGVideoPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BGVideoPlayer.swift; path = MediaPlayers/BGVideoPlayer.swift; sourceTree = "<group>"; };
+		8ADC1EA01ECB167400E0E9AB /* BeatmapScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BeatmapScanner.swift; path = Database/BeatmapScanner.swift; sourceTree = "<group>"; };
+		8ADC1EA21ECB16C400E0E9AB /* HitObjectAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HitObjectAction.swift; path = Beatmap/Renderer/HitObjectAction.swift; sourceTree = "<group>"; };
 		A76F916780A6E7BFEFB56503 /* Pods_iosu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iosu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -191,50 +249,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8A2A449F1E8E737100B78DDE /* audios */ = {
-			isa = PBXGroup;
-			children = (
-				8A2A44AE1E8E73B600B78DDE /* applause.mp3 */,
-				8A2A44AF1E8E73B700B78DDE /* combobreak.mp3 */,
-				8A2A44B01E8E73B700B78DDE /* count.wav */,
-				8A2A44A01E8E739C00B78DDE /* drum-hitclap.wav */,
-				8A2A44A11E8E739C00B78DDE /* drum-hitfinish.wav */,
-				8A2A44A21E8E739C00B78DDE /* drum-hitnormal.wav */,
-				8A2A44A31E8E739C00B78DDE /* drum-hitwhistle.wav */,
-				8A2A44A41E8E739C00B78DDE /* drum-sliderslide.wav */,
-				8A2A44A51E8E739C00B78DDE /* drum-slidertick.wav */,
-				8A2A44BE1E8E73DB00B78DDE /* menuback.wav */,
-				8A2A44BF1E8E73DB00B78DDE /* menuclick.wav */,
-				8A2A44C01E8E73DB00B78DDE /* menuhit.wav */,
-				8A2A44C41E8E73E600B78DDE /* normal-hitfinish.wav */,
-				8A2A44C51E8E73E600B78DDE /* normal-hitnormal.wav */,
-				8A2A44C61E8E73E600B78DDE /* normal-hitwhistle.wav */,
-				8A2A44C71E8E73E600B78DDE /* normal-sliderslide.wav */,
-				8A2A44C81E8E73E600B78DDE /* normal-slidertick.wav */,
-				8A2A44C91E8E73E600B78DDE /* normal-sliderwhistle.wav */,
-				8A2A44E41E8E742200B78DDE /* spinnerbonus.wav */,
-				8A2A44E51E8E742200B78DDE /* spinnerspin.wav */,
-				8A2A44D61E8E741900B78DDE /* soft-hitclap.wav */,
-				8A2A44D71E8E741900B78DDE /* soft-hitfinish.wav */,
-				8A2A44D81E8E741900B78DDE /* soft-hitnormal.wav */,
-				8A2A44D91E8E741900B78DDE /* soft-hitwhistle.wav */,
-				8A2A44DA1E8E741900B78DDE /* soft-sliderslide.wav */,
-				8A2A44DB1E8E741900B78DDE /* soft-slidertick.wav */,
-				8A2A44DC1E8E741900B78DDE /* soft-sliderwhistle.wav */,
-				8A2A44D01E8E740100B78DDE /* readys.wav */,
-				8A2A44BA1E8E73CE00B78DDE /* failsound.mp3 */,
-				8A2A44BB1E8E73CE00B78DDE /* gos.wav */,
-				8A2A44D21E8E740B00B78DDE /* sectionfail.mp3 */,
-				8A2A44D31E8E740B00B78DDE /* sectionpass.mp3 */,
-				8A2A44A61E8E739C00B78DDE /* drum-sliderwhistle.wav */,
-				8A2A44B41E8E73C000B78DDE /* count1s.wav */,
-				8A2A44B51E8E73C000B78DDE /* count2s.wav */,
-				8A2A44B61E8E73C000B78DDE /* count3s.wav */,
-				8A4D5C5B1E8A9F9500319D91 /* normal-hitclap.wav */,
-			);
-			name = audios;
-			sourceTree = "<group>";
-		};
 		8A4D5C271E8A8AEB00319D91 = {
 			isa = PBXGroup;
 			children = (
@@ -259,26 +273,15 @@
 		8A4D5C321E8A8AEB00319D91 /* iosu */ = {
 			isa = PBXGroup;
 			children = (
-				8A2A449F1E8E737100B78DDE /* audios */,
-				8A9653591E9A978700864415 /* StoryBoardCommands.swift */,
+				8ADC1DE71ECB0B1B00E0E9AB /* Audios */,
+				8ADC1D9B1ECB0A4600E0E9AB /* Beatmap */,
+				8ADC1E581ECB0F8D00E0E9AB /* StoryBoard */,
+				8ADC1E9F1ECB164500E0E9AB /* Database */,
+				8ADC1E871ECB144B00E0E9AB /* Scenes */,
+				8ADC1E9A1ECB15FE00E0E9AB /* MediaPlayers */,
+				8ADC1E8C1ECB149A00E0E9AB /* ViewControllers */,
 				8A4D5C331E8A8AEB00319D91 /* AppDelegate.swift */,
-				8A4D5C591E8A981400319D91 /* GamePlayScene.sks */,
-				8A4D5C391E8A8AEB00319D91 /* GamePlayScene.swift */,
-				8ACA3AE51E90EE6F00057AA6 /* StoryBoardScene.swift */,
-				8A2B382D1E949C6D005B35F6 /* AlertView.swift */,
-				8AAA496C1E97BD87001BDB5B /* TestScene.swift */,
-				8A3E5C241E8D4A9D00C28C9D /* BGMusicPlayer.swift */,
-				8A7F7E201E9D32C300595A13 /* BGVideoPlayer.swift */,
-				8A5437B31E8D15BF00F25E63 /* BeatmapScanner.swift */,
-				8A6743881E90075800818D55 /* StoryBoard.swift */,
-				8A3E5C201E8D259C00C28C9D /* Beatmap.swift */,
-				8A64446E1EC1864E007E8D5E /* Difficulty.swift */,
-				8A3E5C221E8D375A00C28C9D /* HitObjects.swift */,
-				8A10C43C1EC37C850052E487 /* HitObjectRenderer.swift */,
-				8A2A02581EC4AA65008E095A /* Scoring.swift */,
-				8A4D5C3B1E8A8AEC00319D91 /* GameViewController.swift */,
 				8A4D5C3D1E8A8AEC00319D91 /* Main.storyboard */,
-				8A7615CA1E91702E00AE5580 /* SelectionView.swift */,
 				8A4D5C401E8A8AEC00319D91 /* Assets.xcassets */,
 				8A4D5C421E8A8AEC00319D91 /* LaunchScreen.storyboard */,
 				8A4D5C451E8A8AEC00319D91 /* Info.plist */,
@@ -295,6 +298,178 @@
 				8A4D5C501E8A8AEC00319D91 /* Info.plist */,
 			);
 			path = iosuTests;
+			sourceTree = "<group>";
+		};
+		8ADC1D9B1ECB0A4600E0E9AB /* Beatmap */ = {
+			isa = PBXGroup;
+			children = (
+				8ADC1E931ECB157D00E0E9AB /* Scoring */,
+				8ADC1E3A1ECB0C6A00E0E9AB /* HitObjects */,
+				8ADC1E491ECB0DBF00E0E9AB /* Renderer */,
+				8ADC1E381ECB0C2B00E0E9AB /* Beatmap.swift */,
+				8ADC1E361ECB0BF600E0E9AB /* BeatmapEnums.swift */,
+				8ADC1E341ECB0BA900E0E9AB /* BGVideo.swift */,
+				8ADC1E911ECB155400E0E9AB /* Difficulty.swift */,
+				8ADC1E321ECB0B7A00E0E9AB /* TimingPoint.swift */,
+			);
+			name = Beatmap;
+			sourceTree = "<group>";
+		};
+		8ADC1DE71ECB0B1B00E0E9AB /* Audios */ = {
+			isa = PBXGroup;
+			children = (
+				8ADC1DE81ECB0B1B00E0E9AB /* applause.mp3 */,
+				8ADC1DE91ECB0B1B00E0E9AB /* combobreak.mp3 */,
+				8ADC1DEA1ECB0B1B00E0E9AB /* count.wav */,
+				8ADC1DEB1ECB0B1B00E0E9AB /* count1s.wav */,
+				8ADC1DEC1ECB0B1B00E0E9AB /* count2s.wav */,
+				8ADC1DED1ECB0B1B00E0E9AB /* count3s.wav */,
+				8ADC1DEE1ECB0B1B00E0E9AB /* drum-hitclap.wav */,
+				8ADC1DEF1ECB0B1B00E0E9AB /* drum-hitfinish.wav */,
+				8ADC1DF01ECB0B1B00E0E9AB /* drum-hitnormal.wav */,
+				8ADC1DF11ECB0B1B00E0E9AB /* drum-hitwhistle.wav */,
+				8ADC1DF21ECB0B1B00E0E9AB /* drum-sliderslide.wav */,
+				8ADC1DF31ECB0B1B00E0E9AB /* drum-slidertick.wav */,
+				8ADC1DF41ECB0B1B00E0E9AB /* drum-sliderwhistle.wav */,
+				8ADC1DF51ECB0B1B00E0E9AB /* failsound.mp3 */,
+				8ADC1DF61ECB0B1B00E0E9AB /* gos.wav */,
+				8ADC1DF71ECB0B1B00E0E9AB /* menuback.wav */,
+				8ADC1DF81ECB0B1B00E0E9AB /* menuclick.wav */,
+				8ADC1DF91ECB0B1B00E0E9AB /* menuhit.wav */,
+				8ADC1DFA1ECB0B1B00E0E9AB /* normal-hitclap.wav */,
+				8ADC1DFB1ECB0B1B00E0E9AB /* normal-hitfinish.wav */,
+				8ADC1DFC1ECB0B1B00E0E9AB /* normal-hitnormal.wav */,
+				8ADC1DFD1ECB0B1B00E0E9AB /* normal-hitwhistle.wav */,
+				8ADC1DFE1ECB0B1B00E0E9AB /* normal-sliderslide.wav */,
+				8ADC1DFF1ECB0B1B00E0E9AB /* normal-slidertick.wav */,
+				8ADC1E001ECB0B1B00E0E9AB /* normal-sliderwhistle.wav */,
+				8ADC1E011ECB0B1B00E0E9AB /* readys.wav */,
+				8ADC1E021ECB0B1B00E0E9AB /* sectionfail.mp3 */,
+				8ADC1E031ECB0B1B00E0E9AB /* sectionpass.mp3 */,
+				8ADC1E041ECB0B1B00E0E9AB /* soft-hitclap.wav */,
+				8ADC1E051ECB0B1B00E0E9AB /* soft-hitfinish.wav */,
+				8ADC1E061ECB0B1B00E0E9AB /* soft-hitnormal.wav */,
+				8ADC1E071ECB0B1B00E0E9AB /* soft-hitwhistle.wav */,
+				8ADC1E081ECB0B1B00E0E9AB /* soft-sliderslide.wav */,
+				8ADC1E091ECB0B1B00E0E9AB /* soft-slidertick.wav */,
+				8ADC1E0A1ECB0B1B00E0E9AB /* soft-sliderwhistle.wav */,
+				8ADC1E0B1ECB0B1B00E0E9AB /* spinnerbonus.wav */,
+				8ADC1E0C1ECB0B1B00E0E9AB /* spinnerspin.wav */,
+			);
+			path = Audios;
+			sourceTree = "<group>";
+		};
+		8ADC1E3A1ECB0C6A00E0E9AB /* HitObjects */ = {
+			isa = PBXGroup;
+			children = (
+				8ADC1E3D1ECB0CD900E0E9AB /* HitCircle.swift */,
+				8ADC1E3B1ECB0CA500E0E9AB /* HitObject.swift */,
+				8ADC1E3F1ECB0CF600E0E9AB /* Slider.swift */,
+				8ADC1E431ECB0D3400E0E9AB /* SliderBall.swift */,
+				8ADC1E451ECB0D5000E0E9AB /* Spinner.swift */,
+				8ADC1E471ECB0D7200E0E9AB /* HitObjectEnums.swift */,
+			);
+			name = HitObjects;
+			sourceTree = "<group>";
+		};
+		8ADC1E491ECB0DBF00E0E9AB /* Renderer */ = {
+			isa = PBXGroup;
+			children = (
+				8ADC1EA21ECB16C400E0E9AB /* HitObjectAction.swift */,
+				8ADC1E541ECB0EFB00E0E9AB /* ActionSet.swift */,
+				8ADC1E521ECB0ECE00E0E9AB /* BundleImageBuffer.swift */,
+				8ADC1E4C1ECB0E2600E0E9AB /* CircleAction.swift */,
+				8ADC1E561ECB0F2800E0E9AB /* RendererEnums.swift */,
+				8ADC1E501ECB0E9500E0E9AB /* SliderAction.swift */,
+			);
+			name = Renderer;
+			sourceTree = "<group>";
+		};
+		8ADC1E581ECB0F8D00E0E9AB /* StoryBoard */ = {
+			isa = PBXGroup;
+			children = (
+				8ADC1E5B1ECB0FEC00E0E9AB /* Renderer */,
+				8ADC1E591ECB0FAF00E0E9AB /* StoryBoard.swift */,
+				8ADC1E5E1ECB104900E0E9AB /* BasicImage.swift */,
+				8ADC1E601ECB108D00E0E9AB /* MovingImage.swift */,
+				8ADC1E621ECB10B900E0E9AB /* StoryBoardEnums.swift */,
+			);
+			name = StoryBoard;
+			sourceTree = "<group>";
+		};
+		8ADC1E5B1ECB0FEC00E0E9AB /* Renderer */ = {
+			isa = PBXGroup;
+			children = (
+				8ADC1E641ECB10FC00E0E9AB /* Commands */,
+				8ADC1E691ECB11AB00E0E9AB /* Easing.swift */,
+				8ADC1E6A1ECB11AB00E0E9AB /* SBCHelper.swift */,
+				8ADC1E5C1ECB100A00E0E9AB /* ImageBuffer.swift */,
+				8ADC1E6D1ECB11D000E0E9AB /* SBCommand.swift */,
+			);
+			name = Renderer;
+			sourceTree = "<group>";
+		};
+		8ADC1E641ECB10FC00E0E9AB /* Commands */ = {
+			isa = PBXGroup;
+			children = (
+				8ADC1E731ECB125700E0E9AB /* SBFade.swift */,
+				8ADC1E711ECB122000E0E9AB /* SBMove.swift */,
+				8ADC1E751ECB128400E0E9AB /* SBMoveX.swift */,
+				8ADC1E771ECB12A900E0E9AB /* SBMoveY.swift */,
+				8ADC1E791ECB12CB00E0E9AB /* SBScale.swift */,
+				8ADC1E7B1ECB12EF00E0E9AB /* SBVScale.swift */,
+				8ADC1E7D1ECB130D00E0E9AB /* SBRotate.swift */,
+				8ADC1E7F1ECB132F00E0E9AB /* SBColor.swift */,
+				8ADC1E811ECB135F00E0E9AB /* SBParam.swift */,
+				8ADC1E831ECB138000E0E9AB /* SBLoop.swift */,
+				8ADC1E851ECB139D00E0E9AB /* SBTrigger.swift */,
+			);
+			name = Commands;
+			sourceTree = "<group>";
+		};
+		8ADC1E871ECB144B00E0E9AB /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				8ADC1E881ECB148000E0E9AB /* GamePlayScene.swift */,
+				8ADC1E891ECB148000E0E9AB /* StoryBoardScene.swift */,
+				8ADC1E981ECB15F100E0E9AB /* TestScene.swift */,
+			);
+			name = Scenes;
+			sourceTree = "<group>";
+		};
+		8ADC1E8C1ECB149A00E0E9AB /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				8ADC1E961ECB15D300E0E9AB /* AlertView.swift */,
+				8ADC1E8D1ECB14DD00E0E9AB /* GameViewController.swift */,
+				8ADC1E8E1ECB14DD00E0E9AB /* SelectionView.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		8ADC1E931ECB157D00E0E9AB /* Scoring */ = {
+			isa = PBXGroup;
+			children = (
+				8ADC1E941ECB159700E0E9AB /* ScoringEnums.swift */,
+			);
+			name = Scoring;
+			sourceTree = "<group>";
+		};
+		8ADC1E9A1ECB15FE00E0E9AB /* MediaPlayers */ = {
+			isa = PBXGroup;
+			children = (
+				8ADC1E9B1ECB163300E0E9AB /* BGMusicPlayer.swift */,
+				8ADC1E9C1ECB163300E0E9AB /* BGVideoPlayer.swift */,
+			);
+			name = MediaPlayers;
+			sourceTree = "<group>";
+		};
+		8ADC1E9F1ECB164500E0E9AB /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				8ADC1EA01ECB167400E0E9AB /* BeatmapScanner.swift */,
+			);
+			name = Database;
 			sourceTree = "<group>";
 		};
 		D3ABB3CD3474C7FEB39BC95D /* Frameworks */ = {
@@ -408,47 +583,46 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8A2A44E11E8E741900B78DDE /* soft-sliderslide.wav in Resources */,
-				8A2A44D11E8E740100B78DDE /* readys.wav in Resources */,
-				8A2A44BD1E8E73CE00B78DDE /* gos.wav in Resources */,
+				8ADC1E2D1ECB0B1B00E0E9AB /* soft-sliderslide.wav in Resources */,
+				8ADC1E261ECB0B1B00E0E9AB /* readys.wav in Resources */,
 				8A4D5C3F1E8A8AEC00319D91 /* Main.storyboard in Resources */,
-				8A2A44CC1E8E73E600B78DDE /* normal-hitwhistle.wav in Resources */,
-				8A2A44C21E8E73DB00B78DDE /* menuclick.wav in Resources */,
-				8A2A44BC1E8E73CE00B78DDE /* failsound.mp3 in Resources */,
-				8A2A44CE1E8E73E600B78DDE /* normal-slidertick.wav in Resources */,
-				8A2A44A91E8E739C00B78DDE /* drum-hitnormal.wav in Resources */,
-				8A2A44B81E8E73C000B78DDE /* count2s.wav in Resources */,
-				8A2A44D41E8E740B00B78DDE /* sectionfail.mp3 in Resources */,
+				8ADC1E0F1ECB0B1B00E0E9AB /* count.wav in Resources */,
+				8ADC1E221ECB0B1B00E0E9AB /* normal-hitwhistle.wav in Resources */,
+				8ADC1E181ECB0B1B00E0E9AB /* drum-slidertick.wav in Resources */,
+				8ADC1E171ECB0B1B00E0E9AB /* drum-sliderslide.wav in Resources */,
+				8ADC1E241ECB0B1B00E0E9AB /* normal-slidertick.wav in Resources */,
+				8ADC1E121ECB0B1B00E0E9AB /* count3s.wav in Resources */,
+				8ADC1E191ECB0B1B00E0E9AB /* drum-sliderwhistle.wav in Resources */,
+				8ADC1E271ECB0B1B00E0E9AB /* sectionfail.mp3 in Resources */,
+				8ADC1E0E1ECB0B1B00E0E9AB /* combobreak.mp3 in Resources */,
+				8ADC1E291ECB0B1B00E0E9AB /* soft-hitclap.wav in Resources */,
+				8ADC1E111ECB0B1B00E0E9AB /* count2s.wav in Resources */,
+				8ADC1E1D1ECB0B1B00E0E9AB /* menuclick.wav in Resources */,
+				8ADC1E1F1ECB0B1B00E0E9AB /* normal-hitclap.wav in Resources */,
+				8ADC1E2B1ECB0B1B00E0E9AB /* soft-hitnormal.wav in Resources */,
+				8ADC1E141ECB0B1B00E0E9AB /* drum-hitfinish.wav in Resources */,
+				8ADC1E301ECB0B1B00E0E9AB /* spinnerbonus.wav in Resources */,
 				8A4D5C411E8A8AEC00319D91 /* Assets.xcassets in Resources */,
-				8A2A44DD1E8E741900B78DDE /* soft-hitclap.wav in Resources */,
-				8A2A44A71E8E739C00B78DDE /* drum-hitclap.wav in Resources */,
-				8A2A44B71E8E73C000B78DDE /* count1s.wav in Resources */,
-				8A2A44B91E8E73C000B78DDE /* count3s.wav in Resources */,
-				8A2A44DF1E8E741900B78DDE /* soft-hitnormal.wav in Resources */,
+				8ADC1E1C1ECB0B1B00E0E9AB /* menuback.wav in Resources */,
+				8ADC1E2E1ECB0B1B00E0E9AB /* soft-slidertick.wav in Resources */,
+				8ADC1E161ECB0B1B00E0E9AB /* drum-hitwhistle.wav in Resources */,
+				8ADC1E1B1ECB0B1B00E0E9AB /* gos.wav in Resources */,
+				8ADC1E231ECB0B1B00E0E9AB /* normal-sliderslide.wav in Resources */,
+				8ADC1E311ECB0B1B00E0E9AB /* spinnerspin.wav in Resources */,
+				8ADC1E151ECB0B1B00E0E9AB /* drum-hitnormal.wav in Resources */,
+				8ADC1E251ECB0B1B00E0E9AB /* normal-sliderwhistle.wav in Resources */,
+				8ADC1E1E1ECB0B1B00E0E9AB /* menuhit.wav in Resources */,
+				8ADC1E131ECB0B1B00E0E9AB /* drum-hitclap.wav in Resources */,
+				8ADC1E101ECB0B1B00E0E9AB /* count1s.wav in Resources */,
+				8ADC1E281ECB0B1B00E0E9AB /* sectionpass.mp3 in Resources */,
+				8ADC1E2A1ECB0B1B00E0E9AB /* soft-hitfinish.wav in Resources */,
+				8ADC1E211ECB0B1B00E0E9AB /* normal-hitnormal.wav in Resources */,
+				8ADC1E0D1ECB0B1B00E0E9AB /* applause.mp3 in Resources */,
+				8ADC1E201ECB0B1B00E0E9AB /* normal-hitfinish.wav in Resources */,
 				8A4D5C441E8A8AEC00319D91 /* LaunchScreen.storyboard in Resources */,
-				8A2A44E61E8E742200B78DDE /* spinnerbonus.wav in Resources */,
-				8A2A44B21E8E73B700B78DDE /* combobreak.mp3 in Resources */,
-				8A2A44C31E8E73DB00B78DDE /* menuhit.wav in Resources */,
-				8A2A44E21E8E741900B78DDE /* soft-slidertick.wav in Resources */,
-				8A4D5C5A1E8A981400319D91 /* GamePlayScene.sks in Resources */,
-				8A2A44AD1E8E739C00B78DDE /* drum-sliderwhistle.wav in Resources */,
-				8A2A44CD1E8E73E600B78DDE /* normal-sliderslide.wav in Resources */,
-				8A2A44E71E8E742200B78DDE /* spinnerspin.wav in Resources */,
-				8A2A44AC1E8E739C00B78DDE /* drum-slidertick.wav in Resources */,
-				8A2A44CF1E8E73E600B78DDE /* normal-sliderwhistle.wav in Resources */,
-				8A2A44B31E8E73B700B78DDE /* count.wav in Resources */,
-				8A2A44B11E8E73B700B78DDE /* applause.mp3 in Resources */,
-				8A2A44A81E8E739C00B78DDE /* drum-hitfinish.wav in Resources */,
-				8A2A44D51E8E740B00B78DDE /* sectionpass.mp3 in Resources */,
-				8A2A44DE1E8E741900B78DDE /* soft-hitfinish.wav in Resources */,
-				8A2A44CB1E8E73E600B78DDE /* normal-hitnormal.wav in Resources */,
-				8A2A44C11E8E73DB00B78DDE /* menuback.wav in Resources */,
-				8A2A44CA1E8E73E600B78DDE /* normal-hitfinish.wav in Resources */,
-				8A2A44AB1E8E739C00B78DDE /* drum-sliderslide.wav in Resources */,
-				8A2A44E31E8E741900B78DDE /* soft-sliderwhistle.wav in Resources */,
-				8A2A44E01E8E741900B78DDE /* soft-hitwhistle.wav in Resources */,
-				8A2A44AA1E8E739C00B78DDE /* drum-hitwhistle.wav in Resources */,
-				8A4D5C5C1E8A9F9500319D91 /* normal-hitclap.wav in Resources */,
+				8ADC1E2F1ECB0B1B00E0E9AB /* soft-sliderwhistle.wav in Resources */,
+				8ADC1E2C1ECB0B1B00E0E9AB /* soft-hitwhistle.wav in Resources */,
+				8ADC1E1A1ECB0B1B00E0E9AB /* failsound.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -515,25 +689,55 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8ADC1E6C1ECB11AB00E0E9AB /* SBCHelper.swift in Sources */,
 				8ABA55271E9D240C006530EC /* iosu-Bridging-Header.h in Sources */,
-				8A4D5C3A1E8A8AEB00319D91 /* GamePlayScene.swift in Sources */,
-				8A6743891E90075800818D55 /* StoryBoard.swift in Sources */,
-				8A10C43D1EC37C850052E487 /* HitObjectRenderer.swift in Sources */,
-				8A3E5C251E8D4A9D00C28C9D /* BGMusicPlayer.swift in Sources */,
-				8A2A02591EC4AA65008E095A /* Scoring.swift in Sources */,
-				8A4D5C3C1E8A8AEC00319D91 /* GameViewController.swift in Sources */,
-				8A3E5C211E8D259C00C28C9D /* Beatmap.swift in Sources */,
-				8A5437B41E8D15BF00F25E63 /* BeatmapScanner.swift in Sources */,
-				8AAA496D1E97BD87001BDB5B /* TestScene.swift in Sources */,
-				8ACA3AE61E90EE6F00057AA6 /* StoryBoardScene.swift in Sources */,
-				8A2B382E1E949C6D005B35F6 /* AlertView.swift in Sources */,
-				8A3E5C231E8D375A00C28C9D /* HitObjects.swift in Sources */,
-				8A7F7E211E9D32C300595A13 /* BGVideoPlayer.swift in Sources */,
+				8ADC1E461ECB0D5000E0E9AB /* Spinner.swift in Sources */,
+				8ADC1E841ECB138000E0E9AB /* SBLoop.swift in Sources */,
+				8ADC1E331ECB0B7A00E0E9AB /* TimingPoint.swift in Sources */,
+				8ADC1E391ECB0C2B00E0E9AB /* Beatmap.swift in Sources */,
+				8ADC1E511ECB0E9500E0E9AB /* SliderAction.swift in Sources */,
+				8ADC1E5D1ECB100A00E0E9AB /* ImageBuffer.swift in Sources */,
+				8ADC1E481ECB0D7200E0E9AB /* HitObjectEnums.swift in Sources */,
+				8ADC1E721ECB122000E0E9AB /* SBMove.swift in Sources */,
+				8ADC1E761ECB128400E0E9AB /* SBMoveX.swift in Sources */,
+				8ADC1E5F1ECB104900E0E9AB /* BasicImage.swift in Sources */,
+				8ADC1E861ECB139D00E0E9AB /* SBTrigger.swift in Sources */,
+				8ADC1E951ECB159700E0E9AB /* ScoringEnums.swift in Sources */,
+				8ADC1E5A1ECB0FAF00E0E9AB /* StoryBoard.swift in Sources */,
+				8ADC1E611ECB108D00E0E9AB /* MovingImage.swift in Sources */,
+				8ADC1E401ECB0CF600E0E9AB /* Slider.swift in Sources */,
+				8ADC1E781ECB12A900E0E9AB /* SBMoveY.swift in Sources */,
+				8ADC1E571ECB0F2800E0E9AB /* RendererEnums.swift in Sources */,
+				8ADC1EA11ECB167400E0E9AB /* BeatmapScanner.swift in Sources */,
+				8ADC1E9D1ECB163300E0E9AB /* BGMusicPlayer.swift in Sources */,
+				8ADC1E971ECB15D300E0E9AB /* AlertView.swift in Sources */,
+				8ADC1EA31ECB16C400E0E9AB /* HitObjectAction.swift in Sources */,
+				8ADC1E4D1ECB0E2600E0E9AB /* CircleAction.swift in Sources */,
+				8ADC1E3C1ECB0CA500E0E9AB /* HitObject.swift in Sources */,
+				8ADC1E551ECB0EFB00E0E9AB /* ActionSet.swift in Sources */,
+				8ADC1E741ECB125700E0E9AB /* SBFade.swift in Sources */,
+				8ADC1E9E1ECB163300E0E9AB /* BGVideoPlayer.swift in Sources */,
+				8ADC1E8F1ECB14DD00E0E9AB /* GameViewController.swift in Sources */,
+				8ADC1E7A1ECB12CB00E0E9AB /* SBScale.swift in Sources */,
+				8ADC1E921ECB155400E0E9AB /* Difficulty.swift in Sources */,
+				8ADC1E991ECB15F100E0E9AB /* TestScene.swift in Sources */,
 				8AC188441E8EAE3300C9BB98 /* README.md in Sources */,
+				8ADC1E531ECB0ECE00E0E9AB /* BundleImageBuffer.swift in Sources */,
+				8ADC1E7E1ECB130D00E0E9AB /* SBRotate.swift in Sources */,
+				8ADC1E631ECB10B900E0E9AB /* StoryBoardEnums.swift in Sources */,
+				8ADC1E801ECB132F00E0E9AB /* SBColor.swift in Sources */,
+				8ADC1E8B1ECB148000E0E9AB /* StoryBoardScene.swift in Sources */,
+				8ADC1E6E1ECB11D000E0E9AB /* SBCommand.swift in Sources */,
+				8ADC1E3E1ECB0CD900E0E9AB /* HitCircle.swift in Sources */,
+				8ADC1E6B1ECB11AB00E0E9AB /* Easing.swift in Sources */,
+				8ADC1E901ECB14DD00E0E9AB /* SelectionView.swift in Sources */,
 				8A4D5C341E8A8AEB00319D91 /* AppDelegate.swift in Sources */,
-				8A64446F1EC1864E007E8D5E /* Difficulty.swift in Sources */,
-				8A96535A1E9A978700864415 /* StoryBoardCommands.swift in Sources */,
-				8A7615CB1E91702E00AE5580 /* SelectionView.swift in Sources */,
+				8ADC1E371ECB0BF600E0E9AB /* BeatmapEnums.swift in Sources */,
+				8ADC1E441ECB0D3400E0E9AB /* SliderBall.swift in Sources */,
+				8ADC1E7C1ECB12EF00E0E9AB /* SBVScale.swift in Sources */,
+				8ADC1E8A1ECB148000E0E9AB /* GamePlayScene.swift in Sources */,
+				8ADC1E821ECB135F00E0E9AB /* SBParam.swift in Sources */,
+				8ADC1E351ECB0BA900E0E9AB /* BGVideo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

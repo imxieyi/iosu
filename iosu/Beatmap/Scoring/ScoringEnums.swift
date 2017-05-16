@@ -1,8 +1,8 @@
 //
-//  Scoring.swift
+//  ScoringEnums.swift
 //  iosu
 //
-//  Created by xieyi on 2017/5/11.
+//  Created by xieyi on 2017/5/16.
 //  Copyright © 2017年 xieyi. All rights reserved.
 //
 
