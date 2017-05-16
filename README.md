@@ -92,5 +92,6 @@ Notice: The following videos are outdated. If you want to see the latest version
  - [SpriteKitEasingSwift](https://github.com/craiggrummitt/SpriteKitEasingSwift)
  - [KSYMediaPlayer_iOS](https://github.com/ksvc/KSYMediaPlayer_iOS)
  - [SQLite.swift](https://github.com/stephencelis/SQLite.swift)
+ - [UIBezierPath-Length](https://github.com/ImJCabus/UIBezierPath-Length)
  - [Stack Overflow](http://stackoverflow.com)
  - [Apple Developer Documentation](https://developer.apple.com/reference/)
