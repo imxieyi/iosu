@@ -5,8 +5,6 @@
 ### Introduction
 This is an ios port of the rhythm game [osu!](https://osu.ppy.sh). It is written in Swift based on [SpriteKit](https://developer.apple.com/spritekit/) framework. **It is just for fun**. So don't expect that I can make it full functional in a short time. Most importantly, I'm using a hackintosh for developing. So if it stops working, I cannot continue developing until it is fixed. Also, I don't have much time to spend on this project. But you can still watch the progress. It will be great if you can join and help me make it work.
 
-**NOTICE:** This is the branch with rewritten renderer and it is not complete yet. But it has basic handle and judge for touch input. If you want to see the old version, please turn to branch [oldrenderer](https://github.com/imxieyi/iosu/tree/oldrenderer).
-
 ### What has been done
  - Scan beatmaps imported by iTunes
  - Decode .osu file (partly)
