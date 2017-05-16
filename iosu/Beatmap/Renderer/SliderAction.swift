@@ -27,6 +27,13 @@ class SliderAction:HitObjectAction {
     public var stattimes:[Double] = []
     public var pointer = 0
     public var failcount = 0
+    //For tick points
+    private var scene:SKScene?
+    private var runcount = 0
+    private var newrun = false
+    private var tickcount = 0
+    private var ticktimeindex = 0
+    private var runstarttime:Double = 0
     //Head
     var headinner = SKSpriteNode()
     var headoverlay = SKSpriteNode()
@@ -41,6 +48,9 @@ class SliderAction:HitObjectAction {
     var endoverlay = SKSpriteNode()
     //Body
     var body = SKSpriteNode()
+    //Tick points
+    private var tickpoints:[[SKSpriteNode]] = []
+    private var ticktimes:[Double] = []
     //Dummy
     var dummynode = SKNode()
     
@@ -113,7 +123,8 @@ class SliderAction:HitObjectAction {
         appcircle.setScale(3)
         appcircle.alpha = 0
         appcircle.position = position1
-        appcircle.zPosition = layer + 1
+        appcircle.zPosition = 100001
+        
         //Arrows
         var repe = obj.repe
         var athead = false
@@ -170,9 +181,46 @@ class SliderAction:HitObjectAction {
         currenttime += singleduration
         stats.append(.End)
         stattimes.append(currenttime)
+        //Tick points
+        let tickinterval = timing.timeperbeat/(ActionSet.difficulty?.SliderTickRate)!
+        var time = Double(obj.time)
+        repe = obj.repe
+        var toend = true
+        while repe >= 1 {
+            repe -= 1
+            tickpoints.append([])
+            var ctime = time + tickinterval
+            while ctime < time + singleduration - tickinterval/10 {
+                let ticksprite = SKSpriteNode(texture: BundleImageBuffer.get(file: "sliderscorepoint"))
+                ticksprite.setScale(CGFloat((ActionSet.difficulty?.AbsoluteCS)! / 96))
+                ticksprite.zPosition = layer + 0.02
+                if toend {
+                    //From UIBezierPath-Length library
+                    var point = obj.path.point(atPercentOfLength: CGFloat((ctime-time)/singleduration))
+                    point.y = CGFloat(GamePlayScene.scrheight) - point.y
+                    ticksprite.position = point
+                    tickpoints[tickpoints.count-1].append(ticksprite)
+                } else {
+                    var point = obj.path.reversing().point(atPercentOfLength: CGFloat((ctime-time)/singleduration))
+                    point.y = CGFloat(GamePlayScene.scrheight) - point.y
+                    ticksprite.position = point
+                    tickpoints[tickpoints.count-1].append(ticksprite)
+                }
+                ticktimes.append(ctime)
+                ctime += tickinterval
+            }
+            time += singleduration
+            if toend {
+                toend = false
+            } else {
+                toend = true
+            }
+        }
+        runstarttime = Double(obj.time)
     }
     
     func show(scene:SKScene,offset:Double) {
+        self.scene = scene
         let artime = (ActionSet.difficulty?.ARTime)!/1000
         let outwidth = edge * 120 / 128
         obj.genimage(color: color, layer: layer, inwidth: outwidth * 7 / 8, outwidth: outwidth)
@@ -193,6 +241,9 @@ class SliderAction:HitObjectAction {
                     scene.addChild(self.arrowoverlays[i])
                 }
             }
+            for tickpoint in self.tickpoints[0] {
+                scene.addChild(tickpoint)
+            }
             scene.addChild(self.endinner)
             scene.addChild(self.endoverlay)
             scene.addChild(self.body)
@@ -205,6 +256,14 @@ class SliderAction:HitObjectAction {
             self.headoverlay.run(CircleAction.faildisappear)
             for num in self.headnumber {
                 num.run(CircleAction.faildisappear)
+            }
+            for tickpoint in self.tickpoints[0] {
+                tickpoint.run(CircleAction.faildisappear)
+            }
+            if self.tickpoints.count > 1 {
+                for tickpoint in self.tickpoints[1] {
+                    tickpoint.run(CircleAction.faildisappear)
+                }
             }
             self.pointer += 1
             self.failcount += 1
@@ -224,8 +283,35 @@ class SliderAction:HitObjectAction {
     }
     
     func update(time:Double,following:Bool) -> SliderFeedback {
-        if self.time - time > (ActionSet.difficulty?.ARTime)! && pointer >= stats.count {
+        if self.time - time > (ActionSet.difficulty?.ARTime)! || pointer >= stats.count {
             return .Nothing
+        }
+        if ticktimeindex < ticktimes.count {
+            if time >= ticktimes[ticktimeindex] {
+                tickpoints[runcount][tickcount].removeFromParent()
+                ticktimeindex += 1
+                tickcount += 1
+                if tickcount == tickpoints[runcount].count {
+                    tickcount = 0
+                    runcount += 1
+                    if runcount < obj.repe {
+                        newrun = true
+                    }
+                }
+                if following {
+                    return .TickPass
+                } else {
+                    return .FailTick
+                }
+            }
+        }
+        //Push new tick points
+        if time >= runstarttime + singleduration && newrun {
+            runstarttime += singleduration
+            for tickpoint in tickpoints[runcount] {
+                scene?.addChild(tickpoint)
+            }
+            newrun = false
         }
         switch stats[pointer] {
         case .Head:
@@ -274,6 +360,9 @@ class SliderAction:HitObjectAction {
                             self.body = SKSpriteNode()
                             self.obj.image = nil
                         })
+                        for tickpoint in self.tickpoints[runcount] {
+                            scene?.addChild(tickpoint)
+                        }
                         GamePlayScene.sliderball?.hideall()
                         pointer = stats.count
                         return .FailAll

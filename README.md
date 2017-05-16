@@ -41,11 +41,9 @@ This is an ios port of the rhythm game [osu!](https://osu.ppy.sh). It is written
 
 **With background image:**
 
-![](screenshots/run_2.png)
+![](screenshots/p_run.png)
 
-![](screenshots/run_1.png)
-
-beatmap: [yuikonnu - Tsumi no Namae](https://osu.ppy.sh/s/548999)
+beatmap: [Kanjou Chemistry (Drum 'n' Bass Remix)](https://osu.ppy.sh/s/92509)
 
 **With background video:**
 
@@ -93,5 +91,6 @@ Notice: The following videos are outdated. If you want to see the latest version
  - [osu-parser](https://github.com/nojhamster/osu-parser)
  - [SpriteKitEasingSwift](https://github.com/craiggrummitt/SpriteKitEasingSwift)
  - [KSYMediaPlayer_iOS](https://github.com/ksvc/KSYMediaPlayer_iOS)
+ - [SQLite.swift](https://github.com/stephencelis/SQLite.swift)
  - [Stack Overflow](http://stackoverflow.com)
  - [Apple Developer Documentation](https://developer.apple.com/reference/)

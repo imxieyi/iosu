@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8A0442A91ECB1D0B000DE269 /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A0442A81ECB1D0B000DE269 /* SQLite.framework */; };
+		8A0442B31ECB2227000DE269 /* UIBezierPath+Length.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0442B01ECB2227000DE269 /* UIBezierPath+Length.m */; };
 		8A26ECAE1E9D3F7F007D08FB /* KSYMediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A26ECAC1E9D3F0A007D08FB /* KSYMediaPlayer.framework */; };
 		8A2AAE101E90FE39005D52E7 /* test.osb in Resources */ = {isa = PBXBuildFile; fileRef = 8A2AAE0F1E90FE39005D52E7 /* test.osb */; };
 		8A4D5C341E8A8AEB00319D91 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4D5C331E8A8AEB00319D91 /* AppDelegate.swift */; };
@@ -120,6 +122,9 @@
 /* Begin PBXFileReference section */
 		6105515E76E704F6DD9D2521 /* Pods-iosu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosu.release.xcconfig"; path = "Pods/Target Support Files/Pods-iosu/Pods-iosu.release.xcconfig"; sourceTree = "<group>"; };
 		746E95FF2AA386585463E0D9 /* Pods-iosu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosu.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iosu/Pods-iosu.debug.xcconfig"; sourceTree = "<group>"; };
+		8A0442A81ECB1D0B000DE269 /* SQLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SQLite.framework; path = "../../Library/Developer/Xcode/DerivedData/iosu-gddpvylvaevfhyenmhqlpckshyiw/Build/Products/Debug-iphoneos/SQLite.swift/SQLite.framework"; sourceTree = "<group>"; };
+		8A0442AF1ECB2227000DE269 /* UIBezierPath+Length.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+Length.h"; sourceTree = "<group>"; };
+		8A0442B01ECB2227000DE269 /* UIBezierPath+Length.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath+Length.m"; sourceTree = "<group>"; };
 		8A26ECAC1E9D3F0A007D08FB /* KSYMediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KSYMediaPlayer.framework; sourceTree = "<group>"; };
 		8A2AAE0F1E90FE39005D52E7 /* test.osb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.osb; sourceTree = "<group>"; };
 		8A4D5C301E8A8AEB00319D91 /* iosu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosu.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -229,6 +234,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A0442A91ECB1D0B000DE269 /* SQLite.framework in Frameworks */,
 				8A7F7E1F1E9D2C2D00595A13 /* libz.tbd in Frameworks */,
 				8A7F7E1D1E9D2C2500595A13 /* libbz2.tbd in Frameworks */,
 				8A7F7E1B1E9D2C1D00595A13 /* libstdc++.6.tbd in Frameworks */,
@@ -249,12 +255,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8A0442AB1ECB220F000DE269 /* Dependences */ = {
+			isa = PBXGroup;
+			children = (
+				8A0442AC1ECB2227000DE269 /* UIBezierPath-Length */,
+			);
+			name = Dependences;
+			sourceTree = "<group>";
+		};
+		8A0442AC1ECB2227000DE269 /* UIBezierPath-Length */ = {
+			isa = PBXGroup;
+			children = (
+				8A0442AF1ECB2227000DE269 /* UIBezierPath+Length.h */,
+				8A0442B01ECB2227000DE269 /* UIBezierPath+Length.m */,
+			);
+			name = "UIBezierPath-Length";
+			path = "Dependencies/UIBezierPath-Length";
+			sourceTree = "<group>";
+		};
 		8A4D5C271E8A8AEB00319D91 = {
 			isa = PBXGroup;
 			children = (
 				8AC188431E8EAE3300C9BB98 /* README.md */,
 				8A4D5C321E8A8AEB00319D91 /* iosu */,
 				8A4D5C4D1E8A8AEC00319D91 /* iosuTests */,
+				8A0442AB1ECB220F000DE269 /* Dependences */,
 				8A4D5C311E8A8AEB00319D91 /* Products */,
 				E08133947FE706A3AE1882BB /* Pods */,
 				D3ABB3CD3474C7FEB39BC95D /* Frameworks */,
@@ -475,6 +500,7 @@
 		D3ABB3CD3474C7FEB39BC95D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8A0442A81ECB1D0B000DE269 /* SQLite.framework */,
 				8A7F7E1E1E9D2C2D00595A13 /* libz.tbd */,
 				8A7F7E1C1E9D2C2500595A13 /* libbz2.tbd */,
 				8A7F7E1A1E9D2C1D00595A13 /* libstdc++.6.tbd */,
@@ -733,6 +759,7 @@
 				8ADC1E901ECB14DD00E0E9AB /* SelectionView.swift in Sources */,
 				8A4D5C341E8A8AEB00319D91 /* AppDelegate.swift in Sources */,
 				8ADC1E371ECB0BF600E0E9AB /* BeatmapEnums.swift in Sources */,
+				8A0442B31ECB2227000DE269 /* UIBezierPath+Length.m in Sources */,
 				8ADC1E441ECB0D3400E0E9AB /* SliderBall.swift in Sources */,
 				8ADC1E7C1ECB12EF00E0E9AB /* SBVScale.swift in Sources */,
 				8ADC1E8A1ECB148000E0E9AB /* GamePlayScene.swift in Sources */,
@@ -875,6 +902,7 @@
 			baseConfigurationReference = 746E95FF2AA386585463E0D9 /* Pods-iosu.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 34A2STWT5M;
@@ -900,6 +928,7 @@
 			baseConfigurationReference = 6105515E76E704F6DD9D2521 /* Pods-iosu.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 34A2STWT5M;

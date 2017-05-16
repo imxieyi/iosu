@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SQLite.swift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>SpriteKitEasingSwift.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -17,12 +22,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>981FEECDFA2D37E4909DF4D51A178653</key>
+		<key>503B39796EE9A94983C1D0C04A0AC444</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BCB23C59C65C3DB2091915B4F5B545B0</key>
+		<key>69AC4456D60195B1F8200CB629D12B5A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F05958416788F3797A0B9B226BF28F95</key>
 		<dict>
 			<key>primary</key>
 			<true/>

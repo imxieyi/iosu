@@ -251,6 +251,12 @@ class GamePlayScene: SKScene {
             actions?.pointer += 1
             hastouch = false
             break
+        case .TickPass:
+            self.run(.playSoundFileNamed(hitaudioHeader + "slidertick.wav", waitForCompletion: false))
+            break
+        case .FailTick:
+            self.run(.playSoundFileNamed("combobreak.mp3", waitForCompletion: false))
+            break
         default:
             break
         }

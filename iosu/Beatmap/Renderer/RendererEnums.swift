@@ -17,7 +17,9 @@ enum SliderStatus {
 enum SliderFeedback {
     case Nothing
     case EdgePass
+    case TickPass
     case FailOnce
+    case FailTick
     case FailAll
     case End
 }

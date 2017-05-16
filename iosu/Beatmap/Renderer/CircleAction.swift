@@ -69,7 +69,7 @@ class CircleAction:HitObjectAction {
         appcircle.setScale(3)
         appcircle.alpha = 0
         appcircle.position = position
-        appcircle.zPosition = layer
+        appcircle.zPosition = 100001
     }
     
     static func num2node(number:Int) -> SKSpriteNode {
