@@ -13,7 +13,8 @@ archive_project:
     - xctool -project iosu.xcodeproj -scheme iosu archive -archivePath build/iosu
     - xcodebuild -exportArchive -exportFormat ipa -archivePath "build/iosu.xcarchive" -exportPath "build/iosu.ipa"
   only: 
-    - master
+    - tags
+    - triggers
   artifacts:
     paths:
       - build/iosu.ipa
