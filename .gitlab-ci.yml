@@ -13,8 +13,8 @@ build_project:
 archive_project:
   stage: archive
   script: 
-    - xctool -project iosu.xcodeproj -scheme iosu archive -archivePath build/iosu
-    - xcodebuild -exportArchive -exportFormat ipa -archivePath "build/iosu.xcarchive" -exportPath "build/iosu.ipa"
+    - xcodebuild archive -workspace iosu.xcworkspace -scheme iosu -destination generic/platform=iOS -archivePath build/iosu.xcarchive
+    - xcodebuild -exportArchive -archivePath build/iosu.xcarchive -exportPath build -exportOptionsPlist ipa.plist
   only: 
     - tags
     - triggers
