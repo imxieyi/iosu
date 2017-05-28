@@ -1,11 +1,11 @@
-## iosu!
+# iosu!
 
-### Introduction
+## Introduction
 This is an ios port of the rhythm game [osu!](https://osu.ppy.sh). It is written in Swift based on [SpriteKit](https://developer.apple.com/spritekit/) framework. **It is just for fun**. So don't expect that I can make it full functional in a short time. Most importantly, I'm using a hackintosh for developing. So if it stops working, I cannot continue developing until it is fixed. Also, I don't have much time to spend on this project. But you can still watch the progress.
 
 **In order to prevent some hidden violations, I have migrated the project to my personal gitlab server.**
 
-### What has been done
+## What has been done
  - Scan beatmaps imported by iTunes
  - Decode .osu file (partly)
  - Timing
@@ -15,16 +15,24 @@ This is an ios port of the rhythm game [osu!](https://osu.ppy.sh). It is written
  - **Play backgound video**
  - **Play StoryBoard**
 
-### How to use
+## Installation
+### Through XCode
 1. Install the latest version of XCode.
-2. Compile and install this project on your device **(DO NOT USE SIMULATOR!)** .
-3. Import beatmaps via iTunes(as shown below).
+2. Compile and install this project on your device **(DO NOT USE SIMULATOR!)**.
+### Through Cydia Impactor
+1. Download [Cydia Impactor](http://www.cydiaimpactor.com/).
+2. Download latest [ipa artifact](https://git.imxieyi.com/xieyi/iosu/pipelines).
+3. Connect your iDevice and run Cydia Impactor.
+4. Drag .ipa file to Cydia Impactor window.
+5. Input your Apple ID info.
+6. Wait until it finishes.
 
+## Import Beatmap
 ![](screenshots/import.png)
 
 4. Run the application.
 
-### Notice
+## Notice
 1. Currently there is no database, so please do not import too many beatmaps.
 2. I don't know if the timing is accurate because I always get "100" on hit circles! :)
 3. I only have an iPhone6s to test, so it may render terribly on devices with different resolutions.
@@ -35,7 +43,7 @@ This is an ios port of the rhythm game [osu!](https://osu.ppy.sh). It is written
 8. Both the osu game and StoryBoard player are unfinished.
 9. I'm new to iOS development, Swift and SpriteKit. And I don't like to insert a lot of comments. So please tolerate my awful code.
 
-### GamePlay Screenshot
+## GamePlay Screenshot
 
 **With background image:**
 
@@ -49,7 +57,7 @@ beatmap: [Kanjou Chemistry (Drum 'n' Bass Remix)](https://osu.ppy.sh/s/92509)
 
 beatmap: [Hatsune Miku - SPiCa](https://osu.ppy.sh/s/16226)
 
-### StoryBoard Screenshot
+## StoryBoard Screenshot
 
 ![](screenshots/sbplayer1.png)
 
@@ -65,13 +73,13 @@ beatmap: [Kana Nishino - Sweet Dreams (11t dnb mix)](https://osu.ppy.sh/s/499488
 
 beatmap: [DM vs. POCKET - uNDeRWoRLD MoNaRCHy](https://osu.ppy.sh/s/412938)
 
-### Gameplay Demo Video
+## Gameplay Demo Video
 
 [http://www.bilibili.com/video/av10522729/](http://www.bilibili.com/video/av10522729/)
 
 beatmap: [GhostFinal - Gan Xie](https://osu.ppy.sh/s/84520)
 
-### StoryBoard Demo Videos
+## StoryBoard Demo Videos
 
 Notice: The following videos are outdated. If you want to see the latest version, please clone and install this repository on your device.
 
@@ -83,7 +91,7 @@ Notice: The following videos are outdated. If you want to see the latest version
 
 [http://www.bilibili.com/video/av9582511/](http://www.bilibili.com/video/av9582511/)
 
-### Credit
+## Credit
  - [osu!](https://osu.ppy.sh)
  - [opsu!](https://github.com/itdelatrisu/opsu)
  - [osu-parser](https://github.com/nojhamster/osu-parser)
