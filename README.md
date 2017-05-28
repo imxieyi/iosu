@@ -19,6 +19,7 @@ This is an ios port of the rhythm game [osu!](https://osu.ppy.sh). It is written
 ### Through XCode
 1. Install the latest version of XCode.
 2. Compile and install this project on your device **(DO NOT USE SIMULATOR!)**.
+
 ### Through Cydia Impactor
 1. Download [Cydia Impactor](http://www.cydiaimpactor.com/).
 2. Download latest [ipa artifact](https://git.imxieyi.com/xieyi/iosu/pipelines).
