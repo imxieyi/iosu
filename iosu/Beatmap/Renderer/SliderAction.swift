@@ -194,18 +194,16 @@ class SliderAction:HitObjectAction {
                 let ticksprite = SKSpriteNode(texture: BundleImageBuffer.get(file: "sliderscorepoint"))
                 ticksprite.setScale(CGFloat((ActionSet.difficulty?.AbsoluteCS)! / 96))
                 ticksprite.zPosition = layer + 0.02
+                var point:CGPoint
                 if toend {
                     //From UIBezierPath-Length library
-                    var point = obj.path.point(atPercentOfLength: CGFloat((ctime-time)/singleduration))
-                    point.y = CGFloat(GamePlayScene.scrheight) - point.y
-                    ticksprite.position = point
-                    tickpoints[tickpoints.count-1].append(ticksprite)
+                    point = obj.path.point(atPercentOfLength: CGFloat((ctime-time)/singleduration))
                 } else {
-                    var point = obj.path.reversing().point(atPercentOfLength: CGFloat((ctime-time)/singleduration))
-                    point.y = CGFloat(GamePlayScene.scrheight) - point.y
-                    ticksprite.position = point
-                    tickpoints[tickpoints.count-1].append(ticksprite)
+                    point = obj.path.reversing().point(atPercentOfLength: CGFloat((ctime-time)/singleduration))
                 }
+                point.y = CGFloat(GamePlayScene.scrheight) - point.y
+                ticksprite.position = point
+                tickpoints[tickpoints.count-1].append(ticksprite)
                 ticktimes.append(ctime)
                 ctime += tickinterval
             }
@@ -257,14 +255,6 @@ class SliderAction:HitObjectAction {
             for num in self.headnumber {
                 num.run(CircleAction.faildisappear)
             }
-            for tickpoint in self.tickpoints[0] {
-                tickpoint.run(CircleAction.faildisappear)
-            }
-            if self.tickpoints.count > 1 {
-                for tickpoint in self.tickpoints[1] {
-                    tickpoint.run(CircleAction.faildisappear)
-                }
-            }
             self.pointer += 1
             self.failcount += 1
             }])
@@ -304,14 +294,15 @@ class SliderAction:HitObjectAction {
                     return .FailTick
                 }
             }
-        }
-        //Push new tick points
-        if time >= runstarttime + singleduration && newrun {
-            runstarttime += singleduration
-            for tickpoint in tickpoints[runcount] {
-                scene?.addChild(tickpoint)
+            //Push new tick points
+            if time >= runstarttime + singleduration && newrun {
+                runstarttime += singleduration
+                //debugPrint("time:\(time) runcount:\(runcount)")
+                for tickpoint in tickpoints[runcount] {
+                    scene?.addChild(tickpoint)
+                }
+                newrun = false
             }
-            newrun = false
         }
         switch stats[pointer] {
         case .Head:
@@ -361,7 +352,8 @@ class SliderAction:HitObjectAction {
                             self.obj.image = nil
                         })
                         for tickpoint in self.tickpoints[runcount] {
-                            scene?.addChild(tickpoint)
+                            //scene?.addChild(tickpoint)
+                            tickpoint.run(CircleAction.faildisappear)
                         }
                         GamePlayScene.sliderball?.hideall()
                         pointer = stats.count
@@ -393,6 +385,7 @@ class SliderAction:HitObjectAction {
                             self.body = SKSpriteNode()
                             self.obj.image = nil
                         })
+                        pointer = stats.count
                         return .FailAll
                     } else {
                         endinner.run(CircleAction.passdisappear)
