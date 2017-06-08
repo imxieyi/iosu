@@ -22,7 +22,7 @@ This is an ios port of the rhythm game [osu!](https://osu.ppy.sh). It is written
 
 ### Through Cydia Impactor (Not recommended)
 1. Download [Cydia Impactor](http://www.cydiaimpactor.com/).
-2. Download latest [ipa artifact](https://github.com/imxieyi/iosu/releases).
+2. Download latest [ipa artifact](https://git.imxieyi.com/xieyi/iosu/tags) from my personal gitlab server.
 3. Connect your iDevice and run Cydia Impactor.
 4. Drag .ipa file to Cydia Impactor window.
 5. Input your Apple ID info.
