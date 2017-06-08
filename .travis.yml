@@ -4,4 +4,16 @@ xcode_project: iosu.xcworkspace
 xcode_scheme: iosu
 xcode_sdk: iphonesimulator10.0
 script:
- - xcodebuild clean build -sdk iphonesimulator -workspace iosu.xcworkspace -scheme iosu CODE_SIGNING_REQUIRED=NO
+- xcodebuild archive -workspace iosu.xcworkspace -scheme iosu -destination generic/platform=iOS
+  -archivePath build/iosu.xcarchive
+- xcodebuild -exportArchive -archivePath build/iosu.xcarchive -exportPath build -exportOptionsPlist
+  ipa.plist
+deploy:
+  provider: releases
+  api_key:
+    secure: cAXg7IFK4mpanUaFjmMbhI+2Wt4x234rNiNJP2ZzsHckYbcsp6zaQt2y0VkFJNNzDnUtcbKj5L2Syle/R6zz3fTpokdVdOFe+SlhpRciEPqjnugZIliMvyusubWjmXw1hZ/kDs9/PiGinuv3f6LvxbCSO4NX/4AbRAh6DNjWcTG4bW8e2w0fEUYi0VQQ0D6u78z3lzqwYbNRGt1m2P8rVApO86wWyEp/ao/bLA82g+pW5XR51aqrnw1CB8yojfyAMh0wokIJwr691ZeIbJ1eYW1KVs/evuNRYNsw0mc9dOvYh0blRyoH2tF+cvffrnR8Z9NcP78ZBor/ERUIBvVF8s/OvrwhuZr+dP6UpLSP0rnQJsM2clYnf0qIT+Y3jymDu2lmhU7AYU0ms1VcGlW//Ikreb9ifK5VtZBpct2DPKPbxvWIdl1VlkC9MQoQqOdRm0oScUVrkI0a6HXNsQY4uO674/A6+/kGy0ZmP5Qj8HfhwhsFmEb88/GavTxcOD0fp91Z9kMeQS6zptdxKg97pXRa50S6ICZTGyUGswu4k+FFLbn7jzBbXwqayc17IuWURcYwc9NycJibKQULr/a4zF6BpaT8l0MnIbl1u2lKu8+71REQtd+vvBROljewx5Cwr1jBusGVaV7JOreHeoVqerjK392Z5PRuTaXFG7Hn6oU=
+  file: build/iosu.ipa
+  skip_cleanup: true
+  on:
+    repo: imxieyi/iosu
+    tags: true

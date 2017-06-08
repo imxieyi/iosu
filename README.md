@@ -1,9 +1,7 @@
 # iosu!
 
 ## Introduction
-This is an ios port of the rhythm game [osu!](https://osu.ppy.sh). It is written in Swift based on [SpriteKit](https://developer.apple.com/spritekit/) framework. **It is just for fun**. So don't expect that I can make it full functional in a short time. Most importantly, I'm using a hackintosh for developing. So if it stops working, I cannot continue developing until it is fixed. Also, I don't have much time to spend on this project. But you can still watch the progress.
-
-**In order to prevent some hidden violations, I have migrated the project to my personal gitlab server.**
+This is an ios port of the rhythm game [osu!](https://osu.ppy.sh). It is written in Swift based on [SpriteKit](https://developer.apple.com/spritekit/) framework. **It is just a hobby project**. So don't expect that I can make it full functional in a short time. Most importantly, I'm using a hackintosh for developing. So if it stops working, I cannot continue developing until it is fixed. Also, I don't have much time to spend on this project. But you can still watch the progress.
 
 ## What has been done
  - Scan beatmaps imported by iTunes
@@ -20,9 +18,9 @@ This is an ios port of the rhythm game [osu!](https://osu.ppy.sh). It is written
 1. Install the latest version of XCode.
 2. Compile and install this project on your device **(DO NOT USE SIMULATOR!)**.
 
-### Through Cydia Impactor
+### Through Cydia Impactor (Not recommended)
 1. Download [Cydia Impactor](http://www.cydiaimpactor.com/).
-2. Download latest [ipa artifact](https://git.imxieyi.com/xieyi/iosu/pipelines).
+2. Download latest [ipa artifact](https://github.com/imxieyi/iosu/releases).
 3. Connect your iDevice and run Cydia Impactor.
 4. Drag .ipa file to Cydia Impactor window.
 5. Input your Apple ID info.

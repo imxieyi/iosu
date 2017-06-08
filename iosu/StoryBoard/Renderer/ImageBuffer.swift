@@ -21,7 +21,8 @@ class ImageBuffer{
         }
         var image=UIImage(contentsOfFile: file)
         if image==nil {
-            debugPrint("image not found: \(file)\nTrying to fix")
+            debugPrint("image not found: \(file)")
+            debugPrint("Trying to fix")
             image=UIImage(contentsOfFile: file.replacingOccurrences(of: "/sb/", with: "/SB/"))
             if image==nil {
                 image=UIImage(contentsOfFile: file.replacingOccurrences(of: "/SB/", with: "/sb/"))

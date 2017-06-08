@@ -233,7 +233,7 @@ class BasicImage {
     
     func schedule(){
         commands.sort(by: {(c1,c2)->Bool in
-            return c1.endtime<c2.endtime
+            return c1.starttime<c2.starttime
         })
         var temp:[[SKAction]]=[]
         var endtime:[Int]=[]
