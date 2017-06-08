@@ -253,6 +253,8 @@ class SliderAction:HitObjectAction {
         runstarttime = Double(obj.time)
     }
     
+    static let arrowanim = SKAction.repeatForever(SKAction.sequence([SKAction.scale(to: 1.3, duration: 0.1),SKAction.scale(to: 1.0, duration: 0.1),SKAction.wait(forDuration: 0.2)]))
+    
     func show(scene:SKScene,offset:Double) {
         self.scene = scene
         let artime = (ActionSet.difficulty?.ARTime)!/1000
@@ -273,6 +275,7 @@ class SliderAction:HitObjectAction {
                 for i in 0 ... self.arrowinners.count-1 {
                     scene.addChild(self.arrowinners[i])
                     scene.addChild(self.arrowarrows[i])
+                    self.arrowarrows[i].run(SliderAction.arrowanim)
                     scene.addChild(self.arrowoverlays[i])
                 }
             }
