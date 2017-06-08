@@ -67,6 +67,12 @@ class SliderAction:HitObjectAction {
         }
     }
     
+    //Return true if the color passed is bright
+    func isbright(color:UIColor) -> Bool {
+        let cicolor = CIColor(color: color)
+        return cicolor.red+cicolor.green+cicolor.blue > 1.5
+    }
+    
     func prepare(color:UIColor,number:Int,layer:CGFloat) {
         self.color = color
         //Calculate time
@@ -83,6 +89,19 @@ class SliderAction:HitObjectAction {
         let position1 = CGPoint(x: obj.x, y: obj.y)
         let position2 = CGPoint(x: obj.cx.last!, y: obj.cy.last!)
         var selflayer = layer + 1
+        //Calculate angle for arrows
+        let position3 = obj.path.point(atPercentOfLength: 0.00) //At head
+        let position4 = obj.path.point(atPercentOfLength: 1.00) //At end
+        let position5 = obj.path.point(atPercentOfLength: 0.01) //Near head
+        let position6 = obj.path.point(atPercentOfLength: 0.99) //Near end
+        var angle1 = -atan((position3.y-position5.y)/(position3.x-position5.x))
+        if position3.x < position5.x {
+            angle1 = CGFloat.pi + angle1
+        }
+        var angle2 = -atan((position4.y-position6.y)/(position4.x-position6.x))
+        if position4.x < position6.x {
+            angle2 = CGFloat.pi + angle2
+        }
         //Head --- Overlay
         selflayer -= 0.01
         headoverlay = SKSpriteNode(texture: BundleImageBuffer.get(file: "hitcircleoverlay"))
@@ -136,6 +155,19 @@ class SliderAction:HitObjectAction {
             overlay.size = size
             overlay.zPosition = selflayer
             arrowoverlays.append(overlay)
+            //Arrow
+            selflayer -= 0.01
+            let arrow = SKSpriteNode(texture: BundleImageBuffer.get(file: "sliderarrow"))
+            arrow.size = size
+            arrow.zPosition = selflayer
+            arrow.colorBlendFactor = 1
+            arrow.blendMode = .alpha
+            if(isbright(color: color)){
+                arrow.color = .black
+            } else {
+                arrow.color = .white
+            }
+            arrowarrows.append(arrow)
             //Inner
             selflayer -= 0.01
             let inner = SKSpriteNode(texture: BundleImageBuffer.get(file: "hitcircle"))
@@ -146,10 +178,14 @@ class SliderAction:HitObjectAction {
             arrowinners.append(inner)
             if athead {
                 overlay.position = position1
+                arrow.position = position1
+                arrow.zRotation = angle1
                 inner.position = position1
                 athead = false
             } else {
                 overlay.position = position2
+                arrow.position = position2
+                arrow.zRotation = angle2
                 inner.position = position2
                 athead = true
             }
@@ -236,6 +272,7 @@ class SliderAction:HitObjectAction {
             if self.arrowinners.count > 0 {
                 for i in 0 ... self.arrowinners.count-1 {
                     scene.addChild(self.arrowinners[i])
+                    scene.addChild(self.arrowarrows[i])
                     scene.addChild(self.arrowoverlays[i])
                 }
             }
@@ -336,6 +373,7 @@ class SliderAction:HitObjectAction {
                 pointer += 1
                 if following {
                     arrowinners[pointer - 2].run(CircleAction.passdisappear)
+                    arrowarrows[pointer - 2].run(CircleAction.passdisappear)
                     arrowoverlays[pointer - 2].run(CircleAction.passdisappear)
                     return .EdgePass
                 } else {
@@ -343,6 +381,7 @@ class SliderAction:HitObjectAction {
                     if failcount >= 2 {
                         for i in pointer-2...arrowinners.count-1 {
                             arrowinners[i].run(CircleAction.faildisappear)
+                            arrowarrows[i].run(CircleAction.faildisappear)
                             arrowoverlays[i].run(CircleAction.faildisappear)
                         }
                         endinner.run(CircleAction.faildisappear)
@@ -360,6 +399,7 @@ class SliderAction:HitObjectAction {
                         return .FailAll
                     } else {
                         arrowinners[pointer - 2].run(CircleAction.faildisappear)
+                        arrowarrows[pointer - 2].run(CircleAction.faildisappear)
                         arrowoverlays[pointer - 2].run(CircleAction.faildisappear)
                         return .FailOnce
                     }
