@@ -14,7 +14,7 @@ class StoryBoardScene: SKScene {
     
     let mplayer=BGMusicPlayer()
     var actiontimepoints:[Int] = []
-    static var testBMIndex = 42 //The index of beatmap to test in the beatmaps
+    static var testBMIndex = 4 //The index of beatmap to test in the beatmaps
     var minlayer:CGFloat=0.0
     var hitaudioHeader:String = "normal-"
     //StoryBoard.stdwidth=854
@@ -33,6 +33,7 @@ class StoryBoardScene: SKScene {
     }
     
     override func sceneDidLoad() {
+        self.backgroundColor = .clear
         let beatmaps=BeatmapScanner()
         debugPrint("test beatmap:\(beatmaps.beatmaps[StoryBoardScene.testBMIndex])")
         debugPrint("Enter StoryBoardScene, screen size: \(size.width)*\(size.height)")

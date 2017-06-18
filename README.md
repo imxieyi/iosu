@@ -36,7 +36,7 @@ This is an ios port of the rhythm game [osu!](https://osu.ppy.sh). It is written
 ## Notice
 1. Currently there is no database, so please do not import too many beatmaps.
 2. I don't know if the timing is accurate because I always get "100" on hit circles! :)
-3. I only have an iPhone6s to test, so it may render terribly on devices with different resolutions.
+3. I only have an iPhone6s and an iPad Pro 10.5 to test, so it may render terribly on devices with different resolutions.
 4. If the framerate drops under 10, the timing will be inaccurate. So do not try to run it in the simulator. If that happens on your device, maybe you can consider update it because of low performance.
 5. I have modified the SpriteKitEasingSwift framework to meet the need of osu! storyboard. The [modified version](https://github.com/imxieyi/SpriteKitEasingSwift) can also be installed by CocoaPods.
 6. Now with the help of image buffer, you can load any complicated storyboard. **But be sure to correct storyboard image paths because in Unix-like system file name is case sensitive.** Also, there is still some bugs in the render and processor. But in most of the time it works well.
