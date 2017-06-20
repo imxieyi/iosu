@@ -174,6 +174,7 @@ class SliderAction:HitObjectAction {
             inner.color = color
             inner.blendMode = .alpha
             inner.colorBlendFactor = 1
+            inner.size = size
             inner.zPosition = selflayer
             arrowinners.append(inner)
             if athead {
@@ -205,6 +206,7 @@ class SliderAction:HitObjectAction {
         endinner.color = color
         endinner.blendMode = .alpha
         endinner.colorBlendFactor = 1
+        endinner.size = size
         endinner.zPosition = selflayer
         if athead {
             endoverlay.position = position1
