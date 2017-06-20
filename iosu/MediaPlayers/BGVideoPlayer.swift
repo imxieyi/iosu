@@ -20,6 +20,7 @@ class BGVPlayer {
             vplayer?.controlStyle = .none
             vplayer?.setVolume(0, rigthVolume: 0)
             vplayer?.shouldAutoplay=true
+            vplayer?.scalingMode = .aspectFill
             let notification=NotificationCenter.default
             let operationQueue=OperationQueue.main
             let observer=notification.addObserver(forName: NSNotification.Name.MPMoviePlayerPlaybackDidFinish, object: nil, queue: operationQueue, using: {(notif) in

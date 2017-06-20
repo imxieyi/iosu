@@ -54,9 +54,9 @@ class GameViewController: UIViewController {
             self.view.addSubview((BGVPlayer.vplayer?.view)!)
             skView.layer.zPosition=0
             self.view.addSubview(skView)
-            skView.allowsTransparency=true
+            //skView.allowsTransparency=true
             skView.backgroundColor = .clear
-            (self.view as! SKView).allowsTransparency=true
+            //(self.view as! SKView).allowsTransparency=true
             
             skView.showsFPS=true
             skView.showsNodeCount=true
