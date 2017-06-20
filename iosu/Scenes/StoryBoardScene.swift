@@ -12,7 +12,6 @@ import GameplayKit
 
 class StoryBoardScene: SKScene {
     
-    let mplayer=BGMusicPlayer()
     var actiontimepoints:[Int] = []
     static var testBMIndex = 4 //The index of beatmap to test in the beatmaps
     var minlayer:CGFloat=0.0
@@ -21,6 +20,7 @@ class StoryBoardScene: SKScene {
     var audiofile=""
     var sb:StoryBoard?
     public var viewController:GameViewController?
+    public static var hasSB = false
     
     init(size: CGSize,parent:GameViewController) {
         //debugPrint("enter constructor,parent is \(parent)")
@@ -76,14 +76,21 @@ class StoryBoardScene: SKScene {
                 sb=try StoryBoard(directory:beatmaps.beatmapdirs[StoryBoardScene.testBMIndex],osufile:(beatmaps.beatmapdirs[StoryBoardScene.testBMIndex] as NSString).strings(byAppendingPaths: [beatmaps.beatmaps[StoryBoardScene.testBMIndex]])[0],osbfile: (beatmaps.beatmapdirs[StoryBoardScene.testBMIndex] as NSString).appendingPathComponent(beatmaps.storyboards[beatmaps.beatmapdirs[StoryBoardScene.testBMIndex]]!), width: Double(size.width), height: Double(size.height), layer: 0)
                 debugPrint("storyboard object count: \(sb?.sbsprites.count)")
                 debugPrint("storyboard earliest time: \(sb?.earliest)")
+                if (sb?.sbsprites.count)! > 0 {
+                    StoryBoardScene.hasSB = true
+                } else {
+                    return
+                }
                 if !ImageBuffer.notfoundimages.isEmpty {
                     debugPrint("parent:\(viewController==nil)")
                     viewController?.alert=Alerts.create(title: "Warning", message: ImageBuffer.notfound2str(), style: .alert, action1title: "Cancel", action1style: .cancel, handler1: nil, action2title: "Continue", action2style: .default, handler2: {(action:UIAlertAction)->Void in
-                        self.startplaying()
+                        BGMusicPlayer.sbScene = self
+                        BGMusicPlayer.sbEarliest = (self.sb?.sbsprites.first?.starttime)!
                     })
-                    //debugPrint("there is images not found,\(viewController?.alert)")
                 }else{
-                    startplaying()
+                    BGMusicPlayer.sbScene = self
+                    BGMusicPlayer.sbEarliest = (sb?.sbsprites.first?.starttime)!
+                    BGMusicPlayer.setfile(file: audiofile)
                 }
             }catch StoryBoardError.FileNotFound{
                 Alerts.show(sender: viewController!, title: "Error", message: "storyboard file not found", style: .alert, actiontitle: "OK", actionstyle: .cancel, handler: nil)
@@ -101,12 +108,20 @@ class StoryBoardScene: SKScene {
                 sb=try StoryBoard(directory:beatmaps.beatmapdirs[StoryBoardScene.testBMIndex],osufile:(beatmaps.beatmapdirs[StoryBoardScene.testBMIndex] as NSString).strings(byAppendingPaths: [beatmaps.beatmaps[StoryBoardScene.testBMIndex]])[0], width: Double(size.width), height: Double(size.height), layer: 0)
                 debugPrint("storyboard object count: \(sb?.sbsprites.count)")
                 debugPrint("storyboard earliest time: \(sb?.earliest)")
+                if (sb?.sbsprites.count)! > 0 {
+                    StoryBoardScene.hasSB = true
+                } else {
+                    return
+                }
                 if !ImageBuffer.notfoundimages.isEmpty {
                     Alerts.show(sender: viewController!, title: "Warning", message: ImageBuffer.notfound2str(), style: .alert, action1title: "Cancel", action1style: .cancel, handler1: nil, action2title: "Continue", action2style: .default, handler2: {(action:UIAlertAction)->Void in
-                        self.startplaying()
+                        BGMusicPlayer.sbScene = self
+                        BGMusicPlayer.sbEarliest = (self.sb?.sbsprites.first?.starttime)!
                     })
                 }else{
-                    startplaying()
+                    BGMusicPlayer.sbScene = self
+                    BGMusicPlayer.sbEarliest = (sb?.sbsprites.first?.starttime)!
+                    BGMusicPlayer.setfile(file: audiofile)
                 }
             }catch StoryBoardError.FileNotFound{
                 Alerts.show(sender: viewController!, title: "Error", message: "storyboard file not found", style: .alert, actiontitle: "OK", actionstyle: .cancel, handler: nil)
@@ -121,57 +136,27 @@ class StoryBoardScene: SKScene {
         }
     }
     
-    func startplaying(){
-        debugPrint("start playing music")
+    func preparesb(offset:Int){
+        debugPrint("start preparing storyboard")
         if ((sb?.sbsprites.count)!>0){
             while (sb?.sbsprites[index].starttime)!<=0 {
                 self.addChild((sb?.sbsprites[index].sprite)!)
-                sb?.sbsprites[index].runaction(offset: (sb?.sbsprites[index].starttime)!-(sb?.earliest)!)
+                sb?.sbsprites[index].runaction(offset: offset + (sb?.sbsprites[index].starttime)!)
                 index+=1
                 if(index>=(sb?.sbsprites.count)!){
                     break
                 }
             }
         }
-        if (sb?.earliest)!<0 {
-            self.run(SKAction.sequence([SKAction.wait(forDuration: Double(-(sb?.earliest)!)/1000),mplayer.play(file: audiofile)]))
-        } else {
-            self.run(mplayer.play(file: audiofile))
-        }
-    }
-    
-    func touchDown(atPoint pos : CGPoint) {
-    }
-    
-    func touchMoved(toPoint pos : CGPoint) {
-    }
-    
-    func touchUp(atPoint pos : CGPoint) {
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
-    }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchMoved(toPoint: t.location(in: self)) }
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
     }
     
     var index = 0
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
-        if sb != nil && mplayer.isplaying() {
+        if sb != nil {
             if index<(sb?.sbsprites.count)! {
-                var musictime=Int(mplayer.getTime()*1000)
+                var musictime=Int(BGMusicPlayer.getTime()*1000)
                 while (sb?.sbsprites[index].starttime)! - musictime <= 2000 {
                     var offset=(sb?.sbsprites[index].starttime)! - musictime
                     sb?.sbsprites[index].convertsprite()
@@ -186,7 +171,7 @@ class StoryBoardScene: SKScene {
                     if index>=(sb?.sbsprites.count)!{
                         return
                     }
-                    musictime=Int(mplayer.getTime()*1000)
+                    musictime=Int(BGMusicPlayer.getTime()*1000)
                 }
             }
         }

@@ -13,6 +13,12 @@ class SelectionViewController:UIViewController,UIPickerViewDelegate,UIPickerView
     
     @IBOutlet var picker: UIPickerView!
     
+    @IBOutlet var gameSwitch: UISwitch!
+    @IBOutlet var videoSwitch: UISwitch!
+    @IBOutlet var sbSwitch: UISwitch!
+    @IBOutlet var dimSlider: UISlider!
+    @IBOutlet var dimLabel: UILabel!
+    
     let bs=BeatmapScanner()
     
     override func viewDidLoad() {
@@ -32,18 +38,35 @@ class SelectionViewController:UIViewController,UIPickerViewDelegate,UIPickerView
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return bs.beatmaps[row]
     }
-    
-    @IBAction func PlayosuPressed(_ sender: Any) {
-        GamePlayScene.testBMIndex=picker.selectedRow(inComponent: 0)
-        GameViewController.sbmode=false
+
+    @IBAction func playPressed(_ sender: Any) {
+        GamePlayScene.testBMIndex = picker.selectedRow(inComponent: 0)
+        StoryBoardScene.testBMIndex = picker.selectedRow(inComponent: 0)
+        GamePlayScene.bgdim = Double(dimSlider.value)/100
+        GameViewController.showgame = gameSwitch.isOn
+        GameViewController.showvideo = videoSwitch.isOn
+        GameViewController.showsb = sbSwitch.isOn
         self.performSegue(withIdentifier: "play", sender: self.view)
     }
     
-    @IBAction func playSBPressed(_ sender: Any) {
-        StoryBoardScene.testBMIndex=picker.selectedRow(inComponent: 0)
-        self.performSegue(withIdentifier: "play", sender: self.view)
-        //let play=self.storyboard?.instantiateViewController(withIdentifier: "game") as! GameViewController
-        //self.navigationController?.pushViewController(play, animated: true)
+    @IBAction func dimChanged(_ sender: UISlider) {
+        dimLabel.text = "\(Int(sender.value))%"
+    }
+    
+    @IBAction func gameSwitched(_ sender: Any) {
+        if !sbSwitch.isOn && !gameSwitch.isOn {
+            Alerts.show(sender: self, title: "Warning", message: "You should turn on either game or storyboard!", style: .alert, actiontitle: "OK", actionstyle: .default, handler: {(act:UIAlertAction) -> Void in
+                self.gameSwitch.setOn(true, animated: true)
+            })
+        }
+    }
+    
+    @IBAction func sbSwitched(_ sender: Any) {
+        if !sbSwitch.isOn && !gameSwitch.isOn {
+            Alerts.show(sender: self, title: "Warning", message: "You should turn on either game or storyboard!", style: .alert, actiontitle: "OK", actionstyle: .default, handler: {(act:UIAlertAction) -> Void in
+                self.sbSwitch.setOn(true, animated: true)
+            })
+        }
     }
     
 }

@@ -12,7 +12,6 @@ import GameplayKit
 
 class GamePlayScene: SKScene {
     
-    let mplayer=BGMusicPlayer()
     var bmactions:[SKAction] = []
     var actiontimepoints:[Int] = []
     static var testBMIndex = 6 //The index of beatmap to test in the beatmaps
@@ -55,7 +54,7 @@ class GamePlayScene: SKScene {
         debugPrint("leftedge:\(GamePlayScene.leftedge)")
         do{
             bm=try Beatmap(file: (beatmaps.beatmapdirs[GamePlayScene.testBMIndex] as NSString).strings(byAppendingPaths: [beatmaps.beatmaps[GamePlayScene.testBMIndex]])[0])
-            if (bm?.bgvideos.count)! > 0 {
+            if (bm?.bgvideos.count)! > 0 && GameViewController.showvideo {
                 debugPrint("got \(bm?.bgvideos.count) videos")
                 for i in 0...(bm?.bgvideos.count)!-1 {
                     let file=(beatmaps.beatmapdirs[GamePlayScene.testBMIndex] as NSString).strings(byAppendingPaths: [(bm?.bgvideos[i].file)!])[0]
@@ -68,7 +67,7 @@ class GamePlayScene: SKScene {
                         debugPrint("video not found: \(file)")
                     }
                 }
-            } else if bm?.bgimg != "" {
+            } else if bm?.bgimg != ""  && !(StoryBoardScene.hasSB) {
                 debugPrint("got bgimg:\(bm?.bgimg)")
                 let bgimg=UIImage(contentsOfFile: (beatmaps.beatmapdirs[GamePlayScene.testBMIndex] as NSString).strings(byAppendingPaths: [(bm?.bgimg)!])[0])
                 if bgimg==nil {
@@ -114,15 +113,11 @@ class GamePlayScene: SKScene {
             }
             actions = ActionSet(beatmap: bm!, scene: self)
             actions?.prepare()
+            BGMusicPlayer.gameScene = self
+            BGMusicPlayer.gameEarliest = (bm?.hitobjects.first?.time)! - Int((bm?.difficulty?.ARTime)!)
+            BGMusicPlayer.setfile(file: (bm?.audiofile)!)
             if bgvtimes.count>0 {
-                if bgvtimes.first!<=0 {
-                    self.run(SKAction.group([bgvactions[bgvindex],SKAction.sequence([SKAction.wait(forDuration: Double(abs(bgvtimes.first!))/1000),SKAction.group([BGVPlayer.play(),mplayer.play(file: (bm?.audiofile)!)])])]))
-                    bgvindex+=1
-                } else {
-                    self.run(mplayer.play(file: (bm?.audiofile)!))
-                }
-            } else {
-                self.run(mplayer.play(file: (bm?.audiofile)!))
+                BGMusicPlayer.videoEarliest = bgvtimes.first!
             }
         } catch BeatmapError.FileNotFound {
             debugPrint("ERROR:beatmap file not found")
@@ -155,6 +150,24 @@ class GamePlayScene: SKScene {
     
     static func conv(h:Double) -> Double {
         return h*scrscale
+    }
+    
+    func preparevideo(offset:Int) {
+        if bgvtimes.count>0 {
+            BGMusicPlayer.videoEarliest = bgvtimes.first!
+            if bgvtimes.first!<=0 {
+                self.run(SKAction.group([bgvactions[bgvindex],SKAction.sequence([SKAction.wait(forDuration: Double(offset - abs(bgvtimes.first!))/1000),BGVPlayer.play()])]))
+                bgvindex+=1
+            }
+        }
+    }
+    
+    func preparegame(offset:Int) {
+        var o = Int((actions?.nexttime())!) - Int((bm?.difficulty?.ARTime)!)
+        while (actions?.hasnext())! && o <= 0 {
+            actions?.shownext(offset: Double(offset + o))
+            o = Int((actions?.nexttime())!) - Int((bm?.difficulty?.ARTime)!)
+        }
     }
     
     func showresult(x:CGFloat,y:CGFloat,result:HitResult,audio:String) {
@@ -266,7 +279,7 @@ class GamePlayScene: SKScene {
         hastouch = true
         let act = actions?.currentact()
         if act != nil {
-            let time = mplayer.getTime()*1000
+            let time = BGMusicPlayer.getTime()*1000
             switch (act?.getobj().type)! {
             case .Circle:
                 if (act?.gettime())! - time < (bm?.difficulty?.ARTime)! {
@@ -296,7 +309,7 @@ class GamePlayScene: SKScene {
         }
         if (act?.getobj().type)! == .Slider {
             lastpoint = pos
-            updateslider(time: mplayer.getTime()*1000)
+            updateslider(time: BGMusicPlayer.getTime()*1000)
         }
     }
     
@@ -307,7 +320,7 @@ class GamePlayScene: SKScene {
         if act == nil {
             return
         }
-        updateslider(time: mplayer.getTime()*1000)
+        updateslider(time: BGMusicPlayer.getTime()*1000)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -335,7 +348,7 @@ class GamePlayScene: SKScene {
             firstrun=false
             GamePlayScene.sliderball?.initialize(size: CGFloat((bm?.difficulty?.AbsoluteCS)!))
         }
-        let mtime=mplayer.getTime()*1000
+        let mtime=BGMusicPlayer.getTime()*1000
         let act = actions?.currentact()
         if act != nil {
             if act?.getobj().type == .Slider {

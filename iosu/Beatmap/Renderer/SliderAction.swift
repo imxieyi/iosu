@@ -297,6 +297,10 @@ class SliderAction:HitObjectAction {
             for num in self.headnumber {
                 num.run(CircleAction.faildisappear)
             }
+            self.body.run(CircleAction.faildisappear, completion: {
+                self.body = SKSpriteNode()
+                self.obj.image = nil
+            })
             self.pointer += 1
             self.failcount += 1
             }])
