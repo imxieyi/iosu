@@ -114,7 +114,7 @@ class GamePlayScene: SKScene {
             actions = ActionSet(beatmap: bm!, scene: self)
             actions?.prepare()
             BGMusicPlayer.gameScene = self
-            BGMusicPlayer.gameEarliest = (bm?.hitobjects.first?.time)! - Int((bm?.difficulty?.ARTime)!)
+            BGMusicPlayer.gameEarliest = Int((actions?.nexttime())!) - Int((bm?.difficulty?.ARTime)!)
             BGMusicPlayer.setfile(file: (bm?.audiofile)!)
             if bgvtimes.count>0 {
                 BGMusicPlayer.videoEarliest = bgvtimes.first!
@@ -150,24 +150,6 @@ class GamePlayScene: SKScene {
     
     static func conv(h:Double) -> Double {
         return h*scrscale
-    }
-    
-    func preparevideo(offset:Int) {
-        if bgvtimes.count>0 {
-            BGMusicPlayer.videoEarliest = bgvtimes.first!
-            if bgvtimes.first!<=0 {
-                self.run(SKAction.group([bgvactions[bgvindex],SKAction.sequence([SKAction.wait(forDuration: Double(offset - abs(bgvtimes.first!))/1000),BGVPlayer.play()])]))
-                bgvindex+=1
-            }
-        }
-    }
-    
-    func preparegame(offset:Int) {
-        var o = Int((actions?.nexttime())!) - Int((bm?.difficulty?.ARTime)!)
-        while (actions?.hasnext())! && o <= 0 {
-            actions?.shownext(offset: Double(offset + o))
-            o = Int((actions?.nexttime())!) - Int((bm?.difficulty?.ARTime)!)
-        }
     }
     
     func showresult(x:CGFloat,y:CGFloat,result:HitResult,audio:String) {
@@ -368,6 +350,7 @@ class GamePlayScene: SKScene {
         }
         var offset = (actions?.nexttime())! - mtime - (bm?.difficulty?.ARTime)!
         while (actions?.hasnext())! && offset <= 1000 {
+            debugPrint("mtime \(mtime) objtime \((actions?.nexttime())!) ar \((bm?.difficulty?.ARTime)!) offset \(offset)")
             actions?.shownext(offset: offset)
             offset = (actions?.nexttime())! - mtime - (bm?.difficulty?.ARTime)!
         }

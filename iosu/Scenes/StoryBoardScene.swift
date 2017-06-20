@@ -136,20 +136,6 @@ class StoryBoardScene: SKScene {
         }
     }
     
-    func preparesb(offset:Int){
-        debugPrint("start preparing storyboard")
-        if ((sb?.sbsprites.count)!>0){
-            while (sb?.sbsprites[index].starttime)!<=0 {
-                self.addChild((sb?.sbsprites[index].sprite)!)
-                sb?.sbsprites[index].runaction(offset: offset + (sb?.sbsprites[index].starttime)!)
-                index+=1
-                if(index>=(sb?.sbsprites.count)!){
-                    break
-                }
-            }
-        }
-    }
-    
     var index = 0
     
     override func update(_ currentTime: TimeInterval) {
