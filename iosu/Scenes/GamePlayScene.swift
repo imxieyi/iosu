@@ -75,7 +75,7 @@ class GamePlayScene: SKScene {
                     debugPrint("Background image not found")
                 } else {
                     let bgnode=SKSpriteNode(texture: SKTexture(image: bgimg!))
-                    let bgscale=size.width/(bgimg?.size.width)!
+                    let bgscale:CGFloat = max(size.width/(bgimg?.size.width)!,size.height/(bgimg?.size.height)!)
                     bgnode.setScale(bgscale)
                     bgnode.zPosition=0
                     bgnode.position=CGPoint(x: size.width/2, y: size.height/2)
