@@ -19,11 +19,13 @@ class BGMusicPlayer{
     public static var sbEarliest:Int = 0
     public static var gameScene:GamePlayScene?
     public static var sbScene:StoryBoardScene?
+    public static var bgmvolume:Float = 1.0
     
     static func setfile(file:String) {
         let url=URL(fileURLWithPath: file)
         self.musicPlayer = try! AVAudioPlayer(contentsOf: url)
         self.musicPlayer.numberOfLoops=0
+        self.musicPlayer.volume = bgmvolume
     }
     
     private static var starttime:Double = 0

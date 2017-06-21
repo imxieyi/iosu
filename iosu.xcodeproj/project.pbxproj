@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		8A0442A91ECB1D0B000DE269 /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A0442A81ECB1D0B000DE269 /* SQLite.framework */; };
 		8A0442B31ECB2227000DE269 /* UIBezierPath+Length.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0442B01ECB2227000DE269 /* UIBezierPath+Length.m */; };
+		8A1ACE721EFAB529000EBC14 /* PlaySoundFileNamedExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1ACE711EFAB529000EBC14 /* PlaySoundFileNamedExt.swift */; };
+		8A1ACE741EFAB985000EBC14 /* BundleAudioBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1ACE731EFAB985000EBC14 /* BundleAudioBuffer.swift */; };
 		8A26ECAE1E9D3F7F007D08FB /* KSYMediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A26ECAC1E9D3F0A007D08FB /* KSYMediaPlayer.framework */; };
 		8A2AAE101E90FE39005D52E7 /* test.osb in Resources */ = {isa = PBXBuildFile; fileRef = 8A2AAE0F1E90FE39005D52E7 /* test.osb */; };
 		8A4D5C341E8A8AEB00319D91 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4D5C331E8A8AEB00319D91 /* AppDelegate.swift */; };
@@ -125,6 +127,8 @@
 		8A0442A81ECB1D0B000DE269 /* SQLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SQLite.framework; path = "../../Library/Developer/Xcode/DerivedData/iosu-gddpvylvaevfhyenmhqlpckshyiw/Build/Products/Debug-iphoneos/SQLite.swift/SQLite.framework"; sourceTree = "<group>"; };
 		8A0442AF1ECB2227000DE269 /* UIBezierPath+Length.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+Length.h"; sourceTree = "<group>"; };
 		8A0442B01ECB2227000DE269 /* UIBezierPath+Length.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath+Length.m"; sourceTree = "<group>"; };
+		8A1ACE711EFAB529000EBC14 /* PlaySoundFileNamedExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlaySoundFileNamedExt.swift; path = MediaPlayers/PlaySoundFileNamedExt.swift; sourceTree = "<group>"; };
+		8A1ACE731EFAB985000EBC14 /* BundleAudioBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BundleAudioBuffer.swift; path = MediaPlayers/BundleAudioBuffer.swift; sourceTree = "<group>"; };
 		8A26ECAC1E9D3F0A007D08FB /* KSYMediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KSYMediaPlayer.framework; sourceTree = "<group>"; };
 		8A2AAE0F1E90FE39005D52E7 /* test.osb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.osb; sourceTree = "<group>"; };
 		8A4D5C301E8A8AEB00319D91 /* iosu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosu.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -483,8 +487,10 @@
 		8ADC1E9A1ECB15FE00E0E9AB /* MediaPlayers */ = {
 			isa = PBXGroup;
 			children = (
+				8A1ACE711EFAB529000EBC14 /* PlaySoundFileNamedExt.swift */,
 				8ADC1E9B1ECB163300E0E9AB /* BGMusicPlayer.swift */,
 				8ADC1E9C1ECB163300E0E9AB /* BGVideoPlayer.swift */,
+				8A1ACE731EFAB985000EBC14 /* BundleAudioBuffer.swift */,
 			);
 			name = MediaPlayers;
 			sourceTree = "<group>";
@@ -750,6 +756,7 @@
 				8AC188441E8EAE3300C9BB98 /* README.md in Sources */,
 				8ADC1E531ECB0ECE00E0E9AB /* BundleImageBuffer.swift in Sources */,
 				8ADC1E7E1ECB130D00E0E9AB /* SBRotate.swift in Sources */,
+				8A1ACE721EFAB529000EBC14 /* PlaySoundFileNamedExt.swift in Sources */,
 				8ADC1E631ECB10B900E0E9AB /* StoryBoardEnums.swift in Sources */,
 				8ADC1E801ECB132F00E0E9AB /* SBColor.swift in Sources */,
 				8ADC1E8B1ECB148000E0E9AB /* StoryBoardScene.swift in Sources */,
@@ -758,6 +765,7 @@
 				8ADC1E6B1ECB11AB00E0E9AB /* Easing.swift in Sources */,
 				8ADC1E901ECB14DD00E0E9AB /* SelectionView.swift in Sources */,
 				8A4D5C341E8A8AEB00319D91 /* AppDelegate.swift in Sources */,
+				8A1ACE741EFAB985000EBC14 /* BundleAudioBuffer.swift in Sources */,
 				8ADC1E371ECB0BF600E0E9AB /* BeatmapEnums.swift in Sources */,
 				8A0442B31ECB2227000DE269 /* UIBezierPath+Length.m in Sources */,
 				8ADC1E441ECB0D3400E0E9AB /* SliderBall.swift in Sources */,

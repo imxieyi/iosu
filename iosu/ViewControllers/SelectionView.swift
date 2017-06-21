@@ -18,6 +18,10 @@ class SelectionViewController:UIViewController,UIPickerViewDelegate,UIPickerView
     @IBOutlet var sbSwitch: UISwitch!
     @IBOutlet var dimSlider: UISlider!
     @IBOutlet var dimLabel: UILabel!
+    @IBOutlet var musicSlider: UISlider!
+    @IBOutlet var musicLabel: UILabel!
+    @IBOutlet var effectSlider: UISlider!
+    @IBOutlet var effectLabel: UILabel!
     
     let bs=BeatmapScanner()
     
@@ -46,11 +50,21 @@ class SelectionViewController:UIViewController,UIPickerViewDelegate,UIPickerView
         GameViewController.showgame = gameSwitch.isOn
         GameViewController.showvideo = videoSwitch.isOn
         GameViewController.showsb = sbSwitch.isOn
+        BGMusicPlayer.bgmvolume = musicSlider.value/100
+        GamePlayScene.effvolume = effectSlider.value/100
         self.performSegue(withIdentifier: "play", sender: self.view)
     }
     
     @IBAction func dimChanged(_ sender: UISlider) {
         dimLabel.text = "\(Int(sender.value))%"
+    }
+    
+    @IBAction func musicChanged(_ sender: UISlider) {
+        musicLabel.text = "\(Int(sender.value))%"
+    }
+    
+    @IBAction func effectChanged(_ sender: UISlider) {
+        effectLabel.text = "\(Int(sender.value))%"
     }
     
     @IBAction func gameSwitched(_ sender: Any) {

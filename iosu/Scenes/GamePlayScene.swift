@@ -26,6 +26,7 @@ class GamePlayScene: SKScene {
     static var leftedge:Double=0
     static var bottomedge:Double=0
     static var bgdim:Double=0.2
+    static var effvolume:Float = 1.0
     
     private var actions:ActionSet?
     
@@ -177,9 +178,9 @@ class GamePlayScene: SKScene {
         node.zPosition = 100001
         self.addChild(node)
         if result != .Fail {
-            self.run(.playSoundFileNamed(audio, waitForCompletion: false))
+            self.run(.playSoundFileNamed(fileName: audio, atVolume: GamePlayScene.effvolume, waitForCompletion: true))
         } else {
-            self.run(.playSoundFileNamed("combobreak.mp3", waitForCompletion: false))
+            self.run(.playSoundFileNamed(fileName: "combobreak.mp3", atVolume: GamePlayScene.effvolume, waitForCompletion: true))
         }
         node.run(.group([.sequence([.fadeIn(withDuration: 0.2),.fadeOut(withDuration: 0.6),.removeFromParent()]),.sequence([.scale(by: 1.5, duration: 0.1),.scale(to: scale, duration: 0.1)])]))
     }
@@ -234,7 +235,7 @@ class GamePlayScene: SKScene {
             hastouch = false
             break
         case .EdgePass:
-            self.run(.playSoundFileNamed(hitaudioHeader + hitsound2str(hitsound: sact.getobj().hitSound), waitForCompletion: false))
+            self.run(.playSoundFileNamed(fileName: hitaudioHeader + hitsound2str(hitsound: sact.getobj().hitSound), atVolume: GamePlayScene.effvolume, waitForCompletion: true))
             break
         case .End:
             if sact.failcount > 0 {
@@ -247,10 +248,10 @@ class GamePlayScene: SKScene {
             hastouch = false
             break
         case .TickPass:
-            self.run(.playSoundFileNamed(hitaudioHeader + "slidertick.wav", waitForCompletion: false))
+            self.run(.playSoundFileNamed(fileName: hitaudioHeader + "slidertick.wav", atVolume: GamePlayScene.effvolume, waitForCompletion: true))
             break
         case .FailTick:
-            self.run(.playSoundFileNamed("combobreak.mp3", waitForCompletion: false))
+            self.run(.playSoundFileNamed(fileName: "combobreak.mp3", atVolume: GamePlayScene.effvolume, waitForCompletion: true))
             break
         default:
             break

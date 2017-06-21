@@ -97,7 +97,7 @@ class CircleAction:HitObjectAction {
             scene.addChild(self.appcircle)
             self.appcircle.run(.sequence([.group([.fadeIn(withDuration: artime/3),.scale(to: 1, duration: artime)]),.removeFromParent()]))
             }])
-        let failact = SKAction.sequence([.wait(forDuration: artime+offset/1000+(ActionSet.difficulty?.Score50)!/1000),SKAction.playSoundFileNamed("combobreak.mp3", waitForCompletion: false),.run {
+        let failact = SKAction.sequence([.wait(forDuration: artime+offset/1000+(ActionSet.difficulty?.Score50)!/1000),SKAction.playSoundFileNamed(fileName: "combobreak.mp3", atVolume: GamePlayScene.effvolume, waitForCompletion: false),.run {
             ActionSet.current?.pointer+=1
             self.inner.run(CircleAction.faildisappear)
             self.overlay.run(CircleAction.faildisappear)
