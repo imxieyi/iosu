@@ -113,8 +113,6 @@ class Slider:HitObject{
         if (a1<a2 && a2>a3 && a1<a3)||(a1>a2 && a3>a1)||(a1>a2 && a2>a3) {
             clockwise=false
         }
-        debugPrint(t2*y3+t1*y2+t3*y1-t2*y1-t3*y2-t1*y3)
-        debugPrint(t3*x2+t2*x1+t1*x3-t1*x2-t2*x3-t3*x1)
         path.addArc(withCenter: CGPoint(x:x,y:y), radius: r, startAngle: a1, endAngle: a3, clockwise: clockwise)
     }
     

@@ -27,6 +27,7 @@ class GamePlayScene: SKScene {
     static var bottomedge:Double=0
     static var bgdim:Double=0.2
     static var effvolume:Float = 1.0
+    static var current:SKScene?
     
     private var actions:ActionSet?
     
@@ -37,6 +38,7 @@ class GamePlayScene: SKScene {
     var bm:Beatmap?
     
     override func sceneDidLoad() {
+        GamePlayScene.current = self
         GamePlayScene.sliderball=SliderBall(scene: self)
         GamePlayScene.scrscale=Double(size.height)/480.0
         GamePlayScene.realwidth=512.0*GamePlayScene.scrscale
