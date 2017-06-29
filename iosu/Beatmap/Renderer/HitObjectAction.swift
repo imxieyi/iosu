@@ -15,4 +15,5 @@ protocol HitObjectAction {
     func gettime() -> Double
     func show(scene:SKScene,offset:Double)
     func getobj() -> HitObject
+    func destroy()
 }

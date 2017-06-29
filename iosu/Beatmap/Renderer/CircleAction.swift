@@ -170,4 +170,10 @@ class CircleAction:HitObjectAction {
         return obj
     }
     
+    func destroy() {
+        inner.removeFromParent()
+        overlay.removeFromParent()
+        appcircle.removeFromParent()
+    }
+    
 }

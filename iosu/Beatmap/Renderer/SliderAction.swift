@@ -306,8 +306,10 @@ class SliderAction:HitObjectAction {
             }])
         scene.addChild(dummynode)
         scene.run(ballact!)
-        let waittime = artime + offset/1000 + (ActionSet.difficulty?.Score300)!/1000 + singleduration * Double(obj.repe) + 1
-        dummynode.run(.group([showact,failact,.sequence([.wait(forDuration: waittime),.removeFromParent()])]))
+        let waittime = artime + offset/1000 + (ActionSet.difficulty?.Score300)!/1000 + singleduration/1000 * Double(obj.repe) + 1
+        dummynode.run(.group([showact,failact,.sequence([.wait(forDuration: waittime),.run{
+            self.destroy()
+            }])]))
     }
     
     func getposition(time:Double) -> CGPoint {
@@ -449,6 +451,26 @@ class SliderAction:HitObjectAction {
             }
         }
         return .Nothing
+    }
+    
+    //In order to prevent objects remaining on the screen
+    func destroy() {
+        headinner.removeFromParent()
+        for node in headnumber {
+            node.removeFromParent()
+        }
+        headoverlay.removeFromParent()
+        endinner.removeFromParent()
+        endoverlay.removeFromParent()
+        if arrowarrows.count > 0 {
+            for i in 0...arrowarrows.count-1 {
+                arrowarrows[i].removeFromParent()
+                arrowinners[i].removeFromParent()
+                arrowoverlays[i].removeFromParent()
+            }
+        }
+        body.removeFromParent()
+        dummynode.removeFromParent()
     }
     
     //Head Judge

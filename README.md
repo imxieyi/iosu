@@ -36,7 +36,7 @@ This is an ios port of the rhythm game [osu!](https://osu.ppy.sh). It is written
 0. This project is still at **super early stage**, there are plenty of bugs among the whole application. So don't worry if it crashes constantly on your device. If you want to report, please attach **the link to the beatmap on [osu.ppy.sh](https://osu.ppy.sh/)** while creating an issue.
 1. Currently there is no database, so please do not import too many beatmaps.
 2. **DO NOT** play a beatmap with too complicated storyboard as background. It will make the timing inaccurate and even crash the game.
-3. The patched PlaySoundFileNamed function has some bugs that may crash the application, I'm still finding the solution.
+3. ~~The patched PlaySoundFileNamed function has some bugs that may crash the application, I'm still finding the solution.~~ (should be fixed in 43e862)
 4. I have an iPhone6s and an iPad Pro 10.5 to test, so it may works well on all iDevices.
 5. If the framerate drops under 10, the timing will be inaccurate. So do not try to run it in the simulator. If that happens on your device, maybe you can consider update it because of low performance.
 6. I have modified the SpriteKitEasingSwift framework to meet the need of osu! storyboard. The [modified version](https://github.com/imxieyi/SpriteKitEasingSwift) can also be installed by CocoaPods.
