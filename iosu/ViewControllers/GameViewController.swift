@@ -62,8 +62,15 @@ class GameViewController: UIViewController {
             //skView.allowsTransparency=true
             gameView.backgroundColor = .clear
             //(self.view as! SKView).allowsTransparency=true
-            gameView.showsFPS=false
-            gameView.showsNodeCount=false
+            if GameViewController.showsb {
+                gameView.showsFPS=false
+                gameView.showsNodeCount=false
+            } else {
+                gameView.showsFPS=true
+                gameView.showsNodeCount=true
+                gameView.showsDrawCount=true
+                gameView.showsQuadCount=true
+            }
             gameView.ignoresSiblingOrder=true
             gameScene.scaleMode = .aspectFill
             gameScene.backgroundColor = .clear

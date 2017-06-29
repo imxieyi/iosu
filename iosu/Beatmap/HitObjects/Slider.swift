@@ -89,6 +89,11 @@ class Slider:HitObject{
         let t2=x2*x2+y2*y2
         let t3=x3*x3+y3*y3
         let temp=x1*y2+x2*y3+x3*y1-x1*y3-x2*y1-x3*y2
+        //A straight line instead of an arc
+        if temp == 0 {
+            path.addLine(to: CGPoint(x: x3, y: y3))
+            return
+        }
         let x=(t2*y3+t1*y2+t3*y1-t2*y1-t3*y2-t1*y3)/temp/2
         let y=(t3*x2+t2*x1+t1*x3-t1*x2-t2*x3-t3*x1)/temp/2
         let r=sqrt((x1-x)*(x1-x)+(y1-y)*(y1-y))
@@ -108,6 +113,8 @@ class Slider:HitObject{
         if (a1<a2 && a2>a3 && a1<a3)||(a1>a2 && a3>a1)||(a1>a2 && a2>a3) {
             clockwise=false
         }
+        debugPrint(t2*y3+t1*y2+t3*y1-t2*y1-t3*y2-t1*y3)
+        debugPrint(t3*x2+t2*x1+t1*x3-t1*x2-t2*x3-t3*x1)
         path.addArc(withCenter: CGPoint(x:x,y:y), radius: r, startAngle: a1, endAngle: a3, clockwise: clockwise)
     }
     

@@ -454,7 +454,7 @@ class SliderAction:HitObjectAction {
     //Head Judge
     func judge(time:Double) -> HitResult {
         var d = time - self.time
-        debugPrint("d:\(d) score50:\((ActionSet.difficulty?.Score50)!)")
+        //debugPrint("d:\(d) score50:\((ActionSet.difficulty?.Score50)!)")
         if d < -(ActionSet.difficulty?.Score50)! {
             return .Fail
         }
