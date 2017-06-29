@@ -95,16 +95,16 @@ class SliderAction:HitObjectAction {
         let position5 = obj.path.point(atPercentOfLength: 0.01) //Near head
         let position6 = obj.path.point(atPercentOfLength: 0.99) //Near end
         var angle1 = -atan((position3.y-position5.y)/(position3.x-position5.x))
-        if position3.x < position5.x {
+        if position3.x > position5.x {
             angle1 = CGFloat.pi + angle1
         }
         var angle2 = -atan((position4.y-position6.y)/(position4.x-position6.x))
-        if position4.x < position6.x {
+        if position4.x > position6.x {
             angle2 = CGFloat.pi + angle2
         }
         //Head --- Overlay
         selflayer -= 0.01
-        headoverlay = SKSpriteNode(texture: BundleImageBuffer.get(file: "hitcircleoverlay"))
+        headoverlay = SKSpriteNode(texture: SkinBuffer.get(file: "hitcircleoverlay"))
         headoverlay.size = size
         headoverlay.position = position1
         headoverlay.zPosition = selflayer
@@ -126,7 +126,7 @@ class SliderAction:HitObjectAction {
         }
         //Head --- Inner
         selflayer -= 0.01
-        headinner = SKSpriteNode(texture: BundleImageBuffer.get(file: "hitcircle"))
+        headinner = SKSpriteNode(texture: SkinBuffer.get(file: "hitcircle"))
         headinner.color = color
         headinner.blendMode = .alpha
         headinner.colorBlendFactor = 1
@@ -137,7 +137,7 @@ class SliderAction:HitObjectAction {
         stats.append(.Head)
         stattimes.append(currenttime)
         //Head --- Approach Circle
-        appcircle = SKSpriteNode(texture: BundleImageBuffer.get(file: "approachcircle"))
+        appcircle = SKSpriteNode(texture: SkinBuffer.get(file: "approachcircle"))
         appcircle.size = size
         appcircle.setScale(3)
         appcircle.alpha = 0
@@ -151,16 +151,20 @@ class SliderAction:HitObjectAction {
             repe -= 1
             //Overlay
             selflayer -= 0.01
-            let overlay = SKSpriteNode(texture: BundleImageBuffer.get(file: "hitcircleoverlay"))
+            let overlay = SKSpriteNode(texture: SkinBuffer.get(file: "hitcircleoverlay"))
             overlay.size = size
             overlay.zPosition = selflayer
             arrowoverlays.append(overlay)
             //Arrow
             selflayer -= 0.01
-            let arrow = SKSpriteNode(texture: BundleImageBuffer.get(file: "sliderarrow"))
+            let arrow = SKSpriteNode(texture: SkinBuffer.get(file: "reversearrow"))
             arrow.size = size
             arrow.zPosition = selflayer
-            arrow.colorBlendFactor = 1
+            if SkinBuffer.getFlag(file: "reversearrow") {
+                arrow.colorBlendFactor = 0
+            } else {
+                arrow.colorBlendFactor = 1
+            }
             arrow.blendMode = .alpha
             if(isbright(color: color)){
                 arrow.color = .black
@@ -170,7 +174,7 @@ class SliderAction:HitObjectAction {
             arrowarrows.append(arrow)
             //Inner
             selflayer -= 0.01
-            let inner = SKSpriteNode(texture: BundleImageBuffer.get(file: "hitcircle"))
+            let inner = SKSpriteNode(texture: SkinBuffer.get(file: "hitcircle"))
             inner.color = color
             inner.blendMode = .alpha
             inner.colorBlendFactor = 1
@@ -197,12 +201,12 @@ class SliderAction:HitObjectAction {
         }
         //End --- Overlay
         selflayer -= 0.01
-        endoverlay = SKSpriteNode(texture: BundleImageBuffer.get(file: "hitcircleoverlay"))
+        endoverlay = SKSpriteNode(texture: SkinBuffer.get(file: "hitcircleoverlay"))
         endoverlay.size = size
         endoverlay.zPosition = selflayer
         //End --- Inner
         selflayer -= 0.01
-        endinner = SKSpriteNode(texture: BundleImageBuffer.get(file: "hitcircle"))
+        endinner = SKSpriteNode(texture: SkinBuffer.get(file: "hitcircle"))
         endinner.color = color
         endinner.blendMode = .alpha
         endinner.colorBlendFactor = 1
@@ -229,7 +233,7 @@ class SliderAction:HitObjectAction {
             tickpoints.append([])
             var ctime = time + tickinterval
             while ctime < time + singleduration - tickinterval/10 {
-                let ticksprite = SKSpriteNode(texture: BundleImageBuffer.get(file: "sliderscorepoint"))
+                let ticksprite = SKSpriteNode(texture: SkinBuffer.get(file: "sliderscorepoint"))
                 ticksprite.setScale(CGFloat((ActionSet.difficulty?.AbsoluteCS)! / 96))
                 ticksprite.zPosition = layer + 0.02
                 var point:CGPoint
@@ -297,10 +301,6 @@ class SliderAction:HitObjectAction {
             for num in self.headnumber {
                 num.run(CircleAction.faildisappear)
             }
-            self.body.run(CircleAction.faildisappear, completion: {
-                self.body = SKSpriteNode()
-                self.obj.image = nil
-            })
             self.pointer += 1
             self.failcount += 1
             }])

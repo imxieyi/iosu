@@ -108,6 +108,7 @@
 		8ADC1E9E1ECB163300E0E9AB /* BGVideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E9C1ECB163300E0E9AB /* BGVideoPlayer.swift */; };
 		8ADC1EA11ECB167400E0E9AB /* BeatmapScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1EA01ECB167400E0E9AB /* BeatmapScanner.swift */; };
 		8ADC1EA31ECB16C400E0E9AB /* HitObjectAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1EA21ECB16C400E0E9AB /* HitObjectAction.swift */; };
+		8AFC00DC1F051E6E0029DC9D /* SkinBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFC00DB1F051E6E0029DC9D /* SkinBuffer.swift */; };
 		99B4058382CF96D791075AB4 /* Pods_iosu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A76F916780A6E7BFEFB56503 /* Pods_iosu.framework */; };
 /* End PBXBuildFile section */
 
@@ -230,6 +231,7 @@
 		8ADC1E9C1ECB163300E0E9AB /* BGVideoPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BGVideoPlayer.swift; path = MediaPlayers/BGVideoPlayer.swift; sourceTree = "<group>"; };
 		8ADC1EA01ECB167400E0E9AB /* BeatmapScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BeatmapScanner.swift; path = Database/BeatmapScanner.swift; sourceTree = "<group>"; };
 		8ADC1EA21ECB16C400E0E9AB /* HitObjectAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HitObjectAction.swift; path = Beatmap/Renderer/HitObjectAction.swift; sourceTree = "<group>"; };
+		8AFC00DB1F051E6E0029DC9D /* SkinBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SkinBuffer.swift; path = Beatmap/Renderer/SkinBuffer.swift; sourceTree = "<group>"; };
 		A76F916780A6E7BFEFB56503 /* Pods_iosu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iosu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -410,6 +412,7 @@
 				8ADC1E4C1ECB0E2600E0E9AB /* CircleAction.swift */,
 				8ADC1E561ECB0F2800E0E9AB /* RendererEnums.swift */,
 				8ADC1E501ECB0E9500E0E9AB /* SliderAction.swift */,
+				8AFC00DB1F051E6E0029DC9D /* SkinBuffer.swift */,
 			);
 			name = Renderer;
 			sourceTree = "<group>";
@@ -711,7 +714,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -769,6 +772,7 @@
 				8ADC1E371ECB0BF600E0E9AB /* BeatmapEnums.swift in Sources */,
 				8A0442B31ECB2227000DE269 /* UIBezierPath+Length.m in Sources */,
 				8ADC1E441ECB0D3400E0E9AB /* SliderBall.swift in Sources */,
+				8AFC00DC1F051E6E0029DC9D /* SkinBuffer.swift in Sources */,
 				8ADC1E7C1ECB12EF00E0E9AB /* SBVScale.swift in Sources */,
 				8ADC1E8A1ECB148000E0E9AB /* GamePlayScene.swift in Sources */,
 				8ADC1E821ECB135F00E0E9AB /* SBParam.swift in Sources */,

@@ -23,6 +23,8 @@ class SelectionViewController:UIViewController,UIPickerViewDelegate,UIPickerView
     @IBOutlet var effectSlider: UISlider!
     @IBOutlet var effectLabel: UILabel!
     
+    @IBOutlet var skinSwitch: UISwitch!
+    
     let bs=BeatmapScanner()
     
     override func viewDidLoad() {
@@ -44,6 +46,8 @@ class SelectionViewController:UIViewController,UIPickerViewDelegate,UIPickerView
     }
 
     @IBAction func playPressed(_ sender: Any) {
+        SkinBuffer.bmPath = bs.beatmapdirs[picker.selectedRow(inComponent: 0)]
+        SkinBuffer.useSkin = skinSwitch.isOn
         GamePlayScene.testBMIndex = picker.selectedRow(inComponent: 0)
         StoryBoardScene.testBMIndex = picker.selectedRow(inComponent: 0)
         GamePlayScene.bgdim = Double(dimSlider.value)/100
@@ -71,10 +75,15 @@ class SelectionViewController:UIViewController,UIPickerViewDelegate,UIPickerView
         if !sbSwitch.isOn && !gameSwitch.isOn {
             Alerts.show(sender: self, title: "Warning", message: "You should turn on either game or storyboard!", style: .alert, actiontitle: "OK", actionstyle: .default, handler: {(act:UIAlertAction) -> Void in
                 self.gameSwitch.setOn(true, animated: true)
+                self.skinSwitch.isEnabled = true
             })
         }
+        if gameSwitch.isOn {
+            skinSwitch.isEnabled = true
+        } else {
+            skinSwitch.isEnabled = false
+        }
     }
-    
     @IBAction func sbSwitched(_ sender: Any) {
         if !sbSwitch.isOn && !gameSwitch.isOn {
             Alerts.show(sender: self, title: "Warning", message: "You should turn on either game or storyboard!", style: .alert, actiontitle: "OK", actionstyle: .default, handler: {(act:UIAlertAction) -> Void in

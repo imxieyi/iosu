@@ -157,16 +157,16 @@ class GamePlayScene: SKScene {
         var img:SKTexture
         switch result {
         case .S300:
-            img = BundleImageBuffer.get(file: "hit300")!
+            img = SkinBuffer.get(file: "hit300")!
             break
         case .S100:
-            img = BundleImageBuffer.get(file: "hit100")!
+            img = SkinBuffer.get(file: "hit100")!
             break
         case .S50:
-            img = BundleImageBuffer.get(file: "hit50")!
+            img = SkinBuffer.get(file: "hit50")!
             break
         case .Fail:
-            img = BundleImageBuffer.get(file: "hit0")!
+            img = SkinBuffer.get(file: "hit0")!
             break
         }
         let node = SKSpriteNode(texture: img)
@@ -351,7 +351,7 @@ class GamePlayScene: SKScene {
         }
         var offset = (actions?.nexttime())! - mtime - (bm?.difficulty?.ARTime)!
         while (actions?.hasnext())! && offset <= 1000 {
-            debugPrint("mtime \(mtime) objtime \((actions?.nexttime())!) ar \((bm?.difficulty?.ARTime)!) offset \(offset)")
+            //debugPrint("mtime \(mtime) objtime \((actions?.nexttime())!) ar \((bm?.difficulty?.ARTime)!) offset \(offset)")
             actions?.shownext(offset: offset)
             offset = (actions?.nexttime())! - mtime - (bm?.difficulty?.ARTime)!
         }

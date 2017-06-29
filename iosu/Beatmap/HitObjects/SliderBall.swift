@@ -15,12 +15,46 @@ class SliderBall {
     let sliderball2=SKSpriteNode(texture: SliderBall.sliderballimg(file: "sliderb5"))
     let followcircle=SKSpriteNode(texture: SKTexture(imageNamed: "sliderfollowcircle"))
     let scene:SKScene
+    var useSkin = false
     
     init(scene:SKScene) {
         self.scene = scene
     }
     
     public func initialize(size:CGFloat) {
+        if SkinBuffer.useSkin {
+            var n = -1
+            for i in 0...9 {
+                SkinBuffer.get(file: "sliderb\(i)")
+                if !SkinBuffer.getFlag(file: "sliderb\(i)") {
+                    n = i - 1
+                    break
+                }
+            }
+            if n > -1 {
+                debugPrint("sliderb count in skin: \(n+1)")
+                useSkin = true
+                sliderball1.colorBlendFactor = 0
+                sliderball1.blendMode = .alpha
+                sliderball1.zPosition=500000
+                sliderball1.size=CGSize(width: size, height: size)
+                sliderball1.alpha=0
+                scene.addChild(self.sliderball1)
+                if n > 0{
+                    var textures1:[SKTexture]=[]
+                    for i in 0...n {
+                        textures1.append(SliderBall.sliderballimg(file: "sliderb\(i)"))
+                    }
+                    sliderball1.run(.repeatForever(.animate(with: textures1, timePerFrame: 0.05)))
+                }
+                //Follow circle
+                followcircle.size=CGSize(width: size*2, height: size*2)
+                followcircle.alpha=0
+                followcircle.zPosition=500000
+                scene.addChild(followcircle)
+                return
+            }
+        }
         sliderball1.color = .red
         sliderball1.colorBlendFactor = 1
         sliderball1.blendMode = .alpha
@@ -70,7 +104,9 @@ class SliderBall {
             }
             let action=SKAction.sequence([SKAction.fadeIn(withDuration:0),SKAction.sequence(moving),SKAction.fadeOut(withDuration: 0)])
             self.sliderball1.run(action)
-            self.sliderball2.run(action)
+            if !self.useSkin {
+                self.sliderball2.run(action)
+            }
             self.followcircle.run(.sequence([.sequence(moving),.fadeOut(withDuration: 0.1)]))
             }])
     }
@@ -89,8 +125,9 @@ class SliderBall {
         followcircle.run(.fadeOut(withDuration: 0.1))
     }
     
+    //In order to rotate images in SKAction
     private static func sliderballimg(file:String) -> SKTexture {
-        let img=UIImage(named: file)
+        let img=SkinBuffer.getimg(file: file)
         let rotatedViewBox=UIView(frame: CGRect(x: 0, y: 0, width: (img?.size.width)!, height: (img?.size.height)!))
         rotatedViewBox.transform=CGAffineTransform(rotationAngle: -.pi/2)
         let rotatedSize=rotatedViewBox.frame.size

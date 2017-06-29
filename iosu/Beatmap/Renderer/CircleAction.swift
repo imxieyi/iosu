@@ -31,7 +31,7 @@ class CircleAction:HitObjectAction {
         var selflayer = layer
         //Draw inner
         selflayer += 0.1
-        inner = SKSpriteNode(texture: BundleImageBuffer.get(file: "hitcircle"))
+        inner = SKSpriteNode(texture: SkinBuffer.get(file: "hitcircle"))
         inner.color = color
         inner.blendMode = .alpha
         inner.colorBlendFactor = 1
@@ -57,13 +57,13 @@ class CircleAction:HitObjectAction {
         }
         //Draw overlay
         selflayer += 0.1
-        overlay = SKSpriteNode(texture: BundleImageBuffer.get(file: "hitcircleoverlay"))
+        overlay = SKSpriteNode(texture: SkinBuffer.get(file: "hitcircleoverlay"))
         overlay.colorBlendFactor = 0
         overlay.size = size
         overlay.position = position
         overlay.zPosition = selflayer
         //Draw Approach Circle
-        appcircle = SKSpriteNode(texture: BundleImageBuffer.get(file: "approachcircle"))
+        appcircle = SKSpriteNode(texture: SkinBuffer.get(file: "approachcircle"))
         appcircle.colorBlendFactor = 0
         appcircle.size = size
         appcircle.setScale(3)
@@ -73,7 +73,7 @@ class CircleAction:HitObjectAction {
     }
     
     static func num2node(number:Int) -> SKSpriteNode {
-        let texture = BundleImageBuffer.get(file: "default-\(number)")
+        let texture = SkinBuffer.get(file: "default-\(number)")
         var width = (texture?.size().width)!
         var height = (texture?.size().height)!
         let scale = CGFloat((ActionSet.difficulty?.AbsoluteCS)!) / 3 / height
@@ -105,7 +105,7 @@ class CircleAction:HitObjectAction {
                 num.run(CircleAction.faildisappear)
             }
             //Show fail
-            let img = BundleImageBuffer.get(file: "hit0")!
+            let img = SkinBuffer.get(file: "hit0")!
             let node = SKSpriteNode(texture: img)
             let scale = CGFloat((ActionSet.difficulty?.AbsoluteCS)! / 128)
             node.setScale(scale)
@@ -127,7 +127,7 @@ class CircleAction:HitObjectAction {
         dummynode.removeAllActions()
         dummynode.run(.sequence([.wait(forDuration: 0.5),.removeFromParent()]))
         var d = time - self.time
-        debugPrint("d:\(d) score50:\((ActionSet.difficulty?.Score50)!)")
+        //debugPrint("d:\(d) score50:\((ActionSet.difficulty?.Score50)!)")
         if d < -(ActionSet.difficulty?.Score50)! {
             self.inner.run(CircleAction.faildisappear)
             self.overlay.run(CircleAction.faildisappear)
