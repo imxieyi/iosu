@@ -16,12 +16,19 @@ This is an ios port of the rhythm game [osu!](https://osu.ppy.sh). It is written
  - **Play with StoryBoard**
  - **Play with skin in beatmap bundle**
 
-## Installation
-### Through XCode
+## Compilation
 1. Install the latest version of XCode.
-2. Compile and install this project on your device **(DO NOT USE SIMULATOR!)**.
+2. Install [CocoaPods](https://cocoapods.org/).
+3. Run the following commands:
+```bash
+git clone https://github.com/imxieyi/iosu.git
+cd iosu
+pod install
+```
+4. Open iosu.xcworkspace in the project directory.
+5. Build.
 
-### Through Cydia Impactor (Not recommended) (iOS 10.0+ required)
+## Installation Through Cydia Impactor (Not recommended) (iOS 10.0+ required)
 1. Download [Cydia Impactor](http://www.cydiaimpactor.com/).
 2. Download latest [ipa artifact](https://git.imxieyi.com/xieyi/iosu/tags) from my personal gitlab server.
 3. Connect your iDevice and run Cydia Impactor.
