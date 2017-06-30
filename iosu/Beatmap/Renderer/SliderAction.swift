@@ -35,24 +35,26 @@ class SliderAction:HitObjectAction {
     private var ticktimeindex = 0
     private var runstarttime:Double = 0
     //Head
-    var headinner = SKSpriteNode()
-    var headoverlay = SKSpriteNode()
+    var headinner : SKSpriteNode? = nil
+    var headoverlay : SKSpriteNode? = nil
     var headnumber:[SKSpriteNode] = []
-    var appcircle = SKSpriteNode()
+    var appcircle : SKSpriteNode? = nil
     //Arrows
     var arrowinners:[SKSpriteNode] = []
     var arrowoverlays:[SKSpriteNode] = []
     var arrowarrows:[SKSpriteNode] = []
     //End
-    var endinner = SKSpriteNode()
-    var endoverlay = SKSpriteNode()
+    var endinner : SKSpriteNode? = nil
+    var endoverlay : SKSpriteNode? = nil
     //Body
-    var body = SKSpriteNode()
+    var inbody : SKShapeNode? = nil
+    var outbody : SKShapeNode? = nil
     //Tick points
     private var tickpoints:[[SKSpriteNode]] = []
     private var ticktimes:[Double] = []
     //Dummy
-    var dummynode = SKNode()
+    var dummynode : SKNode? = nil
+    var guardnode : SKNode? = nil
     
     init(obj:Slider,timing:TimingPoint) {
         self.time = Double(obj.time)
@@ -94,20 +96,34 @@ class SliderAction:HitObjectAction {
         let position4 = obj.path.point(atPercentOfLength: 1.00) //At end
         let position5 = obj.path.point(atPercentOfLength: 0.01) //Near head
         let position6 = obj.path.point(atPercentOfLength: 0.99) //Near end
-        var angle1 = -atan((position3.y-position5.y)/(position3.x-position5.x))
+        var angle1 = atan((position3.y-position5.y)/(position3.x-position5.x))
+        if position3.x == position5.x {
+            if position5.y > position3.y {
+                angle1 = CGFloat.pi / 2
+            } else {
+                angle1 = -CGFloat.pi / 2
+            }
+        }
         if position3.x > position5.x {
             angle1 = CGFloat.pi + angle1
         }
-        var angle2 = -atan((position4.y-position6.y)/(position4.x-position6.x))
+        var angle2 = atan((position4.y-position6.y)/(position4.x-position6.x))
+        if position4.x == position6.x {
+            if position6.y > position4.y {
+                angle2 = CGFloat.pi / 2
+            } else {
+                angle2 = -CGFloat.pi / 2
+            }
+        }
         if position4.x > position6.x {
             angle2 = CGFloat.pi + angle2
         }
         //Head --- Overlay
         selflayer -= 0.01
         headoverlay = SKSpriteNode(texture: SkinBuffer.get(file: "hitcircleoverlay"))
-        headoverlay.size = size
-        headoverlay.position = position1
-        headoverlay.zPosition = selflayer
+        headoverlay?.size = size
+        headoverlay?.position = position1
+        headoverlay?.zPosition = selflayer
         //Head --- Number
         selflayer -= 0.01
         let lo = number % 10
@@ -127,22 +143,22 @@ class SliderAction:HitObjectAction {
         //Head --- Inner
         selflayer -= 0.01
         headinner = SKSpriteNode(texture: SkinBuffer.get(file: "hitcircle"))
-        headinner.color = color
-        headinner.blendMode = .alpha
-        headinner.colorBlendFactor = 1
-        headinner.size = size
-        headinner.position = position1
-        headinner.zPosition = selflayer
+        headinner?.color = color
+        headinner?.blendMode = .alpha
+        headinner?.colorBlendFactor = 1
+        headinner?.size = size
+        headinner?.position = position1
+        headinner?.zPosition = selflayer
         //Update status
         stats.append(.Head)
         stattimes.append(currenttime)
         //Head --- Approach Circle
         appcircle = SKSpriteNode(texture: SkinBuffer.get(file: "approachcircle"))
-        appcircle.size = size
-        appcircle.setScale(3)
-        appcircle.alpha = 0
-        appcircle.position = position1
-        appcircle.zPosition = 100001
+        appcircle?.size = size
+        appcircle?.setScale(3)
+        appcircle?.alpha = 0
+        appcircle?.position = position1
+        appcircle?.zPosition = 100001
         
         //Arrows
         var repe = obj.repe
@@ -202,23 +218,55 @@ class SliderAction:HitObjectAction {
         //End --- Overlay
         selflayer -= 0.01
         endoverlay = SKSpriteNode(texture: SkinBuffer.get(file: "hitcircleoverlay"))
-        endoverlay.size = size
-        endoverlay.zPosition = selflayer
+        endoverlay?.size = size
+        endoverlay?.zPosition = selflayer
         //End --- Inner
         selflayer -= 0.01
         endinner = SKSpriteNode(texture: SkinBuffer.get(file: "hitcircle"))
-        endinner.color = color
-        endinner.blendMode = .alpha
-        endinner.colorBlendFactor = 1
-        endinner.size = size
-        endinner.zPosition = selflayer
+        endinner?.color = color
+        endinner?.blendMode = .alpha
+        endinner?.colorBlendFactor = 1
+        endinner?.size = size
+        endinner?.zPosition = selflayer
         if athead {
-            endoverlay.position = position1
-            endinner.position = position1
+            endoverlay?.position = position1
+            endinner?.position = position1
         } else {
-            endoverlay.position = position2
-            endinner.position = position2
+            endoverlay?.position = position2
+            endinner?.position = position2
         }
+        //Body --- In
+        let outwidth = edge * 120 / 128
+        inbody = SKShapeNode(path: obj.path.cgPath)
+        inbody?.lineCap = .round
+        inbody?.lineJoin = .round
+        inbody?.fillColor = .clear
+        inbody?.isAntialiased = true
+        if obj.trackoverride && SkinBuffer.useSkin {
+            inbody?.strokeColor = obj.trackcolor
+        } else {
+            inbody?.strokeColor = color
+        }
+        inbody?.lineWidth = outwidth * 7 / 8
+        inbody?.position = .zero
+        inbody?.alpha = 0.8
+        inbody?.zPosition = layer + 0.01
+        //Body --- Out
+        outbody = SKShapeNode(path: obj.path.cgPath)
+        outbody?.lineCap = .round
+        outbody?.lineJoin = .round
+        outbody?.fillColor = .clear
+        outbody?.strokeColor = color
+        outbody?.isAntialiased = true
+        if SkinBuffer.useSkin {
+            outbody?.strokeColor = obj.bordercolor
+        } else {
+            outbody?.strokeColor = UIColor.white
+        }
+        outbody?.lineWidth = outwidth
+        outbody?.position = .zero
+        outbody?.alpha = 0.8
+        outbody?.zPosition = layer
         //Update status
         currenttime += singleduration
         stats.append(.End)
@@ -243,7 +291,6 @@ class SliderAction:HitObjectAction {
                 } else {
                     point = obj.path.reversing().point(atPercentOfLength: CGFloat((ctime-time)/singleduration))
                 }
-                point.y = CGFloat(GamePlayScene.scrheight) - point.y
                 ticksprite.position = point
                 tickpoints[tickpoints.count-1].append(ticksprite)
                 ticktimes.append(ctime)
@@ -264,16 +311,9 @@ class SliderAction:HitObjectAction {
     func show(scene:SKScene,offset:Double) {
         self.scene = scene
         let artime = (ActionSet.difficulty?.ARTime)!/1000
-        let outwidth = edge * 120 / 128
-        obj.genimage(color: color, layer: layer, inwidth: outwidth * 7 / 8, outwidth: outwidth)
-        body = SKSpriteNode(texture: SKTexture(image: obj.image!))
-        body.anchorPoint = .zero
-        body.position = .zero
-        body.alpha = 0.85
-        body.zPosition = layer
         let showact = SKAction.sequence([.wait(forDuration: offset/1000),.run {
-            scene.addChild(self.headinner)
-            scene.addChild(self.headoverlay)
+            scene.addChild(self.headinner!)
+            scene.addChild(self.headoverlay!)
             for num in self.headnumber {
                 scene.addChild(num)
             }
@@ -288,28 +328,33 @@ class SliderAction:HitObjectAction {
             for tickpoint in self.tickpoints[0] {
                 scene.addChild(tickpoint)
             }
-            scene.addChild(self.endinner)
-            scene.addChild(self.endoverlay)
-            scene.addChild(self.body)
-            scene.addChild(self.appcircle)
-            self.appcircle.run(.sequence([.group([.fadeIn(withDuration: artime/3),.scale(to: 1, duration: artime)]),.removeFromParent()]))
+            scene.addChild(self.endinner!)
+            scene.addChild(self.endoverlay!)
+            scene.addChild(self.inbody!)
+            scene.addChild(self.outbody!)
+            scene.addChild(self.appcircle!)
+            self.appcircle?.run(.sequence([.group([.fadeIn(withDuration: artime/3),.scale(to: 1, duration: artime)]),.removeFromParent()]))
             }])
         let ballact = GamePlayScene.sliderball?.show(color: color, path: obj.path, repe: obj.repe, duration: singleduration/1000, waittime: artime + offset/1000)
         let failact = SKAction.sequence([.wait(forDuration: artime + offset/1000 + (ActionSet.difficulty?.Score50)!/1000),.run {
-            self.headinner.run(CircleAction.faildisappear)
-            self.headoverlay.run(CircleAction.faildisappear)
+            self.headinner?.run(CircleAction.faildisappear)
+            self.headoverlay?.run(CircleAction.faildisappear)
             for num in self.headnumber {
                 num.run(CircleAction.faildisappear)
             }
             self.pointer += 1
             self.failcount += 1
             }])
-        scene.addChild(dummynode)
+        dummynode = SKNode()
+        scene.addChild(dummynode!)
         scene.run(ballact!)
         let waittime = artime + offset/1000 + (ActionSet.difficulty?.Score300)!/1000 + singleduration/1000 * Double(obj.repe) + 1
-        dummynode.run(.group([showact,failact,.sequence([.wait(forDuration: waittime),.run{
+        dummynode?.run(.group([showact,failact]))
+        guardnode = SKNode()
+        scene.addChild(guardnode!)
+        guardnode?.run(.sequence([.wait(forDuration: waittime),.run{
             self.destroy()
-            }])]))
+            }]))
     }
     
     func getposition(time:Double) -> CGPoint {
@@ -356,25 +401,25 @@ class SliderAction:HitObjectAction {
         case .Head:
             if following {
                 pointer += 1
-                dummynode.removeAllActions()
-                dummynode.removeFromParent()
+                dummynode?.removeAllActions()
+                dummynode?.removeFromParent()
                 switch judge(time: time) {
                 case .S50:
-                    headinner.run(CircleAction.passdisappear)
-                    headoverlay.run(CircleAction.passdisappear)
+                    headinner?.run(CircleAction.passdisappear)
+                    headoverlay?.run(CircleAction.passdisappear)
                     for num in headnumber {
                         num.run(CircleAction.passdisappear)
                     }
-                    appcircle.removeFromParent()
+                    appcircle?.removeFromParent()
                     return .EdgePass
                 default:
                     failcount += 1
-                    headinner.run(CircleAction.faildisappear)
-                    headoverlay.run(CircleAction.faildisappear)
+                    headinner?.run(CircleAction.faildisappear)
+                    headoverlay?.run(CircleAction.faildisappear)
                     for num in headnumber {
                         num.run(CircleAction.faildisappear)
                     }
-                    appcircle.removeFromParent()
+                    appcircle?.removeFromParent()
                     return .FailOnce
                 }
             }
@@ -395,12 +440,10 @@ class SliderAction:HitObjectAction {
                             arrowarrows[i].run(CircleAction.faildisappear)
                             arrowoverlays[i].run(CircleAction.faildisappear)
                         }
-                        endinner.run(CircleAction.faildisappear)
-                        endoverlay.run(CircleAction.faildisappear)
-                        body.run(CircleAction.faildisappear, completion: {
-                            self.body = SKSpriteNode()
-                            self.obj.image = nil
-                        })
+                        endinner?.run(CircleAction.faildisappear)
+                        endoverlay?.run(CircleAction.faildisappear)
+                        inbody?.run(CircleAction.faildisappear)
+                        outbody?.run(CircleAction.faildisappear)
                         for tickpoint in self.tickpoints[runcount] {
                             //scene?.addChild(tickpoint)
                             tickpoint.run(CircleAction.faildisappear)
@@ -420,31 +463,25 @@ class SliderAction:HitObjectAction {
             if time >= stattimes[pointer] {
                 pointer += 1
                 if following {
-                    endinner.run(CircleAction.passdisappear)
-                    endoverlay.run(CircleAction.passdisappear)
-                    body.run(.sequence([.fadeOut(withDuration: 0.5),.removeFromParent()]), completion: {
-                        self.body = SKSpriteNode()
-                        self.obj.image = nil
-                    })
+                    endinner?.run(CircleAction.passdisappear)
+                    endoverlay?.run(CircleAction.passdisappear)
+                    inbody?.run(.sequence([.fadeOut(withDuration: 0.5),.removeFromParent()]))
+                    outbody?.run(.sequence([.fadeOut(withDuration: 0.5),.removeFromParent()]))
                     return .End
                 } else {
                     failcount += 1
                     if failcount >= 2 {
-                        endinner.run(CircleAction.faildisappear)
-                        endoverlay.run(CircleAction.faildisappear)
-                        body.run(CircleAction.faildisappear, completion: {
-                            self.body = SKSpriteNode()
-                            self.obj.image = nil
-                        })
+                        endinner?.run(CircleAction.faildisappear)
+                        endoverlay?.run(CircleAction.faildisappear)
+                        inbody?.run(CircleAction.faildisappear)
+                        outbody?.run(CircleAction.faildisappear)
                         pointer = stats.count
                         return .FailAll
                     } else {
-                        endinner.run(CircleAction.passdisappear)
-                        endoverlay.run(CircleAction.passdisappear)
-                        body.run(.sequence([.fadeOut(withDuration: 0.5),.removeFromParent()]), completion: {
-                            self.body = SKSpriteNode()
-                            self.obj.image = nil
-                        })
+                        endinner?.run(CircleAction.passdisappear)
+                        endoverlay?.run(CircleAction.passdisappear)
+                        inbody?.run(.sequence([.fadeOut(withDuration: 0.5),.removeFromParent()]))
+                        outbody?.run(.sequence([.fadeOut(withDuration: 0.5),.removeFromParent()]))
                         return .End
                     }
                 }
@@ -455,13 +492,18 @@ class SliderAction:HitObjectAction {
     
     //In order to prevent objects remaining on the screen
     func destroy() {
-        headinner.removeFromParent()
+        headinner?.removeFromParent()
+        headinner = nil
         for node in headnumber {
             node.removeFromParent()
         }
-        headoverlay.removeFromParent()
-        endinner.removeFromParent()
-        endoverlay.removeFromParent()
+        headnumber.removeAll()
+        headoverlay?.removeFromParent()
+        headoverlay = nil
+        endinner?.removeFromParent()
+        endinner = nil
+        endoverlay?.removeFromParent()
+        endoverlay = nil
         if arrowarrows.count > 0 {
             for i in 0...arrowarrows.count-1 {
                 arrowarrows[i].removeFromParent()
@@ -469,8 +511,25 @@ class SliderAction:HitObjectAction {
                 arrowoverlays[i].removeFromParent()
             }
         }
-        body.removeFromParent()
-        dummynode.removeFromParent()
+        if tickpoints.count > 0 {
+            for i in 0...tickpoints.count-1 {
+                for node in tickpoints[i] {
+                    node.removeFromParent()
+                }
+            }
+            tickpoints.removeAll()
+        }
+        arrowarrows.removeAll()
+        arrowinners.removeAll()
+        arrowoverlays.removeAll()
+        inbody?.removeFromParent()
+        inbody = nil
+        outbody?.removeFromParent()
+        outbody = nil
+        dummynode?.removeFromParent()
+        dummynode = nil
+        guardnode?.removeFromParent()
+        guardnode = nil
     }
     
     //Head Judge

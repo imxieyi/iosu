@@ -122,10 +122,6 @@ class SliderBall {
     
     public func show(color:UIColor, path:UIBezierPath, repe:Int, duration:Double, waittime:Double) -> SKAction {
         return SKAction.sequence([.wait(forDuration: waittime),.run {
-            let mirror=CGAffineTransform(scaleX: 1, y: -1)
-            let translate=CGAffineTransform(translationX: 0, y: CGFloat(GamePlayScene.scrheight))
-            path.apply(mirror)
-            path.apply(translate)
             let rpath=path.reversing()
             self.sliderball1.color = color
             var moving:[SKAction]=[SKAction.follow(path.cgPath, asOffset: false, orientToPath: true, duration: duration)]

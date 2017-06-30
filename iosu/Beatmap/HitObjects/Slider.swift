@@ -83,6 +83,10 @@ class Slider:HitObject{
             }
             break
         }
+        let mirror=CGAffineTransform(scaleX: 1, y: -1)
+        let translate=CGAffineTransform(translationX: 0, y: CGFloat(GamePlayScene.scrheight))
+        path.apply(mirror)
+        path.apply(translate)
     }
     
     private func genpassthrough(x1:CGFloat,y1:CGFloat,x2:CGFloat,y2:CGFloat,x3:CGFloat,y3:CGFloat) {
@@ -208,45 +212,6 @@ class Slider:HitObject{
         let x = points[0].x * (-0.5*t*t*t + t*t - 0.5*t) + points[1].x * (1.5*t*t*t - 2.5*t*t + 1) + points[2].x * (-1.5*t*t*t + 2.0*t*t + 0.5*t) + points[3].x * (0.5*t*t*t - 0.5*t*t)
         let y = points[0].y * (-0.5*t*t*t + t*t - 0.5*t) + points[1].y * (1.5*t*t*t - 2.5*t*t + 1) + points[2].y * (-1.5*t*t*t + 2.0*t*t + 0.5*t) + points[3].y * (0.5*t*t*t - 0.5*t*t)
         path.addLine(to: CGPoint(x: x,y: y))
-    }
-    
-    func genimage(color:UIColor,layer:CGFloat,inwidth:CGFloat,outwidth:CGFloat){
-        let size=CGSize(width: GamePlayScene.scrwidth, height: GamePlayScene.scrheight)
-        UIGraphicsBeginImageContextWithOptions(size, false, 1)
-        renderpath(path: path, color: color, inwidth: inwidth, outwidth: outwidth, size: size)
-        image=UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-    }
-    
-    private func renderpath(path:UIBezierPath,color:UIColor,inwidth:CGFloat,outwidth:CGFloat,size:CGSize) {
-        let pathlayer=CAShapeLayer()
-        pathlayer.frame=CGRect(origin: CGPoint.zero, size: size)
-        pathlayer.path=path.cgPath
-        if trackoverride && SkinBuffer.useSkin {
-            pathlayer.strokeColor=trackcolor.cgColor
-        } else {
-            pathlayer.strokeColor=color.cgColor
-        }
-        pathlayer.fillColor=UIColor.clear.cgColor
-        pathlayer.lineWidth=inwidth
-        pathlayer.lineCap=kCALineCapRound
-        pathlayer.lineJoin=kCALineJoinRound
-        pathlayer.zPosition=1
-        let pathlayer2=CAShapeLayer()
-        pathlayer2.frame=CGRect(origin: CGPoint.zero, size: size)
-        pathlayer2.path=path.cgPath
-        if SkinBuffer.useSkin {
-            pathlayer2.strokeColor=bordercolor.cgColor
-        } else {
-            pathlayer2.strokeColor = UIColor.white.cgColor
-        }
-        pathlayer2.fillColor=UIColor.clear.cgColor
-        pathlayer2.lineWidth=outwidth
-        pathlayer2.lineCap=kCALineCapRound
-        pathlayer2.lineJoin=kCALineJoinRound
-        pathlayer2.zPosition=0
-        pathlayer2.render(in: UIGraphicsGetCurrentContext()!)
-        pathlayer.render(in: UIGraphicsGetCurrentContext()!)
     }
     
 }
