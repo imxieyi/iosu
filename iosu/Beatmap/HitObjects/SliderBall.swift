@@ -13,7 +13,7 @@ class SliderBall {
     
     let sliderball1=SKSpriteNode(texture: SliderBall.sliderballimg(file: "sliderb0"))
     let sliderball2=SKSpriteNode(texture: SliderBall.sliderballimg(file: "sliderb5"))
-    let followcircle=SKSpriteNode(texture: SKTexture(imageNamed: "sliderfollowcircle"))
+    var followcircle=SKSpriteNode(texture: SKTexture(imageNamed: "sliderfollowcircle"))
     let scene:SKScene
     var useSkin = false
     
@@ -22,12 +22,22 @@ class SliderBall {
     }
     
     public func initialize(size:CGFloat) {
+        var n_follow = -1
+        var textures3:[SKTexture]=[]
         if SkinBuffer.useSkin {
             var n = -1
             for i in 0...20 {
                 SkinBuffer.get(file: "sliderb\(i)")
                 if !SkinBuffer.getFlag(file: "sliderb\(i)") {
                     n = i - 1
+                    break
+                }
+            }
+            //Parse following circle
+            for i in 0...20 {
+                SkinBuffer.get(file: "sliderfollowcircle-\(i)")
+                if !SkinBuffer.getFlag(file: "sliderfollowcircle-\(i)") {
+                    n_follow = i - 1
                     break
                 }
             }
@@ -48,10 +58,22 @@ class SliderBall {
                     sliderball1.run(.repeatForever(.animate(with: textures1, timePerFrame: 0.05)))
                 }
                 //Follow circle
-                followcircle.size=CGSize(width: size*2, height: size*2)
-                followcircle.alpha=0
-                followcircle.zPosition=500000
-                scene.addChild(followcircle)
+                if n_follow > -1 {
+                    followcircle=SKSpriteNode(texture: SkinBuffer.get(file: "sliderfollowcircle-0"))
+                    followcircle.size=CGSize(width: size*2, height: size*2)
+                    followcircle.alpha=0
+                    followcircle.zPosition=500000
+                    scene.addChild(followcircle)
+                    for i in 0...n_follow {
+                        textures3.append(SkinBuffer.get(file: "sliderfollowcircle-\(i)")!)
+                    }
+                    followcircle.run(.repeatForever(.animate(with: textures3, timePerFrame: 0.2)))
+                } else {
+                    followcircle.size=CGSize(width: size*2, height: size*2)
+                    followcircle.alpha=0
+                    followcircle.zPosition=500000
+                    scene.addChild(followcircle)
+                }
                 return
             }
         }
@@ -78,6 +100,20 @@ class SliderBall {
         sliderball1.run(.repeatForever(.animate(with: textures1, timePerFrame: 0.05)))
         sliderball2.run(.repeatForever(.animate(with: textures2, timePerFrame: 0.05)))
         //Follow circle
+        if SkinBuffer.useSkin {
+            if n_follow > -1 {
+                followcircle=SKSpriteNode(texture: SkinBuffer.get(file: "sliderfollowcircle-0"))
+                followcircle.size=CGSize(width: size*2, height: size*2)
+                followcircle.alpha=0
+                followcircle.zPosition=500000
+                scene.addChild(followcircle)
+                for i in 0...n_follow {
+                    textures3.append(SkinBuffer.get(file: "sliderfollowcircle-\(i)")!)
+                }
+                followcircle.run(.repeatForever(.animate(with: textures3, timePerFrame: 0.2)))
+                return
+            }
+        }
         followcircle.size=CGSize(width: size*2, height: size*2)
         followcircle.alpha=0
         followcircle.zPosition=500000
