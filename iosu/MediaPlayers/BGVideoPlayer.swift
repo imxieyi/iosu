@@ -9,30 +9,41 @@
 import Foundation
 import SpriteKit
 
-class BGVPlayer {
+class BGVPlayer : VLCMediaPlayerDelegate {
     
-    static var vplayer=KSYMoviePlayerController(contentURL: URL(fileURLWithPath: ""))
+    //static var vplayer=KSYMoviePlayerController(contentURL: URL(fileURLWithPath: ""))
+    static var view:UIView?
+    static var mplayer = VLCMediaPlayer()
+    
+    static func initialize() {
+        view = UIView()
+        view?.backgroundColor = .clear
+        view?.frame = UIScreen.screens[0].bounds
+        mplayer.drawable = view
+        mplayer.audio.isMuted = true
+        view?.isHidden = true
+    }
     
     static func setcontent(_ file:String) -> SKAction {
         return SKAction.run {
-            vplayer?.reset(false)
-            vplayer?.setUrl(URL(fileURLWithPath: file))
-            vplayer?.controlStyle = .none
-            vplayer?.setVolume(0, rigthVolume: 0)
-            vplayer?.shouldAutoplay=true
-            vplayer?.scalingMode = .aspectFill
+            let media = VLCMedia(path: file)
+            mplayer.media = media
             let notification=NotificationCenter.default
             let operationQueue=OperationQueue.main
-            _ = notification.addObserver(forName: NSNotification.Name.MPMoviePlayerPlaybackDidFinish, object: nil, queue: operationQueue, using: {(notif) in
-                vplayer?.reset(false)
+            _ = notification.addObserver(forName: NSNotification.Name(rawValue: VLCMediaPlayerStateChanged), object: nil, queue: operationQueue, using: {(notif) in
+                //Stopped
+                if mplayer.state.rawValue == 0 {
+                    mplayer.media = nil
+                    view?.isHidden = true
+                }
             })
         }
     }
     
     static func play() -> SKAction {
         return SKAction.run {
-            debugPrint("start playing video \(String(describing: vplayer?.contentURL.absoluteString))")
-            vplayer!.prepareToPlay()
+            mplayer.play()
+            view?.isHidden = false
         }
     }
     

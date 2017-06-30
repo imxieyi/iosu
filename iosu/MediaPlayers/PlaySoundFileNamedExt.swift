@@ -7,6 +7,7 @@
 //
 //  Reference: https://gist.github.com/ainoya/a2c1cd026ad5d695e406
 import SpriteKit
+import AVFoundation
 
 //In order to fix EXC_BAD_ADDRESS exception
 class SoundNode:SKNode {

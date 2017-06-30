@@ -11,7 +11,6 @@
 		8A0442B31ECB2227000DE269 /* UIBezierPath+Length.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0442B01ECB2227000DE269 /* UIBezierPath+Length.m */; };
 		8A1ACE721EFAB529000EBC14 /* PlaySoundFileNamedExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1ACE711EFAB529000EBC14 /* PlaySoundFileNamedExt.swift */; };
 		8A1ACE741EFAB985000EBC14 /* BundleAudioBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1ACE731EFAB985000EBC14 /* BundleAudioBuffer.swift */; };
-		8A26ECAE1E9D3F7F007D08FB /* KSYMediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A26ECAC1E9D3F0A007D08FB /* KSYMediaPlayer.framework */; };
 		8A2AAE101E90FE39005D52E7 /* test.osb in Resources */ = {isa = PBXBuildFile; fileRef = 8A2AAE0F1E90FE39005D52E7 /* test.osb */; };
 		8A4D5C341E8A8AEB00319D91 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4D5C331E8A8AEB00319D91 /* AppDelegate.swift */; };
 		8A4D5C3F1E8A8AEC00319D91 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A4D5C3D1E8A8AEC00319D91 /* Main.storyboard */; };
@@ -23,6 +22,9 @@
 		8A7F7E1B1E9D2C1D00595A13 /* libstdc++.6.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A7F7E1A1E9D2C1D00595A13 /* libstdc++.6.tbd */; };
 		8A7F7E1D1E9D2C2500595A13 /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A7F7E1C1E9D2C2500595A13 /* libbz2.tbd */; };
 		8A7F7E1F1E9D2C2D00595A13 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A7F7E1E1E9D2C2D00595A13 /* libz.tbd */; };
+		8AA5593B1F06AF0400C77AE5 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AA5593A1F06AF0400C77AE5 /* libiconv.tbd */; };
+		8AA559AC1F06B1D200C77AE5 /* MobileVLCKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AA559A11F06B18C00C77AE5 /* MobileVLCKit.framework */; };
+		8AA559AE1F06B1DA00C77AE5 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AA559AD1F06B1DA00C77AE5 /* libstdc++.6.0.9.tbd */; };
 		8ADC1E0D1ECB0B1B00E0E9AB /* applause.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1DE81ECB0B1B00E0E9AB /* applause.mp3 */; };
 		8ADC1E0E1ECB0B1B00E0E9AB /* combobreak.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1DE91ECB0B1B00E0E9AB /* combobreak.mp3 */; };
 		8ADC1E0F1ECB0B1B00E0E9AB /* count.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1DEA1ECB0B1B00E0E9AB /* count.wav */; };
@@ -118,6 +120,27 @@
 			remoteGlobalIDString = 8A4D5C2F1E8A8AEB00319D91;
 			remoteInfo = iosu;
 		};
+		8AA559A61F06B18C00C77AE5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AA559451F06B18C00C77AE5 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 863673568140CA9AB212FA65EB41E810;
+			remoteInfo = "Pods-iosu";
+		};
+		8AA559A81F06B18C00C77AE5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AA559451F06B18C00C77AE5 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D72CCB7FECD6CDE8361CB30AA0BE23D7;
+			remoteInfo = SpriteKitEasingSwift;
+		};
+		8AA559AA1F06B18C00C77AE5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AA559451F06B18C00C77AE5 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1DB8797F6D63FD0169D94DBEED3F0E90;
+			remoteInfo = SQLite.swift;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -128,7 +151,6 @@
 		8A0442B01ECB2227000DE269 /* UIBezierPath+Length.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath+Length.m"; sourceTree = "<group>"; };
 		8A1ACE711EFAB529000EBC14 /* PlaySoundFileNamedExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlaySoundFileNamedExt.swift; path = MediaPlayers/PlaySoundFileNamedExt.swift; sourceTree = "<group>"; };
 		8A1ACE731EFAB985000EBC14 /* BundleAudioBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BundleAudioBuffer.swift; path = MediaPlayers/BundleAudioBuffer.swift; sourceTree = "<group>"; };
-		8A26ECAC1E9D3F0A007D08FB /* KSYMediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KSYMediaPlayer.framework; sourceTree = "<group>"; };
 		8A2AAE0F1E90FE39005D52E7 /* test.osb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.osb; sourceTree = "<group>"; };
 		8A4D5C301E8A8AEB00319D91 /* iosu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A4D5C331E8A8AEB00319D91 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -144,6 +166,76 @@
 		8A7F7E1A1E9D2C1D00595A13 /* libstdc++.6.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.tbd"; path = "usr/lib/libstdc++.6.tbd"; sourceTree = SDKROOT; };
 		8A7F7E1C1E9D2C2500595A13 /* libbz2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.tbd; path = usr/lib/libbz2.tbd; sourceTree = SDKROOT; };
 		8A7F7E1E1E9D2C2D00595A13 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		8AA5593A1F06AF0400C77AE5 /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
+		8AA5593F1F06B18C00C77AE5 /* SpriteKitEasingSwift.podspec.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SpriteKitEasingSwift.podspec.json; sourceTree = "<group>"; };
+		8AA559401F06B18C00C77AE5 /* Manifest.lock */ = {isa = PBXFileReference; lastKnownFileType = text; path = Manifest.lock; sourceTree = "<group>"; };
+		8AA559431F06B18C00C77AE5 /* COPYING.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = COPYING.txt; sourceTree = "<group>"; };
+		8AA559441F06B18C00C77AE5 /* MobileVLCKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MobileVLCKit.framework; sourceTree = "<group>"; };
+		8AA559451F06B18C00C77AE5 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Pods.xcodeproj; sourceTree = "<group>"; };
+		8AA559491F06B18C00C77AE5 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		8AA5594C1F06B18C00C77AE5 /* easing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = easing.swift; sourceTree = "<group>"; };
+		8AA5594D1F06B18C00C77AE5 /* EasingDeclarations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasingDeclarations.swift; sourceTree = "<group>"; };
+		8AA5594E1F06B18C00C77AE5 /* SKEase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKEase.swift; sourceTree = "<group>"; };
+		8AA5594F1F06B18C00C77AE5 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		8AA559531F06B18C00C77AE5 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
+		8AA559551F06B18C00C77AE5 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
+		8AA559571F06B18C00C77AE5 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
+		8AA559591F06B18C00C77AE5 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
+		8AA5595B1F06B18C00C77AE5 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
+		8AA5595D1F06B18C00C77AE5 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
+		8AA5595F1F06B18C00C77AE5 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
+		8AA559611F06B18C00C77AE5 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
+		8AA559631F06B18C00C77AE5 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
+		8AA559651F06B18C00C77AE5 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
+		8AA559671F06B18C00C77AE5 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
+		8AA559681F06B18C00C77AE5 /* LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		8AA559691F06B18C00C77AE5 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		8AA5596D1F06B18C00C77AE5 /* Blob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blob.swift; sourceTree = "<group>"; };
+		8AA5596E1F06B18C00C77AE5 /* Connection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
+		8AA5596F1F06B18C00C77AE5 /* Statement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statement.swift; sourceTree = "<group>"; };
+		8AA559701F06B18C00C77AE5 /* Value.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Value.swift; sourceTree = "<group>"; };
+		8AA559721F06B18C00C77AE5 /* FTS4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FTS4.swift; sourceTree = "<group>"; };
+		8AA559731F06B18C00C77AE5 /* FTS5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FTS5.swift; sourceTree = "<group>"; };
+		8AA559741F06B18C00C77AE5 /* RTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RTree.swift; sourceTree = "<group>"; };
+		8AA559751F06B18C00C77AE5 /* Foundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Foundation.swift; sourceTree = "<group>"; };
+		8AA559761F06B18C00C77AE5 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		8AA559771F06B18C00C77AE5 /* SQLite.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SQLite.h; sourceTree = "<group>"; };
+		8AA559791F06B18C00C77AE5 /* AggregateFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AggregateFunctions.swift; sourceTree = "<group>"; };
+		8AA5597A1F06B18C00C77AE5 /* Collation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collation.swift; sourceTree = "<group>"; };
+		8AA5597B1F06B18C00C77AE5 /* CoreFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreFunctions.swift; sourceTree = "<group>"; };
+		8AA5597C1F06B18C00C77AE5 /* CustomFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFunctions.swift; sourceTree = "<group>"; };
+		8AA5597D1F06B18C00C77AE5 /* Expression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expression.swift; sourceTree = "<group>"; };
+		8AA5597E1F06B18C00C77AE5 /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
+		8AA5597F1F06B18C00C77AE5 /* Query.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Query.swift; sourceTree = "<group>"; };
+		8AA559801F06B18C00C77AE5 /* Schema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schema.swift; sourceTree = "<group>"; };
+		8AA559811F06B18C00C77AE5 /* Setter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setter.swift; sourceTree = "<group>"; };
+		8AA559831F06B18C00C77AE5 /* fts3_tokenizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fts3_tokenizer.h; sourceTree = "<group>"; };
+		8AA559851F06B18C00C77AE5 /* SQLite-Bridging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SQLite-Bridging.h"; sourceTree = "<group>"; };
+		8AA559861F06B18C00C77AE5 /* SQLite-Bridging.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "SQLite-Bridging.m"; sourceTree = "<group>"; };
+		8AA559891F06B18C00C77AE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8AA5598A1F06B18C00C77AE5 /* Pods-iosu-acknowledgements.markdown */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "Pods-iosu-acknowledgements.markdown"; sourceTree = "<group>"; };
+		8AA5598B1F06B18C00C77AE5 /* Pods-iosu-acknowledgements.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Pods-iosu-acknowledgements.plist"; sourceTree = "<group>"; };
+		8AA5598C1F06B18C00C77AE5 /* Pods-iosu-dummy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Pods-iosu-dummy.m"; sourceTree = "<group>"; };
+		8AA5598D1F06B18C00C77AE5 /* Pods-iosu-frameworks.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "Pods-iosu-frameworks.sh"; sourceTree = "<group>"; };
+		8AA5598E1F06B18C00C77AE5 /* Pods-iosu-resources.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "Pods-iosu-resources.sh"; sourceTree = "<group>"; };
+		8AA5598F1F06B18C00C77AE5 /* Pods-iosu-umbrella.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pods-iosu-umbrella.h"; sourceTree = "<group>"; };
+		8AA559901F06B18C00C77AE5 /* Pods-iosu.debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Pods-iosu.debug.xcconfig"; sourceTree = "<group>"; };
+		8AA559911F06B18C00C77AE5 /* Pods-iosu.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = "Pods-iosu.modulemap"; sourceTree = "<group>"; };
+		8AA559921F06B18C00C77AE5 /* Pods-iosu.release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Pods-iosu.release.xcconfig"; sourceTree = "<group>"; };
+		8AA559941F06B18C00C77AE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8AA559951F06B18C00C77AE5 /* SpriteKitEasingSwift-dummy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "SpriteKitEasingSwift-dummy.m"; sourceTree = "<group>"; };
+		8AA559961F06B18C00C77AE5 /* SpriteKitEasingSwift-prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SpriteKitEasingSwift-prefix.pch"; sourceTree = "<group>"; };
+		8AA559971F06B18C00C77AE5 /* SpriteKitEasingSwift-umbrella.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SpriteKitEasingSwift-umbrella.h"; sourceTree = "<group>"; };
+		8AA559981F06B18C00C77AE5 /* SpriteKitEasingSwift.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = SpriteKitEasingSwift.modulemap; sourceTree = "<group>"; };
+		8AA559991F06B18C00C77AE5 /* SpriteKitEasingSwift.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = SpriteKitEasingSwift.xcconfig; sourceTree = "<group>"; };
+		8AA5599B1F06B18C00C77AE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8AA5599C1F06B18C00C77AE5 /* SQLite.swift-dummy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "SQLite.swift-dummy.m"; sourceTree = "<group>"; };
+		8AA5599D1F06B18C00C77AE5 /* SQLite.swift-prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SQLite.swift-prefix.pch"; sourceTree = "<group>"; };
+		8AA5599E1F06B18C00C77AE5 /* SQLite.swift-umbrella.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SQLite.swift-umbrella.h"; sourceTree = "<group>"; };
+		8AA5599F1F06B18C00C77AE5 /* SQLite.swift.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = SQLite.swift.modulemap; sourceTree = "<group>"; };
+		8AA559A01F06B18C00C77AE5 /* SQLite.swift.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = SQLite.swift.xcconfig; sourceTree = "<group>"; };
+		8AA559A11F06B18C00C77AE5 /* MobileVLCKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileVLCKit.framework; path = "Pods/MobileVLCKit/MobileVLCKit-binary/MobileVLCKit.framework"; sourceTree = "<group>"; };
+		8AA559AD1F06B1DA00C77AE5 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
 		8ABA55261E9D23FD006530EC /* iosu-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iosu-Bridging-Header.h"; sourceTree = "<group>"; };
 		8AC188431E8EAE3300C9BB98 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8ADC1DE81ECB0B1B00E0E9AB /* applause.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = applause.mp3; sourceTree = "<group>"; };
@@ -238,12 +330,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AA559AE1F06B1DA00C77AE5 /* libstdc++.6.0.9.tbd in Frameworks */,
+				8AA559AC1F06B1D200C77AE5 /* MobileVLCKit.framework in Frameworks */,
+				8AA5593B1F06AF0400C77AE5 /* libiconv.tbd in Frameworks */,
 				8A0442A91ECB1D0B000DE269 /* SQLite.framework in Frameworks */,
 				8A7F7E1F1E9D2C2D00595A13 /* libz.tbd in Frameworks */,
 				8A7F7E1D1E9D2C2500595A13 /* libbz2.tbd in Frameworks */,
 				8A7F7E1B1E9D2C1D00595A13 /* libstdc++.6.tbd in Frameworks */,
 				8A7F7E191E9D2C1000595A13 /* VideoToolbox.framework in Frameworks */,
-				8A26ECAE1E9D3F7F007D08FB /* KSYMediaPlayer.framework in Frameworks */,
 				8A67438B1E9011D800818D55 /* SpriteKitEasingSwift.framework in Frameworks */,
 				99B4058382CF96D791075AB4 /* Pods_iosu.framework in Frameworks */,
 			);
@@ -327,6 +421,338 @@
 				8A4D5C501E8A8AEC00319D91 /* Info.plist */,
 			);
 			path = iosuTests;
+			sourceTree = "<group>";
+		};
+		8AA5593C1F06B18C00C77AE5 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8AA5593D1F06B18C00C77AE5 /* Headers */,
+				8AA5593E1F06B18C00C77AE5 /* Local Podspecs */,
+				8AA559401F06B18C00C77AE5 /* Manifest.lock */,
+				8AA559411F06B18C00C77AE5 /* MobileVLCKit */,
+				8AA559451F06B18C00C77AE5 /* Pods.xcodeproj */,
+				8AA559481F06B18C00C77AE5 /* SpriteKitEasingSwift */,
+				8AA559501F06B18C00C77AE5 /* SQLite.swift */,
+				8AA559871F06B18C00C77AE5 /* Target Support Files */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		8AA5593D1F06B18C00C77AE5 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		8AA5593E1F06B18C00C77AE5 /* Local Podspecs */ = {
+			isa = PBXGroup;
+			children = (
+				8AA5593F1F06B18C00C77AE5 /* SpriteKitEasingSwift.podspec.json */,
+			);
+			path = "Local Podspecs";
+			sourceTree = "<group>";
+		};
+		8AA559411F06B18C00C77AE5 /* MobileVLCKit */ = {
+			isa = PBXGroup;
+			children = (
+				8AA559421F06B18C00C77AE5 /* MobileVLCKit-binary */,
+			);
+			path = MobileVLCKit;
+			sourceTree = "<group>";
+		};
+		8AA559421F06B18C00C77AE5 /* MobileVLCKit-binary */ = {
+			isa = PBXGroup;
+			children = (
+				8AA559431F06B18C00C77AE5 /* COPYING.txt */,
+				8AA559441F06B18C00C77AE5 /* MobileVLCKit.framework */,
+			);
+			path = "MobileVLCKit-binary";
+			sourceTree = "<group>";
+		};
+		8AA559461F06B18C00C77AE5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8AA559A71F06B18C00C77AE5 /* Pods_iosu.framework */,
+				8AA559A91F06B18C00C77AE5 /* SpriteKitEasingSwift.framework */,
+				8AA559AB1F06B18C00C77AE5 /* SQLite.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8AA559481F06B18C00C77AE5 /* SpriteKitEasingSwift */ = {
+			isa = PBXGroup;
+			children = (
+				8AA559491F06B18C00C77AE5 /* LICENSE */,
+				8AA5594A1F06B18C00C77AE5 /* Pod */,
+				8AA5594F1F06B18C00C77AE5 /* README.md */,
+			);
+			path = SpriteKitEasingSwift;
+			sourceTree = "<group>";
+		};
+		8AA5594A1F06B18C00C77AE5 /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				8AA5594B1F06B18C00C77AE5 /* Classes */,
+			);
+			path = Pod;
+			sourceTree = "<group>";
+		};
+		8AA5594B1F06B18C00C77AE5 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				8AA5594C1F06B18C00C77AE5 /* easing.swift */,
+				8AA5594D1F06B18C00C77AE5 /* EasingDeclarations.swift */,
+				8AA5594E1F06B18C00C77AE5 /* SKEase.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		8AA559501F06B18C00C77AE5 /* SQLite.swift */ = {
+			isa = PBXGroup;
+			children = (
+				8AA559511F06B18C00C77AE5 /* CocoaPods */,
+				8AA559681F06B18C00C77AE5 /* LICENSE.txt */,
+				8AA559691F06B18C00C77AE5 /* README.md */,
+				8AA5596A1F06B18C00C77AE5 /* Sources */,
+			);
+			path = SQLite.swift;
+			sourceTree = "<group>";
+		};
+		8AA559511F06B18C00C77AE5 /* CocoaPods */ = {
+			isa = PBXGroup;
+			children = (
+				8AA559521F06B18C00C77AE5 /* appletvos */,
+				8AA559541F06B18C00C77AE5 /* appletvsimulator */,
+				8AA559561F06B18C00C77AE5 /* iphoneos */,
+				8AA559581F06B18C00C77AE5 /* iphoneos-10.0 */,
+				8AA5595A1F06B18C00C77AE5 /* iphonesimulator */,
+				8AA5595C1F06B18C00C77AE5 /* iphonesimulator-10.0 */,
+				8AA5595E1F06B18C00C77AE5 /* macosx */,
+				8AA559601F06B18C00C77AE5 /* macosx-10.11 */,
+				8AA559621F06B18C00C77AE5 /* macosx-10.12 */,
+				8AA559641F06B18C00C77AE5 /* watchos */,
+				8AA559661F06B18C00C77AE5 /* watchsimulator */,
+			);
+			path = CocoaPods;
+			sourceTree = "<group>";
+		};
+		8AA559521F06B18C00C77AE5 /* appletvos */ = {
+			isa = PBXGroup;
+			children = (
+				8AA559531F06B18C00C77AE5 /* module.modulemap */,
+			);
+			path = appletvos;
+			sourceTree = "<group>";
+		};
+		8AA559541F06B18C00C77AE5 /* appletvsimulator */ = {
+			isa = PBXGroup;
+			children = (
+				8AA559551F06B18C00C77AE5 /* module.modulemap */,
+			);
+			path = appletvsimulator;
+			sourceTree = "<group>";
+		};
+		8AA559561F06B18C00C77AE5 /* iphoneos */ = {
+			isa = PBXGroup;
+			children = (
+				8AA559571F06B18C00C77AE5 /* module.modulemap */,
+			);
+			path = iphoneos;
+			sourceTree = "<group>";
+		};
+		8AA559581F06B18C00C77AE5 /* iphoneos-10.0 */ = {
+			isa = PBXGroup;
+			children = (
+				8AA559591F06B18C00C77AE5 /* module.modulemap */,
+			);
+			path = "iphoneos-10.0";
+			sourceTree = "<group>";
+		};
+		8AA5595A1F06B18C00C77AE5 /* iphonesimulator */ = {
+			isa = PBXGroup;
+			children = (
+				8AA5595B1F06B18C00C77AE5 /* module.modulemap */,
+			);
+			path = iphonesimulator;
+			sourceTree = "<group>";
+		};
+		8AA5595C1F06B18C00C77AE5 /* iphonesimulator-10.0 */ = {
+			isa = PBXGroup;
+			children = (
+				8AA5595D1F06B18C00C77AE5 /* module.modulemap */,
+			);
+			path = "iphonesimulator-10.0";
+			sourceTree = "<group>";
+		};
+		8AA5595E1F06B18C00C77AE5 /* macosx */ = {
+			isa = PBXGroup;
+			children = (
+				8AA5595F1F06B18C00C77AE5 /* module.modulemap */,
+			);
+			path = macosx;
+			sourceTree = "<group>";
+		};
+		8AA559601F06B18C00C77AE5 /* macosx-10.11 */ = {
+			isa = PBXGroup;
+			children = (
+				8AA559611F06B18C00C77AE5 /* module.modulemap */,
+			);
+			path = "macosx-10.11";
+			sourceTree = "<group>";
+		};
+		8AA559621F06B18C00C77AE5 /* macosx-10.12 */ = {
+			isa = PBXGroup;
+			children = (
+				8AA559631F06B18C00C77AE5 /* module.modulemap */,
+			);
+			path = "macosx-10.12";
+			sourceTree = "<group>";
+		};
+		8AA559641F06B18C00C77AE5 /* watchos */ = {
+			isa = PBXGroup;
+			children = (
+				8AA559651F06B18C00C77AE5 /* module.modulemap */,
+			);
+			path = watchos;
+			sourceTree = "<group>";
+		};
+		8AA559661F06B18C00C77AE5 /* watchsimulator */ = {
+			isa = PBXGroup;
+			children = (
+				8AA559671F06B18C00C77AE5 /* module.modulemap */,
+			);
+			path = watchsimulator;
+			sourceTree = "<group>";
+		};
+		8AA5596A1F06B18C00C77AE5 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				8AA5596B1F06B18C00C77AE5 /* SQLite */,
+				8AA559821F06B18C00C77AE5 /* SQLiteObjc */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		8AA5596B1F06B18C00C77AE5 /* SQLite */ = {
+			isa = PBXGroup;
+			children = (
+				8AA5596C1F06B18C00C77AE5 /* Core */,
+				8AA559711F06B18C00C77AE5 /* Extensions */,
+				8AA559751F06B18C00C77AE5 /* Foundation.swift */,
+				8AA559761F06B18C00C77AE5 /* Helpers.swift */,
+				8AA559771F06B18C00C77AE5 /* SQLite.h */,
+				8AA559781F06B18C00C77AE5 /* Typed */,
+			);
+			path = SQLite;
+			sourceTree = "<group>";
+		};
+		8AA5596C1F06B18C00C77AE5 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				8AA5596D1F06B18C00C77AE5 /* Blob.swift */,
+				8AA5596E1F06B18C00C77AE5 /* Connection.swift */,
+				8AA5596F1F06B18C00C77AE5 /* Statement.swift */,
+				8AA559701F06B18C00C77AE5 /* Value.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		8AA559711F06B18C00C77AE5 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				8AA559721F06B18C00C77AE5 /* FTS4.swift */,
+				8AA559731F06B18C00C77AE5 /* FTS5.swift */,
+				8AA559741F06B18C00C77AE5 /* RTree.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		8AA559781F06B18C00C77AE5 /* Typed */ = {
+			isa = PBXGroup;
+			children = (
+				8AA559791F06B18C00C77AE5 /* AggregateFunctions.swift */,
+				8AA5597A1F06B18C00C77AE5 /* Collation.swift */,
+				8AA5597B1F06B18C00C77AE5 /* CoreFunctions.swift */,
+				8AA5597C1F06B18C00C77AE5 /* CustomFunctions.swift */,
+				8AA5597D1F06B18C00C77AE5 /* Expression.swift */,
+				8AA5597E1F06B18C00C77AE5 /* Operators.swift */,
+				8AA5597F1F06B18C00C77AE5 /* Query.swift */,
+				8AA559801F06B18C00C77AE5 /* Schema.swift */,
+				8AA559811F06B18C00C77AE5 /* Setter.swift */,
+			);
+			path = Typed;
+			sourceTree = "<group>";
+		};
+		8AA559821F06B18C00C77AE5 /* SQLiteObjc */ = {
+			isa = PBXGroup;
+			children = (
+				8AA559831F06B18C00C77AE5 /* fts3_tokenizer.h */,
+				8AA559841F06B18C00C77AE5 /* include */,
+				8AA559861F06B18C00C77AE5 /* SQLite-Bridging.m */,
+			);
+			path = SQLiteObjc;
+			sourceTree = "<group>";
+		};
+		8AA559841F06B18C00C77AE5 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				8AA559851F06B18C00C77AE5 /* SQLite-Bridging.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		8AA559871F06B18C00C77AE5 /* Target Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				8AA559881F06B18C00C77AE5 /* Pods-iosu */,
+				8AA559931F06B18C00C77AE5 /* SpriteKitEasingSwift */,
+				8AA5599A1F06B18C00C77AE5 /* SQLite.swift */,
+			);
+			path = "Target Support Files";
+			sourceTree = "<group>";
+		};
+		8AA559881F06B18C00C77AE5 /* Pods-iosu */ = {
+			isa = PBXGroup;
+			children = (
+				8AA559891F06B18C00C77AE5 /* Info.plist */,
+				8AA5598A1F06B18C00C77AE5 /* Pods-iosu-acknowledgements.markdown */,
+				8AA5598B1F06B18C00C77AE5 /* Pods-iosu-acknowledgements.plist */,
+				8AA5598C1F06B18C00C77AE5 /* Pods-iosu-dummy.m */,
+				8AA5598D1F06B18C00C77AE5 /* Pods-iosu-frameworks.sh */,
+				8AA5598E1F06B18C00C77AE5 /* Pods-iosu-resources.sh */,
+				8AA5598F1F06B18C00C77AE5 /* Pods-iosu-umbrella.h */,
+				8AA559901F06B18C00C77AE5 /* Pods-iosu.debug.xcconfig */,
+				8AA559911F06B18C00C77AE5 /* Pods-iosu.modulemap */,
+				8AA559921F06B18C00C77AE5 /* Pods-iosu.release.xcconfig */,
+			);
+			path = "Pods-iosu";
+			sourceTree = "<group>";
+		};
+		8AA559931F06B18C00C77AE5 /* SpriteKitEasingSwift */ = {
+			isa = PBXGroup;
+			children = (
+				8AA559941F06B18C00C77AE5 /* Info.plist */,
+				8AA559951F06B18C00C77AE5 /* SpriteKitEasingSwift-dummy.m */,
+				8AA559961F06B18C00C77AE5 /* SpriteKitEasingSwift-prefix.pch */,
+				8AA559971F06B18C00C77AE5 /* SpriteKitEasingSwift-umbrella.h */,
+				8AA559981F06B18C00C77AE5 /* SpriteKitEasingSwift.modulemap */,
+				8AA559991F06B18C00C77AE5 /* SpriteKitEasingSwift.xcconfig */,
+			);
+			path = SpriteKitEasingSwift;
+			sourceTree = "<group>";
+		};
+		8AA5599A1F06B18C00C77AE5 /* SQLite.swift */ = {
+			isa = PBXGroup;
+			children = (
+				8AA5599B1F06B18C00C77AE5 /* Info.plist */,
+				8AA5599C1F06B18C00C77AE5 /* SQLite.swift-dummy.m */,
+				8AA5599D1F06B18C00C77AE5 /* SQLite.swift-prefix.pch */,
+				8AA5599E1F06B18C00C77AE5 /* SQLite.swift-umbrella.h */,
+				8AA5599F1F06B18C00C77AE5 /* SQLite.swift.modulemap */,
+				8AA559A01F06B18C00C77AE5 /* SQLite.swift.xcconfig */,
+			);
+			path = SQLite.swift;
 			sourceTree = "<group>";
 		};
 		8ADC1D9B1ECB0A4600E0E9AB /* Beatmap */ = {
@@ -507,11 +933,14 @@
 		D3ABB3CD3474C7FEB39BC95D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8AA559AD1F06B1DA00C77AE5 /* libstdc++.6.0.9.tbd */,
+				8AA559A11F06B18C00C77AE5 /* MobileVLCKit.framework */,
+				8AA5593C1F06B18C00C77AE5 /* Pods */,
+				8AA5593A1F06AF0400C77AE5 /* libiconv.tbd */,
 				8A0442A81ECB1D0B000DE269 /* SQLite.framework */,
 				8A7F7E1E1E9D2C2D00595A13 /* libz.tbd */,
 				8A7F7E1C1E9D2C2500595A13 /* libbz2.tbd */,
 				8A7F7E1A1E9D2C1D00595A13 /* libstdc++.6.tbd */,
-				8A26ECAC1E9D3F0A007D08FB /* KSYMediaPlayer.framework */,
 				8A7F7E181E9D2C1000595A13 /* VideoToolbox.framework */,
 				8A67438A1E9011D800818D55 /* SpriteKitEasingSwift.framework */,
 				A76F916780A6E7BFEFB56503 /* Pods_iosu.framework */,
@@ -604,6 +1033,12 @@
 			mainGroup = 8A4D5C271E8A8AEB00319D91;
 			productRefGroup = 8A4D5C311E8A8AEB00319D91 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 8AA559461F06B18C00C77AE5 /* Products */;
+					ProjectRef = 8AA559451F06B18C00C77AE5 /* Pods.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8A4D5C2F1E8A8AEB00319D91 /* iosu */,
@@ -611,6 +1046,30 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		8AA559A71F06B18C00C77AE5 /* Pods_iosu.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Pods_iosu.framework;
+			remoteRef = 8AA559A61F06B18C00C77AE5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8AA559A91F06B18C00C77AE5 /* SpriteKitEasingSwift.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SpriteKitEasingSwift.framework;
+			remoteRef = 8AA559A81F06B18C00C77AE5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8AA559AB1F06B18C00C77AE5 /* SQLite.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SQLite.framework;
+			remoteRef = 8AA559AA1F06B18C00C77AE5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8A4D5C2E1E8A8AEB00319D91 /* Resources */ = {
@@ -916,15 +1375,46 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 34A2STWT5M;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/MobileVLCKit/MobileVLCKit-binary",
-					"$(PROJECT_DIR)/Pods/KSYMediaPlayer_iOS/framework/live",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = iosu/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"bz2\"",
+					"-l\"iconv\"",
+					"-l\"stdc++\"",
+					"-l\"xml2\"",
+					"-l\"z\"",
+					"-framework",
+					"\"AVFoundation\"",
+					"-framework",
+					"\"AudioToolbox\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"MobileVLCKit\"",
+					"-framework",
+					"\"OpenGLES\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"SQLite\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SpriteKitEasingSwift\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = xieyi.iosu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -944,15 +1434,46 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 34A2STWT5M;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/MobileVLCKit/MobileVLCKit-binary",
-					"$(PROJECT_DIR)/Pods/KSYMediaPlayer_iOS/framework/live",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = iosu/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"bz2\"",
+					"-l\"iconv\"",
+					"-l\"stdc++\"",
+					"-l\"xml2\"",
+					"-l\"z\"",
+					"-framework",
+					"\"AVFoundation\"",
+					"-framework",
+					"\"AudioToolbox\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"MobileVLCKit\"",
+					"-framework",
+					"\"OpenGLES\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"SQLite\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SpriteKitEasingSwift\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = xieyi.iosu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

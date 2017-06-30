@@ -5,6 +5,7 @@ stages:
 build_project:
   stage: build
   script: 
+    - pod install
     - xcodebuild clean build -sdk iphonesimulator -workspace iosu.xcworkspace -scheme iosu CODE_SIGNING_REQUIRED=NO
   only:
    - tags

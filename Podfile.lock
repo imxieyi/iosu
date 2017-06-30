@@ -1,10 +1,12 @@
 PODS:
+  - MobileVLCKit (2.2.2)
   - SpriteKitEasingSwift (0.0.3)
   - SQLite.swift (0.11.3):
     - SQLite.swift/standard (= 0.11.3)
   - SQLite.swift/standard (0.11.3)
 
 DEPENDENCIES:
+  - MobileVLCKit
   - SpriteKitEasingSwift (from `https://github.com/imxieyi/SpriteKitEasingSwift.git`)
   - SQLite.swift (~> 0.11.3)
 
@@ -18,9 +20,10 @@ CHECKOUT OPTIONS:
     :git: https://github.com/imxieyi/SpriteKitEasingSwift.git
 
 SPEC CHECKSUMS:
+  MobileVLCKit: 75c2c36b0e3478c3f18cac3a2e7fa127cda0ff92
   SpriteKitEasingSwift: b8ab132e41d3c686e648ae22a5b10a7b8f8d699c
   SQLite.swift: 99b36c22084427f0abbeb957556ce1528cf10bb3
 
-PODFILE CHECKSUM: 4875718baecad61795242e31d48f8b8280b65d7a
+PODFILE CHECKSUM: cb78adff92fe7c35cb64480397849c5c940522ca
 
 COCOAPODS: 1.2.1

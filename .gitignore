@@ -1,1 +1,4 @@
 build/
+Podfile.lock
+Pods/
+*.icloud

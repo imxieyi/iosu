@@ -23,6 +23,7 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view?.autoresizesSubviews=true
+        view.backgroundColor = .black
         if runtestscene {
             let scene=TestScene(size: CGSize(width: screenWidth, height: screenHeight))
             let skView=self.view as! SKView
@@ -49,9 +50,9 @@ class GameViewController: UIViewController {
         }
         if GameViewController.showvideo {
             //For video play
-            BGVPlayer.vplayer?.view.layer.zPosition = 1
-            BGVPlayer.vplayer?.view.backgroundColor = .clear
-            self.view.addSubview((BGVPlayer.vplayer?.view)!)
+            BGVPlayer.initialize()
+            BGVPlayer.view?.layer.zPosition = 1
+            view.addSubview(BGVPlayer.view!)
         }
         if GameViewController.showgame {
             let gameScene=GamePlayScene(size: CGSize(width: screenWidth, height: screenHeight))
