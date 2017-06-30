@@ -38,7 +38,7 @@ class MovingImage:BasicImage {
     func animate(){
         var textures:[SKTexture]=[]
         for path in paths {
-            let image=ImageBuffer.get(file: path)
+            let image=ImageBuffer.get(path)
             if(image==nil){
                 continue
             }
@@ -49,9 +49,9 @@ class MovingImage:BasicImage {
         }
         var animateaction=SKAction.animate(with: textures, timePerFrame: framedelay/1000)
         switch looptype {
-        case .LoopForever:
+        case .loopForever:
             animateaction=SKAction.repeatForever(animateaction)
-        case .LoopOnce:
+        case .loopOnce:
             break
         }
         actions=SKAction.group([animateaction,actions!])

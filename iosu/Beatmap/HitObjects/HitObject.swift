@@ -28,39 +28,39 @@ class HitObject{
         self.newCombo=newcombo
     }
     
-    static func getObjectType(num:Int) -> HitObjectType {
+    static func getObjectType(_ num:Int) -> HitObjectType {
         if num==1 || num==5 {
-            return HitObjectType.Circle
+            return HitObjectType.circle
         }
         if num==2 || num==6 {
-            return HitObjectType.Slider
+            return HitObjectType.slider
         }
         if num==8 || num==12 {
-            return HitObjectType.Spinner
+            return HitObjectType.spinner
         }
-        return HitObjectType.None
+        return HitObjectType.none
     }
     
-    static func getNewCombo(num:Int) -> Bool {
+    static func getNewCombo(_ num:Int) -> Bool {
         if num==5 || num==6 || num==12 {
             return true
         }
         return false
     }
     
-    static func hitsoundDecode(num:Int) -> HitSound {
+    static func hitsoundDecode(_ num:Int) -> HitSound {
         switch num {
         case 0:
-            return .Normal
+            return .normal
         case 2:
-            return .Whistle
+            return .whistle
         case 4:
-            return .Finish
+            return .finish
         case 8:
-            return .Clap
+            return .clap
         default:
             //Maybe there are other types
-            return .Normal
+            return .normal
         }
     }
     

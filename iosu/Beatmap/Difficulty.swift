@@ -10,28 +10,28 @@ import Foundation
 
 class BMDifficulty {
     
-    private let ARFuncA:Double = -120
-    private let ARFuncB:Double = 1800
-    private let S300FuncA:Double = -6
-    private let S300FuncB:Double = 79.5
-    private let S100FuncA:Double = -8
-    private let S100FuncB:Double = 139.5
-    private let S50FuncA:Double = -10
-    private let S50FuncB:Double = 199.5
+    fileprivate let ARFuncA:Double = -120
+    fileprivate let ARFuncB:Double = 1800
+    fileprivate let S300FuncA:Double = -6
+    fileprivate let S300FuncB:Double = 79.5
+    fileprivate let S100FuncA:Double = -8
+    fileprivate let S100FuncB:Double = 139.5
+    fileprivate let S50FuncA:Double = -10
+    fileprivate let S50FuncB:Double = 199.5
     
-    private let HPDrainRate:Double
-    private let CircleSize:Double
-    private let OverallDifficulty:Double
-    private let ApproachRate:Double
-    public let SliderMultiplier:Double
-    public let SliderTickRate:Double
+    fileprivate let HPDrainRate:Double
+    fileprivate let CircleSize:Double
+    fileprivate let OverallDifficulty:Double
+    fileprivate let ApproachRate:Double
+    open let SliderMultiplier:Double
+    open let SliderTickRate:Double
     
-    public let AbsoluteCS:Double
+    open let AbsoluteCS:Double
     
-    public let ARTime:Double
-    public let Score300:Double
-    public let Score100:Double
-    public let Score50:Double
+    open let ARTime:Double
+    open let Score300:Double
+    open let Score100:Double
+    open let Score50:Double
     
     init(HP:Double,CS:Double,OD:Double,AR:Double,SM:Double,ST:Double) {
         HPDrainRate=HP

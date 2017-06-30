@@ -9,45 +9,45 @@
 import Foundation
 
 enum StoryBoardError:Error {
-    case FileNotFound
-    case IllegalFormat
+    case fileNotFound
+    case illegalFormat
 }
 
 enum SBLayer {
-    case Background
-    case Fail
-    case Pass
-    case Foreground
+    case background
+    case fail
+    case pass
+    case foreground
 }
 
 enum SBOrigin {
-    case TopLeft
-    case TopCentre
-    case TopRight
-    case CentreLeft
-    case Centre
-    case CentreRight
-    case BottomLeft
-    case BottomCentre
-    case BottomRight
+    case topLeft
+    case topCentre
+    case topRight
+    case centreLeft
+    case centre
+    case centreRight
+    case bottomLeft
+    case bottomCentre
+    case bottomRight
 }
 
 enum LoopType {
-    case LoopForever
-    case LoopOnce
+    case loopForever
+    case loopOnce
 }
 
 enum StoryBoardCommand {
-    case Fade
-    case Move
-    case MoveX
-    case MoveY
-    case Scale
-    case VScale //x and y scale differently
-    case Rotate
-    case Color
-    case Parameter
-    case Loop
-    case Trigger
-    case Unknown
+    case fade
+    case move
+    case moveX
+    case moveY
+    case scale
+    case vScale //x and y scale differently
+    case rotate
+    case color
+    case parameter
+    case loop
+    case trigger
+    case unknown
 }

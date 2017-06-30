@@ -26,7 +26,7 @@ class SBColor:SBCommand,SBCAction {
         self.endr=endr/255
         self.endg=endg/255
         self.endb=endb/255
-        super.init(type: .Color, easing: easing, starttime: starttime, endtime: endtime)
+        super.init(type: .color, easing: easing, starttime: starttime, endtime: endtime)
     }
     
     func toAction() -> SKAction {

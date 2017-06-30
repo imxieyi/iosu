@@ -9,18 +9,18 @@
 import Foundation
 
 enum SampleSet {
-    case Auto
-    case Normal
-    case Soft
-    case Drum
+    case auto
+    case normal
+    case soft
+    case drum
 }
 
 enum BeatmapError:Error{
-    case FileNotFound
-    case IllegalFormat
-    case NoAudioFile
-    case NoTimingPoints
-    case AudioFileNotExist
-    case NoColor
-    case NoHitObject
+    case fileNotFound
+    case illegalFormat
+    case noAudioFile
+    case noTimingPoints
+    case audioFileNotExist
+    case noColor
+    case noHitObject
 }

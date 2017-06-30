@@ -11,22 +11,22 @@ import SpriteKit
 
 class StoryBoard {
     
-    public static var stdwidth:Double=640.0
-    public static let stdheight:Double=480.0
-    public static var actualwidth:Double = 0
-    public static var actualheight:Double = 0
-    public static var leftedge:Double = 0
-    public static var before:Int=0
-    public static var after:Int=0
-    private var layer:Double
-    private var bglayer:Double = 0
-    private var passlayer:Double = 0
-    private var faillayer:Double = 0
-    private var fglayer:Double = 20000
-    public var sbsprites:[BasicImage]=[]
-    public var sbactions:[SKAction]=[]
-    public var sbdirectory:String
-    public var earliest = Int.max
+    open static var stdwidth:Double=640.0
+    open static let stdheight:Double=480.0
+    open static var actualwidth:Double = 0
+    open static var actualheight:Double = 0
+    open static var leftedge:Double = 0
+    open static var before:Int=0
+    open static var after:Int=0
+    fileprivate var layer:Double
+    fileprivate var bglayer:Double = 0
+    fileprivate var passlayer:Double = 0
+    fileprivate var faillayer:Double = 0
+    fileprivate var fglayer:Double = 20000
+    open var sbsprites:[BasicImage]=[]
+    open var sbactions:[SKAction]=[]
+    open var sbdirectory:String
+    open var earliest = Int.max
     
     init(directory:String,osufile:String,width:Double,height:Double,layer:Double) throws {
         StoryBoard.before=0
@@ -42,7 +42,7 @@ class StoryBoard {
         //osu file
         let readFile=FileHandle(forReadingAtPath: osufile)
         if readFile===nil{
-            throw StoryBoardError.FileNotFound
+            throw StoryBoardError.fileNotFound
         }
         let sbData=readFile?.readDataToEndOfFile()
         let sbString=String(data: sbData!, encoding: .utf8)
@@ -57,7 +57,7 @@ class StoryBoard {
         }
         //debugPrint("line count:\(lines?.count)")
         if lines.count==0{
-            throw StoryBoardError.IllegalFormat
+            throw StoryBoardError.illegalFormat
         }
         var index:Int
         index = -1
@@ -72,7 +72,7 @@ class StoryBoard {
                     }
                     digested.append(aline)
                 }
-                parseSBEvents(lines: digested)
+                parseSBEvents(digested)
                 break
             default:
                 continue
@@ -97,7 +97,7 @@ class StoryBoard {
         //osu file
         var readFile=FileHandle(forReadingAtPath: osufile)
         if readFile===nil{
-            throw StoryBoardError.FileNotFound
+            throw StoryBoardError.fileNotFound
         }
         var sbData=readFile?.readDataToEndOfFile()
         var sbString=String(data: sbData!, encoding: .utf8)
@@ -112,7 +112,7 @@ class StoryBoard {
         }
         //debugPrint("line count:\(lines?.count)")
         if lines.count==0{
-            throw StoryBoardError.IllegalFormat
+            throw StoryBoardError.illegalFormat
         }
         var index:Int
         index = -1
@@ -127,7 +127,7 @@ class StoryBoard {
                     }
                     digested.append(aline)
                 }
-                parseSBEvents(lines: digested)
+                parseSBEvents(digested)
                 break
             default:
                 continue
@@ -136,7 +136,7 @@ class StoryBoard {
         //osb file
         readFile=FileHandle(forReadingAtPath: osbfile)
         if readFile===nil{
-            throw StoryBoardError.FileNotFound
+            throw StoryBoardError.fileNotFound
         }
         sbData=readFile?.readDataToEndOfFile()
         sbString=String(data: sbData!, encoding: .utf8)
@@ -151,7 +151,7 @@ class StoryBoard {
         }
         //debugPrint("line count:\(lines?.count)")
         if lines.count==0{
-            throw StoryBoardError.IllegalFormat
+            throw StoryBoardError.illegalFormat
         }
         //var index:Int
         index = -1
@@ -159,7 +159,7 @@ class StoryBoard {
             index += 1
             switch line {
             case "[Events]":
-                parseSBEvents(lines: lines.suffix(from: index+1))
+                parseSBEvents(lines.suffix(from: index+1))
                 break
             default:
                 continue
@@ -172,48 +172,48 @@ class StoryBoard {
     }
     
     //Convert StoryBoard x and y to screen x and y
-    static public func conv(x:Double) -> Double {
+    static open func conv(x:Double) -> Double {
         return leftedge+x/stdwidth*actualwidth
     }
     
-    static public func conv(y:Double) -> Double {
+    static open func conv(y:Double) -> Double {
         return actualheight-y/stdheight*actualheight
     }
     
-    static public func conv(w:Double) -> Double {
+    static open func conv(w:Double) -> Double {
         return w/stdwidth*actualwidth
     }
     
-    static public func conv(h:Double) -> Double {
+    static open func conv(h:Double) -> Double {
         return h/stdheight*actualheight
     }
     
-    private func str2layer(str:String) -> SBLayer {
+    fileprivate func str2layer(_ str:String) -> SBLayer {
         switch str {
-        case "Background":return .Background
-        case "Fail":return .Fail
-        case "Pass":return .Pass
-        case "Foreground":return .Foreground
-        default:return .Background
+        case "Background":return .background
+        case "Fail":return .fail
+        case "Pass":return .pass
+        case "Foreground":return .foreground
+        default:return .background
         }
     }
     
-    private func str2origin(str:String) -> SBOrigin {
+    fileprivate func str2origin(_ str:String) -> SBOrigin {
         switch str {
-        case "TopLeft":return .TopLeft
-        case "TopCentre":return .TopCentre
-        case "TopRight":return .TopRight
-        case "CentreLeft":return .CentreLeft
-        case "Centre":return .Centre
-        case "CentreRight":return .CentreRight
-        case "BottomLeft":return .BottomLeft
-        case "BottomCentre":return .BottomCentre
-        case "BottomRight":return .BottomRight
-        default:return .Centre
+        case "TopLeft":return .topLeft
+        case "TopCentre":return .topCentre
+        case "TopRight":return .topRight
+        case "CentreLeft":return .centreLeft
+        case "Centre":return .centre
+        case "CentreRight":return .centreRight
+        case "BottomLeft":return .bottomLeft
+        case "BottomCentre":return .bottomCentre
+        case "BottomRight":return .bottomRight
+        default:return .centre
         }
     }
     
-    private func parseSBEvents(lines:ArraySlice<String>) {
+    fileprivate func parseSBEvents(_ lines:ArraySlice<String>) {
         var index:Int
         index = -1
         for line in lines{
@@ -239,49 +239,49 @@ class StoryBoard {
                 var sprite:BasicImage
                 switch splitted[0]{
                 case "Sprite":
-                    switch str2layer(str: splitted[1]) {
-                    case .Background:
+                    switch str2layer(splitted[1]) {
+                    case .background:
                         bglayer+=1
-                        sprite=BasicImage(layer: .Background, rlayer:bglayer, origin: str2origin(str: splitted[2]), filepath: splitted[3], x: (splitted[4] as NSString).doubleValue, y: (splitted[5] as NSString).doubleValue)
+                        sprite=BasicImage(layer: .background, rlayer:bglayer, origin: str2origin(splitted[2]), filepath: splitted[3], x: (splitted[4] as NSString).doubleValue, y: (splitted[5] as NSString).doubleValue)
                         break
-                    case .Pass:
+                    case .pass:
                         passlayer+=1
-                        sprite=BasicImage(layer: .Background, rlayer:passlayer, origin: str2origin(str: splitted[2]), filepath: splitted[3], x: (splitted[4] as NSString).doubleValue, y: (splitted[5] as NSString).doubleValue)
+                        sprite=BasicImage(layer: .background, rlayer:passlayer, origin: str2origin(splitted[2]), filepath: splitted[3], x: (splitted[4] as NSString).doubleValue, y: (splitted[5] as NSString).doubleValue)
                         break
-                    case .Fail:
+                    case .fail:
                         faillayer+=1
-                        sprite=BasicImage(layer: .Background, rlayer:faillayer, origin: str2origin(str: splitted[2]), filepath: splitted[3], x: (splitted[4] as NSString).doubleValue, y: (splitted[5] as NSString).doubleValue)
+                        sprite=BasicImage(layer: .background, rlayer:faillayer, origin: str2origin(splitted[2]), filepath: splitted[3], x: (splitted[4] as NSString).doubleValue, y: (splitted[5] as NSString).doubleValue)
                         break
-                    case .Foreground:
+                    case .foreground:
                         fglayer+=1
-                        sprite=BasicImage(layer: .Background, rlayer:fglayer, origin: str2origin(str: splitted[2]), filepath: splitted[3], x: (splitted[4] as NSString).doubleValue, y: (splitted[5] as NSString).doubleValue)
+                        sprite=BasicImage(layer: .background, rlayer:fglayer, origin: str2origin(splitted[2]), filepath: splitted[3], x: (splitted[4] as NSString).doubleValue, y: (splitted[5] as NSString).doubleValue)
                         break
                     }
                     break
                 case "Animation":
-                    switch str2layer(str: splitted[1]) {
-                    case .Background:
+                    switch str2layer(splitted[1]) {
+                    case .background:
                         bglayer+=1
-                        sprite=MovingImage(layer: .Background, rlayer:bglayer, origin: str2origin(str: splitted[2]), filepath: splitted[3], x: (splitted[4] as NSString).doubleValue, y: (splitted[5] as NSString).doubleValue, framecount: (splitted[6] as NSString).integerValue, framedelay: (splitted[7] as NSString).doubleValue, looptype: str2looptype(str: splitted[8]))
+                        sprite=MovingImage(layer: .background, rlayer:bglayer, origin: str2origin(splitted[2]), filepath: splitted[3], x: (splitted[4] as NSString).doubleValue, y: (splitted[5] as NSString).doubleValue, framecount: (splitted[6] as NSString).integerValue, framedelay: (splitted[7] as NSString).doubleValue, looptype: str2looptype(splitted[8]))
                         break
-                    case .Pass:
+                    case .pass:
                         passlayer+=1
-                        sprite=MovingImage(layer: .Background, rlayer:passlayer, origin: str2origin(str: splitted[2]), filepath: splitted[3], x: (splitted[4] as NSString).doubleValue, y: (splitted[5] as NSString).doubleValue, framecount: (splitted[6] as NSString).integerValue, framedelay: (splitted[7] as NSString).doubleValue, looptype: str2looptype(str: splitted[8]))
+                        sprite=MovingImage(layer: .background, rlayer:passlayer, origin: str2origin(splitted[2]), filepath: splitted[3], x: (splitted[4] as NSString).doubleValue, y: (splitted[5] as NSString).doubleValue, framecount: (splitted[6] as NSString).integerValue, framedelay: (splitted[7] as NSString).doubleValue, looptype: str2looptype(splitted[8]))
                         break
-                    case .Fail:
+                    case .fail:
                         faillayer+=1
-                        sprite=MovingImage(layer: .Background, rlayer:faillayer, origin: str2origin(str: splitted[2]), filepath: splitted[3], x: (splitted[4] as NSString).doubleValue, y: (splitted[5] as NSString).doubleValue, framecount: (splitted[6] as NSString).integerValue, framedelay: (splitted[7] as NSString).doubleValue, looptype: str2looptype(str: splitted[8]))
+                        sprite=MovingImage(layer: .background, rlayer:faillayer, origin: str2origin(splitted[2]), filepath: splitted[3], x: (splitted[4] as NSString).doubleValue, y: (splitted[5] as NSString).doubleValue, framecount: (splitted[6] as NSString).integerValue, framedelay: (splitted[7] as NSString).doubleValue, looptype: str2looptype(splitted[8]))
                         break
-                    case .Foreground:
+                    case .foreground:
                         fglayer+=1
-                        sprite=MovingImage(layer: .Background, rlayer:fglayer, origin: str2origin(str: splitted[2]), filepath: splitted[3], x: (splitted[4] as NSString).doubleValue, y: (splitted[5] as NSString).doubleValue, framecount: (splitted[6] as NSString).integerValue, framedelay: (splitted[7] as NSString).doubleValue, looptype: str2looptype(str: splitted[8]))
+                        sprite=MovingImage(layer: .background, rlayer:fglayer, origin: str2origin(splitted[2]), filepath: splitted[3], x: (splitted[4] as NSString).doubleValue, y: (splitted[5] as NSString).doubleValue, framecount: (splitted[6] as NSString).integerValue, framedelay: (splitted[7] as NSString).doubleValue, looptype: str2looptype(splitted[8]))
                         break
                     }
                 default:
                     continue
                 }
                 if slines.count>0 {
-                    sprite.commands=parseCommands(lines: slines,inloop: false)
+                    sprite.commands=parseCommands(slines,inloop: false)
                     sprite.gentime()
                     sprite.geninitials()
                     sprite.schedule()
@@ -301,15 +301,15 @@ class StoryBoard {
         }
     }
     
-    private func str2looptype(str:String)->LoopType{
+    fileprivate func str2looptype(_ str:String)->LoopType{
         switch str{
-        case "LoopForever":return .LoopForever
-        case "LoopOnce":return .LoopOnce
-        default:return .LoopForever
+        case "LoopForever":return .loopForever
+        case "LoopOnce":return .loopOnce
+        default:return .loopForever
         }
     }
     
-    private func parseCommands(lines:ArraySlice<String>,inloop:Bool) -> [SBCommand] {
+    fileprivate func parseCommands(_ lines:ArraySlice<String>,inloop:Bool) -> [SBCommand] {
         var digested:[String]=[]
         for i in 0...(lines.count-1) {
             digested.append((lines[i] as NSString).substring(from: 1))
@@ -453,7 +453,7 @@ class StoryBoard {
                     }
                 }
                 let loop=SBLoop(starttime: (splitted[1] as NSString).integerValue, loopcount: (splitted[2] as NSString).integerValue)
-                loop.commands=parseCommands(lines: looplines,inloop: true)
+                loop.commands=parseCommands(looplines,inloop: true)
                 loop.genendtime()
                 commands.append(loop)
                 break

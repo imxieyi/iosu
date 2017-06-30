@@ -14,7 +14,7 @@ class Spinner:HitObject{
     
     init(time:Int,hitsound:Int,endtime:Int,newcombo:Bool) {
         self.endtime=endtime
-        super.init(type: .Spinner, x: 0, y: 0, time: time, hitsound: HitObject.hitsoundDecode(num: hitsound), newcombo: newcombo)
+        super.init(type: .spinner, x: 0, y: 0, time: time, hitsound: HitObject.hitsoundDecode(hitsound), newcombo: newcombo)
     }
     
 }

@@ -11,11 +11,11 @@ import Foundation
 class BeatmapScanner{
     
     //var docPath:NSString
-    public var beatmapdirs:[String]=[]
-    public var bmdirurls:[URL]=[]
-    public var beatmaps:[String]=[]
-    public var storyboards=[String:String]()
-    public var dirscontainsb:[String]=[]
+    open var beatmapdirs:[String]=[]
+    open var bmdirurls:[URL]=[]
+    open var beatmaps:[String]=[]
+    open var storyboards=[String:String]()
+    open var dirscontainsb:[String]=[]
     
     init() {
         //let home=NSHomeDirectory() as NSString

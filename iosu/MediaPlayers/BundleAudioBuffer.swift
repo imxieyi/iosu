@@ -12,7 +12,7 @@ class BundleAudioBuffer{
     
     static var buffer=[String:Data]()
     
-    static func addtobuffer(file:String) {
+    static func addtobuffer(_ file:String) {
         if buffer[file] != nil {
             return
         }
@@ -21,12 +21,12 @@ class BundleAudioBuffer{
         let fileExt  = (file as NSString).pathExtension
         
         let soundPath = Bundle.main.url(forResource: nameOnly, withExtension: fileExt)
-        let audio = NSData(contentsOf: soundPath!)
+        let audio = try! Data(contentsOf: soundPath!)
         buffer[file]=audio as Data?
     }
     
-    static func get(file:String) -> Data? {
-        addtobuffer(file: file)
+    static func get(_ file:String) -> Data? {
+        addtobuffer(file)
         if buffer[file] != nil {
             return buffer[file]!
         }

@@ -11,13 +11,13 @@ import SpriteKit
 
 class SkinBuffer {
     
-    public static var useSkin = true
-    public static var bmPath = ""
+    open static var useSkin = true
+    open static var bmPath = ""
     
-    private static var buffer=[String:SKTexture]()
-    private static var skinflag=[String:Bool]()
+    fileprivate static var buffer=[String:SKTexture]()
+    fileprivate static var skinflag=[String:Bool]()
     
-    private static func add(file: String) {
+    fileprivate static func add(_ file: String) {
         if buffer[file] != nil {
             return
         }
@@ -37,23 +37,23 @@ class SkinBuffer {
         skinflag[file]=false
     }
     
-    public static func get(file: String) -> SKTexture? {
-        add(file: file)
+    open static func get(_ file: String) -> SKTexture? {
+        add(file)
         if buffer[file] != nil {
             return buffer[file]!
         }
         return nil
     }
     
-    public static func getimg(file: String) -> UIImage? {
-        add(file: file)
+    open static func getimg(_ file: String) -> UIImage? {
+        add(file)
         if buffer[file] != nil {
             return UIImage(cgImage: (buffer[file]?.cgImage())!)
         }
         return nil
     }
     
-    public static func getFlag(file: String) -> Bool {
+    open static func getFlag(_ file: String) -> Bool {
         return skinflag[file]!
     }
     

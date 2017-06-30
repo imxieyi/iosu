@@ -29,12 +29,12 @@ class GamePlayScene: SKScene {
     static var effvolume:Float = 1.0
     static var current:SKScene?
     
-    private var actions:ActionSet?
+    fileprivate var actions:ActionSet?
     
-    private var bgvactions:[SKAction]=[]
-    private var bgvtimes:[Int]=[]
+    fileprivate var bgvactions:[SKAction]=[]
+    fileprivate var bgvtimes:[Int]=[]
     
-    public static var sliderball:SliderBall?
+    open static var sliderball:SliderBall?
     var bm:Beatmap?
     
     override func sceneDidLoad() {
@@ -58,20 +58,20 @@ class GamePlayScene: SKScene {
         do{
             bm=try Beatmap(file: (beatmaps.beatmapdirs[GamePlayScene.testBMIndex] as NSString).strings(byAppendingPaths: [beatmaps.beatmaps[GamePlayScene.testBMIndex]])[0])
             if (bm?.bgvideos.count)! > 0 && GameViewController.showvideo {
-                debugPrint("got \(bm?.bgvideos.count) videos")
+                debugPrint("got \(String(describing: bm?.bgvideos.count)) videos")
                 for i in 0...(bm?.bgvideos.count)!-1 {
                     let file=(beatmaps.beatmapdirs[GamePlayScene.testBMIndex] as NSString).strings(byAppendingPaths: [(bm?.bgvideos[i].file)!])[0]
                     //var file=URL(fileURLWithPath: beatmaps.beatmapdirs[GamePlayScene.testBMIndex], isDirectory: true)
                     //let file=beatmaps.bmdirurls[GamePlayScene.testBMIndex].appendingPathComponent(bm?.bgvideos[i])
                     if FileManager.default.fileExists(atPath: file) {
-                        bgvactions.append(BGVPlayer.setcontent(file: file))
+                        bgvactions.append(BGVPlayer.setcontent(file))
                         bgvtimes.append((bm?.bgvideos[i].time)!)
                     } else {
                         debugPrint("video not found: \(file)")
                     }
                 }
             } else if bm?.bgimg != ""  && !(StoryBoardScene.hasSB) {
-                debugPrint("got bgimg:\(bm?.bgimg)")
+                debugPrint("got bgimg:\(String(describing: bm?.bgimg))")
                 let bgimg=UIImage(contentsOfFile: (beatmaps.beatmapdirs[GamePlayScene.testBMIndex] as NSString).strings(byAppendingPaths: [(bm?.bgimg)!])[0])
                 if bgimg==nil {
                     debugPrint("Background image not found")
@@ -90,49 +90,49 @@ class GamePlayScene: SKScene {
             dimnode.zPosition=1
             addChild(dimnode)
             switch (bm?.sampleSet)! {
-            case .Auto:
+            case .auto:
                 //Likely to be an error
                 hitaudioHeader="normal-"
                 break
-            case .Normal:
+            case .normal:
                 hitaudioHeader="normal-"
                 break
-            case .Soft:
+            case .soft:
                 hitaudioHeader="soft-"
                 break
-            case .Drum:
+            case .drum:
                 hitaudioHeader="drum-"
                 break
             }
-            debugPrint("bgimg:\(bm?.bgimg)")
-            debugPrint("audio:\(bm?.audiofile)")
-            debugPrint("colors: \(bm?.colors.count)")
-            debugPrint("timingpoints: \(bm?.timingpoints.count)")
-            debugPrint("hitobjects: \(bm?.hitobjects.count)")
+            debugPrint("bgimg:\(String(describing: bm?.bgimg))")
+            debugPrint("audio:\(String(describing: bm?.audiofile))")
+            debugPrint("colors: \(String(describing: bm?.colors.count))")
+            debugPrint("timingpoints: \(String(describing: bm?.timingpoints.count))")
+            debugPrint("hitobjects: \(String(describing: bm?.hitobjects.count))")
             debugPrint("hitsoundset: \(hitaudioHeader)")
             bm?.audiofile=(beatmaps.beatmapdirs[GamePlayScene.testBMIndex] as NSString).strings(byAppendingPaths: [(bm?.audiofile)!])[0] as String
             if !FileManager.default.fileExists(atPath: (bm?.audiofile)!){
-                throw BeatmapError.AudioFileNotExist
+                throw BeatmapError.audioFileNotExist
             }
             actions = ActionSet(beatmap: bm!, scene: self)
             actions?.prepare()
             BGMusicPlayer.gameScene = self
             BGMusicPlayer.gameEarliest = Int((actions?.nexttime())!) - Int((bm?.difficulty?.ARTime)!)
-            BGMusicPlayer.setfile(file: (bm?.audiofile)!)
+            BGMusicPlayer.setfile((bm?.audiofile)!)
             if bgvtimes.count>0 {
                 BGMusicPlayer.videoEarliest = bgvtimes.first!
             }
-        } catch BeatmapError.FileNotFound {
+        } catch BeatmapError.fileNotFound {
             debugPrint("ERROR:beatmap file not found")
-        } catch BeatmapError.IllegalFormat {
+        } catch BeatmapError.illegalFormat {
             debugPrint("ERROR:Illegal beatmap format")
-        } catch BeatmapError.NoAudioFile {
+        } catch BeatmapError.noAudioFile {
             debugPrint("ERROR:Audio file not found")
-        } catch BeatmapError.AudioFileNotExist {
+        } catch BeatmapError.audioFileNotExist {
             debugPrint("ERROR:Audio file does not exist")
-        } catch BeatmapError.NoColor {
+        } catch BeatmapError.noColor {
             debugPrint("ERROR:Color not found")
-        } catch BeatmapError.NoHitObject{
+        } catch BeatmapError.noHitObject{
             debugPrint("ERROR:No hitobject found")
         } catch let error {
             debugPrint("ERROR:unknown error(\(error.localizedDescription))")
@@ -158,17 +158,17 @@ class GamePlayScene: SKScene {
     func showresult(x:CGFloat,y:CGFloat,result:HitResult,audio:String) {
         var img:SKTexture
         switch result {
-        case .S300:
-            img = SkinBuffer.get(file: "hit300")!
+        case .s300:
+            img = SkinBuffer.get("hit300")!
             break
-        case .S100:
-            img = SkinBuffer.get(file: "hit100")!
+        case .s100:
+            img = SkinBuffer.get("hit100")!
             break
-        case .S50:
-            img = SkinBuffer.get(file: "hit50")!
+        case .s50:
+            img = SkinBuffer.get("hit50")!
             break
-        case .Fail:
-            img = SkinBuffer.get(file: "hit0")!
+        case .fail:
+            img = SkinBuffer.get("hit0")!
             break
         }
         let node = SKSpriteNode(texture: img)
@@ -179,23 +179,23 @@ class GamePlayScene: SKScene {
         node.position = CGPoint(x: x, y: y)
         node.zPosition = 100001
         self.addChild(node)
-        if result != .Fail {
-            self.run(.playSoundFileNamed(fileName: audio, atVolume: GamePlayScene.effvolume, waitForCompletion: true))
+        if result != .fail {
+            self.run(.playSoundFileNamed(audio, atVolume: GamePlayScene.effvolume, waitForCompletion: true))
         } else {
-            self.run(.playSoundFileNamed(fileName: "combobreak.mp3", atVolume: GamePlayScene.effvolume, waitForCompletion: true))
+            self.run(.playSoundFileNamed("combobreak.mp3", atVolume: GamePlayScene.effvolume, waitForCompletion: true))
         }
         node.run(.group([.sequence([.fadeIn(withDuration: 0.2),.fadeOut(withDuration: 0.6),.removeFromParent()]),.sequence([.scale(by: 1.5, duration: 0.1),.scale(to: scale, duration: 0.1)])]))
     }
     
     func hitsound2str(hitsound:HitSound) -> String {
         switch hitsound {
-        case .Normal:
+        case .normal:
             return "hitnormal.wav"
-        case .Clap:
+        case .clap:
             return "hitclap.wav"
-        case .Finish:
+        case .finish:
             return "hitfinish.wav"
-        case .Whistle:
+        case .whistle:
             return "hitwhistle.wav"
         }
     }
@@ -209,13 +209,13 @@ class GamePlayScene: SKScene {
     private var hastouch = false
     private var lastpoint:CGPoint = .zero
     
-    private func updateslider(time:Double) {
+    fileprivate func updateslider(_ time:Double) {
         let act = actions?.currentact()
-        if act?.getobj().type != .Slider {
+        if act?.getobj().type != .slider {
             return
         }
         let sact = act as! SliderAction
-        let sliderpoint = sact.getposition(time: time)
+        let sliderpoint = sact.getposition(time)
         if hastouch {
             if distance(x1: lastpoint.x, y1: lastpoint.y, x2: sliderpoint.x, y2: sliderpoint.y) <= CGFloat((bm?.difficulty?.AbsoluteCS)!) {
                 onslider = true
@@ -227,33 +227,33 @@ class GamePlayScene: SKScene {
         } else {
             onslider = false
         }
-        switch sact.update(time: time, following: onslider) {
-        case .FailOnce:
+        switch sact.update(time, following: onslider) {
+        case .failOnce:
             //self.run(.playSoundFileNamed("combobreak.mp3", waitForCompletion: false))
             break
-        case .FailAll:
-            showresult(x: sliderpoint.x, y: sliderpoint.y, result: .Fail, audio: "")
+        case .failAll:
+            showresult(x: sliderpoint.x, y: sliderpoint.y, result: .fail, audio: "")
             actions?.pointer += 1
             hastouch = false
             break
-        case .EdgePass:
-            self.run(.playSoundFileNamed(fileName: hitaudioHeader + hitsound2str(hitsound: sact.getobj().hitSound), atVolume: GamePlayScene.effvolume, waitForCompletion: true))
+        case .edgePass:
+            self.run(.playSoundFileNamed(hitaudioHeader + hitsound2str(hitsound: sact.getobj().hitSound), atVolume: GamePlayScene.effvolume, waitForCompletion: true))
             break
-        case .End:
+        case .end:
             if sact.failcount > 0 {
-                showresult(x: sact.endx, y: sact.endy, result: .S100, audio: hitaudioHeader + hitsound2str(hitsound: sact.getobj().hitSound))
+                showresult(x: sact.endx, y: sact.endy, result: .s100, audio: hitaudioHeader + hitsound2str(hitsound: sact.getobj().hitSound))
             } else {
-                showresult(x: sact.endx, y: sact.endy, result: .S300, audio: hitaudioHeader + hitsound2str(hitsound: sact.getobj().hitSound))
+                showresult(x: sact.endx, y: sact.endy, result: .s300, audio: hitaudioHeader + hitsound2str(hitsound: sact.getobj().hitSound))
             }
             GamePlayScene.sliderball?.hideall()
             actions?.pointer += 1
             hastouch = false
             break
-        case .TickPass:
-            self.run(.playSoundFileNamed(fileName: hitaudioHeader + "slidertick.wav", atVolume: GamePlayScene.effvolume, waitForCompletion: true))
+        case .tickPass:
+            self.run(.playSoundFileNamed(hitaudioHeader + "slidertick.wav", atVolume: GamePlayScene.effvolume, waitForCompletion: true))
             break
-        case .FailTick:
-            self.run(.playSoundFileNamed(fileName: "combobreak.mp3", atVolume: GamePlayScene.effvolume, waitForCompletion: true))
+        case .failTick:
+            self.run(.playSoundFileNamed("combobreak.mp3", atVolume: GamePlayScene.effvolume, waitForCompletion: true))
             break
         default:
             break
@@ -266,20 +266,20 @@ class GamePlayScene: SKScene {
         if act != nil {
             let time = BGMusicPlayer.getTime()*1000
             switch (act?.getobj().type)! {
-            case .Circle:
+            case .circle:
                 if (act?.gettime())! - time < (bm?.difficulty?.ARTime)! {
                     let circle = act?.getobj() as! HitCircle
                     if distance(x1: pos.x, y1: pos.y, x2: CGFloat(circle.x), y2: CGFloat(circle.y)) <= CGFloat((bm?.difficulty?.AbsoluteCS)!) {
                         //debugPrint("time:\(time) required:\(act?.gettime())")
-                        let result = (act as! CircleAction).judge(time: time)
+                        let result = (act as! CircleAction).judge(time)
                         showresult(x: CGFloat(circle.x), y: CGFloat(circle.y), result: result, audio: hitaudioHeader + hitsound2str(hitsound: circle.hitSound))
                     }
                 }
                 hastouch = false
                 break
-            case .Slider:
+            case .slider:
                 lastpoint = pos
-                updateslider(time: time)
+                updateslider(time)
                 break
             default:
                 break
@@ -292,9 +292,9 @@ class GamePlayScene: SKScene {
         if act == nil {
             return
         }
-        if (act?.getobj().type)! == .Slider {
+        if (act?.getobj().type)! == .slider {
             lastpoint = pos
-            updateslider(time: BGMusicPlayer.getTime()*1000)
+            updateslider(BGMusicPlayer.getTime()*1000)
         }
     }
     
@@ -305,7 +305,7 @@ class GamePlayScene: SKScene {
         if act == nil {
             return
         }
-        updateslider(time: BGMusicPlayer.getTime()*1000)
+        updateslider(BGMusicPlayer.getTime()*1000)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -331,13 +331,13 @@ class GamePlayScene: SKScene {
         // Called before each frame is rendered
         if(firstrun){
             firstrun=false
-            GamePlayScene.sliderball?.initialize(size: CGFloat((bm?.difficulty?.AbsoluteCS)!))
+            GamePlayScene.sliderball?.initialize(CGFloat((bm?.difficulty?.AbsoluteCS)!))
         }
         let mtime=BGMusicPlayer.getTime()*1000
         let act = actions?.currentact()
         if act != nil {
-            if act?.getobj().type == .Slider {
-                updateslider(time: mtime)
+            if act?.getobj().type == .slider {
+                updateslider(mtime)
             }
         }
         if bgvindex < bgvactions.count {
@@ -354,7 +354,7 @@ class GamePlayScene: SKScene {
         var offset = (actions?.nexttime())! - mtime - (bm?.difficulty?.ARTime)!
         while (actions?.hasnext())! && offset <= 1000 {
             //debugPrint("mtime \(mtime) objtime \((actions?.nexttime())!) ar \((bm?.difficulty?.ARTime)!) offset \(offset)")
-            actions?.shownext(offset: offset)
+            actions?.shownext(offset)
             offset = (actions?.nexttime())! - mtime - (bm?.difficulty?.ARTime)!
         }
     }

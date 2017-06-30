@@ -10,10 +10,10 @@ import Foundation
 import SpriteKit
 
 protocol HitObjectAction {
-    func prepare(color:UIColor,number:Int,layer:CGFloat)
+    func prepare(_ color:UIColor,number:Int,layer:CGFloat)
     //Time in ms
     func gettime() -> Double
-    func show(scene:SKScene,offset:Double)
+    func show(_ scene:SKScene,offset:Double)
     func getobj() -> HitObject
     func destroy()
 }

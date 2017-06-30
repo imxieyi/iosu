@@ -11,29 +11,29 @@ import SpriteKit
 
 class SliderAction:HitObjectAction {
     
-    private let time:Double
-    private let obj:Slider
-    private var color:UIColor = UIColor()
-    private var layer:CGFloat = 0
-    private var edge:CGFloat = 0
-    public var endx:CGFloat
-    public var endy:CGFloat
+    fileprivate let time:Double
+    fileprivate let obj:Slider
+    fileprivate var color:UIColor = UIColor()
+    fileprivate var layer:CGFloat = 0
+    fileprivate var edge:CGFloat = 0
+    open var endx:CGFloat
+    open var endy:CGFloat
     //Calc Length
-    private var timing:TimingPoint
-    private var singleduration:Double = 0
-    public var fulltime:Double = 0
+    fileprivate var timing:TimingPoint
+    fileprivate var singleduration:Double = 0
+    open var fulltime:Double = 0
     //Status
-    public var stats:[SliderStatus] = []
-    public var stattimes:[Double] = []
-    public var pointer = 0
-    public var failcount = 0
+    open var stats:[SliderStatus] = []
+    open var stattimes:[Double] = []
+    open var pointer = 0
+    open var failcount = 0
     //For tick points
-    private var scene:SKScene?
-    private var runcount = 0
-    private var newrun = false
-    private var tickcount = 0
-    private var ticktimeindex = 0
-    private var runstarttime:Double = 0
+    fileprivate var scene:SKScene?
+    fileprivate var runcount = 0
+    fileprivate var newrun = false
+    fileprivate var tickcount = 0
+    fileprivate var ticktimeindex = 0
+    fileprivate var runstarttime:Double = 0
     //Head
     var headinner : SKSpriteNode? = nil
     var headoverlay : SKSpriteNode? = nil
@@ -50,8 +50,8 @@ class SliderAction:HitObjectAction {
     var inbody : SKShapeNode? = nil
     var outbody : SKShapeNode? = nil
     //Tick points
-    private var tickpoints:[[SKSpriteNode]] = []
-    private var ticktimes:[Double] = []
+    fileprivate var tickpoints:[[SKSpriteNode]] = []
+    fileprivate var ticktimes:[Double] = []
     //Dummy
     var dummynode : SKNode? = nil
     var guardnode : SKNode? = nil
@@ -70,12 +70,12 @@ class SliderAction:HitObjectAction {
     }
     
     //Return true if the color passed is bright
-    func isbright(color:UIColor) -> Bool {
+    func isbright(_ color:UIColor) -> Bool {
         let cicolor = CIColor(color: color)
         return cicolor.red+cicolor.green+cicolor.blue > 1.5
     }
     
-    func prepare(color:UIColor,number:Int,layer:CGFloat) {
+    func prepare(_ color:UIColor,number:Int,layer:CGFloat) {
         self.color = color
         //Calculate time
         let pxPerBeat = 100 * (ActionSet.difficulty?.SliderMultiplier)!
@@ -120,21 +120,21 @@ class SliderAction:HitObjectAction {
         }
         //Head --- Overlay
         selflayer -= 0.01
-        headoverlay = SKSpriteNode(texture: SkinBuffer.get(file: "hitcircleoverlay"))
+        headoverlay = SKSpriteNode(texture: SkinBuffer.get("hitcircleoverlay"))
         headoverlay?.size = size
         headoverlay?.position = position1
         headoverlay?.zPosition = selflayer
         //Head --- Number
         selflayer -= 0.01
         let lo = number % 10
-        let lonode = CircleAction.num2node(number: lo)
+        let lonode = CircleAction.num2node(lo)
         lonode.position = position1
         lonode.zPosition = selflayer
         headnumber.append(lonode)
         if number >= 10 {
             lonode.anchorPoint = CGPoint(x: 0.0, y: 0.5)
             let hi = (number % 100) / 10
-            let hinode = CircleAction.num2node(number: hi)
+            let hinode = CircleAction.num2node(hi)
             hinode.anchorPoint = CGPoint(x: 1.0, y: 0.5)
             hinode.position = position1
             hinode.zPosition = selflayer
@@ -142,7 +142,7 @@ class SliderAction:HitObjectAction {
         }
         //Head --- Inner
         selflayer -= 0.01
-        headinner = SKSpriteNode(texture: SkinBuffer.get(file: "hitcircle"))
+        headinner = SKSpriteNode(texture: SkinBuffer.get("hitcircle"))
         headinner?.color = color
         headinner?.blendMode = .alpha
         headinner?.colorBlendFactor = 1
@@ -150,10 +150,10 @@ class SliderAction:HitObjectAction {
         headinner?.position = position1
         headinner?.zPosition = selflayer
         //Update status
-        stats.append(.Head)
+        stats.append(.head)
         stattimes.append(currenttime)
         //Head --- Approach Circle
-        appcircle = SKSpriteNode(texture: SkinBuffer.get(file: "approachcircle"))
+        appcircle = SKSpriteNode(texture: SkinBuffer.get("approachcircle"))
         appcircle?.size = size
         appcircle?.setScale(3)
         appcircle?.alpha = 0
@@ -167,22 +167,22 @@ class SliderAction:HitObjectAction {
             repe -= 1
             //Overlay
             selflayer -= 0.01
-            let overlay = SKSpriteNode(texture: SkinBuffer.get(file: "hitcircleoverlay"))
+            let overlay = SKSpriteNode(texture: SkinBuffer.get("hitcircleoverlay"))
             overlay.size = size
             overlay.zPosition = selflayer
             arrowoverlays.append(overlay)
             //Arrow
             selflayer -= 0.01
-            let arrow = SKSpriteNode(texture: SkinBuffer.get(file: "reversearrow"))
+            let arrow = SKSpriteNode(texture: SkinBuffer.get("reversearrow"))
             arrow.size = size
             arrow.zPosition = selflayer
-            if SkinBuffer.getFlag(file: "reversearrow") {
+            if SkinBuffer.getFlag("reversearrow") {
                 arrow.colorBlendFactor = 0
             } else {
                 arrow.colorBlendFactor = 1
             }
             arrow.blendMode = .alpha
-            if(isbright(color: color)){
+            if(isbright(color)){
                 arrow.color = .black
             } else {
                 arrow.color = .white
@@ -190,7 +190,7 @@ class SliderAction:HitObjectAction {
             arrowarrows.append(arrow)
             //Inner
             selflayer -= 0.01
-            let inner = SKSpriteNode(texture: SkinBuffer.get(file: "hitcircle"))
+            let inner = SKSpriteNode(texture: SkinBuffer.get("hitcircle"))
             inner.color = color
             inner.blendMode = .alpha
             inner.colorBlendFactor = 1
@@ -212,17 +212,17 @@ class SliderAction:HitObjectAction {
             }
             //Update status
             currenttime += singleduration
-            stats.append(.Arrow)
+            stats.append(.arrow)
             stattimes.append(currenttime)
         }
         //End --- Overlay
         selflayer -= 0.01
-        endoverlay = SKSpriteNode(texture: SkinBuffer.get(file: "hitcircleoverlay"))
+        endoverlay = SKSpriteNode(texture: SkinBuffer.get("hitcircleoverlay"))
         endoverlay?.size = size
         endoverlay?.zPosition = selflayer
         //End --- Inner
         selflayer -= 0.01
-        endinner = SKSpriteNode(texture: SkinBuffer.get(file: "hitcircle"))
+        endinner = SKSpriteNode(texture: SkinBuffer.get("hitcircle"))
         endinner?.color = color
         endinner?.blendMode = .alpha
         endinner?.colorBlendFactor = 1
@@ -269,7 +269,7 @@ class SliderAction:HitObjectAction {
         outbody?.zPosition = layer
         //Update status
         currenttime += singleduration
-        stats.append(.End)
+        stats.append(.end)
         stattimes.append(currenttime)
         //Tick points
         let tickinterval = timing.timeperbeat/(ActionSet.difficulty?.SliderTickRate)!
@@ -281,7 +281,7 @@ class SliderAction:HitObjectAction {
             tickpoints.append([])
             var ctime = time + tickinterval
             while ctime < time + singleduration - tickinterval/10 {
-                let ticksprite = SKSpriteNode(texture: SkinBuffer.get(file: "sliderscorepoint"))
+                let ticksprite = SKSpriteNode(texture: SkinBuffer.get("sliderscorepoint"))
                 ticksprite.setScale(CGFloat((ActionSet.difficulty?.AbsoluteCS)! / 96))
                 ticksprite.zPosition = layer + 0.02
                 var point:CGPoint
@@ -308,7 +308,7 @@ class SliderAction:HitObjectAction {
     
     static let arrowanim = SKAction.repeatForever(SKAction.sequence([SKAction.scale(to: 1.3, duration: 0.1),SKAction.scale(to: 1.0, duration: 0.1),SKAction.wait(forDuration: 0.2)]))
     
-    func show(scene:SKScene,offset:Double) {
+    func show(_ scene:SKScene,offset:Double) {
         self.scene = scene
         let artime = (ActionSet.difficulty?.ARTime)!/1000
         let showact = SKAction.sequence([.wait(forDuration: offset/1000),.run {
@@ -335,7 +335,7 @@ class SliderAction:HitObjectAction {
             scene.addChild(self.appcircle!)
             self.appcircle?.run(.sequence([.group([.fadeIn(withDuration: artime/3),.scale(to: 1, duration: artime)]),.removeFromParent()]))
             }])
-        let ballact = GamePlayScene.sliderball?.show(color: color, path: obj.path, repe: obj.repe, duration: singleduration/1000, waittime: artime + offset/1000)
+        let ballact = GamePlayScene.sliderball?.show(color, path: obj.path, repe: obj.repe, duration: singleduration/1000, waittime: artime + offset/1000)
         let failact = SKAction.sequence([.wait(forDuration: artime + offset/1000 + (ActionSet.difficulty?.Score50)!/1000),.run {
             self.headinner?.run(CircleAction.faildisappear)
             self.headoverlay?.run(CircleAction.faildisappear)
@@ -357,7 +357,7 @@ class SliderAction:HitObjectAction {
             }]))
     }
     
-    func getposition(time:Double) -> CGPoint {
+    func getposition(_ time:Double) -> CGPoint {
         if pointer == 0 {
             return CGPoint(x: obj.x, y: obj.y)
         } else {
@@ -365,9 +365,9 @@ class SliderAction:HitObjectAction {
         }
     }
     
-    func update(time:Double,following:Bool) -> SliderFeedback {
+    func update(_ time:Double,following:Bool) -> SliderFeedback {
         if self.time - time > (ActionSet.difficulty?.ARTime)! || pointer >= stats.count {
-            return .Nothing
+            return .nothing
         }
         if ticktimeindex < ticktimes.count {
             if time >= ticktimes[ticktimeindex] {
@@ -382,9 +382,9 @@ class SliderAction:HitObjectAction {
                     }
                 }
                 if following {
-                    return .TickPass
+                    return .tickPass
                 } else {
-                    return .FailTick
+                    return .failTick
                 }
             }
             //Push new tick points
@@ -398,20 +398,20 @@ class SliderAction:HitObjectAction {
             }
         }
         switch stats[pointer] {
-        case .Head:
+        case .head:
             if following {
                 pointer += 1
                 dummynode?.removeAllActions()
                 dummynode?.removeFromParent()
-                switch judge(time: time) {
-                case .S50:
+                switch judge(time) {
+                case .s50:
                     headinner?.run(CircleAction.passdisappear)
                     headoverlay?.run(CircleAction.passdisappear)
                     for num in headnumber {
                         num.run(CircleAction.passdisappear)
                     }
                     appcircle?.removeFromParent()
-                    return .EdgePass
+                    return .edgePass
                 default:
                     failcount += 1
                     headinner?.run(CircleAction.faildisappear)
@@ -420,18 +420,18 @@ class SliderAction:HitObjectAction {
                         num.run(CircleAction.faildisappear)
                     }
                     appcircle?.removeFromParent()
-                    return .FailOnce
+                    return .failOnce
                 }
             }
             break
-        case .Arrow:
+        case .arrow:
             if time >= stattimes[pointer] {
                 pointer += 1
                 if following {
                     arrowinners[pointer - 2].run(CircleAction.passdisappear)
                     arrowarrows[pointer - 2].run(CircleAction.passdisappear)
                     arrowoverlays[pointer - 2].run(CircleAction.passdisappear)
-                    return .EdgePass
+                    return .edgePass
                 } else {
                     failcount += 1
                     if failcount >= 2 {
@@ -450,16 +450,16 @@ class SliderAction:HitObjectAction {
                         }
                         GamePlayScene.sliderball?.hideall()
                         pointer = stats.count
-                        return .FailAll
+                        return .failAll
                     } else {
                         arrowinners[pointer - 2].run(CircleAction.faildisappear)
                         arrowarrows[pointer - 2].run(CircleAction.faildisappear)
                         arrowoverlays[pointer - 2].run(CircleAction.faildisappear)
-                        return .FailOnce
+                        return .failOnce
                     }
                 }
             }
-        case .End:
+        case .end:
             if time >= stattimes[pointer] {
                 pointer += 1
                 if following {
@@ -467,7 +467,7 @@ class SliderAction:HitObjectAction {
                     endoverlay?.run(CircleAction.passdisappear)
                     inbody?.run(.sequence([.fadeOut(withDuration: 0.5),.removeFromParent()]))
                     outbody?.run(.sequence([.fadeOut(withDuration: 0.5),.removeFromParent()]))
-                    return .End
+                    return .end
                 } else {
                     failcount += 1
                     if failcount >= 2 {
@@ -476,18 +476,18 @@ class SliderAction:HitObjectAction {
                         inbody?.run(CircleAction.faildisappear)
                         outbody?.run(CircleAction.faildisappear)
                         pointer = stats.count
-                        return .FailAll
+                        return .failAll
                     } else {
                         endinner?.run(CircleAction.passdisappear)
                         endoverlay?.run(CircleAction.passdisappear)
                         inbody?.run(.sequence([.fadeOut(withDuration: 0.5),.removeFromParent()]))
                         outbody?.run(.sequence([.fadeOut(withDuration: 0.5),.removeFromParent()]))
-                        return .End
+                        return .end
                     }
                 }
             }
         }
-        return .Nothing
+        return .nothing
     }
     
     //In order to prevent objects remaining on the screen
@@ -533,17 +533,17 @@ class SliderAction:HitObjectAction {
     }
     
     //Head Judge
-    func judge(time:Double) -> HitResult {
+    func judge(_ time:Double) -> HitResult {
         var d = time - self.time
         //debugPrint("d:\(d) score50:\((ActionSet.difficulty?.Score50)!)")
         if d < -(ActionSet.difficulty?.Score50)! {
-            return .Fail
+            return .fail
         }
         d = abs(d)
         if d <= (ActionSet.difficulty?.Score50)! {
-            return .S50
+            return .s50
         }
-        return .Fail
+        return .fail
     }
     
     func gettime() -> Double {

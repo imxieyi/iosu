@@ -9,30 +9,30 @@
 import Foundation
 
 enum HitSound {
-    case Normal     //0
-    case Whistle    //2
-    case Finish     //4
-    case Clap       //8
+    case normal     //0
+    case whistle    //2
+    case finish     //4
+    case clap       //8
 }
 
 enum HitObjectType{
-    case Circle
-    case Slider
-    case Spinner
-    case None //Unknown hitobject type
+    case circle
+    case slider
+    case spinner
+    case none //Unknown hitobject type
 }
 
 enum CircleType{
-    case Plain
-    case SliderHead
-    case SliderEnd
-    case SliderArrow
+    case plain
+    case sliderHead
+    case sliderEnd
+    case sliderArrow
 }
 
 enum SliderType{
-    case Linear //L
-    case PassThrough //P
-    case Bezier //B
-    case Catmull //C
-    case None //Invalid slider type
+    case linear //L
+    case passThrough //P
+    case bezier //B
+    case catmull //C
+    case none //Invalid slider type
 }

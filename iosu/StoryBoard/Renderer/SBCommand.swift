@@ -24,7 +24,7 @@ class SBCommand {
     
     init(type:StoryBoardCommand,easing:Int,starttime:Int,endtime:Int) {
         self.type=type
-        self.easing=SBCHelper.num2easing(num: easing)
+        self.easing=SBCHelper.num2easing(easing)
         self.starttime=starttime
         self.endtime=endtime
         duration=(Double(endtime)-Double(starttime))/1000

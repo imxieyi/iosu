@@ -17,9 +17,9 @@ class Slider:HitObject{
     var image:UIImage?
     var stype:SliderType
     let path=UIBezierPath()
-    public var bordercolor = UIColor.white
-    public var trackcolor = UIColor.clear
-    public var trackoverride = false
+    open var bordercolor = UIColor.white
+    open var trackcolor = UIColor.clear
+    open var trackoverride = false
     
     init(x:Int,y:Int,slidertype:SliderType,curveX:[Int],curveY:[Int],time:Int,hitsound:Int,newCombo:Bool,repe:Int,length:Int) {
         self.cx=curveX
@@ -31,10 +31,10 @@ class Slider:HitObject{
         self.repe=repe
         self.length=length
         self.stype=slidertype
-        super.init(type: .Slider, x: x, y: y, time: time, hitsound: HitObject.hitsoundDecode(num: hitsound), newcombo: newCombo)
+        super.init(type: .slider, x: x, y: y, time: time, hitsound: HitObject.hitsoundDecode(hitsound), newcombo: newCombo)
     }
     
-    func genpath(debug:Bool) {
+    func genpath(_ debug:Bool) {
         var allx:[CGFloat]=[CGFloat(x)]
         var ally:[CGFloat]=[CGFloat(GamePlayScene.scrheight)-CGFloat(y)]
         for i in 0...cx.count-1 {
@@ -43,15 +43,15 @@ class Slider:HitObject{
         }
         path.move(to: CGPoint(x: allx.first!, y: ally.first!))
         switch self.stype {
-        case .Linear:
+        case .linear:
             for i in 1...allx.count-1 {
                 path.addLine(to: CGPoint(x: allx[i], y: ally[i]))
             }
             break
-        case .PassThrough:
-            genpassthrough(x1: allx[0], y1: ally[0], x2: allx[1], y2: ally[1], x3: allx[2], y3: ally[2])
+        case .passThrough:
+            genpassthrough(allx[0], y1: ally[0], x2: allx[1], y2: ally[1], x3: allx[2], y3: ally[2])
             break
-        case .Bezier:
+        case .bezier:
             var xx:[CGFloat]=[]
             var yy:[CGFloat]=[]
             for i in 0...allx.count-2 {
@@ -61,7 +61,7 @@ class Slider:HitObject{
                     if(debug){
                         debugPrint("count:\(xx.count) \(xx) \(yy)")
                     }
-                    genbezier(x: xx, y: yy)
+                    genbezier(xx, y: yy)
                     xx=[]
                     yy=[]
                 }
@@ -71,10 +71,10 @@ class Slider:HitObject{
             }
             xx.append(allx[allx.count-1])
             yy.append(ally[allx.count-1])
-            genbezier(x: xx, y: yy)
+            genbezier(xx, y: yy)
             break
-        case .Catmull:
-            gencatmull(x: allx, y: ally)
+        case .catmull:
+            gencatmull(allx, y: ally)
             break
         default:
             for i in 1...allx.count-1 {
@@ -89,7 +89,7 @@ class Slider:HitObject{
         path.apply(translate)
     }
     
-    private func genpassthrough(x1:CGFloat,y1:CGFloat,x2:CGFloat,y2:CGFloat,x3:CGFloat,y3:CGFloat) {
+    fileprivate func genpassthrough(_ x1:CGFloat,y1:CGFloat,x2:CGFloat,y2:CGFloat,x3:CGFloat,y3:CGFloat) {
         //debugPrint("\(time) (\(x1),\(y1)) (\(x2),\(y2)) (\(x3),\(y3))")
         //Reference:http://blog.csdn.net/xiaogugood/article/details/28238349
         let t1=x1*x1+y1*y1
@@ -123,7 +123,7 @@ class Slider:HitObject{
         path.addArc(withCenter: CGPoint(x:x,y:y), radius: r, startAngle: a1, endAngle: a3, clockwise: clockwise)
     }
     
-    private func genbezier(x:[CGFloat],y:[CGFloat]) {
+    fileprivate func genbezier(_ x:[CGFloat],y:[CGFloat]) {
         switch x.count {
         case 0:
             break
@@ -142,12 +142,12 @@ class Slider:HitObject{
             path.addCurve(to: CGPoint(x: x[3], y: y[3]), controlPoint1: CGPoint(x: x[1], y: y[1]), controlPoint2: CGPoint(x: x[2], y: y[2]))
             break
         default:
-            genhighbezier(x: x, y: y)
+            genhighbezier(x, y: y)
         }
     }
     
     //https://pomax.github.io/bezierinfo/zh-CN/
-    private func genhighbezier(x:[CGFloat],y:[CGFloat]) {
+    fileprivate func genhighbezier(_ x:[CGFloat],y:[CGFloat]) {
         var points:[CGPoint]=[]
         for i in 0...x.count-1 {
             points.append(CGPoint(x: x[i], y: y[i]))
@@ -156,11 +156,11 @@ class Slider:HitObject{
         let sections=50
         let interval=1.0/CGFloat(sections)
         for i in 1...sections {
-            drawbezier(points: points, t: interval*CGFloat(i))
+            drawbezier(points, t: interval*CGFloat(i))
         }
     }
     
-    private func drawbezier(points:[CGPoint],t:CGFloat) {
+    fileprivate func drawbezier(_ points:[CGPoint],t:CGFloat) {
         if(points.count==1) {
             path.addLine(to: points[0])
         } else {
@@ -170,12 +170,12 @@ class Slider:HitObject{
                 let y=(1-t)*points[i].y+t*points[i+1].y
                 newpoints.append(CGPoint(x: x, y: y))
             }
-            drawbezier(points: newpoints, t: t)
+            drawbezier(newpoints, t: t)
         }
     }
     
     //opsu: itdelatrisu.opsu.objects.curves.CatmullCurve
-    private func gencatmull(x:[CGFloat],y:[CGFloat]) {
+    fileprivate func gencatmull(_ x:[CGFloat],y:[CGFloat]) {
         var points:[CGPoint]=[]
         if(x[0] != x[1] || y[0] != y[1]) {
             points.append(CGPoint(x: x[0], y: y[0]))
@@ -186,7 +186,7 @@ class Slider:HitObject{
                 let sections=50
                 let interval=1.0/CGFloat(sections)
                 for i in 1...sections {
-                    drawcatmull(points: points, t: interval*CGFloat(i))
+                    drawcatmull(points, t: interval*CGFloat(i))
                 }
                 points.removeFirst()
             }
@@ -198,13 +198,13 @@ class Slider:HitObject{
             let sections=50
             let interval=1.0/CGFloat(sections)
             for i in 1...sections {
-                drawcatmull(points: points, t: interval*CGFloat(i))
+                drawcatmull(points, t: interval*CGFloat(i))
             }
         }
     }
     
     //http://blog.csdn.net/i_dovelemon/article/details/47984241
-    private func drawcatmull(points:[CGPoint],t:CGFloat) {
+    fileprivate func drawcatmull(_ points:[CGPoint],t:CGFloat) {
         if(points.count != 4) {
             debugPrint("4 points are needed to draw catmull, got \(points.count)")
             return

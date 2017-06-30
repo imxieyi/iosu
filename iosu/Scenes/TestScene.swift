@@ -21,7 +21,7 @@ class TestScene:SKScene {
     
     var firstrun=true
     
-    private func sliderballimg(file:String) -> SKTexture {
+    fileprivate func sliderballimg(_ file:String) -> SKTexture {
         let img=UIImage(named: file)
         let rotatedViewBox=UIView(frame: CGRect(x: 0, y: 0, width: (img?.size.width)!, height: (img?.size.height)!))
         rotatedViewBox.transform=CGAffineTransform(rotationAngle: -.pi/2)
@@ -39,12 +39,12 @@ class TestScene:SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         if firstrun {
-            let sliderball1=SKSpriteNode(texture: sliderballimg(file: "sliderb0"))
+            let sliderball1=SKSpriteNode(texture: sliderballimg("sliderb0"))
             sliderball1.position=CGPoint(x: self.size.width/2, y: self.size.height/2)
             sliderball1.color = .red
             sliderball1.colorBlendFactor = 1
             sliderball1.blendMode = .alpha
-            let sliderball2=SKSpriteNode(texture: sliderballimg(file: "sliderb5"))
+            let sliderball2=SKSpriteNode(texture: sliderballimg("sliderb5"))
             sliderball2.position=CGPoint(x: self.size.width/2, y: self.size.height/2)
             sliderball2.color = .black
             sliderball2.colorBlendFactor = 1
@@ -52,8 +52,8 @@ class TestScene:SKScene {
             var textures1:[SKTexture]=[]
             var textures2:[SKTexture]=[]
             for i in 0...9 {
-                textures1.append(sliderballimg(file: "sliderb\(i)"))
-                textures2.append(sliderballimg(file: "sliderb\((i+5)%10)"))
+                textures1.append(sliderballimg("sliderb\(i)"))
+                textures2.append(sliderballimg("sliderb\((i+5)%10)"))
             }
             addChild(sliderball1)
             addChild(sliderball2)

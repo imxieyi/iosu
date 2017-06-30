@@ -73,7 +73,7 @@ class SelectionViewController:UIViewController,UIPickerViewDelegate,UIPickerView
     
     @IBAction func gameSwitched(_ sender: Any) {
         if !sbSwitch.isOn && !gameSwitch.isOn {
-            Alerts.show(sender: self, title: "Warning", message: "You should turn on either game or storyboard!", style: .alert, actiontitle: "OK", actionstyle: .default, handler: {(act:UIAlertAction) -> Void in
+            Alerts.show(self, title: "Warning", message: "You should turn on either game or storyboard!", style: .alert, actiontitle: "OK", actionstyle: .default, handler: {(act:UIAlertAction) -> Void in
                 self.gameSwitch.setOn(true, animated: true)
                 self.skinSwitch.isEnabled = true
             })
@@ -86,7 +86,7 @@ class SelectionViewController:UIViewController,UIPickerViewDelegate,UIPickerView
     }
     @IBAction func sbSwitched(_ sender: Any) {
         if !sbSwitch.isOn && !gameSwitch.isOn {
-            Alerts.show(sender: self, title: "Warning", message: "You should turn on either game or storyboard!", style: .alert, actiontitle: "OK", actionstyle: .default, handler: {(act:UIAlertAction) -> Void in
+            Alerts.show(self, title: "Warning", message: "You should turn on either game or storyboard!", style: .alert, actiontitle: "OK", actionstyle: .default, handler: {(act:UIAlertAction) -> Void in
                 self.sbSwitch.setOn(true, animated: true)
             })
         }

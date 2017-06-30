@@ -11,10 +11,10 @@ import SpriteKit
 import SpriteKitEasingSwift
 
 enum SBParameterType {
-    case H //Flip image horizontally
-    case V //Flip image vertically
-    case A //Use additive-color blending instead of alpha-blending
-    case N //Unknown type
+    case h //Flip image horizontally
+    case v //Flip image vertically
+    case a //Use additive-color blending instead of alpha-blending
+    case n //Unknown type
 }
 
 class SBParam:SBCommand,SBCAction {
@@ -24,21 +24,21 @@ class SBParam:SBCommand,SBCAction {
     init(easing:Int,starttime:Int,endtime:Int,ptype:String) {
         //debugPrint("typestr: \((ptype as NSString).substring(to: 1))")
         if ptype.contains("H"){
-            self.paramtype = .H
+            self.paramtype = .h
         } else if ptype.contains("V"){
-            self.paramtype = .V
+            self.paramtype = .v
         } else if ptype.contains("A"){
-            self.paramtype = .A
+            self.paramtype = .a
         } else {
-            self.paramtype = .N
+            self.paramtype = .n
         }
-        super.init(type: .Parameter, easing: easing, starttime: starttime, endtime: endtime)
+        super.init(type: .parameter, easing: easing, starttime: starttime, endtime: endtime)
     }
     
     func toAction() -> SKAction {
         //debugPrint("convert parameter to action, type \(self.paramtype)")
         switch paramtype {
-        case .H:
+        case .h:
             let flip={(node:SKNode,time:CGFloat)->Void in
                 (node as! FlipNode).hflip=true
             }
@@ -49,7 +49,7 @@ class SBParam:SBCommand,SBCAction {
                 (node as! FlipNode).hflip=false
             }
             return SKAction.sequence([SKAction.customAction(withDuration: 0, actionBlock: flip),SKAction.wait(forDuration: duration),SKAction.customAction(withDuration: 0, actionBlock: restore)])
-        case .V:
+        case .v:
             let flip={(node:SKNode,time:CGFloat)->Void in
                 (node as! FlipNode).vflip=true
             }
@@ -60,7 +60,7 @@ class SBParam:SBCommand,SBCAction {
                 (node as! FlipNode).vflip=false
             }
             return SKAction.sequence([SKAction.customAction(withDuration: 0, actionBlock: flip),SKAction.wait(forDuration: duration),SKAction.customAction(withDuration: 0, actionBlock: restore)])
-        case .A:
+        case .a:
             let set={(node:SKNode,time:CGFloat)->Void in
                 (node as! SKSpriteNode).blendMode = .add
             }
@@ -71,7 +71,7 @@ class SBParam:SBCommand,SBCAction {
                 (node as! SKSpriteNode).blendMode = .alpha
             }
             return SKAction.sequence([SKAction.customAction(withDuration: 0, actionBlock: set),SKAction.wait(forDuration: duration),SKAction.customAction(withDuration: 0, actionBlock: restore)])
-        case .N:
+        case .n:
             return SKAction.run {
             }
         }

@@ -15,7 +15,7 @@ class SBTrigger:SBCommand,SBCAction {
     //TODO: Trigger Command
     
     init(easing:Int,starttime:Int,endtime:Int) {
-        super.init(type: .Trigger, easing: easing, starttime: starttime, endtime: endtime)
+        super.init(type: .trigger, easing: easing, starttime: starttime, endtime: endtime)
     }
     
     func toAction() -> SKAction {

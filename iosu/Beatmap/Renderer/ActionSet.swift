@@ -11,13 +11,13 @@ import SpriteKit
 
 class ActionSet {
     
-    private var actions:[HitObjectAction]=[]
-    private var actnums:[Int] = []
-    private var actcols:[UIColor] = []
-    private let scene:SKScene
-    private var nextindex:Int=0
-    public static var difficulty:BMDifficulty?
-    public static var current:ActionSet?
+    fileprivate var actions:[HitObjectAction]=[]
+    fileprivate var actnums:[Int] = []
+    fileprivate var actcols:[UIColor] = []
+    fileprivate let scene:SKScene
+    fileprivate var nextindex:Int=0
+    open static var difficulty:BMDifficulty?
+    open static var current:ActionSet?
     
     init(beatmap:Beatmap,scene:SKScene) {
         ActionSet.difficulty = beatmap.difficulty
@@ -27,7 +27,7 @@ class ActionSet {
         var number=0
         for obj in beatmap.hitobjects {
             switch obj.type {
-            case .Circle:
+            case .circle:
                 if obj.newCombo {
                     number=1
                     colorindex+=1
@@ -41,7 +41,7 @@ class ActionSet {
                 actions.append(CircleAction(obj: obj as! HitCircle))
                 actcols.append(colors[colorindex])
                 break
-            case .Slider:
+            case .slider:
                 if obj.newCombo {
                     number=1
                     colorindex+=1
@@ -52,47 +52,47 @@ class ActionSet {
                     number+=1
                 }
                 actnums.append(number)
-                actions.append(SliderAction(obj: obj as! Slider, timing: beatmap.getTimingPoint(offset: obj.time)))
+                actions.append(SliderAction(obj: obj as! Slider, timing: beatmap.getTimingPoint(obj.time)))
                 actcols.append(colors[colorindex])
                 break
-            case .Spinner:
+            case .spinner:
                 break
-            case .None:
+            case .none:
                 break
             }
         }
         ActionSet.current=self
     }
     
-    public func prepare() {
+    open func prepare() {
         var layer:CGFloat = 100000
         for i in 0...actions.count-1 {
-            actions[i].prepare(color: actcols[i], number: actnums[i], layer: layer)
+            actions[i].prepare(actcols[i], number: actnums[i], layer: layer)
             layer-=1
         }
     }
     
-    public func hasnext() -> Bool {
+    open func hasnext() -> Bool {
         return nextindex<actions.count
     }
     
     //In ms
-    public func shownext(offset:Double) {
+    open func shownext(_ offset:Double) {
         if offset >= 0 {
-            actions[nextindex].show(scene: scene, offset: offset)
+            actions[nextindex].show(scene, offset: offset)
         }
         nextindex+=1
     }
     
-    public func nexttime() -> Double {
+    open func nexttime() -> Double {
         if nextindex < actions.count {
             return actions[nextindex].gettime()
         }
         return Double(Int.max)
     }
     
-    public var pointer=0
-    public func currentact() -> HitObjectAction? {
+    open var pointer=0
+    open func currentact() -> HitObjectAction? {
         if pointer<actions.count {
             return actions[pointer]
         }

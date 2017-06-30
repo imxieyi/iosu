@@ -10,15 +10,15 @@ import Foundation
 
 class HitCircle:HitObject{
     
-    var ctype:CircleType = .Plain
+    var ctype:CircleType = .plain
     
     init(x:Int,y:Int,time:Int,hitsound:Int,newCombo:Bool) {
-        super.init(type: .Circle, x: x, y: y, time: time, hitsound: HitObject.hitsoundDecode(num: hitsound), newcombo: newCombo)
+        super.init(type: .circle, x: x, y: y, time: time, hitsound: HitObject.hitsoundDecode(hitsound), newcombo: newCombo)
     }
     
     init(x:Int,y:Int,time:Int,hitsound:Int,newCombo:Bool,type:CircleType) {
         self.ctype=type
-        super.init(type: .Circle, x: x, y: y, time: time, hitsound: HitObject.hitsoundDecode(num: hitsound), newcombo: newCombo)
+        super.init(type: .circle, x: x, y: y, time: time, hitsound: HitObject.hitsoundDecode(hitsound), newcombo: newCombo)
     }
     
 }

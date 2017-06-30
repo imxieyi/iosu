@@ -88,42 +88,42 @@ class BasicImage {
         var FirstRotate=SBRotate(easing: 0, starttime: .max, endtime: .max, startr: 0, endr: 0)
         for cmd in commands {
             switch cmd.type {
-            case .Move:
+            case .move:
                 if FirstMove.starttime>cmd.starttime {
                     FirstMove=cmd as! SBMove
                 }
                 break
-            case .MoveX:
+            case .moveX:
                 if FirstMoveX.starttime>cmd.starttime {
                     FirstMoveX=cmd as! SBMoveX
                 }
                 break
-            case .MoveY:
+            case .moveY:
                 if FirstMoveY.starttime>cmd.starttime {
                     FirstMoveY=cmd as! SBMoveY
                 }
                 break
-            case .Scale:
+            case .scale:
                 if FirstScale.starttime>cmd.starttime {
                     FirstScale=cmd as! SBScale
                 }
                 break
-            case .VScale:
+            case .vScale:
                 if FirstVScale.starttime>cmd.starttime {
                     FirstVScale=cmd as! SBVScale
                 }
                 break
-            case .Color:
+            case .color:
                 if FirstColor.starttime>cmd.starttime {
                     FirstColor=cmd as! SBColor
                 }
                 break
-            case .Fade:
+            case .fade:
                 if FirstFade.starttime>cmd.starttime {
                     FirstFade=cmd as! SBFade
                 }
                 break
-            case .Rotate:
+            case .rotate:
                 if FirstRotate.starttime>cmd.starttime {
                     FirstRotate=cmd as! SBRotate
                 }
@@ -183,7 +183,7 @@ class BasicImage {
     }
     
     func convertsprite(){
-        sprite=FlipNode(texture: ImageBuffer.get(file: filepath))
+        sprite=FlipNode(texture: ImageBuffer.get(filepath))
         if sprite==nil {
             return
         }
@@ -201,31 +201,31 @@ class BasicImage {
         sprite?.yScale=CGFloat(yscale)
         sprite?.zRotation=CGFloat(angle)
         switch origin {
-        case .TopLeft:
+        case .topLeft:
             sprite?.anchorPoint=CGPoint(x: 0, y: 1)
             break
-        case .TopCentre:
+        case .topCentre:
             sprite?.anchorPoint=CGPoint(x: 0.5, y: 1)
             break
-        case .TopRight:
+        case .topRight:
             sprite?.anchorPoint=CGPoint(x: 1, y: 1)
             break
-        case .CentreLeft:
+        case .centreLeft:
             sprite?.anchorPoint=CGPoint(x: 0, y: 0.5)
             break
-        case .Centre:
+        case .centre:
             sprite?.anchorPoint=CGPoint(x: 0.5, y: 0.5)
             break
-        case .CentreRight:
+        case .centreRight:
             sprite?.anchorPoint=CGPoint(x: 1, y: 0.5)
             break
-        case .BottomLeft:
+        case .bottomLeft:
             sprite?.anchorPoint=CGPoint(x: 0, y: 0)
             break
-        case .BottomCentre:
+        case .bottomCentre:
             sprite?.anchorPoint=CGPoint(x: 0.5, y: 0)
             break
-        case .BottomRight:
+        case .bottomRight:
             sprite?.anchorPoint=CGPoint(x: 1, y: 0)
             break
         }
@@ -278,7 +278,7 @@ class BasicImage {
         self.commands=[]
     }
     
-    func runaction(offset:Int){
+    func runaction(_ offset:Int){
         if sprite==nil {
             return
         }

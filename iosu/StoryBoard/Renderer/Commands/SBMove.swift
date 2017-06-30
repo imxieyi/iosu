@@ -22,7 +22,7 @@ class SBMove:SBCommand,SBCAction {
         self.starty=StoryBoard.conv(y: starty)
         self.endx=StoryBoard.conv(x: endx)
         self.endy=StoryBoard.conv(y: endy)
-        super.init(type: .Move, easing: easing, starttime: starttime, endtime: endtime)
+        super.init(type: .move, easing: easing, starttime: starttime, endtime: endtime)
     }
     
     func toAction() -> SKAction {

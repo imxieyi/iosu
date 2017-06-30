@@ -15,7 +15,7 @@ class ImageBuffer{
     static var buffer=[String:SKTexture]()
     static var notfoundimages=Set<String>()
     
-    static func addtobuffer(file:String) {
+    static func addtobuffer(_ file:String) {
         if buffer[file] != nil {
             return
         }
@@ -45,8 +45,8 @@ class ImageBuffer{
         return str
     }
     
-    static func get(file:String) ->SKTexture? {
-        addtobuffer(file: file)
+    static func get(_ file:String) ->SKTexture? {
+        addtobuffer(file)
         if buffer[file] != nil {
             return buffer[file]!
         }

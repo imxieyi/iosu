@@ -18,7 +18,7 @@ class SBFade:SBCommand,SBCAction {
     init(easing:Int,starttime:Int,endtime:Int,startopacity:Double,endopacity:Double) {
         self.startopacity=startopacity
         self.endopacity=endopacity
-        super.init(type: .Fade, easing: easing, starttime: starttime, endtime: endtime)
+        super.init(type: .fade, easing: easing, starttime: starttime, endtime: endtime)
     }
     
     func toAction() -> SKAction {

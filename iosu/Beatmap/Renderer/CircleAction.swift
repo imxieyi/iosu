@@ -11,28 +11,28 @@ import SpriteKit
 
 class CircleAction:HitObjectAction {
     
-    private let time:Double
-    private let obj:HitCircle
-    private var inner:SKSpriteNode? = nil
-    private var overlay:SKSpriteNode? = nil
-    private var number:[SKSpriteNode]=[]
-    private var appcircle:SKSpriteNode? = nil
-    private var dummynode:SKNode? = nil
-    private var guardnode:SKNode? = nil
+    fileprivate let time:Double
+    fileprivate let obj:HitCircle
+    fileprivate var inner:SKSpriteNode? = nil
+    fileprivate var overlay:SKSpriteNode? = nil
+    fileprivate var number:[SKSpriteNode]=[]
+    fileprivate var appcircle:SKSpriteNode? = nil
+    fileprivate var dummynode:SKNode? = nil
+    fileprivate var guardnode:SKNode? = nil
     
     init(obj:HitCircle) {
         self.time=Double(obj.time)
         self.obj=obj
     }
     
-    func prepare(color:UIColor,number:Int,layer:CGFloat) {
+    func prepare(_ color:UIColor,number:Int,layer:CGFloat) {
         let edge = CGFloat((ActionSet.difficulty?.AbsoluteCS)!)
         let size = CGSize(width: edge, height: edge)
         let position = CGPoint(x: obj.x, y: obj.y)
         var selflayer = layer
         //Draw inner
         selflayer += 0.1
-        inner = SKSpriteNode(texture: SkinBuffer.get(file: "hitcircle"))
+        inner = SKSpriteNode(texture: SkinBuffer.get("hitcircle"))
         inner?.color = color
         inner?.blendMode = .alpha
         inner?.colorBlendFactor = 1
@@ -42,7 +42,7 @@ class CircleAction:HitObjectAction {
         //Draw number
         selflayer += 0.1
         let lo = number % 10
-        let lonode = CircleAction.num2node(number: lo)
+        let lonode = CircleAction.num2node(lo)
         lonode.position = position
         lonode.zPosition = selflayer
         self.number.append(lonode)
@@ -50,7 +50,7 @@ class CircleAction:HitObjectAction {
             lonode.anchorPoint = CGPoint(x: 0.0, y: 0.5)
             selflayer += 0.1
             let hi = (number % 100) / 10
-            let hinode = CircleAction.num2node(number: hi)
+            let hinode = CircleAction.num2node(hi)
             hinode.anchorPoint = CGPoint(x: 1.0, y: 0.5)
             hinode.position = position
             hinode.zPosition = selflayer
@@ -58,13 +58,13 @@ class CircleAction:HitObjectAction {
         }
         //Draw overlay
         selflayer += 0.1
-        overlay = SKSpriteNode(texture: SkinBuffer.get(file: "hitcircleoverlay"))
+        overlay = SKSpriteNode(texture: SkinBuffer.get("hitcircleoverlay"))
         overlay?.colorBlendFactor = 0
         overlay?.size = size
         overlay?.position = position
         overlay?.zPosition = selflayer
         //Draw Approach Circle
-        appcircle = SKSpriteNode(texture: SkinBuffer.get(file: "approachcircle"))
+        appcircle = SKSpriteNode(texture: SkinBuffer.get("approachcircle"))
         appcircle?.colorBlendFactor = 0
         appcircle?.size = size
         appcircle?.setScale(3)
@@ -73,8 +73,8 @@ class CircleAction:HitObjectAction {
         appcircle?.zPosition = 100001
     }
     
-    static func num2node(number:Int) -> SKSpriteNode {
-        let texture = SkinBuffer.get(file: "default-\(number)")
+    static func num2node(_ number:Int) -> SKSpriteNode {
+        let texture = SkinBuffer.get("default-\(number)")
         var width = (texture?.size().width)!
         var height = (texture?.size().height)!
         let scale = CGFloat((ActionSet.difficulty?.AbsoluteCS)!) / 3 / height
@@ -87,7 +87,7 @@ class CircleAction:HitObjectAction {
     }
     
     static let faildisappear = SKAction.sequence([.fadeOut(withDuration: 0.1),.removeFromParent()])
-    func show(scene:SKScene,offset:Double) {
+    func show(_ scene:SKScene,offset:Double) {
         let artime = (ActionSet.difficulty?.ARTime)!/1000
         let showact = SKAction.sequence([.wait(forDuration: offset/1000),.run{
             scene.addChild(self.inner!)
@@ -98,7 +98,7 @@ class CircleAction:HitObjectAction {
             scene.addChild(self.appcircle!)
             self.appcircle?.run(.sequence([.group([.fadeIn(withDuration: artime/3),.scale(to: 1, duration: artime)]),.removeFromParent()]))
             }])
-        let failact = SKAction.sequence([.wait(forDuration: artime+offset/1000+(ActionSet.difficulty?.Score50)!/1000),SKAction.playSoundFileNamed(fileName: "combobreak.mp3", atVolume: GamePlayScene.effvolume, waitForCompletion: false),.run {
+        let failact = SKAction.sequence([.wait(forDuration: artime+offset/1000+(ActionSet.difficulty?.Score50)!/1000),SKAction.playSoundFileNamed("combobreak.mp3", atVolume: GamePlayScene.effvolume, waitForCompletion: false),.run {
             ActionSet.current?.pointer+=1
             self.inner?.run(CircleAction.faildisappear)
             self.overlay?.run(CircleAction.faildisappear)
@@ -106,7 +106,7 @@ class CircleAction:HitObjectAction {
                 num.run(CircleAction.faildisappear)
             }
             //Show fail
-            let img = SkinBuffer.get(file: "hit0")!
+            let img = SkinBuffer.get("hit0")!
             let node = SKSpriteNode(texture: img)
             let scale = CGFloat((ActionSet.difficulty?.AbsoluteCS)! / 128)
             node.setScale(scale)
@@ -128,7 +128,7 @@ class CircleAction:HitObjectAction {
     
     static let passdisappear = SKAction.sequence([.group([.fadeOut(withDuration: 0.1),.scale(to: 2, duration: 0.1)]),.removeFromParent()])
     //Time in ms
-    func judge(time:Double) -> HitResult {
+    func judge(_ time:Double) -> HitResult {
         ActionSet.current?.pointer+=1
         dummynode?.removeAllActions()
         dummynode?.run(.sequence([.wait(forDuration: 0.5),.removeFromParent()]))
@@ -141,7 +141,7 @@ class CircleAction:HitObjectAction {
                 num.run(CircleAction.faildisappear)
             }
             self.appcircle?.run(CircleAction.faildisappear)
-            return .Fail
+            return .fail
         }
         d = abs(d)
         if d <= (ActionSet.difficulty?.Score50)! {
@@ -152,12 +152,12 @@ class CircleAction:HitObjectAction {
             }
             self.appcircle?.removeFromParent()
             if d <= (ActionSet.difficulty?.Score300)! {
-                return .S300
+                return .s300
             }
             if d <= (ActionSet.difficulty?.Score100)! {
-                return .S100
+                return .s100
             }
-            return .S50
+            return .s50
         }
         self.inner?.run(CircleAction.faildisappear)
         self.overlay?.run(CircleAction.faildisappear)
@@ -165,7 +165,7 @@ class CircleAction:HitObjectAction {
             num.run(CircleAction.faildisappear)
         }
         self.appcircle?.run(CircleAction.faildisappear)
-        return .Fail
+        return .fail
     }
     
     func gettime() -> Double {

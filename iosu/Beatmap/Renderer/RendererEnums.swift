@@ -9,17 +9,17 @@
 import Foundation
 
 enum SliderStatus {
-    case Head
-    case Arrow
-    case End
+    case head
+    case arrow
+    case end
 }
 
 enum SliderFeedback {
-    case Nothing
-    case EdgePass
-    case TickPass
-    case FailOnce
-    case FailTick
-    case FailAll
-    case End
+    case nothing
+    case edgePass
+    case tickPass
+    case failOnce
+    case failTick
+    case failAll
+    case end
 }

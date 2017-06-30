@@ -23,8 +23,6 @@
 		8A7F7E1B1E9D2C1D00595A13 /* libstdc++.6.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A7F7E1A1E9D2C1D00595A13 /* libstdc++.6.tbd */; };
 		8A7F7E1D1E9D2C2500595A13 /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A7F7E1C1E9D2C2500595A13 /* libbz2.tbd */; };
 		8A7F7E1F1E9D2C2D00595A13 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A7F7E1E1E9D2C2D00595A13 /* libz.tbd */; };
-		8ABA55271E9D240C006530EC /* iosu-Bridging-Header.h in Sources */ = {isa = PBXBuildFile; fileRef = 8ABA55261E9D23FD006530EC /* iosu-Bridging-Header.h */; };
-		8AC188441E8EAE3300C9BB98 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 8AC188431E8EAE3300C9BB98 /* README.md */; };
 		8ADC1E0D1ECB0B1B00E0E9AB /* applause.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1DE81ECB0B1B00E0E9AB /* applause.mp3 */; };
 		8ADC1E0E1ECB0B1B00E0E9AB /* combobreak.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1DE91ECB0B1B00E0E9AB /* combobreak.mp3 */; };
 		8ADC1E0F1ECB0B1B00E0E9AB /* count.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1DEA1ECB0B1B00E0E9AB /* count.wav */; };
@@ -584,6 +582,7 @@
 					8A4D5C2F1E8A8AEB00319D91 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 34A2STWT5M;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
 					8A4D5C491E8A8AEC00319D91 = {
@@ -725,7 +724,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8ADC1E6C1ECB11AB00E0E9AB /* SBCHelper.swift in Sources */,
-				8ABA55271E9D240C006530EC /* iosu-Bridging-Header.h in Sources */,
 				8ADC1E461ECB0D5000E0E9AB /* Spinner.swift in Sources */,
 				8ADC1E841ECB138000E0E9AB /* SBLoop.swift in Sources */,
 				8ADC1E331ECB0B7A00E0E9AB /* TimingPoint.swift in Sources */,
@@ -756,7 +754,6 @@
 				8ADC1E7A1ECB12CB00E0E9AB /* SBScale.swift in Sources */,
 				8ADC1E921ECB155400E0E9AB /* Difficulty.swift in Sources */,
 				8ADC1E991ECB15F100E0E9AB /* TestScene.swift in Sources */,
-				8AC188441E8EAE3300C9BB98 /* README.md in Sources */,
 				8ADC1E531ECB0ECE00E0E9AB /* BundleImageBuffer.swift in Sources */,
 				8ADC1E7E1ECB130D00E0E9AB /* SBRotate.swift in Sources */,
 				8A1ACE721EFAB529000EBC14 /* PlaySoundFileNamedExt.swift in Sources */,

@@ -11,8 +11,8 @@ import SpriteKit
 
 class SliderBall {
     
-    let sliderball1=SKSpriteNode(texture: SliderBall.sliderballimg(file: "sliderb0"))
-    let sliderball2=SKSpriteNode(texture: SliderBall.sliderballimg(file: "sliderb5"))
+    let sliderball1=SKSpriteNode(texture: SliderBall.sliderballimg("sliderb0"))
+    let sliderball2=SKSpriteNode(texture: SliderBall.sliderballimg("sliderb5"))
     var followcircle=SKSpriteNode(texture: SKTexture(imageNamed: "sliderfollowcircle"))
     let scene:SKScene
     var useSkin = false
@@ -21,22 +21,22 @@ class SliderBall {
         self.scene = scene
     }
     
-    public func initialize(size:CGFloat) {
+    open func initialize(_ size:CGFloat) {
         var n_follow = -1
         var textures3:[SKTexture]=[]
         if SkinBuffer.useSkin {
             var n = -1
             for i in 0...20 {
-                SkinBuffer.get(file: "sliderb\(i)")
-                if !SkinBuffer.getFlag(file: "sliderb\(i)") {
+                _ = SkinBuffer.get("sliderb\(i)")
+                if !SkinBuffer.getFlag("sliderb\(i)") {
                     n = i - 1
                     break
                 }
             }
             //Parse following circle
             for i in 0...20 {
-                SkinBuffer.get(file: "sliderfollowcircle-\(i)")
-                if !SkinBuffer.getFlag(file: "sliderfollowcircle-\(i)") {
+                _ = SkinBuffer.get("sliderfollowcircle-\(i)")
+                if !SkinBuffer.getFlag("sliderfollowcircle-\(i)") {
                     n_follow = i - 1
                     break
                 }
@@ -53,19 +53,19 @@ class SliderBall {
                 if n > 0{
                     var textures1:[SKTexture]=[]
                     for i in 0...n {
-                        textures1.append(SliderBall.sliderballimg(file: "sliderb\(i)"))
+                        textures1.append(SliderBall.sliderballimg("sliderb\(i)"))
                     }
                     sliderball1.run(.repeatForever(.animate(with: textures1, timePerFrame: 0.05)))
                 }
                 //Follow circle
                 if n_follow > -1 {
-                    followcircle=SKSpriteNode(texture: SkinBuffer.get(file: "sliderfollowcircle-0"))
+                    followcircle=SKSpriteNode(texture: SkinBuffer.get("sliderfollowcircle-0"))
                     followcircle.size=CGSize(width: size*2, height: size*2)
                     followcircle.alpha=0
                     followcircle.zPosition=500000
                     scene.addChild(followcircle)
                     for i in 0...n_follow {
-                        textures3.append(SkinBuffer.get(file: "sliderfollowcircle-\(i)")!)
+                        textures3.append(SkinBuffer.get("sliderfollowcircle-\(i)")!)
                     }
                     followcircle.run(.repeatForever(.animate(with: textures3, timePerFrame: 0.2)))
                 } else {
@@ -92,8 +92,8 @@ class SliderBall {
         var textures1:[SKTexture]=[]
         var textures2:[SKTexture]=[]
         for i in 0...9 {
-            textures1.append(SliderBall.sliderballimg(file: "sliderb\(i)"))
-            textures2.append(SliderBall.sliderballimg(file: "sliderb\((i+5)%10)"))
+            textures1.append(SliderBall.sliderballimg("sliderb\(i)"))
+            textures2.append(SliderBall.sliderballimg("sliderb\((i+5)%10)"))
         }
         scene.addChild(self.sliderball1)
         scene.addChild(self.sliderball2)
@@ -102,13 +102,13 @@ class SliderBall {
         //Follow circle
         if SkinBuffer.useSkin {
             if n_follow > -1 {
-                followcircle=SKSpriteNode(texture: SkinBuffer.get(file: "sliderfollowcircle-0"))
+                followcircle=SKSpriteNode(texture: SkinBuffer.get("sliderfollowcircle-0"))
                 followcircle.size=CGSize(width: size*2, height: size*2)
                 followcircle.alpha=0
                 followcircle.zPosition=500000
                 scene.addChild(followcircle)
                 for i in 0...n_follow {
-                    textures3.append(SkinBuffer.get(file: "sliderfollowcircle-\(i)")!)
+                    textures3.append(SkinBuffer.get("sliderfollowcircle-\(i)")!)
                 }
                 followcircle.run(.repeatForever(.animate(with: textures3, timePerFrame: 0.2)))
                 return
@@ -120,7 +120,7 @@ class SliderBall {
         scene.addChild(followcircle)
     }
     
-    public func show(color:UIColor, path:UIBezierPath, repe:Int, duration:Double, waittime:Double) -> SKAction {
+    open func show(_ color:UIColor, path:UIBezierPath, repe:Int, duration:Double, waittime:Double) -> SKAction {
         return SKAction.sequence([.wait(forDuration: waittime),.run {
             let rpath=path.reversing()
             self.sliderball1.color = color
@@ -143,23 +143,23 @@ class SliderBall {
             }])
     }
     
-    public func hideall() {
+    open func hideall() {
         sliderball1.alpha = 0
         sliderball2.alpha = 0
         hidefollowcircle()
     }
     
-    public func showfollowcircle() {
+    open func showfollowcircle() {
         followcircle.run(.fadeIn(withDuration: 0.1))
     }
     
-    public func hidefollowcircle() {
+    open func hidefollowcircle() {
         followcircle.run(.fadeOut(withDuration: 0.1))
     }
     
     //In order to rotate images in SKAction
-    private static func sliderballimg(file:String) -> SKTexture {
-        let img=SkinBuffer.getimg(file: file)
+    fileprivate static func sliderballimg(_ file:String) -> SKTexture {
+        let img=SkinBuffer.getimg(file)
         let rotatedViewBox=UIView(frame: CGRect(x: 0, y: 0, width: (img?.size.width)!, height: (img?.size.height)!))
         rotatedViewBox.transform=CGAffineTransform(rotationAngle: -.pi/2)
         let rotatedSize=rotatedViewBox.frame.size

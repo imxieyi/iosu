@@ -19,8 +19,8 @@ class StoryBoardScene: SKScene {
     //StoryBoard.stdwidth=854
     var audiofile=""
     var sb:StoryBoard?
-    public var viewController:GameViewController?
-    public static var hasSB = false
+    open var viewController:GameViewController?
+    open static var hasSB = false
     
     init(size: CGSize,parent:GameViewController) {
         //debugPrint("enter constructor,parent is \(parent)")
@@ -46,36 +46,36 @@ class StoryBoardScene: SKScene {
             debugPrint("hitobjects: \(bm.hitobjects.count)")
             bm.audiofile=(beatmaps.beatmapdirs[StoryBoardScene.testBMIndex] as NSString).strings(byAppendingPaths: [bm.audiofile])[0] as String
             if !FileManager.default.fileExists(atPath: bm.audiofile){
-                throw BeatmapError.AudioFileNotExist
+                throw BeatmapError.audioFileNotExist
             }
             audiofile=bm.audiofile
-        } catch BeatmapError.FileNotFound {
-            Alerts.show(sender: viewController!, title: "Error", message: "beatmap file not found", style: .alert, actiontitle: "OK", actionstyle: .cancel, handler: nil)
+        } catch BeatmapError.fileNotFound {
+            Alerts.show(viewController!, title: "Error", message: "beatmap file not found", style: .alert, actiontitle: "OK", actionstyle: .cancel, handler: nil)
             debugPrint("ERROR:beatmap file not found")
-        } catch BeatmapError.IllegalFormat {
-            Alerts.show(sender: viewController!, title: "Error", message: "Illegal beatmap format", style: .alert, actiontitle: "OK", actionstyle: .cancel, handler: nil)
+        } catch BeatmapError.illegalFormat {
+            Alerts.show(viewController!, title: "Error", message: "Illegal beatmap format", style: .alert, actiontitle: "OK", actionstyle: .cancel, handler: nil)
             debugPrint("ERROR:Illegal beatmap format")
-        } catch BeatmapError.NoAudioFile {
-            Alerts.show(sender: viewController!, title: "Error", message: "Audio file not found", style: .alert, actiontitle: "OK", actionstyle: .cancel, handler: nil)
+        } catch BeatmapError.noAudioFile {
+            Alerts.show(viewController!, title: "Error", message: "Audio file not found", style: .alert, actiontitle: "OK", actionstyle: .cancel, handler: nil)
             debugPrint("ERROR:Audio file not found")
-        } catch BeatmapError.AudioFileNotExist {
-            Alerts.show(sender: viewController!, title: "Error", message: "Audio file does not exist", style: .alert, actiontitle: "OK", actionstyle: .cancel, handler: nil)
+        } catch BeatmapError.audioFileNotExist {
+            Alerts.show(viewController!, title: "Error", message: "Audio file does not exist", style: .alert, actiontitle: "OK", actionstyle: .cancel, handler: nil)
             debugPrint("ERROR:Audio file does not exist")
-        } catch BeatmapError.NoColor {
-            Alerts.show(sender: viewController!, title: "Error", message: "Color not found", style: .alert, actiontitle: "OK", actionstyle: .cancel, handler: nil)
+        } catch BeatmapError.noColor {
+            Alerts.show(viewController!, title: "Error", message: "Color not found", style: .alert, actiontitle: "OK", actionstyle: .cancel, handler: nil)
             debugPrint("ERROR:Color not found")
-        } catch BeatmapError.NoHitObject{
-            Alerts.show(sender: viewController!, title: "Error", message: "No hitobject found", style: .alert, actiontitle: "OK", actionstyle: .cancel, handler: nil)
+        } catch BeatmapError.noHitObject{
+            Alerts.show(viewController!, title: "Error", message: "No hitobject found", style: .alert, actiontitle: "OK", actionstyle: .cancel, handler: nil)
             debugPrint("ERROR:No hitobject found")
         } catch let error {
-            Alerts.show(sender: viewController!, title: "Error", message: "unknown error(\(error.localizedDescription))", style: .alert, actiontitle: "OK", actionstyle: .cancel, handler: nil)
+            Alerts.show(viewController!, title: "Error", message: "unknown error(\(error.localizedDescription))", style: .alert, actiontitle: "OK", actionstyle: .cancel, handler: nil)
             debugPrint("ERROR:unknown error(\(error.localizedDescription))")
         }
         if beatmaps.dirscontainsb.contains(beatmaps.beatmapdirs[StoryBoardScene.testBMIndex]) {
             do{
                 sb=try StoryBoard(directory:beatmaps.beatmapdirs[StoryBoardScene.testBMIndex],osufile:(beatmaps.beatmapdirs[StoryBoardScene.testBMIndex] as NSString).strings(byAppendingPaths: [beatmaps.beatmaps[StoryBoardScene.testBMIndex]])[0],osbfile: (beatmaps.beatmapdirs[StoryBoardScene.testBMIndex] as NSString).appendingPathComponent(beatmaps.storyboards[beatmaps.beatmapdirs[StoryBoardScene.testBMIndex]]!), width: Double(size.width), height: Double(size.height), layer: 0)
-                debugPrint("storyboard object count: \(sb?.sbsprites.count)")
-                debugPrint("storyboard earliest time: \(sb?.earliest)")
+                debugPrint("storyboard object count: \(String(describing: sb?.sbsprites.count))")
+                debugPrint("storyboard earliest time: \(String(describing: sb?.earliest))")
                 if (sb?.sbsprites.count)! > 0 {
                     StoryBoardScene.hasSB = true
                 } else {
@@ -83,54 +83,54 @@ class StoryBoardScene: SKScene {
                 }
                 if !ImageBuffer.notfoundimages.isEmpty {
                     debugPrint("parent:\(viewController==nil)")
-                    viewController?.alert=Alerts.create(title: "Warning", message: ImageBuffer.notfound2str(), style: .alert, action1title: "Cancel", action1style: .cancel, handler1: nil, action2title: "Continue", action2style: .default, handler2: {(action:UIAlertAction)->Void in
+                    viewController?.alert=Alerts.create("Warning", message: ImageBuffer.notfound2str(), style: .alert, action1title: "Cancel", action1style: .cancel, handler1: nil, action2title: "Continue", action2style: .default, handler2: {(action:UIAlertAction)->Void in
                         BGMusicPlayer.sbScene = self
                         BGMusicPlayer.sbEarliest = (self.sb?.sbsprites.first?.starttime)!
                     })
                 }else{
                     BGMusicPlayer.sbScene = self
                     BGMusicPlayer.sbEarliest = (sb?.sbsprites.first?.starttime)!
-                    BGMusicPlayer.setfile(file: audiofile)
+                    BGMusicPlayer.setfile(audiofile)
                 }
-            }catch StoryBoardError.FileNotFound{
-                Alerts.show(sender: viewController!, title: "Error", message: "storyboard file not found", style: .alert, actiontitle: "OK", actionstyle: .cancel, handler: nil)
+            }catch StoryBoardError.fileNotFound{
+                Alerts.show(viewController!, title: "Error", message: "storyboard file not found", style: .alert, actiontitle: "OK", actionstyle: .cancel, handler: nil)
                 debugPrint("ERROR:storyboard file not found")
-            }catch StoryBoardError.IllegalFormat{
-                Alerts.show(sender: viewController!, title: "Error", message: "illegal storyboard format", style: .alert, actiontitle: "OK", actionstyle: .cancel, handler: nil)
+            }catch StoryBoardError.illegalFormat{
+                Alerts.show(viewController!, title: "Error", message: "illegal storyboard format", style: .alert, actiontitle: "OK", actionstyle: .cancel, handler: nil)
                 debugPrint("ERROR:illegal storyboard format")
             }catch let error{
-                Alerts.show(sender: viewController!, title: "Error", message: "unknown error(\(error.localizedDescription))", style: .alert, actiontitle: "OK", actionstyle: .cancel, handler: nil)
+                Alerts.show(viewController!, title: "Error", message: "unknown error(\(error.localizedDescription))", style: .alert, actiontitle: "OK", actionstyle: .cancel, handler: nil)
                 debugPrint("ERROR:unknown error(\(error.localizedDescription))")
             }
         }else{
             do{
                 debugPrint(".osb file not found")
                 sb=try StoryBoard(directory:beatmaps.beatmapdirs[StoryBoardScene.testBMIndex],osufile:(beatmaps.beatmapdirs[StoryBoardScene.testBMIndex] as NSString).strings(byAppendingPaths: [beatmaps.beatmaps[StoryBoardScene.testBMIndex]])[0], width: Double(size.width), height: Double(size.height), layer: 0)
-                debugPrint("storyboard object count: \(sb?.sbsprites.count)")
-                debugPrint("storyboard earliest time: \(sb?.earliest)")
+                debugPrint("storyboard object count: \(String(describing: sb?.sbsprites.count))")
+                debugPrint("storyboard earliest time: \(String(describing: sb?.earliest))")
                 if (sb?.sbsprites.count)! > 0 {
                     StoryBoardScene.hasSB = true
                 } else {
                     return
                 }
                 if !ImageBuffer.notfoundimages.isEmpty {
-                    Alerts.show(sender: viewController!, title: "Warning", message: ImageBuffer.notfound2str(), style: .alert, action1title: "Cancel", action1style: .cancel, handler1: nil, action2title: "Continue", action2style: .default, handler2: {(action:UIAlertAction)->Void in
+                    Alerts.show(viewController!, title: "Warning", message: ImageBuffer.notfound2str(), style: .alert, action1title: "Cancel", action1style: .cancel, handler1: nil, action2title: "Continue", action2style: .default, handler2: {(action:UIAlertAction)->Void in
                         BGMusicPlayer.sbScene = self
                         BGMusicPlayer.sbEarliest = (self.sb?.sbsprites.first?.starttime)!
                     })
                 }else{
                     BGMusicPlayer.sbScene = self
                     BGMusicPlayer.sbEarliest = (sb?.sbsprites.first?.starttime)!
-                    BGMusicPlayer.setfile(file: audiofile)
+                    BGMusicPlayer.setfile(audiofile)
                 }
-            }catch StoryBoardError.FileNotFound{
-                Alerts.show(sender: viewController!, title: "Error", message: "storyboard file not found", style: .alert, actiontitle: "OK", actionstyle: .cancel, handler: nil)
+            }catch StoryBoardError.fileNotFound{
+                Alerts.show(viewController!, title: "Error", message: "storyboard file not found", style: .alert, actiontitle: "OK", actionstyle: .cancel, handler: nil)
                 debugPrint("ERROR:storyboard file not found")
-            }catch StoryBoardError.IllegalFormat{
-                Alerts.show(sender: viewController!, title: "Error", message: "illegal storyboard format", style: .alert, actiontitle: "OK", actionstyle: .cancel, handler: nil)
+            }catch StoryBoardError.illegalFormat{
+                Alerts.show(viewController!, title: "Error", message: "illegal storyboard format", style: .alert, actiontitle: "OK", actionstyle: .cancel, handler: nil)
                 debugPrint("ERROR:illegal storyboard format")
             }catch let error{
-                Alerts.show(sender: viewController!, title: "Error", message: "unknown error(\(error.localizedDescription))", style: .alert, actiontitle: "OK", actionstyle: .cancel, handler: nil)
+                Alerts.show(viewController!, title: "Error", message: "unknown error(\(error.localizedDescription))", style: .alert, actiontitle: "OK", actionstyle: .cancel, handler: nil)
                 debugPrint("ERROR:unknown error(\(error.localizedDescription))")
             }
         }
@@ -151,7 +151,7 @@ class StoryBoardScene: SKScene {
                     }
                     self.addChild((sb?.sbsprites[index].sprite)!)
                     if sb?.sbsprites[index].actions != nil {
-                        sb?.sbsprites[index].runaction(offset: offset)
+                        sb?.sbsprites[index].runaction(offset)
                     }
                     index+=1
                     if index>=(sb?.sbsprites.count)!{

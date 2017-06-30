@@ -19,7 +19,7 @@ class SBLoop:SBCommand,SBCAction {
     
     init(starttime:Int,loopcount:Int) {
         self.loopcount=loopcount
-        super.init(type: .Loop, easing: 0, starttime: starttime, endtime: 0)
+        super.init(type: .loop, easing: 0, starttime: starttime, endtime: 0)
     }
     
     func genendtime() {

@@ -13,22 +13,22 @@ import QuartzCore
 
 class BGMusicPlayer{
     
-    private static var musicPlayer: AVAudioPlayer!
-    public static var gameEarliest:Int = 0
-    public static var videoEarliest:Int = 0
-    public static var sbEarliest:Int = 0
-    public static var gameScene:GamePlayScene?
-    public static var sbScene:StoryBoardScene?
-    public static var bgmvolume:Float = 1.0
+    fileprivate static var musicPlayer: AVAudioPlayer!
+    open static var gameEarliest:Int = 0
+    open static var videoEarliest:Int = 0
+    open static var sbEarliest:Int = 0
+    open static var gameScene:GamePlayScene?
+    open static var sbScene:StoryBoardScene?
+    open static var bgmvolume:Float = 1.0
     
-    static func setfile(file:String) {
+    static func setfile(_ file:String) {
         let url=URL(fileURLWithPath: file)
         self.musicPlayer = try! AVAudioPlayer(contentsOf: url)
         self.musicPlayer.numberOfLoops=0
         self.musicPlayer.volume = bgmvolume
     }
     
-    private static var starttime:Double = 0
+    fileprivate static var starttime:Double = 0
     
     static func startPlaying() {
         debugPrint("game earliest: \(gameEarliest)")

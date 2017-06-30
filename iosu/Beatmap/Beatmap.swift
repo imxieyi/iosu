@@ -11,31 +11,31 @@ import UIKit
 
 class Beatmap{
     
-    public var bgimg:String = ""
-    public var audiofile:String = ""
-    public var difficulty:BMDifficulty?
-    public var timingpoints:[TimingPoint] = []
-    public var colors:[UIColor] = []
-    public var hitobjects:[HitObject] = []
-    public var sampleSet:SampleSet = .Auto //Set of audios
-    public var bgvideos:[BGVideo]=[]
-    public var widesb=false
+    open var bgimg:String = ""
+    open var audiofile:String = ""
+    open var difficulty:BMDifficulty?
+    open var timingpoints:[TimingPoint] = []
+    open var colors:[UIColor] = []
+    open var hitobjects:[HitObject] = []
+    open var sampleSet:SampleSet = .auto //Set of audios
+    open var bgvideos:[BGVideo]=[]
+    open var widesb=false
     //For sliders
-    public var bordercolor = UIColor.white
-    public var trackcolor = UIColor.clear
-    public var trackoverride = false
+    open var bordercolor = UIColor.white
+    open var trackcolor = UIColor.clear
+    open var trackoverride = false
     
     init(file:String) throws {
         debugPrint("full path: \(file)")
         let readFile=FileHandle(forReadingAtPath: file)
         if readFile===nil{
-            throw BeatmapError.FileNotFound
+            throw BeatmapError.fileNotFound
         }
         let bmData=readFile?.readDataToEndOfFile()
         let bmString=String(data: bmData!, encoding: .utf8)
         let rawlines=bmString?.components(separatedBy: CharacterSet.newlines)
         if rawlines?.count==0{
-            throw BeatmapError.IllegalFormat
+            throw BeatmapError.illegalFormat
         }
         var lines=ArraySlice<String>()
         for line in rawlines! {
@@ -51,22 +51,22 @@ class Beatmap{
             index += 1
             switch line {
             case "[General]":
-                try parseGeneral(lines: lines.suffix(from: index+1))
+                try parseGeneral(lines.suffix(from: index+1))
                 break
             case "[Difficulty]":
-                parseDifficulty(lines: lines.suffix(from: index+1))
+                parseDifficulty(lines.suffix(from: index+1))
                 break
             case "[Events]":
-                parseEvents(lines: lines.suffix(from: index+1))
+                parseEvents(lines.suffix(from: index+1))
                 break
             case "[TimingPoints]":
-                try parseTimingPoints(lines: lines.suffix(from: index+1))
+                try parseTimingPoints(lines.suffix(from: index+1))
                 break
             case "[Colours]":
-                try parseColors(lines: lines.suffix(from: index+1))
+                try parseColors(lines.suffix(from: index+1))
                 break
             case "[HitObjects]":
-                try parseHitObjects(lines: lines.suffix(from: index+1))
+                try parseHitObjects(lines.suffix(from: index+1))
                 break
             default:
                 continue
@@ -77,7 +77,7 @@ class Beatmap{
         })
     }
     
-    func getTimingPoint(offset:Int) -> TimingPoint {
+    func getTimingPoint(_ offset:Int) -> TimingPoint {
         for i in (0...timingpoints.count-1).reversed() {
             if timingpoints[i].offset <= offset {
                 return timingpoints[i]
@@ -86,11 +86,11 @@ class Beatmap{
         return timingpoints[0]
     }
  
-    func parseGeneral(lines:ArraySlice<String>) throws -> Void {
+    func parseGeneral(_ lines:ArraySlice<String>) throws -> Void {
         for line in lines{
             if line.hasPrefix("["){
                 if(audiofile==""){
-                    throw BeatmapError.NoAudioFile
+                    throw BeatmapError.noAudioFile
                 }
                 return
             }
@@ -103,14 +103,14 @@ class Beatmap{
                 value=value.substring(from: 1) as NSString
             }
             if value.length==0{
-                throw BeatmapError.NoAudioFile
+                throw BeatmapError.noAudioFile
             }
             switch splitted[0] {
             case "AudioFilename":
                 audiofile=value as String
                 break
             case "SampleSet":
-                sampleSet=samplesetConv(str: value as String)
+                sampleSet=samplesetConv(value as String)
                 break
             case "WidescreenStoryboard":
                 if (value as NSString).integerValue==1 {
@@ -123,20 +123,20 @@ class Beatmap{
         }
     }
     
-    func samplesetConv(str:String) -> SampleSet {
+    func samplesetConv(_ str:String) -> SampleSet {
         switch str {
         case "Normal":
-            return .Normal
+            return .normal
         case "Soft":
-            return .Soft
+            return .soft
         case "Drum":
-            return .Drum
+            return .drum
         default:
-            return .Auto
+            return .auto
         }
     }
     
-    func parseDifficulty(lines:ArraySlice<String>) -> Void {
+    func parseDifficulty(_ lines:ArraySlice<String>) -> Void {
         var hp:Double = -1
         var cs:Double = -1
         var od:Double = 5
@@ -197,7 +197,7 @@ class Beatmap{
         difficulty=BMDifficulty(HP: hp, CS: cs, OD: od, AR: ar, SM: sm, ST: st)
     }
     
-    func parseEvents(lines:ArraySlice<String>) -> Void {
+    func parseEvents(_ lines:ArraySlice<String>) -> Void {
         for line in lines {
             if line.hasPrefix("[") {
                 return
@@ -213,7 +213,7 @@ class Beatmap{
                     vstr=(vstr as NSString).substring(to: vstr.lengthOfBytes(using: .ascii)-1)
                 }
                 bgvideos.append(BGVideo(file: vstr, time: (splitted[1] as NSString).integerValue))
-                debugPrint("find video \(vstr) with offset \(bgvideos.last?.time)")
+                debugPrint("find video \(vstr) with offset \(String(describing: bgvideos.last?.time))")
             } else {
                 let splitted=line.components(separatedBy: ",")
                 if splitted.count>=3 {
@@ -248,12 +248,12 @@ class Beatmap{
         }
     }
     
-    func parseTimingPoints(lines:ArraySlice<String>) throws -> Void {
+    func parseTimingPoints(_ lines:ArraySlice<String>) throws -> Void {
         var lasttimeperbeat:Double = 0
         for line in lines{
             if line.hasPrefix("["){
                 if(timingpoints.count==0){
-                    throw BeatmapError.NoTimingPoints
+                    throw BeatmapError.noTimingPoints
                 }
                 return
             }
@@ -272,7 +272,7 @@ class Beatmap{
                 let offset=(splitted[0] as NSString).integerValue
                 let timeperbeat=(splitted[1] as NSString).doubleValue
                 let meter=(splitted[2] as NSString).integerValue
-                let sampleset=samplesetConv(str: splitted[3])
+                let sampleset=samplesetConv(splitted[3])
                 let samplesetid=(splitted[4] as NSString).integerValue
                 let volume=(splitted[5] as NSString).integerValue
                 let kiai=((splitted[7] as NSString).integerValue == 1)
@@ -282,7 +282,7 @@ class Beatmap{
                 let offset=(splitted[0] as NSString).integerValue
                 let timeperbeat=(splitted[1] as NSString).doubleValue
                 let meter=(splitted[2] as NSString).integerValue
-                let sampleset=samplesetConv(str: splitted[3])
+                let sampleset=samplesetConv(splitted[3])
                 let samplesetid=(splitted[4] as NSString).integerValue
                 let volume=(splitted[5] as NSString).integerValue
                 let kiai=((splitted[7] as NSString).integerValue == 1)
@@ -291,11 +291,11 @@ class Beatmap{
         }
     }
     
-    func parseColors(lines:ArraySlice<String>) throws -> Void{
+    func parseColors(_ lines:ArraySlice<String>) throws -> Void{
         for line in lines{
             if line.hasPrefix("["){
                 if(colors.count==0){
-                    throw BeatmapError.NoColor
+                    throw BeatmapError.noColor
                 }
                 return
             }
@@ -306,7 +306,7 @@ class Beatmap{
             if splitted[0].hasPrefix("Combo"){
                 let dsplitted=splitted[1].components(separatedBy: ",")
                 if dsplitted.count != 3{
-                    throw BeatmapError.IllegalFormat
+                    throw BeatmapError.illegalFormat
                 }
                 colors.append(UIColor(red: CGFloat((dsplitted[0] as NSString).floatValue/255), green: CGFloat((dsplitted[1] as NSString).floatValue/255), blue: CGFloat((dsplitted[2] as NSString).floatValue/255), alpha: 1.0))
             }
@@ -326,12 +326,12 @@ class Beatmap{
         }
     }
     
-    func parseHitObjects(lines:ArraySlice<String>) throws -> Void {
+    func parseHitObjects(_ lines:ArraySlice<String>) throws -> Void {
         var newcombo=true
         for line in lines{
             if line.hasPrefix("["){
                 if(hitobjects.count==0){
-                    throw BeatmapError.NoHitObject
+                    throw BeatmapError.noHitObject
                 }
                 return
             }
@@ -341,17 +341,17 @@ class Beatmap{
                 continue
             }
             let typenum = (splitted[3] as NSString).integerValue % 16
-            switch HitObject.getObjectType(num: typenum) {
-            case .Circle:
-                newcombo=newcombo || HitObject.getNewCombo(num: typenum)
+            switch HitObject.getObjectType(typenum) {
+            case .circle:
+                newcombo=newcombo || HitObject.getNewCombo(typenum)
                 hitobjects.append(HitCircle(x: (splitted[0] as NSString).integerValue, y: (splitted[1] as NSString).integerValue, time: (splitted[2] as NSString).integerValue, hitsound: (splitted[4] as NSString).integerValue, newCombo: newcombo))
                 newcombo=false
                 break
-            case .Slider:
-                newcombo=newcombo || HitObject.getNewCombo(num: typenum)
-                let dslider=decodeSlider(sliderinfo: splitted[5])
+            case .slider:
+                newcombo=newcombo || HitObject.getNewCombo(typenum)
+                let dslider=decodeSlider(splitted[5])
                 let slider=Slider(x: (splitted[0] as NSString).integerValue, y: (splitted[1] as NSString).integerValue, slidertype: dslider.type, curveX: dslider.cx, curveY: dslider.cy, time: (splitted[2] as NSString).integerValue, hitsound: (splitted[4] as NSString).integerValue, newCombo: newcombo, repe: (splitted[6] as NSString).integerValue,length:(splitted[7] as NSString).integerValue)
-                slider.genpath(debug: false)
+                slider.genpath(false)
                 slider.bordercolor = bordercolor
                 if trackoverride {
                     slider.trackoverride = true
@@ -360,37 +360,37 @@ class Beatmap{
                 hitobjects.append(slider)
                 newcombo = false
                 break
-            case .Spinner:
+            case .spinner:
                 newcombo=true //TODO: Maybe wrong
                 hitobjects.append(Spinner(time: (splitted[2] as NSString).integerValue, hitsound: (splitted[4] as NSString).integerValue, endtime: (splitted[5] as NSString).integerValue, newcombo: newcombo))
                 break
-            case .None:
+            case .none:
                 continue
             }
         }
     }
     
-    func decodeSlider(sliderinfo:String) -> DecodedSlider {
+    func decodeSlider(_ sliderinfo:String) -> DecodedSlider {
         let splitted=sliderinfo.components(separatedBy: "|")
         if splitted.count<=1{
-            return DecodedSlider(cx: [], cy: [], type: .None)
+            return DecodedSlider(cx: [], cy: [], type: .none)
         }
-        var type=SliderType.None
+        var type=SliderType.none
         switch splitted[0]{
         case "L":
-            type = .Linear
+            type = .linear
             break
         case "P":
-            type = .PassThrough
+            type = .passThrough
             break
         case "B":
-            type = .Bezier
+            type = .bezier
             break
         case "C":
-            type = .Catmull
+            type = .catmull
             break
         default:
-            return DecodedSlider(cx: [], cy: [], type: .None)
+            return DecodedSlider(cx: [], cy: [], type: .none)
         }
         var cx:[Int] = []
         var cy:[Int] = []
@@ -409,9 +409,9 @@ class Beatmap{
     
     class DecodedSlider {
         
-        public var cx:[Int]
-        public var cy:[Int]
-        public var type:SliderType
+        open var cx:[Int]
+        open var cy:[Int]
+        open var type:SliderType
         
         init(cx:[Int],cy:[Int],type:SliderType) {
             self.cx=cx

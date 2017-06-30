@@ -11,7 +11,7 @@ import SpriteKit
 //In order to fix EXC_BAD_ADDRESS exception
 class SoundNode:SKNode {
     
-    private let player:AVAudioPlayer
+    fileprivate let player:AVAudioPlayer
     
     init(player: AVAudioPlayer) {
         self.player = player
@@ -22,7 +22,7 @@ class SoundNode:SKNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func play() {
+    open func play() {
         self.run(SKAction.sequence([SKAction.run{
             self.player.play()
         },SKAction.wait(forDuration: player.duration),SKAction.run {
@@ -35,9 +35,9 @@ class SoundNode:SKNode {
 
 public extension SKAction {
     
-    public class func playSoundFileNamed(fileName: String, atVolume: Float, waitForCompletion: Bool) -> SKAction {
+    public class func playSoundFileNamed(_ fileName: String, atVolume: Float, waitForCompletion: Bool) -> SKAction {
         do {
-            let player = try AVAudioPlayer(data: BundleAudioBuffer.get(file: fileName)!)
+            let player = try AVAudioPlayer(data: BundleAudioBuffer.get(fileName)!)
             let dummynode = SoundNode(player: player)
             GamePlayScene.current?.addChild(dummynode)
             player.volume = atVolume

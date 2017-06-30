@@ -22,7 +22,7 @@ class SBVScale:SBCommand,SBCAction {
         self.startsy=startsy
         self.endsx=endsx
         self.endsy=endsy
-        super.init(type: .VScale, easing: easing, starttime: starttime, endtime: endtime)
+        super.init(type: .vScale, easing: easing, starttime: starttime, endtime: endtime)
     }
     
     func toAction() -> SKAction {

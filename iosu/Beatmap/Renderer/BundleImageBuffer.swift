@@ -13,7 +13,7 @@ class BundleImageBuffer{
     
     static var buffer=[String:SKTexture]()
     
-    static func addtobuffer(file:String) {
+    static func addtobuffer(_ file:String) {
         if buffer[file] != nil {
             return
         }
@@ -21,8 +21,8 @@ class BundleImageBuffer{
         buffer[file]=texture
     }
     
-    static func get(file:String) -> SKTexture? {
-        addtobuffer(file: file)
+    static func get(_ file:String) -> SKTexture? {
+        addtobuffer(file)
         if buffer[file] != nil {
             return buffer[file]!
         }

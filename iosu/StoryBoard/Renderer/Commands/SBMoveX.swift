@@ -18,7 +18,7 @@ class SBMoveX:SBCommand,SBCAction {
     init(easing:Int,starttime:Int,endtime:Int,startx:Double,endx:Double) {
         self.startx=StoryBoard.conv(x:startx)
         self.endx=StoryBoard.conv(x:endx)
-        super.init(type: .MoveX, easing: easing, starttime: starttime, endtime: endtime)
+        super.init(type: .moveX, easing: easing, starttime: starttime, endtime: endtime)
     }
     
     func toAction() -> SKAction {

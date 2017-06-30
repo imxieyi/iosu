@@ -9,8 +9,8 @@
 import Foundation
 
 enum HitResult {
-    case S300
-    case S100
-    case S50
-    case Fail
+    case s300
+    case s100
+    case s50
+    case fail
 }

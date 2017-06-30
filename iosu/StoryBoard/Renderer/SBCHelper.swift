@@ -10,28 +10,28 @@ import Foundation
 
 class SBCHelper {
     
-    static func str2cmdtype(string:String) -> StoryBoardCommand {
+    static func str2cmdtype(_ string:String) -> StoryBoardCommand {
         var str=string
         while str.hasPrefix(" ") || str.hasPrefix("_") {
             str=(str as NSString).substring(from: 1)
         }
         switch str {
-        case "F":return StoryBoardCommand.Fade
-        case "M":return StoryBoardCommand.Move
-        case "MX":return StoryBoardCommand.MoveX
-        case "MY":return StoryBoardCommand.MoveY
-        case "S":return StoryBoardCommand.Scale
-        case "V":return StoryBoardCommand.VScale
-        case "R":return StoryBoardCommand.Rotate
-        case "C":return StoryBoardCommand.Color
-        case "P":return StoryBoardCommand.Parameter
-        case "L":return StoryBoardCommand.Loop
-        case "T":return StoryBoardCommand.Trigger
-        default:return StoryBoardCommand.Unknown
+        case "F":return StoryBoardCommand.fade
+        case "M":return StoryBoardCommand.move
+        case "MX":return StoryBoardCommand.moveX
+        case "MY":return StoryBoardCommand.moveY
+        case "S":return StoryBoardCommand.scale
+        case "V":return StoryBoardCommand.vScale
+        case "R":return StoryBoardCommand.rotate
+        case "C":return StoryBoardCommand.color
+        case "P":return StoryBoardCommand.parameter
+        case "L":return StoryBoardCommand.loop
+        case "T":return StoryBoardCommand.trigger
+        default:return StoryBoardCommand.unknown
         }
     }
     
-    static func num2easing(num:Int) -> Easing {
+    static func num2easing(_ num:Int) -> Easing {
         switch num {
         case 0:return Easing(function: .curveTypeLinear, type: .easeTypeIn)
         case 1:return Easing(function: .curveTypeSine, type: .easeTypeOut)

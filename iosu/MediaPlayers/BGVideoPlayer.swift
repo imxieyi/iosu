@@ -13,7 +13,7 @@ class BGVPlayer {
     
     static var vplayer=KSYMoviePlayerController(contentURL: URL(fileURLWithPath: ""))
     
-    static func setcontent(file:String) -> SKAction {
+    static func setcontent(_ file:String) -> SKAction {
         return SKAction.run {
             vplayer?.reset(false)
             vplayer?.setUrl(URL(fileURLWithPath: file))
@@ -23,7 +23,7 @@ class BGVPlayer {
             vplayer?.scalingMode = .aspectFill
             let notification=NotificationCenter.default
             let operationQueue=OperationQueue.main
-            let observer=notification.addObserver(forName: NSNotification.Name.MPMoviePlayerPlaybackDidFinish, object: nil, queue: operationQueue, using: {(notif) in
+            _ = notification.addObserver(forName: NSNotification.Name.MPMoviePlayerPlaybackDidFinish, object: nil, queue: operationQueue, using: {(notif) in
                 vplayer?.reset(false)
             })
         }
@@ -31,7 +31,7 @@ class BGVPlayer {
     
     static func play() -> SKAction {
         return SKAction.run {
-            debugPrint("start playing video \(vplayer?.contentURL.absoluteString)")
+            debugPrint("start playing video \(String(describing: vplayer?.contentURL.absoluteString))")
             vplayer!.prepareToPlay()
         }
     }

@@ -18,7 +18,7 @@ class SBScale:SBCommand,SBCAction {
     init(easing:Int,starttime:Int,endtime:Int,starts:Double,ends:Double) {
         self.starts=starts
         self.ends=ends
-        super.init(type: .Scale, easing: easing, starttime: starttime, endtime: endtime)
+        super.init(type: .scale, easing: easing, starttime: starttime, endtime: endtime)
     }
     
     func toAction() -> SKAction {

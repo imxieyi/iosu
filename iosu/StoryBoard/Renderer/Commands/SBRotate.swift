@@ -19,7 +19,7 @@ class SBRotate:SBCommand,SBCAction {
     init(easing:Int,starttime:Int,endtime:Int,startr:Double,endr:Double) {
         self.startr = -startr
         self.endr = -endr
-        super.init(type: .Rotate, easing: easing, starttime: starttime, endtime: endtime)
+        super.init(type: .rotate, easing: easing, starttime: starttime, endtime: endtime)
     }
     
     func toAction() -> SKAction {
