@@ -20,6 +20,10 @@ class Beatmap{
     public var sampleSet:SampleSet = .Auto //Set of audios
     public var bgvideos:[BGVideo]=[]
     public var widesb=false
+    //For sliders
+    public var bordercolor = UIColor.white
+    public var trackcolor = UIColor.clear
+    public var trackoverride = false
     
     init(file:String) throws {
         debugPrint("full path: \(file)")
@@ -306,6 +310,19 @@ class Beatmap{
                 }
                 colors.append(UIColor(red: CGFloat((dsplitted[0] as NSString).floatValue/255), green: CGFloat((dsplitted[1] as NSString).floatValue/255), blue: CGFloat((dsplitted[2] as NSString).floatValue/255), alpha: 1.0))
             }
+            if splitted[0].hasPrefix("SliderBorder") {
+                let dsplitted=splitted[1].components(separatedBy: ",")
+                if dsplitted.count == 3 {
+                    bordercolor = UIColor(red: CGFloat((dsplitted[0] as NSString).floatValue/255), green: CGFloat((dsplitted[1] as NSString).floatValue/255), blue: CGFloat((dsplitted[2] as NSString).floatValue/255), alpha: 1.0)
+                }
+            }
+            if splitted[0].hasPrefix("SliderTrackOverride") {
+                let dsplitted=splitted[1].components(separatedBy: ",")
+                if dsplitted.count == 3 {
+                    trackoverride = true
+                    trackcolor = UIColor(red: CGFloat((dsplitted[0] as NSString).floatValue/255), green: CGFloat((dsplitted[1] as NSString).floatValue/255), blue: CGFloat((dsplitted[2] as NSString).floatValue/255), alpha: 1.0)
+                }
+            }
         }
     }
     
@@ -334,12 +351,14 @@ class Beatmap{
                 newcombo=newcombo || HitObject.getNewCombo(num: typenum)
                 let dslider=decodeSlider(sliderinfo: splitted[5])
                 let slider=Slider(x: (splitted[0] as NSString).integerValue, y: (splitted[1] as NSString).integerValue, slidertype: dslider.type, curveX: dslider.cx, curveY: dslider.cy, time: (splitted[2] as NSString).integerValue, hitsound: (splitted[4] as NSString).integerValue, newCombo: newcombo, repe: (splitted[6] as NSString).integerValue,length:(splitted[7] as NSString).integerValue)
-                if(slider.time==19829){
-                    slider.genpath(debug: true)
-                }else{
-                    slider.genpath(debug: false)
+                slider.genpath(debug: false)
+                slider.bordercolor = bordercolor
+                if trackoverride {
+                    slider.trackoverride = true
+                    slider.trackcolor = trackcolor
                 }
                 hitobjects.append(slider)
+                newcombo = false
                 break
             case .Spinner:
                 newcombo=true //TODO: Maybe wrong

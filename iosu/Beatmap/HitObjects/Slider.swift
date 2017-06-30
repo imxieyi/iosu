@@ -17,6 +17,9 @@ class Slider:HitObject{
     var image:UIImage?
     var stype:SliderType
     let path=UIBezierPath()
+    public var bordercolor = UIColor.white
+    public var trackcolor = UIColor.clear
+    public var trackoverride = false
     
     init(x:Int,y:Int,slidertype:SliderType,curveX:[Int],curveY:[Int],time:Int,hitsound:Int,newCombo:Bool,repe:Int,length:Int) {
         self.cx=curveX
@@ -219,7 +222,11 @@ class Slider:HitObject{
         let pathlayer=CAShapeLayer()
         pathlayer.frame=CGRect(origin: CGPoint.zero, size: size)
         pathlayer.path=path.cgPath
-        pathlayer.strokeColor=color.cgColor
+        if trackoverride && SkinBuffer.useSkin {
+            pathlayer.strokeColor=trackcolor.cgColor
+        } else {
+            pathlayer.strokeColor=color.cgColor
+        }
         pathlayer.fillColor=UIColor.clear.cgColor
         pathlayer.lineWidth=inwidth
         pathlayer.lineCap=kCALineCapRound
@@ -228,7 +235,11 @@ class Slider:HitObject{
         let pathlayer2=CAShapeLayer()
         pathlayer2.frame=CGRect(origin: CGPoint.zero, size: size)
         pathlayer2.path=path.cgPath
-        pathlayer2.strokeColor=UIColor.white.cgColor
+        if SkinBuffer.useSkin {
+            pathlayer2.strokeColor=bordercolor.cgColor
+        } else {
+            pathlayer2.strokeColor = UIColor.white.cgColor
+        }
         pathlayer2.fillColor=UIColor.clear.cgColor
         pathlayer2.lineWidth=outwidth
         pathlayer2.lineCap=kCALineCapRound
