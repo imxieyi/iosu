@@ -24,7 +24,7 @@ class SliderBall {
     public func initialize(size:CGFloat) {
         if SkinBuffer.useSkin {
             var n = -1
-            for i in 0...9 {
+            for i in 0...20 {
                 SkinBuffer.get(file: "sliderb\(i)")
                 if !SkinBuffer.getFlag(file: "sliderb\(i)") {
                     n = i - 1
