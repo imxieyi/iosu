@@ -126,7 +126,7 @@ class CircleAction:HitObjectAction {
         })
     }
     
-    static let passdisappear = SKAction.sequence([.group([.fadeOut(withDuration: 0.1),.scale(to: 2, duration: 0.1)]),.removeFromParent()])
+    static let passdisappear = SKAction.sequence([.group([.fadeOut(withDuration: 0.2),.scale(to: 2, duration: 0.2)]),.removeFromParent()])
     //Time in ms
     func judge(_ time:Double) -> HitResult {
         ActionSet.current?.pointer+=1
