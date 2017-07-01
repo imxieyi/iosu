@@ -2,9 +2,6 @@
 
 [![Build Status](https://travis-ci.org/imxieyi/iosu.svg?branch=master)](https://travis-ci.org/imxieyi/iosu)
 
-## Important Notice
-**According to the licence of [osu! default skin](https://osu.ppy.sh/forum/t/129191), the skin cannot be used outside of osu! game. So it would take me several weeks to redesign all assets in this project. The source files will be put under [assets/](https://github.com/imxieyi/iosu/tree/master/assets). They will be licensed under [MIT License](https://github.com/imxieyi/iosu/blob/master/LICENSE) just like this project. Before it is finished, the development will be paused.**
-
 ## Introduction
 This is an ios port of the rhythm game [osu!](https://osu.ppy.sh). It is written in Swift 3 based on [SpriteKit](https://developer.apple.com/spritekit/) framework. **It is just a hobby project**. So don't expect that I can make it full functional in a short time. More importantly, I'm using a hackintosh for developing. So if it stops working, I cannot continue developing until it is fixed. Also, I don't have much time to spend on this project. But you can still watch the progress.
 
@@ -18,6 +15,9 @@ This is an ios port of the rhythm game [osu!](https://osu.ppy.sh). It is written
  - **Play with backgound video**
  - **Play with StoryBoard**
  - **Play with skin in beatmap bundle**
+
+## About default skin
+According to the licence of [osu! default skin](https://osu.ppy.sh/forum/t/129191), the skin derived from osu! cannot be used here. So the skin used in this project is designed from scratch. All of the source files can be found under [assets/](https://github.com/imxieyi/iosu/tree/master/assets). In the future sound effects will also be replaced in order to prevent possible violations.
 
 ## Compilation
 1. Install the latest version of XCode.
@@ -64,19 +64,19 @@ pod install
 
 ![](screenshots/p_run.png)
 
-beatmap: [Kanjou Chemistry (Drum 'n' Bass Remix)](https://osu.ppy.sh/s/92509)
+beatmap: [fourfolium - Now Loading!!!!](https://osu.ppy.sh/s/488630)
 
 **With skin in beatmap bundle:**
 
 ![](screenshots/sk_run.png)
 
-beatmap: [Sharlo - Moshimo kara Kitto](https://osu.ppy.sh/s/493198)
+beatmap: [DJ Okawari - Flower Dance](https://osu.ppy.sh/s/33688)
 
 **With background video:**
 
 ![](screenshots/v_run.png)
 
-beatmap: [Hatsune Miku - SPiCa](https://osu.ppy.sh/s/16226)
+beatmap: [Hatsune Miku - Ievan Polkka](https://osu.ppy.sh/s/1287)
 
 **With background storyboard:**
 
@@ -127,5 +127,6 @@ Notice: The following videos are outdated. A lot of bugs have been fixed since t
  - ~~[KSYMediaPlayer_iOS](https://github.com/ksvc/KSYMediaPlayer_iOS)~~ (Abandoned because of compatibility issue)
  - [SQLite.swift](https://github.com/stephencelis/SQLite.swift)
  - [UIBezierPath-Length](https://github.com/ImJCabus/UIBezierPath-Length)
+ - [Source Han Sans](https://github.com/adobe-fonts/source-han-sans)
  - [Stack Overflow](http://stackoverflow.com)
  - [Apple Developer Documentation](https://developer.apple.com/reference/)
