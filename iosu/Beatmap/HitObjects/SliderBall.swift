@@ -77,15 +77,9 @@ class SliderBall {
                 return
             }
         }
-        sliderball1.color = .red
-        sliderball1.colorBlendFactor = 1
-        sliderball1.blendMode = .alpha
         sliderball1.zPosition=500000
         sliderball1.size=CGSize(width: size, height: size)
         sliderball1.alpha=0
-        sliderball2.color = .black
-        sliderball2.colorBlendFactor = 1
-        sliderball2.blendMode = .alpha
         sliderball2.zPosition=500000
         sliderball2.size=CGSize(width: size, height: size)
         sliderball2.alpha=0
