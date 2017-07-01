@@ -12,7 +12,59 @@ import SpriteKit
 
 class TestScene:SKScene {
     
+    let spinner_appcircle = SKSpriteNode(imageNamed: "spinner-approachcircle")
+    let spinner_bottom = SKSpriteNode(imageNamed: "spinner-bottom")
+    let spinner_clear = SKSpriteNode(imageNamed: "spinner-clear")
+    let spinner_glow = SKSpriteNode(imageNamed: "spinner-glow")
+    let spinner_middle = SKSpriteNode(imageNamed: "spinner-middle")
+    let spinner_middle2 = SKSpriteNode(imageNamed: "spinner-middle2")
+    let spinner_spin = SKSpriteNode(imageNamed: "spinner-spin")
+    let spinner_top = SKSpriteNode(imageNamed: "spinner-top")
+    
+    var scrscale:CGFloat {
+        return size.height/480
+    }
+    var realwidth:CGFloat {
+        return 512*scrscale
+    }
+    var realheight:CGFloat {
+        return 384*scrscale
+    }
+    var bottomedge:CGFloat {
+        return (size.height - realheight)/2
+    }
+    var leftedge:CGFloat {
+        return (size.width - realwidth)/2
+    }
+    var center:CGPoint {
+        return CGPoint(x: leftedge + realwidth/2, y: bottomedge + realheight/2)
+    }
+    
     override func sceneDidLoad() {
+        spinner_glow.size = CGSize(width: realheight*0.85, height: realheight*0.85)
+        spinner_glow.position = center
+        spinner_glow.zPosition = 0
+        addChild(spinner_glow)
+        spinner_bottom.size = CGSize(width: realheight*2/3, height: realheight*2/3)
+        spinner_bottom.position = center
+        spinner_bottom.zPosition = 1
+        addChild(spinner_bottom)
+        spinner_top.size = CGSize(width: realheight*2/3, height: realheight*2/3)
+        spinner_top.position = center
+        spinner_top.zPosition = 2
+        addChild(spinner_top)
+        spinner_middle2.size = CGSize(width: realheight/50, height: realheight/50)
+        spinner_middle2.position = center
+        spinner_middle2.zPosition = 3
+        addChild(spinner_middle2)
+        spinner_middle.size = CGSize(width: realheight*2/3*1.012, height: realheight*2/3*1.012)
+        spinner_middle.position = center
+        spinner_middle.zPosition = 4
+        addChild(spinner_middle)
+        spinner_spin.setScale(realheight/800)
+        spinner_spin.position = CGPoint(x: leftedge + realwidth/2, y: bottomedge + realheight/3.6)
+        spinner_spin.zPosition = 5
+        addChild(spinner_spin)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -21,53 +73,7 @@ class TestScene:SKScene {
     
     var firstrun=true
     
-    fileprivate func sliderballimg(_ file:String) -> SKTexture {
-        let img=UIImage(named: file)
-        let rotatedViewBox=UIView(frame: CGRect(x: 0, y: 0, width: (img?.size.width)!, height: (img?.size.height)!))
-        rotatedViewBox.transform=CGAffineTransform(rotationAngle: -.pi/2)
-        let rotatedSize=rotatedViewBox.frame.size
-        UIGraphicsBeginImageContext(rotatedSize)
-        let bitmap=UIGraphicsGetCurrentContext()
-        bitmap?.translateBy(x: rotatedSize.width/2, y: rotatedSize.height/2)
-        bitmap?.rotate(by: -.pi/2)
-        bitmap?.scaleBy(x: 1.0, y: -1.0)
-        bitmap?.draw((img?.cgImage)!, in: CGRect(x: -(img?.size.width)!/2, y: -(img?.size.height)!/2, width: (img?.size.width)!, height: (img?.size.height)!))
-        let newimg=UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return SKTexture(image: newimg!)
-    }
-    
     override func update(_ currentTime: TimeInterval) {
-        if firstrun {
-            let sliderball1=SKSpriteNode(texture: sliderballimg("sliderb0"))
-            sliderball1.position=CGPoint(x: self.size.width/2, y: self.size.height/2)
-            sliderball1.color = .red
-            sliderball1.colorBlendFactor = 1
-            sliderball1.blendMode = .alpha
-            let sliderball2=SKSpriteNode(texture: sliderballimg("sliderb5"))
-            sliderball2.position=CGPoint(x: self.size.width/2, y: self.size.height/2)
-            sliderball2.color = .black
-            sliderball2.colorBlendFactor = 1
-            sliderball2.blendMode = .alpha
-            var textures1:[SKTexture]=[]
-            var textures2:[SKTexture]=[]
-            for i in 0...9 {
-                textures1.append(sliderballimg("sliderb\(i)"))
-                textures2.append(sliderballimg("sliderb\((i+5)%10)"))
-            }
-            addChild(sliderball1)
-            addChild(sliderball2)
-            sliderball1.run(.repeatForever(.animate(with: textures1, timePerFrame: 0.1)))
-            sliderball2.run(.repeatForever(.animate(with: textures2, timePerFrame: 0.1)))
-            let path=UIBezierPath()
-            path.move(to: CGPoint(x: 0, y: self.size.height/2))
-            path.addCurve(to: CGPoint(x: 1200, y: self.size.height/2), controlPoint1: CGPoint(x: 400, y: self.size.height/2+800), controlPoint2: CGPoint(x: 800, y: self.size.height/2-800))
-            //path.addLine(to: CGPoint(x: 500, y: self.size.height/2))
-            let action=SKAction.repeatForever(.sequence([.follow(path.cgPath, asOffset: false, orientToPath: true, duration: 10),.follow(path.reversing().cgPath, asOffset: false, orientToPath: true, duration: 10)]))
-            sliderball1.run(action)
-            sliderball2.run(action)
-            firstrun=false
-        }
     }
     
 }

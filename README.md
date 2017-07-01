@@ -2,6 +2,9 @@
 
 [![Build Status](https://travis-ci.org/imxieyi/iosu.svg?branch=master)](https://travis-ci.org/imxieyi/iosu)
 
+## Important Notice
+**According to the licence of [osu! default skin](https://osu.ppy.sh/forum/t/129191), the skin cannot be used outside of osu! game. So it would take me several weeks to redesign all assets in this project. The source files will be put under [assets/](https://github.com/imxieyi/iosu/tree/master/assets). They will be licensed under [MIT License](https://github.com/imxieyi/iosu/blob/master/LICENSE) just like this project. Before it is finished, the development will be paused.**
+
 ## Introduction
 This is an ios port of the rhythm game [osu!](https://osu.ppy.sh). It is written in Swift 3 based on [SpriteKit](https://developer.apple.com/spritekit/) framework. **It is just a hobby project**. So don't expect that I can make it full functional in a short time. More importantly, I'm using a hackintosh for developing. So if it stops working, I cannot continue developing until it is fixed. Also, I don't have much time to spend on this project. But you can still watch the progress.
 
