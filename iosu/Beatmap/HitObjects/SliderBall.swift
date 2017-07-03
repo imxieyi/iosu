@@ -12,7 +12,6 @@ import SpriteKit
 class SliderBall {
     
     let sliderball1=SKSpriteNode(texture: SliderBall.sliderballimg("sliderb0"))
-    let sliderball2=SKSpriteNode(texture: SliderBall.sliderballimg("sliderb5"))
     var followcircle=SKSpriteNode(texture: SKTexture(imageNamed: "sliderfollowcircle"))
     let scene:SKScene
     var useSkin = false
@@ -80,19 +79,12 @@ class SliderBall {
         sliderball1.zPosition=500000
         sliderball1.size=CGSize(width: size, height: size)
         sliderball1.alpha=0
-        sliderball2.zPosition=500000
-        sliderball2.size=CGSize(width: size, height: size)
-        sliderball2.alpha=0
         var textures1:[SKTexture]=[]
-        var textures2:[SKTexture]=[]
         for i in 0...9 {
             textures1.append(SliderBall.sliderballimg("sliderb\(i)"))
-            textures2.append(SliderBall.sliderballimg("sliderb\((i+5)%10)"))
         }
         scene.addChild(self.sliderball1)
-        scene.addChild(self.sliderball2)
         sliderball1.run(.repeatForever(.animate(with: textures1, timePerFrame: 0.05)))
-        sliderball2.run(.repeatForever(.animate(with: textures2, timePerFrame: 0.05)))
         //Follow circle
         if SkinBuffer.useSkin {
             if n_follow > -1 {
@@ -130,16 +122,12 @@ class SliderBall {
             }
             let action=SKAction.sequence([SKAction.fadeIn(withDuration:0),SKAction.sequence(moving),SKAction.fadeOut(withDuration: 0)])
             self.sliderball1.run(action)
-            if !self.useSkin {
-                self.sliderball2.run(action)
-            }
             self.followcircle.run(.sequence([.sequence(moving),.fadeOut(withDuration: 0.1)]))
             }])
     }
     
     open func hideall() {
         sliderball1.alpha = 0
-        sliderball2.alpha = 0
         hidefollowcircle()
     }
     
