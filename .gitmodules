@@ -1,0 +1,3 @@
+[submodule "iosu_ui"]
+	path = iosu_ui
+	url = https://github.com/imxieyi/iosu_ui.git
