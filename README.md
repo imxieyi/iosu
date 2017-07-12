@@ -16,6 +16,9 @@ This is an ios port of the rhythm game [osu!](https://osu.ppy.sh). It is written
  - **Play with StoryBoard**
  - **Play with skin in beatmap bundle**
 
+## About UI design
+The sketch file of the UI design is available [here](https://github.com/imxieyi/iosu/blob/master/assets/ui_design.sketch). The implementation is available at [iosu_ui](https://github.com/imxieyi/iosu_ui/tree/master). This project also includes database and thumbnial cache implementation.
+
 ## About default skin
 According to the licence of [osu! default skin](https://osu.ppy.sh/forum/t/129191), the skin derived from osu! cannot be used here. So the skin used in this project is designed from scratch. All of the source files can be found under [assets/](https://github.com/imxieyi/iosu/tree/master/assets). In the future sound effects will also be replaced in order to prevent possible violations.
 
