@@ -22,11 +22,14 @@ class GameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let maxfps = UIScreen.main.maximumFramesPerSecond
+        debugPrint("Max FPS: \(maxfps)")
         view?.autoresizesSubviews=true
         view.backgroundColor = .black
         if runtestscene {
             let scene=TestScene(size: CGSize(width: screenWidth, height: screenHeight))
             let skView=self.view as! SKView
+            skView.preferredFramesPerSecond = maxfps
             skView.showsFPS=true
             skView.showsNodeCount=true
             skView.showsDrawCount=true
@@ -41,6 +44,7 @@ class GameViewController: UIViewController {
         if GameViewController.showsb {
             let sbScene=StoryBoardScene(size: CGSize(width: screenWidth, height: screenHeight),parent:self)
             let sbView=self.view as! SKView
+            sbView.preferredFramesPerSecond = maxfps
             sbView.showsFPS=true
             sbView.showsNodeCount=true
             sbView.showsDrawCount=true
@@ -60,6 +64,7 @@ class GameViewController: UIViewController {
             let gameScene=GamePlayScene(size: CGSize(width: screenWidth, height: screenHeight))
             //let skView=self.view as! SKView
             let gameView=SKView(frame: UIScreen.main.bounds)
+            gameView.preferredFramesPerSecond = maxfps
             gameView.layer.zPosition=2
             self.view.addSubview(gameView)
             //skView.allowsTransparency=true
