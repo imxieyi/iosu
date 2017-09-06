@@ -43,7 +43,9 @@ class GameViewController: UIViewController {
         }
         if GameViewController.showsb {
             let sbScene=StoryBoardScene(size: CGSize(width: screenWidth, height: screenHeight),parent:self)
-            let sbView=self.view as! SKView
+            let sbView=SKView(frame: UIScreen.main.bounds)
+            sbView.layer.zPosition = 0
+            self.view.addSubview(sbView)
             sbView.preferredFramesPerSecond = maxfps
             sbView.showsFPS=true
             sbView.showsNodeCount=true
