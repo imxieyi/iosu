@@ -2,12 +2,15 @@
 
 [![Build Status](https://travis-ci.org/imxieyi/iosu.svg?branch=master)](https://travis-ci.org/imxieyi/iosu)
 
-**This branch will be abandoned due to poor performance. (Slow even on the latest iPad Pro)**
+**~~This branch will be abandoned due to poor performance. (Slow even on the latest iPad Pro)~~**
 
 **~~I decide to rewrite all graphics part using [MetalKit](https://developer.apple.com/documentation/metalkit).~~ It seems that Metal cannot be used to accelerate image actions. Try to find other tools. Those work will be put under branch [rewrite](https://github.com/imxieyi/iosu/tree/rewrite).**
 
 ## Introduction
 This is an ios port of the rhythm game [osu!](https://osu.ppy.sh). It is written in Swift 3 based on [SpriteKit](https://developer.apple.com/spritekit/) framework. **It is just a hobby project**. So don't expect that I can make it full functional in a short time. More importantly, I'm using a hackintosh for developing. So if it stops working, I cannot continue developing until it is fixed. Also, I don't have much time to spend on this project. But you can still watch the progress.
+
+## Demo Video (Game+Storyboard)
+[https://youtu.be/RjuJyxciYkg](https://youtu.be/RjuJyxciYkg)
 
 ## What has been done
  - Scan beatmaps imported by iTunes
@@ -106,24 +109,6 @@ beatmap: [Kana Nishino - Sweet Dreams (11t dnb mix)](https://osu.ppy.sh/s/499488
 ![](screenshots/sbplayer4.png)
 
 beatmap: [DM vs. POCKET - uNDeRWoRLD MoNaRCHy](https://osu.ppy.sh/s/412938)
-
-## Gameplay Demo Video
-
-[http://www.bilibili.com/video/av10522729/](http://www.bilibili.com/video/av10522729/)
-
-beatmap: [GhostFinal - Gan Xie](https://osu.ppy.sh/s/84520)
-
-## StoryBoard Demo Videos
-
-Notice: The following videos are outdated. A lot of bugs have been fixed since they are published. If you want to see the latest version, please install the latest version manually.
-
-[http://www.bilibili.com/video/av9580463/](http://www.bilibili.com/video/av9580463/)
-
-[http://www.bilibili.com/video/av9582040/](http://www.bilibili.com/video/av9582040/)
-
-[http://www.bilibili.com/video/av9582174/](http://www.bilibili.com/video/av9582174/)
-
-[http://www.bilibili.com/video/av9582511/](http://www.bilibili.com/video/av9582511/)
 
 ## Credit
  - [osu!](https://osu.ppy.sh)
