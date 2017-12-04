@@ -7,16 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8A0442A91ECB1D0B000DE269 /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A0442A81ECB1D0B000DE269 /* SQLite.framework */; };
 		8A0442B31ECB2227000DE269 /* UIBezierPath+Length.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0442B01ECB2227000DE269 /* UIBezierPath+Length.m */; };
 		8A1ACE721EFAB529000EBC14 /* PlaySoundFileNamedExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1ACE711EFAB529000EBC14 /* PlaySoundFileNamedExt.swift */; };
 		8A1ACE741EFAB985000EBC14 /* BundleAudioBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1ACE731EFAB985000EBC14 /* BundleAudioBuffer.swift */; };
-		8A2AAE101E90FE39005D52E7 /* test.osb in Resources */ = {isa = PBXBuildFile; fileRef = 8A2AAE0F1E90FE39005D52E7 /* test.osb */; };
 		8A4D5C341E8A8AEB00319D91 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4D5C331E8A8AEB00319D91 /* AppDelegate.swift */; };
 		8A4D5C3F1E8A8AEC00319D91 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A4D5C3D1E8A8AEC00319D91 /* Main.storyboard */; };
 		8A4D5C411E8A8AEC00319D91 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A4D5C401E8A8AEC00319D91 /* Assets.xcassets */; };
 		8A4D5C441E8A8AEC00319D91 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A4D5C421E8A8AEC00319D91 /* LaunchScreen.storyboard */; };
-		8A4D5C4F1E8A8AEC00319D91 /* iosuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4D5C4E1E8A8AEC00319D91 /* iosuTests.swift */; };
 		8A67438B1E9011D800818D55 /* SpriteKitEasingSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A67438A1E9011D800818D55 /* SpriteKitEasingSwift.framework */; };
 		8A7F7E191E9D2C1000595A13 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A7F7E181E9D2C1000595A13 /* VideoToolbox.framework */; };
 		8A7F7E1B1E9D2C1D00595A13 /* libstdc++.6.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A7F7E1A1E9D2C1D00595A13 /* libstdc++.6.tbd */; };
@@ -113,13 +110,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		8A4D5C4B1E8A8AEC00319D91 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8A4D5C281E8A8AEB00319D91 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8A4D5C2F1E8A8AEB00319D91;
-			remoteInfo = iosu;
-		};
 		8AA559A61F06B18C00C77AE5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8AA559451F06B18C00C77AE5 /* Pods.xcodeproj */;
@@ -134,13 +124,6 @@
 			remoteGlobalIDString = D72CCB7FECD6CDE8361CB30AA0BE23D7;
 			remoteInfo = SpriteKitEasingSwift;
 		};
-		8AA559AA1F06B18C00C77AE5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8AA559451F06B18C00C77AE5 /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 1DB8797F6D63FD0169D94DBEED3F0E90;
-			remoteInfo = SQLite.swift;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -151,16 +134,12 @@
 		8A0442B01ECB2227000DE269 /* UIBezierPath+Length.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath+Length.m"; sourceTree = "<group>"; };
 		8A1ACE711EFAB529000EBC14 /* PlaySoundFileNamedExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlaySoundFileNamedExt.swift; path = MediaPlayers/PlaySoundFileNamedExt.swift; sourceTree = "<group>"; };
 		8A1ACE731EFAB985000EBC14 /* BundleAudioBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BundleAudioBuffer.swift; path = MediaPlayers/BundleAudioBuffer.swift; sourceTree = "<group>"; };
-		8A2AAE0F1E90FE39005D52E7 /* test.osb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.osb; sourceTree = "<group>"; };
 		8A4D5C301E8A8AEB00319D91 /* iosu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A4D5C331E8A8AEB00319D91 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8A4D5C3E1E8A8AEC00319D91 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8A4D5C401E8A8AEC00319D91 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8A4D5C431E8A8AEC00319D91 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8A4D5C451E8A8AEC00319D91 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8A4D5C4A1E8A8AEC00319D91 /* iosuTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iosuTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8A4D5C4E1E8A8AEC00319D91 /* iosuTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosuTests.swift; sourceTree = "<group>"; };
-		8A4D5C501E8A8AEC00319D91 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8A67438A1E9011D800818D55 /* SpriteKitEasingSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKitEasingSwift.framework; path = "../../Library/Developer/Xcode/DerivedData/iosu-gddpvylvaevfhyenmhqlpckshyiw/Build/Products/Debug-iphonesimulator/SpriteKitEasingSwift/SpriteKitEasingSwift.framework"; sourceTree = "<group>"; };
 		8A7F7E181E9D2C1000595A13 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		8A7F7E1A1E9D2C1D00595A13 /* libstdc++.6.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.tbd"; path = "usr/lib/libstdc++.6.tbd"; sourceTree = SDKROOT; };
@@ -333,20 +312,12 @@
 				8AA559AE1F06B1DA00C77AE5 /* libstdc++.6.0.9.tbd in Frameworks */,
 				8AA559AC1F06B1D200C77AE5 /* MobileVLCKit.framework in Frameworks */,
 				8AA5593B1F06AF0400C77AE5 /* libiconv.tbd in Frameworks */,
-				8A0442A91ECB1D0B000DE269 /* SQLite.framework in Frameworks */,
 				8A7F7E1F1E9D2C2D00595A13 /* libz.tbd in Frameworks */,
 				8A7F7E1D1E9D2C2500595A13 /* libbz2.tbd in Frameworks */,
 				8A7F7E1B1E9D2C1D00595A13 /* libstdc++.6.tbd in Frameworks */,
 				8A7F7E191E9D2C1000595A13 /* VideoToolbox.framework in Frameworks */,
 				8A67438B1E9011D800818D55 /* SpriteKitEasingSwift.framework in Frameworks */,
 				99B4058382CF96D791075AB4 /* Pods_iosu.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8A4D5C471E8A8AEC00319D91 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -376,7 +347,6 @@
 			children = (
 				8AC188431E8EAE3300C9BB98 /* README.md */,
 				8A4D5C321E8A8AEB00319D91 /* iosu */,
-				8A4D5C4D1E8A8AEC00319D91 /* iosuTests */,
 				8A0442AB1ECB220F000DE269 /* Dependences */,
 				8A4D5C311E8A8AEB00319D91 /* Products */,
 				E08133947FE706A3AE1882BB /* Pods */,
@@ -388,7 +358,6 @@
 			isa = PBXGroup;
 			children = (
 				8A4D5C301E8A8AEB00319D91 /* iosu.app */,
-				8A4D5C4A1E8A8AEC00319D91 /* iosuTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -411,16 +380,6 @@
 				8ABA55261E9D23FD006530EC /* iosu-Bridging-Header.h */,
 			);
 			path = iosu;
-			sourceTree = "<group>";
-		};
-		8A4D5C4D1E8A8AEC00319D91 /* iosuTests */ = {
-			isa = PBXGroup;
-			children = (
-				8A2AAE0F1E90FE39005D52E7 /* test.osb */,
-				8A4D5C4E1E8A8AEC00319D91 /* iosuTests.swift */,
-				8A4D5C501E8A8AEC00319D91 /* Info.plist */,
-			);
-			path = iosuTests;
 			sourceTree = "<group>";
 		};
 		8AA5593C1F06B18C00C77AE5 /* Pods */ = {
@@ -475,7 +434,6 @@
 			children = (
 				8AA559A71F06B18C00C77AE5 /* Pods_iosu.framework */,
 				8AA559A91F06B18C00C77AE5 /* SpriteKitEasingSwift.framework */,
-				8AA559AB1F06B18C00C77AE5 /* SQLite.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -980,24 +938,6 @@
 			productReference = 8A4D5C301E8A8AEB00319D91 /* iosu.app */;
 			productType = "com.apple.product-type.application";
 		};
-		8A4D5C491E8A8AEC00319D91 /* iosuTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 8A4D5C561E8A8AEC00319D91 /* Build configuration list for PBXNativeTarget "iosuTests" */;
-			buildPhases = (
-				8A4D5C461E8A8AEC00319D91 /* Sources */,
-				8A4D5C471E8A8AEC00319D91 /* Frameworks */,
-				8A4D5C481E8A8AEC00319D91 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				8A4D5C4C1E8A8AEC00319D91 /* PBXTargetDependency */,
-			);
-			name = iosuTests;
-			productName = iosuTests;
-			productReference = 8A4D5C4A1E8A8AEC00319D91 /* iosuTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1005,20 +945,14 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0910;
 				ORGANIZATIONNAME = xieyi;
 				TargetAttributes = {
 					8A4D5C2F1E8A8AEB00319D91 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 34A2STWT5M;
-						LastSwiftMigration = 0830;
+						LastSwiftMigration = 0910;
 						ProvisioningStyle = Automatic;
-					};
-					8A4D5C491E8A8AEC00319D91 = {
-						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 34A2STWT5M;
-						ProvisioningStyle = Automatic;
-						TestTargetID = 8A4D5C2F1E8A8AEB00319D91;
 					};
 				};
 			};
@@ -1042,7 +976,6 @@
 			projectRoot = "";
 			targets = (
 				8A4D5C2F1E8A8AEB00319D91 /* iosu */,
-				8A4D5C491E8A8AEC00319D91 /* iosuTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1060,13 +993,6 @@
 			fileType = wrapper.framework;
 			path = SpriteKitEasingSwift.framework;
 			remoteRef = 8AA559A81F06B18C00C77AE5 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		8AA559AB1F06B18C00C77AE5 /* SQLite.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SQLite.framework;
-			remoteRef = 8AA559AA1F06B18C00C77AE5 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -1119,14 +1045,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8A4D5C481E8A8AEC00319D91 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8A2AAE101E90FE39005D52E7 /* test.osb in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -1152,12 +1070,10 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-iosu/Pods-iosu-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
 				"${BUILT_PRODUCTS_DIR}/SpriteKitEasingSwift/SpriteKitEasingSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SpriteKitEasingSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1244,23 +1160,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8A4D5C461E8A8AEC00319D91 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8A4D5C4F1E8A8AEC00319D91 /* iosuTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		8A4D5C4C1E8A8AEC00319D91 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8A4D5C2F1E8A8AEB00319D91 /* iosu */;
-			targetProxy = 8A4D5C4B1E8A8AEC00319D91 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		8A4D5C3D1E8A8AEC00319D91 /* Main.storyboard */ = {
@@ -1291,7 +1191,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -1299,7 +1201,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1340,7 +1246,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -1348,7 +1256,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1391,7 +1303,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = iosu/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1418,8 +1330,6 @@
 					"-framework",
 					"\"QuartzCore\"",
 					"-framework",
-					"\"SQLite\"",
-					"-framework",
 					"\"Security\"",
 					"-framework",
 					"\"SpriteKitEasingSwift\"",
@@ -1428,7 +1338,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "iosu/iosu-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1452,7 +1363,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = iosu/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1479,8 +1390,6 @@
 					"-framework",
 					"\"QuartzCore\"",
 					"-framework",
-					"\"SQLite\"",
-					"-framework",
 					"\"Security\"",
 					"-framework",
 					"\"SpriteKitEasingSwift\"",
@@ -1489,39 +1398,10 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "iosu/iosu-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
-			};
-			name = Release;
-		};
-		8A4D5C571E8A8AEC00319D91 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = 34A2STWT5M;
-				INFOPLIST_FILE = iosuTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = xieyi.iosuTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iosu.app/iosu";
-			};
-			name = Debug;
-		};
-		8A4D5C581E8A8AEC00319D91 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = 34A2STWT5M;
-				INFOPLIST_FILE = iosuTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = xieyi.iosuTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iosu.app/iosu";
 			};
 			name = Release;
 		};
@@ -1542,15 +1422,6 @@
 			buildConfigurations = (
 				8A4D5C541E8A8AEC00319D91 /* Debug */,
 				8A4D5C551E8A8AEC00319D91 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		8A4D5C561E8A8AEC00319D91 /* Build configuration list for PBXNativeTarget "iosuTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				8A4D5C571E8A8AEC00319D91 /* Debug */,
-				8A4D5C581E8A8AEC00319D91 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

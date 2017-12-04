@@ -22,7 +22,12 @@ class GameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let maxfps = UIScreen.main.maximumFramesPerSecond
+        var maxfps: Int
+        if #available(iOS 10.3, *) {
+            maxfps = UIScreen.main.maximumFramesPerSecond
+        } else {
+            maxfps = 60
+        }
         debugPrint("Max FPS: \(maxfps)")
         view?.autoresizesSubviews=true
         view.backgroundColor = .black
