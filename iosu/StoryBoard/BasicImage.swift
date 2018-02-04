@@ -287,10 +287,12 @@ class BasicImage {
         if self.actions != nil {
             sprite?.run(SKAction.sequence([SKAction.wait(forDuration: Double(offset)/1000),self.actions!]),completion:{ ()->Void in
                 //debugPrint("destroy sprite")
-                self.sprite?.removeFromParent()
-                self.sprite=nil
-                self.commands=[]
-                self.actions=nil
+                self.sprite?.removeAllActions()
+                self.sprite?.isHidden = true
+//                self.sprite?.removeFromParent()
+//                self.sprite=nil
+//                self.commands=[]
+//                self.actions=nil
             })
         }
     }

@@ -184,7 +184,7 @@ class GamePlayScene: SKScene {
         } else {
             self.run(.playSoundFileNamed("combobreak.mp3", atVolume: GamePlayScene.effvolume, waitForCompletion: true))
         }
-        node.run(.group([.sequence([.fadeIn(withDuration: 0.2),.fadeOut(withDuration: 0.6),.removeFromParent()]),.sequence([.scale(by: 1.5, duration: 0.1),.scale(to: scale, duration: 0.1)])]))
+        node.run(.group([.sequence([.fadeIn(withDuration: 0.2),.fadeOut(withDuration: 0.6)]),.sequence([.scale(by: 1.5, duration: 0.1),.scale(to: scale, duration: 0.1)])]))
     }
     
     func hitsound2str(hitsound:HitSound) -> String {
@@ -326,6 +326,7 @@ class GamePlayScene: SKScene {
     
     var bgvindex = 0
     var firstrun=true
+    let dispatcher = DispatchQueue(label: "sb_dispatcher")
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
@@ -333,29 +334,31 @@ class GamePlayScene: SKScene {
             firstrun=false
             GamePlayScene.sliderball?.initialize(CGFloat((bm?.difficulty?.AbsoluteCS)!))
         }
-        let mtime=BGMusicPlayer.getTime()*1000
-        let act = actions?.currentact()
-        if act != nil {
-            if act?.getobj().type == .slider {
-                updateslider(mtime)
-            }
-        }
-        if bgvindex < bgvactions.count {
-            if bgvtimes[bgvindex] - Int(mtime) < 1000 {
-                var offset=bgvtimes[bgvindex] - Int(mtime)
-                if offset<0 {
-                    offset=0
+        dispatcher.async {
+            let mtime=BGMusicPlayer.getTime()*1000
+            let act = self.actions?.currentact()
+            if act != nil {
+                if act?.getobj().type == .slider {
+                    self.updateslider(mtime)
                 }
-                debugPrint("push bgvideo \(bgvindex) with offset \(offset)")
-                self.run(SKAction.group([bgvactions[bgvindex],SKAction.sequence([SKAction.wait(forDuration: Double(offset)/1000),BGVPlayer.play()])]))
-                bgvindex+=1
             }
-        }
-        var offset = (actions?.nexttime())! - mtime - (bm?.difficulty?.ARTime)!
-        while (actions?.hasnext())! && offset <= 1000 {
-            //debugPrint("mtime \(mtime) objtime \((actions?.nexttime())!) ar \((bm?.difficulty?.ARTime)!) offset \(offset)")
-            actions?.shownext(offset)
-            offset = (actions?.nexttime())! - mtime - (bm?.difficulty?.ARTime)!
+            if self.bgvindex < self.bgvactions.count {
+                if self.bgvtimes[self.bgvindex] - Int(mtime) < 1000 {
+                    var offset=self.bgvtimes[self.bgvindex] - Int(mtime)
+                    if offset<0 {
+                        offset=0
+                    }
+                    debugPrint("push bgvideo \(self.bgvindex) with offset \(offset)")
+                    self.run(SKAction.group([self.bgvactions[self.bgvindex],SKAction.sequence([SKAction.wait(forDuration: Double(offset)/1000),BGVPlayer.play()])]))
+                    self.bgvindex+=1
+                }
+            }
+            var offset = (self.actions?.nexttime())! - mtime - (self.bm?.difficulty?.ARTime)!
+            while (self.actions?.hasnext())! && offset <= 1000 {
+                //debugPrint("mtime \(mtime) objtime \((actions?.nexttime())!) ar \((bm?.difficulty?.ARTime)!) offset \(offset)")
+                self.actions?.shownext(offset)
+                offset = (self.actions?.nexttime())! - mtime - (self.bm?.difficulty?.ARTime)!
+            }
         }
     }
     

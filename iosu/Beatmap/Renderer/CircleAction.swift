@@ -86,7 +86,7 @@ class CircleAction:HitObjectAction {
         return node
     }
     
-    static let faildisappear = SKAction.sequence([.fadeOut(withDuration: 0.1),.removeFromParent()])
+    static let faildisappear = SKAction.sequence([.fadeOut(withDuration: 0.1)])
     func show(_ scene:SKScene,offset:Double) {
         let artime = (ActionSet.difficulty?.ARTime)!/1000
         let showact = SKAction.sequence([.wait(forDuration: offset/1000),.run{
@@ -96,7 +96,9 @@ class CircleAction:HitObjectAction {
                 scene.addChild(num)
             }
             scene.addChild(self.appcircle!)
-            self.appcircle?.run(.sequence([.group([.fadeIn(withDuration: artime/3),.scale(to: 1, duration: artime)]),.removeFromParent()]))
+            self.appcircle?.run(.sequence([.group([.fadeIn(withDuration: artime/3),.scale(to: 1, duration: artime)]),.run {
+                self.appcircle?.isHidden = true
+                }]))
             }])
         let failact = SKAction.sequence([.wait(forDuration: artime+offset/1000+(ActionSet.difficulty?.Score50)!/1000),SKAction.playSoundFileNamed("combobreak.mp3", atVolume: GamePlayScene.effvolume, waitForCompletion: false),.run {
             ActionSet.current?.pointer+=1
@@ -115,7 +117,9 @@ class CircleAction:HitObjectAction {
             node.position = CGPoint(x: self.obj.x, y: self.obj.y)
             node.zPosition = 100001
             scene.addChild(node)
-            node.run(.group([.sequence([.fadeIn(withDuration: 0.2),.fadeOut(withDuration: 0.6),.removeFromParent()]),.sequence([.scale(by: 1.5, duration: 0.1),.scale(to: scale, duration: 0.1)])]))
+            node.run(.group([.sequence([.fadeIn(withDuration: 0.2),.fadeOut(withDuration: 0.6),.run {
+                node.isHidden = true
+                }]),.sequence([.scale(by: 1.5, duration: 0.1),.scale(to: scale, duration: 0.1)])]))
             }])
         dummynode = SKNode()
         scene.addChild(dummynode!)
@@ -126,12 +130,11 @@ class CircleAction:HitObjectAction {
         })
     }
     
-    static let passdisappear = SKAction.sequence([.group([.fadeOut(withDuration: 0.2),.scale(to: 2, duration: 0.2)]),.removeFromParent()])
+    static let passdisappear = SKAction.sequence([.group([.fadeOut(withDuration: 0.2),.scale(to: 2, duration: 0.2)])])
     //Time in ms
     func judge(_ time:Double) -> HitResult {
         ActionSet.current?.pointer+=1
         dummynode?.removeAllActions()
-        dummynode?.run(.sequence([.wait(forDuration: 0.5),.removeFromParent()]))
         var d = time - self.time
         //debugPrint("d:\(d) score50:\((ActionSet.difficulty?.Score50)!)")
         if d < -(ActionSet.difficulty?.Score50)! {
@@ -150,7 +153,7 @@ class CircleAction:HitObjectAction {
             for num in self.number {
                 num.run(CircleAction.passdisappear)
             }
-            self.appcircle?.removeFromParent()
+            self.appcircle?.isHidden = true
             if d <= (ActionSet.difficulty?.Score300)! {
                 return .s300
             }
@@ -177,19 +180,19 @@ class CircleAction:HitObjectAction {
     }
     
     func destroy() {
-        inner?.removeFromParent()
+        inner?.isHidden = true
         inner = nil
         for node in number {
-            node.removeFromParent()
+            node.isHidden = true
         }
         number.removeAll()
-        overlay?.removeFromParent()
+        overlay?.isHidden = true
         overlay = nil
-        appcircle?.removeFromParent()
+        appcircle?.isHidden = true
         appcircle = nil
-        dummynode?.removeFromParent()
+        dummynode?.isHidden = true
         dummynode = nil
-        guardnode?.removeFromParent()
+        guardnode?.isHidden = true
         guardnode = nil
     }
     

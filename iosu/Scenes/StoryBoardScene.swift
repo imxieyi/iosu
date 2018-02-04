@@ -137,30 +137,41 @@ class StoryBoardScene: SKScene {
     }
     
     var index = 0
+    let dispatcher = DispatchQueue(label: "sb_dispatcher")
+    let dispatchgroup = DispatchGroup()
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
-        if sb != nil {
-            if index<(sb?.sbsprites.count)! {
-                var musictime=Int(BGMusicPlayer.getTime()*1000)
-                while (sb?.sbsprites[index].starttime)! - musictime <= 2000 {
-                    var offset=(sb?.sbsprites[index].starttime)! - musictime
-                    sb?.sbsprites[index].convertsprite()
-                    if offset<0{
-                        offset = 0
+        dispatcher.async {
+            //self.dispatchgroup.enter()
+            if self.sb != nil {
+                if self.index<(self.sb?.sbsprites.count)! {
+                    var musictime=Int(BGMusicPlayer.getTime()*1000)
+                    while (self.sb?.sbsprites[self.index].starttime)! - musictime <= 2000 {
+                        var offset=(self.sb?.sbsprites[self.index].starttime)! - musictime
+                        self.sb?.sbsprites[self.index].convertsprite()
+                        if offset<0{
+                            offset = 0
+                        }
+                        self.addChild((self.sb?.sbsprites[self.index].sprite)!)
+                        if self.sb?.sbsprites[self.index].actions != nil {
+                            self.sb?.sbsprites[self.index].runaction(offset)
+                        }
+                        self.index+=1
+                        if self.index>=(self.sb?.sbsprites.count)!{
+                            return
+                        }
+                        musictime=Int(BGMusicPlayer.getTime()*1000)
                     }
-                    self.addChild((sb?.sbsprites[index].sprite)!)
-                    if sb?.sbsprites[index].actions != nil {
-                        sb?.sbsprites[index].runaction(offset)
-                    }
-                    index+=1
-                    if index>=(sb?.sbsprites.count)!{
-                        return
-                    }
-                    musictime=Int(BGMusicPlayer.getTime()*1000)
                 }
             }
+            //self.dispatchgroup.leave()
         }
     }
+    
+//    override func didFinishUpdate() {
+//        super.didFinishUpdate()
+//        //dispatchgroup.wait()
+//    }
     
 }
