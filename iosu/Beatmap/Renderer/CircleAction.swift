@@ -125,8 +125,8 @@ class CircleAction:HitObjectAction {
         scene.addChild(dummynode!)
         dummynode?.run(.group([showact,failact]))
         guardnode = SKNode()
-        guardnode?.run(.wait(forDuration: artime+offset/1000+(ActionSet.difficulty?.Score50)!/1000+2), completion: {
-            self.destroy()
+        guardnode?.run(.wait(forDuration: artime+offset/1000+(ActionSet.difficulty?.Score50)!/1000+2), completion: { [weak self] in
+            self?.destroy()
         })
     }
     

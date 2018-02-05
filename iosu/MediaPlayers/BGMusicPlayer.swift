@@ -25,8 +25,8 @@ class BGMusicPlayer: NSObject, AVAudioPlayerDelegate {
     open var gameEarliest:Int = 0
     open var videoEarliest:Int = 0
     open var sbEarliest:Int = 0
-    open var gameScene:GamePlayScene?
-    open var sbScene:StoryBoardScene?
+    open weak var gameScene:GamePlayScene?
+    open weak var sbScene:StoryBoardScene?
     open var bgmvolume:Float = 1.0
     open var state: BGMusicState = .stopped
     

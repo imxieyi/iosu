@@ -60,7 +60,8 @@ class SliderBall {
                 if n_follow > -1 {
                     followcircle=SKSpriteNode(texture: SkinBuffer.get("sliderfollowcircle-0"))
                     followcircle.size=CGSize(width: size*2, height: size*2)
-                    followcircle.alpha=0
+//                    followcircle.alpha=0
+                    followcircle.isHidden = true
                     followcircle.zPosition=500000
                     scene.addChild(followcircle)
                     for i in 0...n_follow {
@@ -69,7 +70,8 @@ class SliderBall {
                     followcircle.run(.repeatForever(.animate(with: textures3, timePerFrame: 0.2)))
                 } else {
                     followcircle.size=CGSize(width: size*2, height: size*2)
-                    followcircle.alpha=0
+//                    followcircle.alpha=0
+                    followcircle.isHidden = true
                     followcircle.zPosition=500000
                     scene.addChild(followcircle)
                 }
@@ -90,7 +92,8 @@ class SliderBall {
             if n_follow > -1 {
                 followcircle=SKSpriteNode(texture: SkinBuffer.get("sliderfollowcircle-0"))
                 followcircle.size=CGSize(width: size*2, height: size*2)
-                followcircle.alpha=0
+//                followcircle.alpha=0
+                followcircle.isHidden = true
                 followcircle.zPosition=500000
                 scene.addChild(followcircle)
                 for i in 0...n_follow {
@@ -101,7 +104,7 @@ class SliderBall {
             }
         }
         followcircle.size=CGSize(width: size*2, height: size*2)
-        followcircle.alpha=0
+        followcircle.isHidden = true
         followcircle.zPosition=500000
         scene.addChild(followcircle)
     }
@@ -122,7 +125,10 @@ class SliderBall {
             }
             let action=SKAction.sequence([SKAction.fadeIn(withDuration:0),SKAction.sequence(moving),SKAction.fadeOut(withDuration: 0)])
             self.sliderball1.run(action)
-            self.followcircle.run(.sequence([.sequence(moving),.fadeOut(withDuration: 0.1)]))
+            self.followcircle.run(.sequence(moving), completion: {
+                self.hidefollowcircle()
+            })
+//            self.followcircle.run(.sequence([.sequence(moving),.fadeOut(withDuration: 0.1)]))
             }])
     }
     
@@ -132,11 +138,13 @@ class SliderBall {
     }
     
     open func showfollowcircle() {
-        followcircle.run(.fadeIn(withDuration: 0.1))
+//        followcircle.run(.fadeIn(withDuration: 0.1))
+        followcircle.isHidden = false
     }
     
     open func hidefollowcircle() {
-        followcircle.run(.fadeOut(withDuration: 0.1))
+//        followcircle.run(.fadeOut(withDuration: 0.1))
+        followcircle.isHidden = true
     }
     
     //In order to rotate images in SKAction

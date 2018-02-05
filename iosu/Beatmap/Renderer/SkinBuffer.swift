@@ -57,4 +57,9 @@ class SkinBuffer {
         return skinflag[file]!
     }
     
+    open static func clean() {
+        buffer.removeAll()
+        skinflag.removeAll()
+    }
+    
 }

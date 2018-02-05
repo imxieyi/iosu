@@ -19,7 +19,7 @@ class StoryBoardScene: SKScene {
     //StoryBoard.stdwidth=854
     var audiofile=""
     var sb:StoryBoard?
-    open var viewController:GameViewController?
+    open weak var viewController:GameViewController?
     open static var hasSB = false
     
     init(size: CGSize,parent:GameViewController) {
@@ -145,34 +145,45 @@ class StoryBoardScene: SKScene {
         }
         node.removeAllActions()
         node.removeAllChildren()
-        node.removeFromParent()
     }
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
         if BGMusicPlayer.instance.state == .stopped {
             destroyNode(self)
+            if let sprites = sb?.sbsprites {
+                for img in sprites {
+                    img.actions = nil
+                }
+            }
+            sb?.sbactions.removeAll()
+            sb = nil
             ImageBuffer.clean()
         }
-        dispatcher.async {
-            if self.sb != nil {
-                if self.index<(self.sb?.sbsprites.count)! {
-                    var musictime=Int(BGMusicPlayer.instance.getTime()*1000)
-                    while (self.sb?.sbsprites[self.index].starttime)! - musictime <= 2000 {
-                        var offset=(self.sb?.sbsprites[self.index].starttime)! - musictime
-                        self.sb?.sbsprites[self.index].convertsprite()
-                        if offset<0{
-                            offset = 0
+        dispatcher.async { [unowned self] in
+            if BGMusicPlayer.instance.state == .playing {
+                if let sb = self.sb {
+                    if self.index<sb.sbsprites.count {
+                        var musictime=Int(BGMusicPlayer.instance.getTime()*1000)
+                        while sb.sbsprites[self.index].starttime - musictime <= 2000 {
+                            var offset=sb.sbsprites[self.index].starttime - musictime
+                            sb.sbsprites[self.index].convertsprite()
+                            if offset<0{
+                                offset = 0
+                            }
+                            if BGMusicPlayer.instance.state != .playing {
+                                return
+                            }
+                            self.addChild(sb.sbsprites[self.index].sprite!)
+                            if sb.sbsprites[self.index].actions != nil {
+                                sb.sbsprites[self.index].runaction(offset)
+                            }
+                            self.index+=1
+                            if self.index>=sb.sbsprites.count{
+                                return
+                            }
+                            musictime=Int(BGMusicPlayer.instance.getTime()*1000)
                         }
-                        self.addChild((self.sb?.sbsprites[self.index].sprite)!)
-                        if self.sb?.sbsprites[self.index].actions != nil {
-                            self.sb?.sbsprites[self.index].runaction(offset)
-                        }
-                        self.index+=1
-                        if self.index>=(self.sb?.sbsprites.count)!{
-                            return
-                        }
-                        musictime=Int(BGMusicPlayer.instance.getTime()*1000)
                     }
                 }
             }

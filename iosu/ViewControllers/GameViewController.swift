@@ -93,12 +93,14 @@ class GameViewController: UIViewController {
             gameView.presentScene(gameScene)
         }
         BGMusicPlayer.instance.startPlaying()
-        view.bringSubview(toFront: backBtn)
+        backBtn.removeFromSuperview()
+        view.addSubview(backBtn)
     }
 
     @IBAction func onBack(_ sender: Any) {
         BGMusicPlayer.instance.stop()
         BGVPlayer.stop()
+        BGVPlayer.view?.removeFromSuperview()
         dismiss(animated: true, completion: nil)
     }
     

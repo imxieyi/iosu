@@ -14,10 +14,17 @@ class ActionSet {
     fileprivate var actions:[HitObjectAction]=[]
     fileprivate var actnums:[Int] = []
     fileprivate var actcols:[UIColor] = []
-    fileprivate let scene:SKScene
+    fileprivate weak var scene:SKScene!
     fileprivate var nextindex:Int=0
-    open static var difficulty:BMDifficulty?
-    open static var current:ActionSet?
+    open static weak var difficulty:BMDifficulty?
+    open static weak var current:ActionSet?
+    
+    func destroy() {
+        for act in actions {
+            act.destroy()
+        }
+        actions.removeAll()
+    }
     
     init(beatmap:Beatmap,scene:SKScene) {
         ActionSet.difficulty = beatmap.difficulty

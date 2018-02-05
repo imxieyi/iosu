@@ -345,6 +345,11 @@ class GamePlayScene: SKScene {
         }
         if BGMusicPlayer.instance.state == .stopped {
             destroyNode(self)
+            bm?.hitobjects.removeAll()
+            bm = nil
+            actions?.destroy()
+            actions = nil
+            SkinBuffer.clean()
         }
         let mtime=BGMusicPlayer.instance.getTime()*1000
         if self.bgvindex < self.bgvactions.count {
@@ -359,6 +364,9 @@ class GamePlayScene: SKScene {
             }
         }
         dispatcher.async {
+            if BGMusicPlayer.instance.state != .playing {
+                return
+            }
             let mtime=BGMusicPlayer.instance.getTime()*1000
             let act = self.actions?.currentact()
             if act != nil {
@@ -366,11 +374,16 @@ class GamePlayScene: SKScene {
                     self.updateslider(mtime)
                 }
             }
-            var offset = (self.actions?.nexttime())! - mtime - (self.bm?.difficulty?.ARTime)!
-            while (self.actions?.hasnext())! && offset <= 1000 {
-                //debugPrint("mtime \(mtime) objtime \((actions?.nexttime())!) ar \((bm?.difficulty?.ARTime)!) offset \(offset)")
-                self.actions?.shownext(offset)
-                offset = (self.actions?.nexttime())! - mtime - (self.bm?.difficulty?.ARTime)!
+            if let bm = self.bm, let actions = self.actions {
+                var offset = actions.nexttime() - mtime - (bm.difficulty?.ARTime)!
+                while actions.hasnext() && offset <= 1000 {
+                    if BGMusicPlayer.instance.state != .playing {
+                        return
+                    }
+                    //debugPrint("mtime \(mtime) objtime \((actions?.nexttime())!) ar \((bm?.difficulty?.ARTime)!) offset \(offset)")
+                    actions.shownext(offset)
+                    offset = actions.nexttime() - mtime - (bm.difficulty?.ARTime)!
+                }
             }
         }
     }
