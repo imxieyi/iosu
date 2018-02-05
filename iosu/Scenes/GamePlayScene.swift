@@ -116,11 +116,11 @@ class GamePlayScene: SKScene {
             }
             actions = ActionSet(beatmap: bm!, scene: self)
             actions?.prepare()
-            BGMusicPlayer.gameScene = self
-            BGMusicPlayer.gameEarliest = Int((actions?.nexttime())!) - Int((bm?.difficulty?.ARTime)!)
-            BGMusicPlayer.setfile((bm?.audiofile)!)
+            BGMusicPlayer.instance.gameScene = self
+            BGMusicPlayer.instance.gameEarliest = Int((actions?.nexttime())!) - Int((bm?.difficulty?.ARTime)!)
+            BGMusicPlayer.instance.setfile((bm?.audiofile)!)
             if bgvtimes.count>0 {
-                BGMusicPlayer.videoEarliest = bgvtimes.first!
+                BGMusicPlayer.instance.videoEarliest = bgvtimes.first!
             }
         } catch BeatmapError.fileNotFound {
             debugPrint("ERROR:beatmap file not found")
@@ -264,7 +264,7 @@ class GamePlayScene: SKScene {
         hastouch = true
         let act = actions?.currentact()
         if act != nil {
-            let time = BGMusicPlayer.getTime()*1000
+            let time = BGMusicPlayer.instance.getTime()*1000
             switch (act?.getobj().type)! {
             case .circle:
                 if (act?.gettime())! - time < (bm?.difficulty?.ARTime)! {
@@ -294,7 +294,7 @@ class GamePlayScene: SKScene {
         }
         if (act?.getobj().type)! == .slider {
             lastpoint = pos
-            updateslider(BGMusicPlayer.getTime()*1000)
+            updateslider(BGMusicPlayer.instance.getTime()*1000)
         }
     }
     
@@ -305,7 +305,7 @@ class GamePlayScene: SKScene {
         if act == nil {
             return
         }
-        updateslider(BGMusicPlayer.getTime()*1000)
+        updateslider(BGMusicPlayer.instance.getTime()*1000)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -326,7 +326,16 @@ class GamePlayScene: SKScene {
     
     var bgvindex = 0
     var firstrun=true
-    let dispatcher = DispatchQueue(label: "sb_dispatcher")
+    let dispatcher = DispatchQueue(label: "bm_dispatcher")
+    
+    func destroyNode(_ node: SKNode) {
+        for child in node.children {
+            destroyNode(child)
+        }
+        node.removeAllActions()
+        node.removeAllChildren()
+        node.removeFromParent()
+    }
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
@@ -334,23 +343,27 @@ class GamePlayScene: SKScene {
             firstrun=false
             GamePlayScene.sliderball?.initialize(CGFloat((bm?.difficulty?.AbsoluteCS)!))
         }
+        if BGMusicPlayer.instance.state == .stopped {
+            destroyNode(self)
+        }
+        let mtime=BGMusicPlayer.instance.getTime()*1000
+        if self.bgvindex < self.bgvactions.count {
+            if self.bgvtimes[self.bgvindex] - Int(mtime) < 1000 {
+                var offset=self.bgvtimes[self.bgvindex] - Int(mtime)
+                if offset<0 {
+                    offset=0
+                }
+                debugPrint("push bgvideo \(self.bgvindex) with offset \(offset)")
+                self.run(SKAction.group([self.bgvactions[self.bgvindex],SKAction.sequence([SKAction.wait(forDuration: Double(offset)/1000),BGVPlayer.play()])]))
+                self.bgvindex+=1
+            }
+        }
         dispatcher.async {
-            let mtime=BGMusicPlayer.getTime()*1000
+            let mtime=BGMusicPlayer.instance.getTime()*1000
             let act = self.actions?.currentact()
             if act != nil {
                 if act?.getobj().type == .slider {
                     self.updateslider(mtime)
-                }
-            }
-            if self.bgvindex < self.bgvactions.count {
-                if self.bgvtimes[self.bgvindex] - Int(mtime) < 1000 {
-                    var offset=self.bgvtimes[self.bgvindex] - Int(mtime)
-                    if offset<0 {
-                        offset=0
-                    }
-                    debugPrint("push bgvideo \(self.bgvindex) with offset \(offset)")
-                    self.run(SKAction.group([self.bgvactions[self.bgvindex],SKAction.sequence([SKAction.wait(forDuration: Double(offset)/1000),BGVPlayer.play()])]))
-                    self.bgvindex+=1
                 }
             }
             var offset = (self.actions?.nexttime())! - mtime - (self.bm?.difficulty?.ARTime)!

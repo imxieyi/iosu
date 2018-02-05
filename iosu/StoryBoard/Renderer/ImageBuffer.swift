@@ -54,4 +54,9 @@ class ImageBuffer{
         //return SKTexture()
     }
     
+    static func clean() {
+        buffer.removeAll()
+        notfoundimages.removeAll()
+    }
+    
 }

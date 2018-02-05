@@ -47,4 +47,20 @@ class BGVPlayer : VLCMediaPlayerDelegate {
         }
     }
     
+    static func pause() {
+        if mplayer.isPlaying {
+            mplayer.pause()
+        }
+    }
+    
+    static func play() {
+        if !mplayer.isPlaying {
+            mplayer.play()
+        }
+    }
+    
+    static func stop() {
+        mplayer.stop()
+    }
+    
 }

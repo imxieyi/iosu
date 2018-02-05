@@ -54,7 +54,7 @@ class SelectionViewController:UIViewController,UIPickerViewDelegate,UIPickerView
         GameViewController.showgame = gameSwitch.isOn
         GameViewController.showvideo = videoSwitch.isOn
         GameViewController.showsb = sbSwitch.isOn
-        BGMusicPlayer.bgmvolume = musicSlider.value/100
+        BGMusicPlayer.instance.bgmvolume = musicSlider.value/100
         GamePlayScene.effvolume = effectSlider.value/100
         self.performSegue(withIdentifier: "play", sender: self.view)
     }

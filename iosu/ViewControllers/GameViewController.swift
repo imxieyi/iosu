@@ -19,7 +19,8 @@ class GameViewController: UIViewController {
     static var showsb = true
     var alert:UIAlertController!
     let runtestscene=false
-
+    @IBOutlet weak var backBtn: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         var maxfps: Int
@@ -91,9 +92,16 @@ class GameViewController: UIViewController {
             gameScene.backgroundColor = .clear
             gameView.presentScene(gameScene)
         }
-        BGMusicPlayer.startPlaying()
+        BGMusicPlayer.instance.startPlaying()
+        view.bringSubview(toFront: backBtn)
     }
 
+    @IBAction func onBack(_ sender: Any) {
+        BGMusicPlayer.instance.stop()
+        BGVPlayer.stop()
+        dismiss(animated: true, completion: nil)
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         debugPrint("scene appears,\(alert)")
         if alert != nil {

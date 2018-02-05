@@ -84,13 +84,13 @@ class StoryBoardScene: SKScene {
                 if !ImageBuffer.notfoundimages.isEmpty {
                     debugPrint("parent:\(viewController==nil)")
                     viewController?.alert=Alerts.create("Warning", message: ImageBuffer.notfound2str(), style: .alert, action1title: "Cancel", action1style: .cancel, handler1: nil, action2title: "Continue", action2style: .default, handler2: {(action:UIAlertAction)->Void in
-                        BGMusicPlayer.sbScene = self
-                        BGMusicPlayer.sbEarliest = (self.sb?.sbsprites.first?.starttime)!
+                        BGMusicPlayer.instance.sbScene = self
+                        BGMusicPlayer.instance.sbEarliest = (self.sb?.sbsprites.first?.starttime)!
                     })
                 }else{
-                    BGMusicPlayer.sbScene = self
-                    BGMusicPlayer.sbEarliest = (sb?.sbsprites.first?.starttime)!
-                    BGMusicPlayer.setfile(audiofile)
+                    BGMusicPlayer.instance.sbScene = self
+                    BGMusicPlayer.instance.sbEarliest = (sb?.sbsprites.first?.starttime)!
+                    BGMusicPlayer.instance.setfile(audiofile)
                 }
             }catch StoryBoardError.fileNotFound{
                 Alerts.show(viewController!, title: "Error", message: "storyboard file not found", style: .alert, actiontitle: "OK", actionstyle: .cancel, handler: nil)
@@ -115,13 +115,13 @@ class StoryBoardScene: SKScene {
                 }
                 if !ImageBuffer.notfoundimages.isEmpty {
                     Alerts.show(viewController!, title: "Warning", message: ImageBuffer.notfound2str(), style: .alert, action1title: "Cancel", action1style: .cancel, handler1: nil, action2title: "Continue", action2style: .default, handler2: {(action:UIAlertAction)->Void in
-                        BGMusicPlayer.sbScene = self
-                        BGMusicPlayer.sbEarliest = (self.sb?.sbsprites.first?.starttime)!
+                        BGMusicPlayer.instance.sbScene = self
+                        BGMusicPlayer.instance.sbEarliest = (self.sb?.sbsprites.first?.starttime)!
                     })
                 }else{
-                    BGMusicPlayer.sbScene = self
-                    BGMusicPlayer.sbEarliest = (sb?.sbsprites.first?.starttime)!
-                    BGMusicPlayer.setfile(audiofile)
+                    BGMusicPlayer.instance.sbScene = self
+                    BGMusicPlayer.instance.sbEarliest = (sb?.sbsprites.first?.starttime)!
+                    BGMusicPlayer.instance.setfile(audiofile)
                 }
             }catch StoryBoardError.fileNotFound{
                 Alerts.show(viewController!, title: "Error", message: "storyboard file not found", style: .alert, actiontitle: "OK", actionstyle: .cancel, handler: nil)
@@ -138,15 +138,26 @@ class StoryBoardScene: SKScene {
     
     var index = 0
     let dispatcher = DispatchQueue(label: "sb_dispatcher")
-    let dispatchgroup = DispatchGroup()
+    
+    func destroyNode(_ node: SKNode) {
+        for child in node.children {
+            destroyNode(child)
+        }
+        node.removeAllActions()
+        node.removeAllChildren()
+        node.removeFromParent()
+    }
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
+        if BGMusicPlayer.instance.state == .stopped {
+            destroyNode(self)
+            ImageBuffer.clean()
+        }
         dispatcher.async {
-            //self.dispatchgroup.enter()
             if self.sb != nil {
                 if self.index<(self.sb?.sbsprites.count)! {
-                    var musictime=Int(BGMusicPlayer.getTime()*1000)
+                    var musictime=Int(BGMusicPlayer.instance.getTime()*1000)
                     while (self.sb?.sbsprites[self.index].starttime)! - musictime <= 2000 {
                         var offset=(self.sb?.sbsprites[self.index].starttime)! - musictime
                         self.sb?.sbsprites[self.index].convertsprite()
@@ -161,17 +172,11 @@ class StoryBoardScene: SKScene {
                         if self.index>=(self.sb?.sbsprites.count)!{
                             return
                         }
-                        musictime=Int(BGMusicPlayer.getTime()*1000)
+                        musictime=Int(BGMusicPlayer.instance.getTime()*1000)
                     }
                 }
             }
-            //self.dispatchgroup.leave()
         }
     }
-    
-//    override func didFinishUpdate() {
-//        super.didFinishUpdate()
-//        //dispatchgroup.wait()
-//    }
     
 }
