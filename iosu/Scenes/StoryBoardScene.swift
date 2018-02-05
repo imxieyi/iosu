@@ -161,7 +161,7 @@ class StoryBoardScene: SKScene {
             ImageBuffer.clean()
         }
         dispatcher.async { [unowned self] in
-            if BGMusicPlayer.instance.state == .playing {
+            if BGMusicPlayer.instance.state != .stopped {
                 if let sb = self.sb {
                     if self.index<sb.sbsprites.count {
                         var musictime=Int(BGMusicPlayer.instance.getTime()*1000)
@@ -171,7 +171,7 @@ class StoryBoardScene: SKScene {
                             if offset<0{
                                 offset = 0
                             }
-                            if BGMusicPlayer.instance.state != .playing {
+                            if BGMusicPlayer.instance.state == .stopped {
                                 return
                             }
                             self.addChild(sb.sbsprites[self.index].sprite!)

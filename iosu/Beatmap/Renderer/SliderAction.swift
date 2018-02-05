@@ -437,10 +437,12 @@ class SliderAction:HitObjectAction {
                 } else {
                     failcount += 1
                     if failcount >= 2 {
-                        for i in pointer-2...arrowinners.count-1 {
-                            arrowinners[i].run(CircleAction.faildisappear)
-                            arrowarrows[i].run(CircleAction.faildisappear)
-                            arrowoverlays[i].run(CircleAction.faildisappear)
+                        if pointer-2 <= arrowinners.count-1 {
+                            for i in pointer-2...arrowinners.count-1 {
+                                arrowinners[i].run(CircleAction.faildisappear)
+                                arrowarrows[i].run(CircleAction.faildisappear)
+                                arrowoverlays[i].run(CircleAction.faildisappear)
+                            }
                         }
                         endinner?.run(CircleAction.faildisappear)
                         endoverlay?.run(CircleAction.faildisappear)

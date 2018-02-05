@@ -364,7 +364,7 @@ class GamePlayScene: SKScene {
             }
         }
         dispatcher.async {
-            if BGMusicPlayer.instance.state != .playing {
+            if BGMusicPlayer.instance.state == .stopped {
                 return
             }
             let mtime=BGMusicPlayer.instance.getTime()*1000
@@ -377,7 +377,7 @@ class GamePlayScene: SKScene {
             if let bm = self.bm, let actions = self.actions {
                 var offset = actions.nexttime() - mtime - (bm.difficulty?.ARTime)!
                 while actions.hasnext() && offset <= 1000 {
-                    if BGMusicPlayer.instance.state != .playing {
+                    if BGMusicPlayer.instance.state == .stopped {
                         return
                     }
                     //debugPrint("mtime \(mtime) objtime \((actions?.nexttime())!) ar \((bm?.difficulty?.ARTime)!) offset \(offset)")

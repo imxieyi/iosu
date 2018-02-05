@@ -127,6 +127,7 @@ class SliderBall {
             self.sliderball1.run(action)
             self.followcircle.run(.sequence(moving), completion: {
                 self.hidefollowcircle()
+                self.followcircle.position = CGPoint(x: -99999, y: -99999)
             })
 //            self.followcircle.run(.sequence([.sequence(moving),.fadeOut(withDuration: 0.1)]))
             }])
