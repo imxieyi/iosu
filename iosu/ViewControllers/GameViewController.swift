@@ -95,6 +95,7 @@ class GameViewController: UIViewController {
         BGMusicPlayer.instance.startPlaying()
         backBtn.removeFromSuperview()
         view.addSubview(backBtn)
+        backBtn.layer.zPosition = 5
     }
 
     @IBAction func onBack(_ sender: Any) {
