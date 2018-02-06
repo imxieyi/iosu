@@ -14,6 +14,7 @@
 		8A4D5C3F1E8A8AEC00319D91 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A4D5C3D1E8A8AEC00319D91 /* Main.storyboard */; };
 		8A4D5C411E8A8AEC00319D91 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A4D5C401E8A8AEC00319D91 /* Assets.xcassets */; };
 		8A4D5C441E8A8AEC00319D91 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A4D5C421E8A8AEC00319D91 /* LaunchScreen.storyboard */; };
+		8A51BA4720285C520035BC82 /* BeatmapLibrary.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A51BA4620285C520035BC82 /* BeatmapLibrary.storyboard */; };
 		8A67438B1E9011D800818D55 /* SpriteKitEasingSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A67438A1E9011D800818D55 /* SpriteKitEasingSwift.framework */; };
 		8A7F7E191E9D2C1000595A13 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A7F7E181E9D2C1000595A13 /* VideoToolbox.framework */; };
 		8A7F7E1B1E9D2C1D00595A13 /* libstdc++.6.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A7F7E1A1E9D2C1D00595A13 /* libstdc++.6.tbd */; };
@@ -105,6 +106,8 @@
 		8ADC1E9E1ECB163300E0E9AB /* BGVideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1E9C1ECB163300E0E9AB /* BGVideoPlayer.swift */; };
 		8ADC1EA11ECB167400E0E9AB /* BeatmapScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1EA01ECB167400E0E9AB /* BeatmapScanner.swift */; };
 		8ADC1EA31ECB16C400E0E9AB /* HitObjectAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADC1EA21ECB16C400E0E9AB /* HitObjectAction.swift */; };
+		8AE451C220299C2D00D406E1 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE451C120299C2D00D406E1 /* Database.swift */; };
+		8AE451C920299C5200D406E1 /* FSWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE451C820299C5200D406E1 /* FSWrapper.swift */; };
 		8AFC00DC1F051E6E0029DC9D /* SkinBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFC00DB1F051E6E0029DC9D /* SkinBuffer.swift */; };
 		99B4058382CF96D791075AB4 /* Pods_iosu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A76F916780A6E7BFEFB56503 /* Pods_iosu.framework */; };
 /* End PBXBuildFile section */
@@ -124,6 +127,13 @@
 			remoteGlobalIDString = D72CCB7FECD6CDE8361CB30AA0BE23D7;
 			remoteInfo = SpriteKitEasingSwift;
 		};
+		8AE451C620299C2E00D406E1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AA559451F06B18C00C77AE5 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1DB8797F6D63FD0169D94DBEED3F0E90;
+			remoteInfo = SQLite.swift;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -140,6 +150,7 @@
 		8A4D5C401E8A8AEC00319D91 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8A4D5C431E8A8AEC00319D91 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8A4D5C451E8A8AEC00319D91 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8A51BA4620285C520035BC82 /* BeatmapLibrary.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BeatmapLibrary.storyboard; sourceTree = "<group>"; };
 		8A67438A1E9011D800818D55 /* SpriteKitEasingSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKitEasingSwift.framework; path = "../../Library/Developer/Xcode/DerivedData/iosu-gddpvylvaevfhyenmhqlpckshyiw/Build/Products/Debug-iphonesimulator/SpriteKitEasingSwift/SpriteKitEasingSwift.framework"; sourceTree = "<group>"; };
 		8A7F7E181E9D2C1000595A13 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		8A7F7E1A1E9D2C1D00595A13 /* libstdc++.6.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.tbd"; path = "usr/lib/libstdc++.6.tbd"; sourceTree = SDKROOT; };
@@ -300,6 +311,8 @@
 		8ADC1E9C1ECB163300E0E9AB /* BGVideoPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BGVideoPlayer.swift; path = MediaPlayers/BGVideoPlayer.swift; sourceTree = "<group>"; };
 		8ADC1EA01ECB167400E0E9AB /* BeatmapScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BeatmapScanner.swift; path = Database/BeatmapScanner.swift; sourceTree = "<group>"; };
 		8ADC1EA21ECB16C400E0E9AB /* HitObjectAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HitObjectAction.swift; path = Beatmap/Renderer/HitObjectAction.swift; sourceTree = "<group>"; };
+		8AE451C120299C2D00D406E1 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Database.swift; path = Utils/Database.swift; sourceTree = "<group>"; };
+		8AE451C820299C5200D406E1 /* FSWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FSWrapper.swift; path = Utils/FSWrapper.swift; sourceTree = "<group>"; };
 		8AFC00DB1F051E6E0029DC9D /* SkinBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SkinBuffer.swift; path = Beatmap/Renderer/SkinBuffer.swift; sourceTree = "<group>"; };
 		A76F916780A6E7BFEFB56503 /* Pods_iosu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iosu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -365,6 +378,8 @@
 		8A4D5C321E8A8AEB00319D91 /* iosu */ = {
 			isa = PBXGroup;
 			children = (
+				8A51BA4820285E380035BC82 /* Utils */,
+				8A51BA4320285C190035BC82 /* UI */,
 				8ADC1DE71ECB0B1B00E0E9AB /* Audios */,
 				8ADC1D9B1ECB0A4600E0E9AB /* Beatmap */,
 				8ADC1E581ECB0F8D00E0E9AB /* StoryBoard */,
@@ -380,6 +395,23 @@
 				8ABA55261E9D23FD006530EC /* iosu-Bridging-Header.h */,
 			);
 			path = iosu;
+			sourceTree = "<group>";
+		};
+		8A51BA4320285C190035BC82 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				8A51BA4620285C520035BC82 /* BeatmapLibrary.storyboard */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		8A51BA4820285E380035BC82 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				8AE451C820299C5200D406E1 /* FSWrapper.swift */,
+				8AE451C120299C2D00D406E1 /* Database.swift */,
+			);
+			name = Utils;
 			sourceTree = "<group>";
 		};
 		8AA5593C1F06B18C00C77AE5 /* Pods */ = {
@@ -434,6 +466,7 @@
 			children = (
 				8AA559A71F06B18C00C77AE5 /* Pods_iosu.framework */,
 				8AA559A91F06B18C00C77AE5 /* SpriteKitEasingSwift.framework */,
+				8AE451C720299C2E00D406E1 /* SQLite.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -996,6 +1029,13 @@
 			remoteRef = 8AA559A81F06B18C00C77AE5 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		8AE451C720299C2E00D406E1 /* SQLite.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SQLite.framework;
+			remoteRef = 8AE451C620299C2E00D406E1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -1042,6 +1082,7 @@
 				8A4D5C441E8A8AEC00319D91 /* LaunchScreen.storyboard in Resources */,
 				8ADC1E2F1ECB0B1B00E0E9AB /* soft-sliderwhistle.wav in Resources */,
 				8ADC1E2C1ECB0B1B00E0E9AB /* soft-hitwhistle.wav in Resources */,
+				8A51BA4720285C520035BC82 /* BeatmapLibrary.storyboard in Resources */,
 				8ADC1E1A1ECB0B1B00E0E9AB /* failsound.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1071,10 +1112,12 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-iosu/Pods-iosu-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
 				"${BUILT_PRODUCTS_DIR}/SpriteKitEasingSwift/SpriteKitEasingSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SpriteKitEasingSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1127,6 +1170,7 @@
 				8ADC1E391ECB0C2B00E0E9AB /* Beatmap.swift in Sources */,
 				8ADC1E511ECB0E9500E0E9AB /* SliderAction.swift in Sources */,
 				8ADC1E5D1ECB100A00E0E9AB /* ImageBuffer.swift in Sources */,
+				8AE451C220299C2D00D406E1 /* Database.swift in Sources */,
 				8ADC1E481ECB0D7200E0E9AB /* HitObjectEnums.swift in Sources */,
 				8ADC1E721ECB122000E0E9AB /* SBMove.swift in Sources */,
 				8ADC1E761ECB128400E0E9AB /* SBMoveX.swift in Sources */,
@@ -1147,6 +1191,7 @@
 				8ADC1E551ECB0EFB00E0E9AB /* ActionSet.swift in Sources */,
 				8ADC1E741ECB125700E0E9AB /* SBFade.swift in Sources */,
 				8ADC1E9E1ECB163300E0E9AB /* BGVideoPlayer.swift in Sources */,
+				8AE451C920299C5200D406E1 /* FSWrapper.swift in Sources */,
 				8ADC1E8F1ECB14DD00E0E9AB /* GameViewController.swift in Sources */,
 				8ADC1E7A1ECB12CB00E0E9AB /* SBScale.swift in Sources */,
 				8ADC1E921ECB155400E0E9AB /* Difficulty.swift in Sources */,
