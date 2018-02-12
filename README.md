@@ -41,7 +41,7 @@ pod install
 
 ## Installation Through Cydia Impactor (Not recommended) (iOS 10.0+ required)
 1. Download [Cydia Impactor](http://www.cydiaimpactor.com/).
-2. Download latest [ipa artifact](https://git.imxieyi.com/xieyi/iosu/tags) from my personal gitlab server.
+2. Download latest [ipa artifact](https://git.imxieyi.com/xieyi/iosu/tags) from my personal gitlab server. (Direct link to ipa file: [https://git.imxieyi.com/xieyi/iosu/-/jobs/artifacts/v0.3.1/download?job=archive_project](https://git.imxieyi.com/xieyi/iosu/-/jobs/artifacts/v0.3.1/download?job=archive_project))
 3. Connect your iDevice and run Cydia Impactor.
 4. Drag .ipa file to Cydia Impactor window.
 5. Input your Apple ID info.
@@ -49,6 +49,8 @@ pod install
 
 ## Import Beatmap
 ![](screenshots/import.png)
+
+Both osu and osb files should be contained in directories shown in the iTunes. Directly importing directories in `Songs` on your PC (can be found in osu! installation path) should work fine.
 
 ## Notice
 0. This project is still at **super early stage**, there are plenty of bugs among the whole application. So don't worry if it crashes constantly on your device. If you want to report, please attach **the link to the beatmap on [osu.ppy.sh](https://osu.ppy.sh/)** while creating an issue.
