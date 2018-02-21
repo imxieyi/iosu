@@ -312,7 +312,7 @@
 		8ADC1EA01ECB167400E0E9AB /* BeatmapScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BeatmapScanner.swift; path = Database/BeatmapScanner.swift; sourceTree = "<group>"; };
 		8ADC1EA21ECB16C400E0E9AB /* HitObjectAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HitObjectAction.swift; path = Beatmap/Renderer/HitObjectAction.swift; sourceTree = "<group>"; };
 		8AE451C120299C2D00D406E1 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Database.swift; path = Utils/Database.swift; sourceTree = "<group>"; };
-		8AE451C820299C5200D406E1 /* FSWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FSWrapper.swift; path = Utils/FSWrapper.swift; sourceTree = "<group>"; };
+		8AE451C820299C5200D406E1 /* FSWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FSWrapper.swift; path = Utils/FSWrapper.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		8AFC00DB1F051E6E0029DC9D /* SkinBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SkinBuffer.swift; path = Beatmap/Renderer/SkinBuffer.swift; sourceTree = "<group>"; };
 		A76F916780A6E7BFEFB56503 /* Pods_iosu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iosu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
