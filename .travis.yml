@@ -5,4 +5,5 @@ xcode_scheme: iosu
 xcode_sdk: iphonesimulator11.2
 script:
 - pod install
+- pod update
 - xcodebuild clean build -sdk iphonesimulator -workspace iosu.xcworkspace -scheme iosu CODE_SIGNING_REQUIRED=NO
