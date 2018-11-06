@@ -10,18 +10,17 @@
 		8A0442B31ECB2227000DE269 /* UIBezierPath+Length.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0442B01ECB2227000DE269 /* UIBezierPath+Length.m */; };
 		8A1ACE721EFAB529000EBC14 /* PlaySoundFileNamedExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1ACE711EFAB529000EBC14 /* PlaySoundFileNamedExt.swift */; };
 		8A1ACE741EFAB985000EBC14 /* BundleAudioBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1ACE731EFAB985000EBC14 /* BundleAudioBuffer.swift */; };
+		8A4495212191C7280094CB01 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A4495202191C7280094CB01 /* libc++.tbd */; };
 		8A4D5C341E8A8AEB00319D91 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4D5C331E8A8AEB00319D91 /* AppDelegate.swift */; };
 		8A4D5C3F1E8A8AEC00319D91 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A4D5C3D1E8A8AEC00319D91 /* Main.storyboard */; };
 		8A4D5C411E8A8AEC00319D91 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A4D5C401E8A8AEC00319D91 /* Assets.xcassets */; };
 		8A4D5C441E8A8AEC00319D91 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A4D5C421E8A8AEC00319D91 /* LaunchScreen.storyboard */; };
 		8A67438B1E9011D800818D55 /* SpriteKitEasingSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A67438A1E9011D800818D55 /* SpriteKitEasingSwift.framework */; };
 		8A7F7E191E9D2C1000595A13 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A7F7E181E9D2C1000595A13 /* VideoToolbox.framework */; };
-		8A7F7E1B1E9D2C1D00595A13 /* libstdc++.6.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A7F7E1A1E9D2C1D00595A13 /* libstdc++.6.tbd */; };
 		8A7F7E1D1E9D2C2500595A13 /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A7F7E1C1E9D2C2500595A13 /* libbz2.tbd */; };
 		8A7F7E1F1E9D2C2D00595A13 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A7F7E1E1E9D2C2D00595A13 /* libz.tbd */; };
 		8AA5593B1F06AF0400C77AE5 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AA5593A1F06AF0400C77AE5 /* libiconv.tbd */; };
 		8AA559AC1F06B1D200C77AE5 /* MobileVLCKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AA559A11F06B18C00C77AE5 /* MobileVLCKit.framework */; };
-		8AA559AE1F06B1DA00C77AE5 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AA559AD1F06B1DA00C77AE5 /* libstdc++.6.0.9.tbd */; };
 		8ADC1E0D1ECB0B1B00E0E9AB /* applause.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1DE81ECB0B1B00E0E9AB /* applause.mp3 */; };
 		8ADC1E0E1ECB0B1B00E0E9AB /* combobreak.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1DE91ECB0B1B00E0E9AB /* combobreak.mp3 */; };
 		8ADC1E0F1ECB0B1B00E0E9AB /* count.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8ADC1DEA1ECB0B1B00E0E9AB /* count.wav */; };
@@ -134,6 +133,9 @@
 		8A0442B01ECB2227000DE269 /* UIBezierPath+Length.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath+Length.m"; sourceTree = "<group>"; };
 		8A1ACE711EFAB529000EBC14 /* PlaySoundFileNamedExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlaySoundFileNamedExt.swift; path = MediaPlayers/PlaySoundFileNamedExt.swift; sourceTree = "<group>"; };
 		8A1ACE731EFAB985000EBC14 /* BundleAudioBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BundleAudioBuffer.swift; path = MediaPlayers/BundleAudioBuffer.swift; sourceTree = "<group>"; };
+		8A44951C2191C7000094CB01 /* libc++.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.1.tbd"; path = "usr/lib/libc++.1.tbd"; sourceTree = SDKROOT; };
+		8A44951E2191C7220094CB01 /* libc++abi.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++abi.tbd"; path = "usr/lib/libc++abi.tbd"; sourceTree = SDKROOT; };
+		8A4495202191C7280094CB01 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		8A4D5C301E8A8AEB00319D91 /* iosu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A4D5C331E8A8AEB00319D91 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8A4D5C3E1E8A8AEC00319D91 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -309,12 +311,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8AA559AE1F06B1DA00C77AE5 /* libstdc++.6.0.9.tbd in Frameworks */,
+				8A4495212191C7280094CB01 /* libc++.tbd in Frameworks */,
 				8AA559AC1F06B1D200C77AE5 /* MobileVLCKit.framework in Frameworks */,
 				8AA5593B1F06AF0400C77AE5 /* libiconv.tbd in Frameworks */,
 				8A7F7E1F1E9D2C2D00595A13 /* libz.tbd in Frameworks */,
 				8A7F7E1D1E9D2C2500595A13 /* libbz2.tbd in Frameworks */,
-				8A7F7E1B1E9D2C1D00595A13 /* libstdc++.6.tbd in Frameworks */,
 				8A7F7E191E9D2C1000595A13 /* VideoToolbox.framework in Frameworks */,
 				8A67438B1E9011D800818D55 /* SpriteKitEasingSwift.framework in Frameworks */,
 				99B4058382CF96D791075AB4 /* Pods_iosu.framework in Frameworks */,
@@ -891,6 +892,9 @@
 		D3ABB3CD3474C7FEB39BC95D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8A4495202191C7280094CB01 /* libc++.tbd */,
+				8A44951E2191C7220094CB01 /* libc++abi.tbd */,
+				8A44951C2191C7000094CB01 /* libc++.1.tbd */,
 				8AA559AD1F06B1DA00C77AE5 /* libstdc++.6.0.9.tbd */,
 				8AA559A11F06B18C00C77AE5 /* MobileVLCKit.framework */,
 				8AA5593C1F06B18C00C77AE5 /* Pods */,
@@ -927,7 +931,6 @@
 				8A4D5C2D1E8A8AEB00319D91 /* Frameworks */,
 				8A4D5C2E1E8A8AEB00319D91 /* Resources */,
 				76C8BBFD8412E2A640B938C0 /* [CP] Embed Pods Frameworks */,
-				0B93C120F14D6C1714DCD1EE /* [CP] Copy Pods Resources */,
 				8AAFCE52202735C6002D90CF /* ShellScript */,
 			);
 			buildRules = (
@@ -1049,21 +1052,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0B93C120F14D6C1714DCD1EE /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iosu/Pods-iosu-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		76C8BBFD8412E2A640B938C0 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1325,6 +1313,7 @@
 					"-l\"bz2\"",
 					"-l\"iconv\"",
 					"-l\"stdc++\"",
+					"-l\"c++\"",
 					"-l\"xml2\"",
 					"-l\"z\"",
 					"-framework",
@@ -1385,6 +1374,7 @@
 					"-l\"bz2\"",
 					"-l\"iconv\"",
 					"-l\"stdc++\"",
+					"-l\"c++\"",
 					"-l\"xml2\"",
 					"-l\"z\"",
 					"-framework",
