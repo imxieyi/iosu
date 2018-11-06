@@ -326,7 +326,6 @@ class GamePlayScene: SKScene {
     
     var bgvindex = 0
     var firstrun=true
-    let dispatcher = DispatchQueue(label: "bm_dispatcher")
     
     func destroyNode(_ node: SKNode) {
         for child in node.children {
@@ -351,7 +350,7 @@ class GamePlayScene: SKScene {
             actions = nil
             SkinBuffer.clean()
         }
-        let mtime=BGMusicPlayer.instance.getTime()*1000
+        var mtime=BGMusicPlayer.instance.getTime()*1000
         if self.bgvindex < self.bgvactions.count {
             if self.bgvtimes[self.bgvindex] - Int(mtime) < 1000 {
                 var offset=self.bgvtimes[self.bgvindex] - Int(mtime)
@@ -363,27 +362,25 @@ class GamePlayScene: SKScene {
                 self.bgvindex+=1
             }
         }
-        dispatcher.async {
-            if BGMusicPlayer.instance.state == .stopped {
-                return
+        if BGMusicPlayer.instance.state == .stopped {
+            return
+        }
+        mtime=BGMusicPlayer.instance.getTime()*1000
+        let act = self.actions?.currentact()
+        if act != nil {
+            if act?.getobj().type == .slider {
+                self.updateslider(mtime)
             }
-            let mtime=BGMusicPlayer.instance.getTime()*1000
-            let act = self.actions?.currentact()
-            if act != nil {
-                if act?.getobj().type == .slider {
-                    self.updateslider(mtime)
+        }
+        if let bm = self.bm, let actions = self.actions {
+            var offset = actions.nexttime() - mtime - (bm.difficulty?.ARTime)!
+            while actions.hasnext() && offset <= 1000 {
+                if BGMusicPlayer.instance.state == .stopped {
+                    return
                 }
-            }
-            if let bm = self.bm, let actions = self.actions {
-                var offset = actions.nexttime() - mtime - (bm.difficulty?.ARTime)!
-                while actions.hasnext() && offset <= 1000 {
-                    if BGMusicPlayer.instance.state == .stopped {
-                        return
-                    }
-                    //debugPrint("mtime \(mtime) objtime \((actions?.nexttime())!) ar \((bm?.difficulty?.ARTime)!) offset \(offset)")
-                    actions.shownext(offset)
-                    offset = actions.nexttime() - mtime - (bm.difficulty?.ARTime)!
-                }
+                //debugPrint("mtime \(mtime) objtime \((actions?.nexttime())!) ar \((bm?.difficulty?.ARTime)!) offset \(offset)")
+                actions.shownext(offset)
+                offset = actions.nexttime() - mtime - (bm.difficulty?.ARTime)!
             }
         }
     }

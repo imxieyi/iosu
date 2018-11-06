@@ -28,7 +28,7 @@ class SoundNode:SKNode {
             self.player.play()
         },SKAction.wait(forDuration: player.duration),SKAction.run {
             self.player.stop()
-            self.isHidden = true
+            self.removeFromParent()
             }]))
     }
     

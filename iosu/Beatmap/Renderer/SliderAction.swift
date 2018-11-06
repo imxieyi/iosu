@@ -333,9 +333,7 @@ class SliderAction:HitObjectAction {
             scene.addChild(self.inbody!)
             scene.addChild(self.outbody!)
             scene.addChild(self.appcircle!)
-            self.appcircle?.run(.sequence([.group([.fadeIn(withDuration: artime/3),.scale(to: 1, duration: artime)]),.run {
-                self.appcircle?.isHidden = true
-                }]))
+            self.appcircle?.run(.sequence([.group([.fadeIn(withDuration: artime/3),.scale(to: 1, duration: artime)]),.removeFromParent()]))
             }])
         let ballact = GamePlayScene.sliderball?.show(color, path: obj.path, repe: obj.repe, duration: singleduration/1000, waittime: artime + offset/1000)
         let failact = SKAction.sequence([.wait(forDuration: artime + offset/1000 + (ActionSet.difficulty?.Score50)!/1000),.run {
@@ -373,7 +371,7 @@ class SliderAction:HitObjectAction {
         }
         if ticktimeindex < ticktimes.count {
             if time >= ticktimes[ticktimeindex] {
-                tickpoints[runcount][tickcount].isHidden = true
+                tickpoints[runcount][tickcount].removeFromParent()
                 ticktimeindex += 1
                 tickcount += 1
                 if tickcount == tickpoints[runcount].count {
@@ -404,7 +402,7 @@ class SliderAction:HitObjectAction {
             if following {
                 pointer += 1
                 dummynode?.removeAllActions()
-                dummynode?.isHidden = true
+                dummynode?.removeFromParent()
                 switch judge(time) {
                 case .s50:
                     headinner?.run(CircleAction.passdisappear)
@@ -412,7 +410,7 @@ class SliderAction:HitObjectAction {
                     for num in headnumber {
                         num.run(CircleAction.passdisappear)
                     }
-                    appcircle?.isHidden = true
+                    appcircle?.removeFromParent()
                     return .edgePass
                 default:
                     failcount += 1
@@ -421,7 +419,7 @@ class SliderAction:HitObjectAction {
                     for num in headnumber {
                         num.run(CircleAction.faildisappear)
                     }
-                    appcircle?.isHidden = true
+                    appcircle?.removeFromParent()
                     return .failOnce
                 }
             }
@@ -469,8 +467,8 @@ class SliderAction:HitObjectAction {
                 if following {
                     endinner?.run(CircleAction.passdisappear)
                     endoverlay?.run(CircleAction.passdisappear)
-                    inbody?.run(.sequence([.fadeOut(withDuration: 0.5)]))
-                    outbody?.run(.sequence([.fadeOut(withDuration: 0.5)]))
+                    inbody?.run(.sequence([.fadeOut(withDuration: 0.5),.removeFromParent()]))
+                    outbody?.run(.sequence([.fadeOut(withDuration: 0.5),.removeFromParent()]))
                     return .end
                 } else {
                     failcount += 1
@@ -484,8 +482,8 @@ class SliderAction:HitObjectAction {
                     } else {
                         endinner?.run(CircleAction.passdisappear)
                         endoverlay?.run(CircleAction.passdisappear)
-                        inbody?.run(.sequence([.fadeOut(withDuration: 0.5)]))
-                        outbody?.run(.sequence([.fadeOut(withDuration: 0.5)]))
+                        inbody?.run(.sequence([.fadeOut(withDuration: 0.5),.removeFromParent()]))
+                        outbody?.run(.sequence([.fadeOut(withDuration: 0.5),.removeFromParent()]))
                         return .end
                     }
                 }
@@ -496,29 +494,29 @@ class SliderAction:HitObjectAction {
     
     //In order to prevent objects remaining on the screen
     func destroy() {
-        headinner?.isHidden = true
+        headinner?.removeFromParent()
         headinner = nil
         for node in headnumber {
-            node.isHidden = true
+            node.removeFromParent()
         }
         headnumber.removeAll()
-        headoverlay?.isHidden = true
+        headoverlay?.removeFromParent()
         headoverlay = nil
-        endinner?.isHidden = true
+        endinner?.removeFromParent()
         endinner = nil
-        endoverlay?.isHidden = true
+        endoverlay?.removeFromParent()
         endoverlay = nil
         if arrowarrows.count > 0 {
             for i in 0...arrowarrows.count-1 {
-                arrowarrows[i].isHidden = true
-                arrowinners[i].isHidden = true
-                arrowoverlays[i].isHidden = true
+                arrowarrows[i].removeFromParent()
+                arrowinners[i].removeFromParent()
+                arrowoverlays[i].removeFromParent()
             }
         }
         if tickpoints.count > 0 {
             for i in 0...tickpoints.count-1 {
                 for node in tickpoints[i] {
-                    node.isHidden = true
+                    node.removeFromParent()
                 }
             }
             tickpoints.removeAll()
@@ -526,13 +524,13 @@ class SliderAction:HitObjectAction {
         arrowarrows.removeAll()
         arrowinners.removeAll()
         arrowoverlays.removeAll()
-        inbody?.isHidden = true
+        inbody?.removeFromParent()
         inbody = nil
-        outbody?.isHidden = true
+        outbody?.removeFromParent()
         outbody = nil
-        dummynode?.isHidden = true
+        dummynode?.removeFromParent()
         dummynode = nil
-        guardnode?.isHidden = true
+        guardnode?.removeFromParent()
         guardnode = nil
     }
     
