@@ -2,10 +2,10 @@
 
 [![Build Status](https://travis-ci.org/imxieyi/iosu.svg?branch=master)](https://travis-ci.org/imxieyi/iosu)
 
-This project is currently (not totally) suspended due to lack of time.
-
 ## Introduction
 This is an ios port of the rhythm game [osu!](https://osu.ppy.sh). It is written in Swift based on [SpriteKit](https://developer.apple.com/spritekit/) framework. **It is just a hobby project for fun**. So don't expect that I can make it full functional in a short time.
+
+**Updated 2019-05-15:** The official [osu!lazer](https://github.com/ppy/osu) is already playable on iOS devices.
 
 ## Demo Video (Game+Storyboard)
 [https://youtu.be/RjuJyxciYkg](https://youtu.be/RjuJyxciYkg)
