@@ -2,7 +2,7 @@ os: osx
 osx_image: xcode10.2
 
 install:
-  - pod install
+  - pod install --repo-update
 
 language: objective-c
 xcode_project: iosu.xcworkspace # path to your xcodeproj folder
