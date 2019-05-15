@@ -64,7 +64,7 @@ class GameViewController: UIViewController {
         }
         if GameViewController.showvideo {
             //For video play
-            BGVPlayer.initialize()
+            BGVPlayer.myInitialize()
             BGVPlayer.view?.layer.zPosition = 1
             view.addSubview(BGVPlayer.view!)
         }

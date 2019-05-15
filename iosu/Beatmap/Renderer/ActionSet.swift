@@ -16,8 +16,8 @@ class ActionSet {
     fileprivate var actcols:[UIColor] = []
     fileprivate weak var scene:SKScene!
     fileprivate var nextindex:Int=0
-    open static weak var difficulty:BMDifficulty?
-    open static weak var current:ActionSet?
+    public static weak var difficulty:BMDifficulty?
+    public static weak var current:ActionSet?
     
     func destroy() {
         for act in actions {

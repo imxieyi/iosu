@@ -23,15 +23,15 @@ class BMDifficulty {
     fileprivate let CircleSize:Double
     fileprivate let OverallDifficulty:Double
     fileprivate let ApproachRate:Double
-    open let SliderMultiplier:Double
-    open let SliderTickRate:Double
+    public let SliderMultiplier:Double
+    public let SliderTickRate:Double
     
-    open let AbsoluteCS:Double
+    public let AbsoluteCS:Double
     
-    open let ARTime:Double
-    open let Score300:Double
-    open let Score100:Double
-    open let Score50:Double
+    public let ARTime:Double
+    public let Score300:Double
+    public let Score100:Double
+    public let Score50:Double
     
     init(HP:Double,CS:Double,OD:Double,AR:Double,SM:Double,ST:Double) {
         HPDrainRate=HP

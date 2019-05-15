@@ -34,7 +34,7 @@ class GamePlayScene: SKScene {
     fileprivate var bgvactions:[SKAction]=[]
     fileprivate var bgvtimes:[Int]=[]
     
-    open static var sliderball:SliderBall?
+    public static var sliderball:SliderBall?
     var bm:Beatmap?
     
     override func sceneDidLoad() {

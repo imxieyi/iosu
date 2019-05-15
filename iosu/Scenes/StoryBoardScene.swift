@@ -20,7 +20,7 @@ class StoryBoardScene: SKScene {
     var audiofile=""
     var sb:StoryBoard?
     open weak var viewController:GameViewController?
-    open static var hasSB = false
+    public static var hasSB = false
     
     init(size: CGSize,parent:GameViewController) {
         //debugPrint("enter constructor,parent is \(parent)")

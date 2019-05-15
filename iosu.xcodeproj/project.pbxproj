@@ -109,6 +109,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		8A2B0F0E228C67D80080392C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AA559451F06B18C00C77AE5 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 940F1B5984221B630F2095D96AB66F65;
+			remoteInfo = Logging;
+		};
+		8A2B0F10228C67D80080392C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AA559451F06B18C00C77AE5 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BC0ABE8B033CDC2819DCF71CB6359DB4;
+			remoteInfo = "Pods-SBPlayer";
+		};
+		8A2B0F12228C67D80080392C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AA559451F06B18C00C77AE5 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7BBB8C280BF9570B657654DB1BCC14C0;
+			remoteInfo = SQLite.swift;
+		};
 		8AA559A61F06B18C00C77AE5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8AA559451F06B18C00C77AE5 /* Pods.xcodeproj */;
@@ -433,8 +454,11 @@
 		8AA559461F06B18C00C77AE5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				8A2B0F0F228C67D80080392C /* Logging.framework */,
 				8AA559A71F06B18C00C77AE5 /* Pods_iosu.framework */,
+				8A2B0F11228C67D80080392C /* Pods_SBPlayer.framework */,
 				8AA559A91F06B18C00C77AE5 /* SpriteKitEasingSwift.framework */,
+				8A2B0F13228C67D80080392C /* SQLite.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -931,7 +955,6 @@
 				8A4D5C2D1E8A8AEB00319D91 /* Frameworks */,
 				8A4D5C2E1E8A8AEB00319D91 /* Resources */,
 				76C8BBFD8412E2A640B938C0 /* [CP] Embed Pods Frameworks */,
-				8AAFCE52202735C6002D90CF /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -955,7 +978,7 @@
 					8A4D5C2F1E8A8AEB00319D91 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 34A2STWT5M;
-						LastSwiftMigration = 0910;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -965,6 +988,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -985,6 +1009,27 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		8A2B0F0F228C67D80080392C /* Logging.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Logging.framework;
+			remoteRef = 8A2B0F0E228C67D80080392C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8A2B0F11228C67D80080392C /* Pods_SBPlayer.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Pods_SBPlayer.framework;
+			remoteRef = 8A2B0F10228C67D80080392C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8A2B0F13228C67D80080392C /* SQLite.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SQLite.framework;
+			remoteRef = 8A2B0F12228C67D80080392C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		8AA559A71F06B18C00C77AE5 /* Pods_iosu.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -1069,19 +1114,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iosu/Pods-iosu-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
-		};
-		8AAFCE52202735C6002D90CF /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# xcode-build-bump.sh\n# @desc Auto-increment the build number every time the project is run.\n# @usage\n# 1. Select: your Target in Xcode\n# 2. Select: Build Phases Tab\n# 3. Select: Add Build Phase -> Add Run Script\n# 4. Paste code below in to new \"Run Script\" section\n# 5. Drag the \"Run Script\" below \"Link Binaries With Libraries\"\n# 6. Insure that your starting build number is set to a whole integer and not a float (e.g. 1, not 1.0)\n\nbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
 		};
 		90CAAD9A8941337A27EDECA0 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1341,8 +1373,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "iosu/iosu-Bridging-Header.h";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1402,8 +1433,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "iosu/iosu-Bridging-Header.h";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};

@@ -9,13 +9,13 @@
 import Foundation
 import SpriteKit
 
-class BGVPlayer : VLCMediaPlayerDelegate {
+class BGVPlayer : NSObject, VLCMediaPlayerDelegate {
     
     //static var vplayer=KSYMoviePlayerController(contentURL: URL(fileURLWithPath: ""))
     static var view:UIView?
     static var mplayer = VLCMediaPlayer()
     
-    static func initialize() {
+    static func myInitialize() {
         view = UIView()
         view?.backgroundColor = .clear
         view?.frame = UIScreen.screens[0].bounds

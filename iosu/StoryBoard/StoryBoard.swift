@@ -11,13 +11,13 @@ import SpriteKit
 
 class StoryBoard {
     
-    open static var stdwidth:Double=640.0
-    open static let stdheight:Double=480.0
-    open static var actualwidth:Double = 0
-    open static var actualheight:Double = 0
-    open static var leftedge:Double = 0
-    open static var before:Int=0
-    open static var after:Int=0
+    public static var stdwidth:Double=640.0
+    public static let stdheight:Double=480.0
+    public static var actualwidth:Double = 0
+    public static var actualheight:Double = 0
+    public static var leftedge:Double = 0
+    public static var before:Int=0
+    public static var after:Int=0
     fileprivate var layer:Double
     fileprivate var bglayer:Double = 0
     fileprivate var passlayer:Double = 0
@@ -172,19 +172,19 @@ class StoryBoard {
     }
     
     //Convert StoryBoard x and y to screen x and y
-    static open func conv(x:Double) -> Double {
+    static public func conv(x:Double) -> Double {
         return leftedge+x/stdwidth*actualwidth
     }
     
-    static open func conv(y:Double) -> Double {
+    static public func conv(y:Double) -> Double {
         return actualheight-y/stdheight*actualheight
     }
     
-    static open func conv(w:Double) -> Double {
+    static public func conv(w:Double) -> Double {
         return w/stdwidth*actualwidth
     }
     
-    static open func conv(h:Double) -> Double {
+    static public func conv(h:Double) -> Double {
         return h/stdheight*actualheight
     }
     
