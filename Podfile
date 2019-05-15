@@ -7,7 +7,7 @@ target "iosu" do
 end
 
 target "SBPlayer" do
-	pod 'Logging'
+	pod 'Logging', '~> 1.0'
 	pod 'SQLite.swift'
 end
 
