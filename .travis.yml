@@ -4,7 +4,5 @@ osx_image: xcode10.2
 install:
   - pod install --repo-update
 
-language: objective-c
-xcode_project: iosu.xcworkspace # path to your xcodeproj folder
-xcode_scheme: iosu
-xcode_sdk: iphoneos12.2
+script:
+  - xcodebuild -scheme iosu -workspace iosu.xcworkspace -configuration Release clean archive -archivePath "build/iosu.xcarchive" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO | xcpretty
