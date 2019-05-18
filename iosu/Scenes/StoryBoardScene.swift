@@ -100,6 +100,7 @@ class StoryBoardScene: SKScene {
                     if offset > BGMusicPlayer.instance.videoEarliest {
                         offset = BGMusicPlayer.instance.videoEarliest
                     }
+                    offset = -offset
                     if offset < 3000 {
                         offset = 3000
                     } else {
