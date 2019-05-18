@@ -289,10 +289,10 @@ class BasicImage {
                 //debugPrint("destroy sprite")
                 self.sprite?.removeAllActions()
                 self.sprite?.isHidden = true
-//                self.sprite?.removeFromParent()
-//                self.sprite=nil
-//                self.commands=[]
-//                self.actions=nil
+                self.sprite?.removeFromParent()
+                self.sprite=nil
+                self.commands=[]
+                self.actions=nil
             })
         }
     }

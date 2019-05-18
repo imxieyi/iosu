@@ -92,6 +92,29 @@ class StoryBoardScene: SKScene {
                     BGMusicPlayer.instance.sbEarliest = (sb?.sbsprites.first?.starttime)!
                     BGMusicPlayer.instance.setfile(audiofile)
                 }
+                if let sb = sb {
+                    var offset = BGMusicPlayer.instance.sbEarliest
+                    if offset > BGMusicPlayer.instance.gameEarliest {
+                        offset = BGMusicPlayer.instance.gameEarliest
+                    }
+                    if offset > BGMusicPlayer.instance.videoEarliest {
+                        offset = BGMusicPlayer.instance.videoEarliest
+                    }
+                    if offset < 3000 {
+                        offset = 3000
+                    } else {
+                        offset += 100
+                    }
+                    for sprite in sb.sbsprites {
+                        let offset = sprite.starttime + offset
+                        sprite.convertsprite()
+                        self.addChild(sprite.sprite!)
+                        if sprite.actions != nil {
+                            sprite.runaction(offset)
+                        }
+                    }
+                }
+                self.isPaused = true
             }catch StoryBoardError.fileNotFound{
                 Alerts.show(viewController!, title: "Error", message: "storyboard file not found", style: .alert, actiontitle: "OK", actionstyle: .cancel, handler: nil)
                 debugPrint("ERROR:storyboard file not found")
@@ -122,6 +145,28 @@ class StoryBoardScene: SKScene {
                     BGMusicPlayer.instance.sbScene = self
                     BGMusicPlayer.instance.sbEarliest = (sb?.sbsprites.first?.starttime)!
                     BGMusicPlayer.instance.setfile(audiofile)
+                }
+                if let sb = sb {
+                    var offset = BGMusicPlayer.instance.sbEarliest
+                    if offset > BGMusicPlayer.instance.gameEarliest {
+                        offset = BGMusicPlayer.instance.gameEarliest
+                    }
+                    if offset > BGMusicPlayer.instance.videoEarliest {
+                        offset = BGMusicPlayer.instance.videoEarliest
+                    }
+                    if offset < 3000 {
+                        offset = 3000
+                    } else {
+                        offset += 100
+                    }
+                    for sprite in sb.sbsprites {
+                        let offset = sprite.starttime + offset
+                        sprite.convertsprite()
+                        self.addChild(sprite.sprite!)
+                        if sprite.actions != nil {
+                            sprite.runaction(offset)
+                        }
+                    }
                 }
             }catch StoryBoardError.fileNotFound{
                 Alerts.show(viewController!, title: "Error", message: "storyboard file not found", style: .alert, actiontitle: "OK", actionstyle: .cancel, handler: nil)
@@ -160,34 +205,34 @@ class StoryBoardScene: SKScene {
             sb = nil
             ImageBuffer.clean()
         }
-        dispatcher.async { [unowned self] in
-            if BGMusicPlayer.instance.state != .stopped {
-                if let sb = self.sb {
-                    if self.index<sb.sbsprites.count {
-                        var musictime=Int(BGMusicPlayer.instance.getTime()*1000)
-                        while sb.sbsprites[self.index].starttime - musictime <= 2000 {
-                            var offset=sb.sbsprites[self.index].starttime - musictime
-                            sb.sbsprites[self.index].convertsprite()
-                            if offset<0{
-                                offset = 0
-                            }
-                            if BGMusicPlayer.instance.state == .stopped {
-                                return
-                            }
-                            self.addChild(sb.sbsprites[self.index].sprite!)
-                            if sb.sbsprites[self.index].actions != nil {
-                                sb.sbsprites[self.index].runaction(offset)
-                            }
-                            self.index+=1
-                            if self.index>=sb.sbsprites.count{
-                                return
-                            }
-                            musictime=Int(BGMusicPlayer.instance.getTime()*1000)
-                        }
-                    }
-                }
-            }
-        }
+//        dispatcher.async { [unowned self] in
+//            if BGMusicPlayer.instance.state != .stopped {
+//                if let sb = self.sb {
+//                    if self.index<sb.sbsprites.count {
+//                        var musictime=Int(BGMusicPlayer.instance.getTime()*1000)
+//                        while sb.sbsprites[self.index].starttime - musictime <= 2000 {
+//                            var offset=sb.sbsprites[self.index].starttime - musictime
+//                            sb.sbsprites[self.index].convertsprite()
+//                            if offset<0{
+//                                offset = 0
+//                            }
+//                            if BGMusicPlayer.instance.state == .stopped {
+//                                return
+//                            }
+//                            self.addChild(sb.sbsprites[self.index].sprite!)
+//                            if sb.sbsprites[self.index].actions != nil {
+//                                sb.sbsprites[self.index].runaction(offset)
+//                            }
+//                            self.index+=1
+//                            if self.index>=sb.sbsprites.count{
+//                                return
+//                            }
+//                            musictime=Int(BGMusicPlayer.instance.getTime()*1000)
+//                        }
+//                    }
+//                }
+//            }
+//        }
     }
     
 }
